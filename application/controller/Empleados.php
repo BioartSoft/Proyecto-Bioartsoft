@@ -20,7 +20,7 @@
         $configuracion = $modelo2->listarConfiguracion();
         $confi2 = $modelo2->listarConfiguracion2();
         $modelo = $this->loadModel("mdlEmpleados");
-        $listarEmpleadoFijo = $this->modeloP->ListarPersEmpleado();
+        $listarPrestamos = $this->modeloP->ListarPrestamos();
 
         if (isset($_POST["btnRegistrarAbono"])) {
 
@@ -46,7 +46,7 @@
                 closeOnConfirm: false,
                 closeOnCancel: false
               })';
-                        
+
             }
 
         }
@@ -54,7 +54,7 @@
         require APP . 'view/Empleados/listarPrestamo.php';
         require APP . 'view/_templates/footer.php';
       }
-      
+
       public function registrarPrestamo(){
 
         $modelo = $this->loadModel("mdlConfiguracionPago");
@@ -147,7 +147,7 @@
                 $modelo->registrarDetallepagoconfi();
                 }
                     $_SESSION['jhoan'] = ' swal({
-                  title: "Pago Registrado!",
+                  title: "Pago Registrado Correctamente!",
                   type: "success",
                   confirmButton: "#3CB371",
                   confirmButtonText: "Aceptar",
@@ -158,7 +158,7 @@
 
             }
 
-          
+
           }
 
           if ($_POST["tipoEmp"] == "2")
@@ -185,11 +185,11 @@
                   closeOnConfirm: false,
                   closeOnCancel: false
                 })';
-              
+
             }
 
           }
-          
+
         }
 
         require APP . 'view/_templates/header.php';
@@ -319,15 +319,16 @@
                   // $html .= '<td>'.$value['porcentaje_comision'].'</td>';
                   // $html .= '<td>'.$value['valor_base'].'</td>';
                   // $html .= '<td>'.$value['cantidad_Dias'].'</td>';
-                  $html .= '<td>'.$value['valorVentas'].'</td>';
-                  $html .= '<td>'.$value['valorComision'].'</td>';
-                  $html .= '<td>'.$value['total_pago'].'</td>';
+                  $html .= '<td class="price">'.$value['valorVentas'].'</td>';
+                  $html .= '<td class="price">'.$value['valorComision'].'</td>';
+                  $html .= '<td class="price">'.$value['total_pago'].'</td>';
                 }
 
                 if($value['Tbl_nombre_tipo_persona'] == "Empleado-temporal"){
                   $fijo = false;
                   $html .= '<td>'.$value['cantidad_Dias'].'</td>';
-                  $html .= '<td>'.$value['valor_dia'].'</td>';
+                  $html .= '<td class="price">'.$value['valor_dia'].'</td>';
+                  $html .= '<td class="price">'.$value['total_pago'].'</td>';
                 }
                   $estado = $value["estado"] == 1?"Realizado":"Anulado";
 
@@ -361,7 +362,9 @@
                   $cabecera .= '<th>'.'Valor Día'.'</th>';
                 }
 
-                  // $cabecera .= '<th>'.'Total Pago'.'</th>';
+                if(isset($value) && $value['Tbl_nombre_tipo_persona'] == "Empleado-temporal"){
+                  $cabecera .= '<th>'.'Total Pago'.'</th>';
+                }
                   $cabecera .= '<th>'.'Estado'.'</th>';
                   $cabecera .= '<th>'.'Opciones'.'</th>';
                   $cabecera .= '</tr>';
@@ -380,6 +383,7 @@
           $fijo = false;
           $html = "";
               foreach ($detalle as $val) {
+                $empleado = $val['empleado'];
                 $valorpres = $val['valor_prestamo'];
                 $abono = $val['Total'];
                 $valorPen = $valorpres - $abono;
@@ -388,10 +392,10 @@
                 $html .= '<td>'.$val['fecha_prestamo'].'</td>';
 
                   $html .= '<td>'.$val['fecha_limite'].'</td>';
-                  $html .= '<td>'.$val['valor_prestamo'].'</td>';
+                  $html .= '<td class="price">'.$val['valor_prestamo'].'</td>';
                   $v= $val['Total']==null?0:$val['Total'];
-                  $html .= '<td>'.$v.'</td>';
-                  $html .= '<td>'.$valorPen.'</td>';
+                  $html .= '<td class="price">'.$v.'</td>';
+                  $html .= '<td class="price">'.$valorPen.'</td>';
                   $html .= '<td>'.$val['descripcion'].'</td>';
 
                   $estado = $val["estado_prestamo"] == 1?"Pendiente":"Pagado";
@@ -430,12 +434,11 @@
         $modelo = $this->loadModel("mdlEmpleados");
         $detalle = $modelo->ListarAbonos($_POST["id_prestamos"]);
 
-
           $html = "";
               foreach ($detalle as $val) {
                 $html .= '<tr>';
                 $html .= '<td>'.$val['fecha_abono'].'</td>';
-                $html .= '<td>'.$val['valor'].'</td>';
+                $html .= '<td class="price">'.$val['valor'].'</td>';
                 $html .= '</tr>';
 
                   // $html .= '<td>'.
@@ -522,7 +525,7 @@
         {
           echo json_encode(["v"=>null]);
         }
-        
+
       }
 
       public function validarcantiPres()

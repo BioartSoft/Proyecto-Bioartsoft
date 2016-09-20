@@ -1,6 +1,6 @@
  <div class="row">
     <div class="col-lg-12">
-        <h3 class="page-header" style="text-align:center; color: #3CB371">Registrar Préstamos</h3>
+        <h3 class="page-header" style="text-align:center; color: #3CB371; margin-top: 10px; margin-bottom: 10px">Registrar Préstamos</h3>
     </div>
 </div>
 <div class="row">
@@ -46,14 +46,13 @@
       </div>
     </div>
 
-
     <div class="modal fade" id="myjh" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard ="false" data-backdrop = "static">
       <div class="modal-dialog" role="document" style="width: 40% !important" id="modalcss" >
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="cerrarpre()">
               <span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title" id="myModalLabel">Registrar Préstamo</h4>
+              <h4 class="modal-title" id="myModalLabel" style="text-align:center; color: #3CB371">Registrar Préstamo</h4>
           </div>
           <div class="modal-body" style="margin: 0 auto">
                 <form class="" action="<?php echo URL?>Empleados/registrarPrestamo" method="post" id="myFor" data-parsley-validate="">
@@ -101,7 +100,7 @@
                 <div class="col-xs-12 col-md-6" id="divvalorprestamo">
                   <br>
                   <label>Valor Préstamo</label>
-                  <input type="number" min ="1000" id="valorpres" name="txtvalorprestamo" step="1000" class="form-control" data-parsley-required="true">
+                  <input type="number" min ="1000" id="valorpres" maxlength="8" name="txtvalorprestamo" size="9" class="form-control" data-parsley-type="integer" data-parsley-required="true">
                 </div>
                 <div class="col-xs-12 col-md-6" id="divdescripcion">
                   <br>
@@ -109,7 +108,7 @@
                   <textarea class="form-control" rows="3" name="txtdescripcion" id="descri"></textarea>
                 </div>
               </div>
-              <div class="row"> 
+              <div class="row">
               <br>
           </div>
           <br>
@@ -129,7 +128,6 @@
     </div>
 </div>
 
-<!--
           <script type="text/javascript">
             $(document).ready(function(){
 
@@ -138,7 +136,7 @@
                 $("#myFor").parsley().validate();
               })
             })
-          </script> -->
+          </script>
 
           <script type="text/javascript">
             function cancelarprestamo() {
@@ -209,4 +207,14 @@ $(function(){
   });
 });
 
+</script>
+
+<script type="text/javascript">
+$("#valorpres").keydown(function(e){
+  if(e.which === 189 || e.which === 69){
+    e.preventDefault();
+
+  }
+
+});
 </script>

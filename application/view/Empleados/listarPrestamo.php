@@ -27,13 +27,13 @@
               </tr>
             </thead>
             <tbody>
-              <?php foreach ($listarEmpleadoFijo as $empleado): ?>
+              <?php foreach ($listarPrestamos as $prestamos): ?>
                 <tr>
-                  <td><?=  $empleado['id_persona'] ?></td>
-                  <td><?=  $empleado['nombres'] ?></td>
-                  <td><?=  $empleado['apellidos'] ?></td>
-                  <td><?=  $empleado['Tbl_nombre_tipo_persona'] ?></td>
-                  <td><button type="button" class="btn btn-primary btn-circle btn-md" data-toggle="modal" data-target="#myJhoan" data-tipop = "<?=  $empleado['Tbl_nombre_tipo_persona'] ?>" title="Generar Recibo" onclick="traerDetallePrestamos(<?=  $empleado['id_persona'] ?>)"><i class="fa fa-eye" aria-hidden="true"></i></button></td>
+                  <td><?=  $prestamos['id_persona'] ?></td>
+                  <td><?=  $prestamos['nombres'] ?></td>
+                  <td><?=  $prestamos['apellidos'] ?></td>
+                  <td><?=  $prestamos['Tbl_nombre_tipo_persona'] ?></td>
+                  <td><button type="button" class="btn btn-primary btn-circle btn-md" data-toggle="modal" data-target="#myJhoan" data-tipop = "<?=  $prestamos['Tbl_nombre_tipo_persona'] ?>" title="Generar Recibo" onclick="traerDetallePrestamos('<?=  $prestamos['id_persona'] ?>')"><i class="fa fa-eye" aria-hidden="true"></i></button></td>
                 </tr>
             </tbody>
 
@@ -45,7 +45,7 @@
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                       </button>
-                      <h4 class="modal-title" id="myModalLabel" style="text-align:center; color: #3CB371">Detalles de Préstamos de: <span id="empleado-prestamo"></span></h4>
+                      <h4 class="modal-title" id="myModalLabel" style="text-align:center; color: #3CB371">Detalles de Préstamos de <span id="empleado-prestamo"></span></h4>
                     </div>
                     <div class="modal-body">
                     <div class="row">
@@ -78,7 +78,7 @@
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="abrirmodal()">
                         <span aria-hidden="true">&times;</span>
                       </button>
-                      <h4 class="modal-title" id="myModalLabel" style="text-align:center; color: #3CB371">Detalles de abonos de: <span id="empleado-det-abonos"></span></h4>
+                      <h4 class="modal-title" id="myModalLabel" style="text-align:center; color: #3CB371">Detalles de abonos de <span id="empleado-det-abonos"></span></h4>
                     </div>
                     <div class="modal-body">
                     <div class="row">
@@ -116,16 +116,15 @@
                       </button>
                       <h4 class="modal-title" id="myModalLabel" style="text-align:center; color: #3CB371">Abono de Préstamos de <span id="empleado"></span></h4>
                     </div>
-                    <div class="modal-body">
 
-                    <div class="modal-body">
                     <form method="POST" id="abonar" action="<?php echo URL?>Empleados/ListarPrest" data-parsley-validate="" onsubmit="return validarAbono()">
+                    <div class="modal-body">
                     <div class="row">
                         <input type="hidden" name="txtidprestamo" id="idprestamos">
-                        <input type="hidden" name="" id="totalsumaabono" value="">
+                        <input type="hidden" name="" id="totalsumaabono">
                         <div class="col-xs-12 col-md-6">
                           <label >Valor Abono</label><br>
-                          <input type="number" class="form-control" placeholder="Valor Abono" id="idabono" min="1000" step="1000" name="txtvalorabono" data-parsley-required="true">
+                          <input type="number" class="form-control" placeholder="Valor Abono" id="idabono" min="1000" name="txtvalorabono" data-parsley-type="integer" step="1000" data-parsley-required="true">
                       </div>
                       <div class="col-xs-12 col-md-6">
                           <label >Valor Préstamo</label><br>
@@ -140,7 +139,6 @@
                           <input type="text" class="form-control" name="txtpendiente" placeholder="" id="idvalorPendiente" readonly="">
                         </div>
                       </div>
-                        <br>
                     <br><br>
                       <div class="row">
                         <div class="modal-footer">
@@ -152,9 +150,8 @@
                         </div>
                       </div>
                     </div>
-                    </form>
                   </div>
-                </div>
+                </form>
               </div>
             </div>
           </div>
@@ -178,13 +175,12 @@
     $("#idvalorPrestamo").val(valor);
     $("#idprestamos").val(idprestamo);
     $("#idvalorPendiente").val(valorpen);
-
   }
 
 
     function traerDetallePrestamos(id) {
       traerNombreEmpleado(id);
-      
+
       $.ajax({
         url: url+'Empleados/ajaxDetallePrestamos',
         type: 'post',
@@ -311,7 +307,6 @@
             var nombre = $(detalle).attr("data-valor");
 
            },500);
-
       }
   </script>
   <script type="text/javascript">
@@ -326,7 +321,15 @@
        var pendiente = parseInt($("#idvalorPendiente").val())
        var valorpres = parseInt($("#idvalorPrestamo").val());
           if(valorabo > pendiente){
-            sweetAlert("El valor del abono es superior al valor pendiente");
+            swal({
+                  title: "El valor del abono es superior al valor pendiente!",
+                  type: "error",
+                  confirmButton: "#3CB371",
+                  confirmButtonText: "Aceptar",
+                  // confirmButtonText: "Cancelar",
+                  closeOnConfirm: false,
+                  closeOnCancel: false
+                });
             return false;
             }
           else
@@ -346,8 +349,9 @@
         idPersona:id,
       }
     }).done(function(respuesta){
-      $("empleado-prestamo").text(respuesta.html);
-
+      $("#empleado-prestamo").text(respuesta.html);
+      $("#empleado-det-abonos").text(respuesta.html);
+      $("#empleado").text(respuesta.html);
     });
   }
   </script>

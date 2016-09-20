@@ -39,7 +39,7 @@
                               <?php else:  ?>
                                 Inhabilitado
                           <?php endif ?></td>
-                          <td><button type="button" class="btn btn-primary btn-circle btn-md" data-tipo = "<?= $empleado['Tbl_nombre_tipo_persona']  ?>" data-identi = "<?= $empleado['id_persona'] ?>" data-fechafin = "<?=  $empleado['fecha_Terminacion_Contrato'] ?>" data-fechacontrato = "<?=  $empleado['fecha_Contrato'] ?>" data-fechaultipago ="<?= $empleado['Fechaulti'] ?>" data-fechaultimaprima = "<?= $empleado['FechaTer'] ?>" data-nombre = "<?=  $empleado['nombres'] ?>" onclick="editar('<?= $empleado['id_persona'] ?>',this)"><i class="fa fa-pencil" aria-hidden="true"></i></button></td>
+                          <td><button type="button" class="btn btn-primary btn-circle btn-md" data-tipo = "<?= $empleado['Tbl_nombre_tipo_persona']  ?>" data-identi = "<?= $empleado['id_persona'] ?>" data-fechafin = "<?=  $empleado['fecha_Terminacion_Contrato'] ?>" data-fechacontrato = "<?=  $empleado['fecha_Contrato'] ?>" data-fechaultipago ="<?= $empleado['Fechaulti'] ?>" data-fechaultimaprima = "<?= $empleado['FechaTer'] ?>" data-nombre = "<?=  $empleado['nombres']. " ".$empleado['apellidos'] ?>" onclick="editar('<?= $empleado['id_persona'] ?>',this)"><i class="fa fa-pencil" aria-hidden="true"></i></button></td>
                         </tr>
                       <?php endforeach; ?>
                     </tbody>
@@ -59,7 +59,7 @@
                             <h4 class="modal-title" id="myModalLabel" style="text-align:center; color: #3CB371">Registrar Pago</h4>
                         </div>
                         <div class="modal-body" style="margin: 0 auto">
-                          <form class="" action="<?php echo URL?>Empleados/registrarPagos" method="post" id="myForm" >
+                          <form class="" action="<?php echo URL?>Empleados/registrarPagos" method="post" id="myForm" data-parsley-validate="">
                           <div class="row">
                               <div class="col-xs-12 col-md-4" id="divIdentificacion">
                                 <label id="labelIdentificacion">Identificación</label><br>
@@ -78,11 +78,11 @@
                               <div class="row">
                               <div class="col-xs-12 col-md-4" id="divValorDiatemporal" style="display: none">
                                 <label for="">Valor Día</label>
-                                <input type="number" step="1000" min="1000" id="valorDiatemporal" name="txtValorDia" class="form-control" data-parsley-type="integer" data-parsley-required="true">
+                                <input type="number" step="1000" min="1000" id="valorDiatemporal" name="txtValorDia" class="form-control" data-parsley-type="integer">
                               </div>
                               <div class="col-xs-12 col-md-4" id="divDiasLaborados" style="display: none">
                                 <label id="labelDias">Días Laborados</label>
-                                <input type="number" min="1" id="dias_laborados" name="txtdiasLaborados" class="form-control" data-parsley-type="number" data-parsley-required="true">
+                                <input type="number" min="1" id="dias_laborados" name="txtdiasLaborados" class="form-control" data-parsley-type="number">
                               </div>
                               </div>
 
@@ -113,7 +113,7 @@
                                     <?php
                                       $hoy = date("Y-m-d");
                                     ?>
-                                    <input type="text" class="form-control pull-right" name="txtfechapago" id="fecha_pagoprima" style="border-radius:5px;" format = "yyyy-mm-dd"  value="<?php echo $hoy ?>">
+                                    <input type="text" class="form-control pull-right" name="txtfechapago" id="fecha_pagoprima" style="border-radius:5px;" format = "yyyy-mm-dd"  value="<?php echo $hoy ?>" data-parsley-required="true">
                                   </div>
                                 </div>
                               </div>
@@ -121,11 +121,11 @@
                               <div class="col-xs-12 col-md-4" id="divFechapagoliquidacion" style="display: none">
                                 <label id="labelFechaPago">Fecha de Liquidación:</label>
                                 <div class="">
-                                  <div class="input-group date" data-provide = "datepicker" data-parsley-required="true">
-                                    <div class="input-group-addon" style="border-radius:5px;" data-parsley-required="true">
+                                  <div class="input-group date" data-provide ="datepicker">
+                                    <div class="input-group-addon" style="border-radius:5px;">
                                       <i class="fa fa-calendar"></i>
                                     </div>
-                                    <input type="text" class="form-control pull-right" onblur="vali()" name="txtfechaPagoliquidacion" id="idfechafin" style="border-radius:5px;">
+                                    <input type="text" class="form-control pull-right" onblur="vali()" name="txtfechaPagoliquidacion" id="idfechafin" style="border-radius:5px;" data-parsley-required="true">
                                   </div>
                                 </div>
                               </div>
@@ -140,7 +140,7 @@
                                 <select class="form-control" name="tipoPago" id="selectTipoPago"  style="width: 100%">
 
                                   <?php foreach ($configuracion2 as $confi): ?>
-                                   <option value="<?= $confi['idTbl_Configuracion'] ?>" id="opc" ><?= $confi['tipo_pago'] ?></option">
+                                   <option value="<?= $confi['idTbl_Configuracion'] ?>" id="opc" ><?= $confi['tipo_pago'] ?></option>
 
                                   <?php endforeach; ?>
                                 </select>
@@ -153,7 +153,7 @@
                               </div>
                               <div class="col-xs-12 col-md-4" style="" id="divPorcentaje">
                                 <label id="labelPorcentaje">Porcentaje Comisión</label><br>
-                                <input type="text" class="form-control" name="txtporceComision" placeholder="Porcentaje Comision" value="<?= $valor["porcentaje_comision"] ?>" readonly="" id="comision">
+                                <input type="text" class="form-control" name="txtporceComision" placeholder="Porcentaje Comision" value="<?= $valor["porcentaje_comision"]. " %" ?>" readonly="" id="comision">
                               </div>
                             </div>
                             <br>
@@ -187,9 +187,9 @@
                               <?php endforeach; ?>
                               <div class="col-xs-12 col-md-4" id="divvalorventas">
                                 <label id="labelValorVentas">Valor Ventas</label>
-                                
+
 							    <div class="input-group">
-							      <input type="text" class="form-control" placeholder="Valor Ventas" name="txtValorVentas" id="valor_Ventas">
+							      <input type="text" class="form-control" placeholder="Valor Ventas" name="txtValorVentas" id="valor_Ventas" data-parsley-type="integer">
 							      <span class="input-group-btn">
 							        <button class="btn btn-default" type="button" id="idbotonventas" onclick="traervalorVentas()" style="background-color: #E0F8E0"> <b>Consultar</b></button>
 							      </span>
@@ -296,17 +296,18 @@
                                 </div>
                               </div>
                             </div>
-                            <br>
                         </div>
                         </div>
                         <div class="row">
-                          <div class="col-xs-1 col-md-2">
+                          <div class="col-xs-1 col-md-3">
                           </div>
-                            <div class="col-xs-5 col-md-4" id="btnGuardarPagoFijo">
-                              <button type="submit" class="btn btn-success btn-md active"  name="btnRegistrarPago" id="bguardar"><i class="fa fa-floppy-o" aria-hidden="true">   Guardar</i></button>
+                            <div class="col-xs-5 col-md-3" id="btnGuardarPagoFijo">
+                              <button type="submit" class="btn btn-success btn-md active"  name="btnRegistrarPago" onclick="return validarTotales()" id="bguardar"><i class="fa fa-floppy-o" aria-hidden="true">   Guardar</i></button>
                             </div>
-                            <div class="col-xs-5 col-md-4">
+                            <div class="col-xs-5 col-md-3">
                               <button type="button" class="btn btn-danger btn-md active" onclick="cancelar()" style="float: right;" id="bcancelar"><i class="fa fa-times" aria-hidden="true">   Cancelar</i> </button>
+                            </div>
+                            <div class="col-md-3">
                             </div>
                         </div>
                         </form>
@@ -342,15 +343,15 @@
       	</script>
         <script type="text/javascript">
 
-          // $(document).ready(function(){
-          //   $("#bguardar").click(function(){
+          $(document).ready(function(){
+            $("#bguardar").click(function(){
 
-          //     $("#myForm").parsley().validate();
+              $("#myForm").parsley().validate();
 
-          //   })
+            })
 
 
-          // })
+          })
 
         //Validaciones de fechas en liquidación
         function vali() {
@@ -361,7 +362,15 @@
               var f2 = new Date(fechafinal);
 
                 if(f1 > f2){
-                    sweetAlert("La fecha de liquidación no puede ser menor a la fecha de contrato");
+                  swal({
+                        title: "La fecha de liquidación no puede ser menor a la fecha de contrato!",
+                        type: "error",
+                        confirmButton: "#3CB371",
+                        confirmButtonText: "Aceptar",
+                        // confirmButtonText: "Cancelar",
+                        closeOnConfirm: false,
+                        closeOnCancel: false
+                      });
                     return false;
                 }
                 else
@@ -374,6 +383,7 @@
           <script type="text/javascript">
 
              function calcularSalario(){
+
               if (vali()) {
 
                var salario = $("#valorBase").val();
@@ -439,20 +449,17 @@
               var years = elems[0];
               var mess = elems[1];
               var dias = elems[2];
-              
+
               var f1 = new Date(fechaContrato);
               var f2 = new Date(fechaContrato2);
-                  
+
               if(mess>6 && mess <= 12){
-                  
+
               var PagototalPrima = salario * diffDayssjhoan / 360;
               }
 
-
-
               //Valor total liquidación
               var totalliquidaciones = valvacaciones + valortotalcesantias;
-
 
               //Salario Neto
                var html = '        <div class="cta-desc">';
@@ -732,11 +739,11 @@
                  $("#selectTipoPago").select2();
                  $("#selectTipoPago").change(function(){
                   cambiarCampos();
-                    
+
               })
             });
                function cambiarCampos() {
-                 var tipo=$("#selectTipoPago").val(); 
+                 var tipo=$("#selectTipoPago").val();
                   if(tipo == 1) {
 
                     $("#divPagoTotalPrimates").hide();
@@ -818,7 +825,7 @@
           function error() {
               swal({
                     title: "La fecha de liquidación no puede ser menor a la la fecha de contrato",
-                    type: "warning",
+                    type: "error",
                     confirmButton: "#3CB371",
                     confirmButtonText: "btn-danger",
                     cancelButtonText: "Cancelar",
@@ -829,7 +836,7 @@
 
                     });
         };
-            
+
 
             function cerrarpago() {
               $("#valor_Ventas").val("");
@@ -862,7 +869,7 @@
 
   function cancelar() {
               swal({
-                    title: "Los datos del registro no se guardaran",
+                    title: "Los datos del registro no se guardarán",
                     type: "warning",
                     confirmButton: "#3CB371",
                     confirmButtonText: "btn-danger",
@@ -936,7 +943,193 @@
                 val = val.substring(0, 2);
                 aa.value=val;
               }
-              
+
             }
           </script>
 
+          <script type="text/javascript">
+            $("#valorDiatemporal").keydown(function(e){
+              if(e.which === 189 || e.which === 69){
+                e.preventDefault();
+
+              }
+
+            });
+
+            $("#dias_laborados").keydown(function(e){
+              if(e.which === 189 || e.which === 69){
+                e.preventDefault();
+
+              }
+
+            });
+
+            $("#idDia").keydown(function(e){
+              if(e.which === 189 || e.which === 69){
+                e.preventDefault();
+
+              }
+
+            });
+
+            $("#calcularFijos").click(function(){
+              var dias = $("#idDia").val();
+              var fecha = $("#idfeter").val();
+
+              if(dias == ""){
+                swal({
+                      title: "No se han ingresado días válidos!",
+                      type: "error",
+                      confirmButton: "#3CB371",
+                      confirmButtonText: "Aceptar",
+                      // confirmButtonText: "Cancelar",
+                      closeOnConfirm: false,
+                      closeOnCancel: false
+                    });
+                    $("#neto").val("");
+                    $("#valorcomision").val("");
+                    $("#totalpago").val("");
+                    $("#valorvacacionestot").val("");
+              }
+
+              if(fecha == ""){
+
+                swal({
+                      title: "No se encontrarón primas registradas, no se puede cargar fecha de la última prima!",
+                      type: "error",
+                      confirmButton: "#3CB371",
+                      confirmButtonText: "Aceptar",
+                      // confirmButtonText: "Cancelar",
+                      closeOnConfirm: false,
+                      closeOnCancel: false
+                    });
+              }
+            });
+
+
+            $("#CalcularTemporal").click(function(){
+              var diasTemporal = $("#valorDiatemporal").val();
+              var diasLaborados = $("#dias_laborados").val();
+
+              if(diasTemporal == "" && diasLaborados == ""){
+                swal({
+                      title: "No se han ingresado un número válido!",
+                      type: "error",
+                      confirmButton: "#3CB371",
+                      confirmButtonText: "Aceptar",
+                      // confirmButtonText: "Cancelar",
+                      closeOnConfirm: false,
+                      closeOnCancel: false
+                    });
+                    $("#valortotaltempo").val("");
+              }
+            });
+
+            // $("#calcularFijos").click(function(){
+            //   var fecha = $("#idfechafin").val();
+            //
+            //   if(fecha == ""){
+            //     swal({
+            //           title: "No se han ingresado una fecha válida!",
+            //           type: "error",
+            //           confirmButton: "#3CB371",
+            //           confirmButtonText: "Aceptar",
+            //           // confirmButtonText: "Cancelar",
+            //           closeOnConfirm: false,
+            //           closeOnCancel: false
+            //         });
+            //         $("#valorvacacionestot").val("");
+            //   }
+            // })
+          </script>
+
+          <!-- <script type="text/javascript">
+            var tipoE = $("['data-tipo']").val();
+
+            if($("#tipoEmpleado").val() == "Empleado-fijo"){
+              $("#valorDiatemporal").removeAttr("data-parsley-required");
+            }
+          </script> -->
+
+
+          <script type="text/javascript">
+            function validarTotales(){
+
+              var tipoPago = $("#selectTipoPago").val();
+              var tipoEmpleado = $("#tipoEmpleado").val();
+
+              if(tipoPago == 1 && tipoEmpleado == "Empleado-fijo"){
+
+                var neto = $("#neto").val();
+
+                if(neto == NaN || neto == ""){
+                  swal({
+                    title: "No hay totales calculados!",
+                    type: "error",
+                    confirmButton: "#3CB371",
+                    confirmButtonText: "Aceptar",
+                    // confirmButtonText: "Cancelar",
+                    closeOnConfirm: false,
+                    closeOnCancel: false
+                  });
+                  return false;
+                }else{
+                  return true;
+                }
+
+              }else if(tipoPago == 2 && tipoEmpleado == "Empleado-fijo"){
+
+                var vacaciones = $("#valorvacacionestot").val();
+
+                if(vacaciones == NaN || vacaciones == ""){
+                  swal({
+                    title: "No hay totales calculados!",
+                    type: "error",
+                    confirmButton: "#3CB371",
+                    confirmButtonText: "Aceptar",
+                    // confirmButtonText: "Cancelar",
+                    closeOnConfirm: false,
+                    closeOnCancel: false
+                  });
+                  return false;
+                }else{
+                  return true;
+                }
+              }else if(tipoPago == 3 && tipoEmpleado == "Empleado-fijo"){
+
+                var totalPrima = $("#valortotalprima").val();
+
+                if(totalPrima == NaN || totalPrima == ""){
+                  swal({
+                    title: "No hay totales calculados!",
+                    type: "error",
+                    confirmButton: "#3CB371",
+                    confirmButtonText: "Aceptar",
+                    // confirmButtonText: "Cancelar",
+                    closeOnConfirm: false,
+                    closeOnCancel: false
+                  });
+                  return false;
+                }
+
+              }else if(tipoEmpleado == "Empleado-temporal"){
+
+                  var totalTemp = $("#valortotaltempo").val();
+
+                  if(totalTemp == NaN || totalTemp == ""){
+                    swal({
+                      title: "No hay totales calculados!",
+                      type: "error",
+                      confirmButton: "#3CB371",
+                      confirmButtonText: "Aceptar",
+                      // confirmButtonText: "Cancelar",
+                      closeOnConfirm: false,
+                      closeOnCancel: false
+                    });
+                  return false;
+                }
+              }else{
+                return true;
+              }
+            }
+          </script>

@@ -28,7 +28,7 @@
                   <td><?=  $empleado['nombres'] ?></td>
                   <td><?=  $empleado['apellidos'] ?></td>
                   <td><?=  $empleado['Tbl_nombre_tipo_persona'] ?></td>
-                  <td><button type="button" class="btn btn-primary btn-circle btn-md" data-toggle="modal" data-target="#myJhoan" data-tipop = "<?=  $empleado['Tbl_nombre_tipo_persona'] ?>" title="Generar Recibo" onclick="traerDetallePagos(<?=  $empleado['id_persona'] ?>)"><i class="fa fa-eye" aria-hidden="true"></i></button>
+                  <td><button type="button" class="btn btn-primary btn-circle btn-md" data-toggle="modal" data-target="#myJhoan" data-tipop = "<?=  $empleado['Tbl_nombre_tipo_persona'] ?>" title="Generar Recibo" onclick="traerDetallePagos('<?=  $empleado['id_persona'] ?>')"><i class="fa fa-eye" aria-hidden="true"></i></button>
               <?php endforeach; ?>
               <div class="modal fade" id="myJhoan" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard ="false" data-backdrop = "static">
                 <div class="modal-dialog modal-lg" role="document">
@@ -37,7 +37,7 @@
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                       </button>
-                      <h4 class="modal-title" id="myModalLabel">Detalles de pago de: <span id="empleado"></span></h4>
+                      <h4 class="modal-title" id="myModalLabel" style="text-align:center; color: #3CB371">Detalles de pago de <span id="empleado"></span></h4>
                     </div>
                     <div class="modal-body">
                       <form class="" action="" method="post">
@@ -58,6 +58,7 @@
                      </div>
                     </div>
                   </div>
+                    <button type="button" class="btn btn-secondary btn-active pull-rigth"  data-dismiss="modal" style="margin-left:80%"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
                 </div>
   </td>
        </tr>
@@ -102,9 +103,11 @@
                                   '<tbody id="detalles_pagos">' +
                                   '</tbody>' +
                                 '</table>';
+                                '';
         $("#cont-table").html(html);
         $('#detalles_pagos').append(respuesta.html);
         $('#titulos').append(respuesta.cabecera);
+        $(".price").priceFormat({centsLimit: 3, clearPrefix: true});
 
       var tabla = $('#listarDetalle').DataTable({
       language: {

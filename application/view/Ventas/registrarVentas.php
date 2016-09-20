@@ -387,7 +387,7 @@
        html += '           <p data-valor="'+precio * cantidad+'" id= "subtotal">Valor subtotal: <span class="subtotal"> '+precio * cantidad+'</span></p>';
        html += '    </div>';
        html += '<input type="hidden" id="txtProducto" name="producto[]" value="'+productoCd+'">';
-       html += '<input type="text" name="cantidad[]" id="cantidad-prod-'+productoCd+'" value="'+cantidad+'">';
+       html += '<input type="hidden" name="cantidad[]" id="cantidad-prod-'+productoCd+'" value="'+cantidad+'">';
        html += ' </div>';
        html += '  <div class="col-md-3 cta-button">';
        html += '      <a href="#" onclick="quitar(this)" class="btn btn-md btn-danger" title="remover"><i class="fa fa-trash-o" title="remover"></i></a>';

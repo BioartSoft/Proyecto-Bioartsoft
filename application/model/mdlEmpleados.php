@@ -1,6 +1,6 @@
-<?php 
+<?php
 
-	class mdlEmpleados 
+	class mdlEmpleados
 	{
 		private $idPersona;
 		private $Tbl_nombre_tipo_persona;
@@ -49,7 +49,7 @@
 		{
 			return $this->$atributo;
 		}
-		
+
 		function __construct($db)
 		{
 			try {
@@ -103,7 +103,7 @@
             $stm->execute();
             return $stm->fetchAll(PDO::FETCH_ASSOC);
 		}
-				
+
 		public function getDetallePagos($idPersona)
 		{
 			$sql = "CALL SP_DetallePago(?)";
@@ -147,9 +147,9 @@
 			$sql ="CALL SP_AnularPago(?, ?)";
 			$stm = $this->db->prepare($sql);
 			$stm->bindParam(1, $codigo);
-			$stm->bindParam(2, $estado);	
+			$stm->bindParam(2, $estado);
 			return $stm->execute();
-		}	
+		}
 
 		public function ultimoPago()
 		{
@@ -197,7 +197,7 @@
 			$sql = "CALL SP_actualizarValorPrestamo(?,?)";
 			$stm = $this->db->prepare($sql);
 			$stm->bindParam(1, $id_prestamo);
-			$stm->bindParam(2, $valor_prestamo);	
+			$stm->bindParam(2, $valor_prestamo);
 			return $stm->execute();
 		}
 
@@ -245,6 +245,8 @@
 			$stm->execute();
 			return $stm->fetchAll(2);
 		}
+
+
 
 		public function modificarfechaLiquidacion()
 		{

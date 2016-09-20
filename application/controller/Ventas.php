@@ -27,8 +27,8 @@ class Ventas extends controller
 
 
     public function index(){
-      $modeloconfiguracion = $this->loadModel("mdlConfiguracionPago");
-      $configuracion = $modeloconfiguracion->listarConfiguracion();
+      // $modeloconfiguracion = $this->loadModel("mdlConfiguracionPago");
+      // $configuracion = $modeloconfiguracion->listarConfiguracion();
 
       $listarConfiguracionVentas = $this->mdlVentas->listarConfiguracionVentas();
       $configuracion = $this->mdlVentas->listarConfiguracionVentas();
@@ -113,8 +113,8 @@ class Ventas extends controller
 
 
   public function listarVentas(){
-    $modeloconfiguracion = $this->loadModel("mdlConfiguracionPago");
-    $configuracion = $modeloconfiguracion->listarConfiguracion();
+    // $modeloconfiguracion = $this->loadModel("mdlConfiguracionPago");
+    // $configuracion = $modeloconfiguracion->listarConfiguracion();
 
     $Ventas=$this->mdlVentas->listarVentas();
     $cliente = $this->mdlCliente->listar();
@@ -125,8 +125,8 @@ class Ventas extends controller
   }
 
   public function listarConfiguracionVentas(){
-    $modeloconfiguracion = $this->loadModel("mdlConfiguracionPago");
-    $configuracion = $modeloconfiguracion->listarConfiguracion();
+    // $modeloconfiguracion = $this->loadModel("mdlConfiguracionPago");
+    // $configuracion = $modeloconfiguracion->listarConfiguracion();
     require APP . 'view/_templates/header.php';
     require APP . 'view/Ventas/listarConfiguracionVentas.php';
     require APP . 'view/_templates/footer.php';
@@ -186,8 +186,8 @@ class Ventas extends controller
 
 
     public function listarVentasCredito(){
-    $modeloconfiguracion = $this->loadModel("mdlConfiguracionPago");
-    $configuracion = $modeloconfiguracion->listarConfiguracion();
+    // $modeloconfiguracion = $this->loadModel("mdlConfiguracionPago");
+    // $configuracion = $modeloconfiguracion->listarConfiguracion();
 
     $clientesCredito = $this->mdlVentas->listarClientesCreditoV();
 

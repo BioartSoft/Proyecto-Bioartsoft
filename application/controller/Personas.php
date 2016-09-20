@@ -54,8 +54,8 @@
 
 
     public function registrarPersonas(){
-        $modeloconfiguracion = $this->loadModel("mdlConfiguracionPago");
-        $configuracion = $modeloconfiguracion->listarConfiguracion();
+        // $modeloconfiguracion = $this->loadModel("mdlConfiguracionPago");
+        // $configuracion = $modeloconfiguracion->listarConfiguracion();
         $errorId = true;
         $errorUsuario = true;
         $errorEmail = true;
@@ -313,8 +313,8 @@
 
 
     public function listarProveedores($id=0, $tipo=0){
-      $modeloconfiguracion = $this->loadModel("mdlConfiguracionPago");
-      $configuracion = $modeloconfiguracion->listarConfiguracion();
+      // $modeloconfiguracion = $this->loadModel("mdlConfiguracionPago");
+      // $configuracion = $modeloconfiguracion->listarConfiguracion();
 
      if (isset($_POST['btn-modificar-prov'])) {
        $this->modeloP->__SET('idPersona', $_POST['txtidPersona']);
@@ -453,8 +453,8 @@
 
 
     public function listarTipoPers(){
-      $modeloconfiguracion = $this->loadModel("mdlConfiguracionPago");
-      $configuracion = $modeloconfiguracion->listarConfiguracion();
+      // $modeloconfiguracion = $this->loadModel("mdlConfiguracionPago");
+      // $configuracion = $modeloconfiguracion->listarConfiguracion();
       $TipoPerVendedor = $this->mdlTipoPersona->listarTipoPerVendedor();
       $TipoPersona = $this->mdlTipoPersona->listarTipoPersonas();
       $Roles = $this->modeloUsuario->listarRol();
@@ -466,8 +466,8 @@
 
 
     public function listarUsuarios(){
-      $modeloconfiguracion = $this->loadModel("mdlConfiguracionPago");
-      $configuracion = $modeloconfiguracion->listarConfiguracion();
+      // $modeloconfiguracion = $this->loadModel("mdlConfiguracionPago");
+      // $configuracion = $modeloconfiguracion->listarConfiguracion();
       $usuarios = $this->modeloUsuario->ListarUsuarios();
       $rol = $this->modeloUsuario->listarRol();
 
@@ -478,8 +478,8 @@
 
 
     public function listarPersonasEmpleados($id=0,$tipo=0){
-      $modeloconfiguracion = $this->loadModel("mdlConfiguracionPago");
-      $configuracion = $modeloconfiguracion->listarConfiguracion();
+      // $modeloconfiguracion = $this->loadModel("mdlConfiguracionPago");
+      // $configuracion = $modeloconfiguracion->listarConfiguracion();
       $persona = null;
       if(isset($_POST['btn-modificar'])){
         if($_POST['txtTipoEmpleado'] == 1){
@@ -658,8 +658,8 @@
 
 
         public function listarPersonasClientes($id=0, $tipo=0){
-          $modeloconfiguracion = $this->loadModel("mdlConfiguracionPago");
-          $configuracion = $modeloconfiguracion->listarConfiguracion();
+          // $modeloconfiguracion = $this->loadModel("mdlConfiguracionPago");
+          // $configuracion = $modeloconfiguracion->listarConfiguracion();
 
           if(isset($_POST['btn-modificar-cliente'])){
             $this->modeloP->__SET('idPersona', $_POST['idPersona']);
@@ -713,9 +713,9 @@
 
 
     public function modificarContrasenia($id=0,$tipo=0){
-      $modeloconfiguracion = $this->loadModel("mdlConfiguracionPago");
-      $configuracion = $modeloconfiguracion->listarConfiguracion();
-      
+      // $modeloconfiguracion = $this->loadModel("mdlConfiguracionPago");
+      // $configuracion = $modeloconfiguracion->listarConfiguracion();
+
       if($id!=0){
         $persona = $this->modeloP->ListarPersEmpleadoFijoID($id);
       }

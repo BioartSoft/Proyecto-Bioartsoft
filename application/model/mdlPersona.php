@@ -44,6 +44,16 @@ class mdlPersona
   }
 
 
+  public function ListarPrestamos()
+  {
+    $sql = "CALL SP_Listar_Prestamos()";
+    $stm = $this->db->prepare($sql);
+    $stm->execute();
+    return $stm->fetchAll(2);
+  }
+
+
+
   public function guardarPersona()
   {
     $sql="CALL SP_GuardarPersona(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
