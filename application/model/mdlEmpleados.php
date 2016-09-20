@@ -38,6 +38,7 @@
 		private $fecha_inicial;
 		private $fecha_final;
 		private $cantidad_dias;
+		private $estadoabonos;
 		private $db;
 
 		public function __SET($atributo, $valor)
@@ -203,10 +204,11 @@
 
 		public function registrarAbonoPrestamo()
 		{
-			$sql = "CALL SP_RegistrarAbonoPrestamo(?,?)";
+			$sql = "CALL SP_RegistrarAbonoPrestamo(?,?,?)";
 			$stm = $this->db->prepare($sql);
 			$stm->bindParam(1, $this->valor);
-			$stm->bindParam(2, $this->Tbl_Prestamos_idprestamos);
+			$stm->bindParam(2, $this->estadoabonos);
+			$stm->bindParam(3, $this->Tbl_Prestamos_idprestamos);
 			return $stm->execute();
 		}
 
@@ -273,6 +275,43 @@
 			$stm->bindParam(1, $this->id_persona);
 			$stm->execute();
 			return $stm->fetch(2);
+		}
+
+		public function prestamopendiente()
+		{
+			$sql = "CALL SP_valorPrestamoliquidacion(?)";
+			$stm = $this->db->prepare($sql);
+			$stm->bindParam(1, $this->id_persona);
+			$stm->execute();
+			return $stm->fetch(2);
+		}
+
+		public function informacionprestamo()
+		{
+			$sql = "CALL SP_traerinfoprestamo(?)";
+			$stm = $this->db->prepare($sql);
+			$stm->bindParam(1, $this->id_prestamos);
+			$stm->execute();
+			return $stm->fetch(PDO::FETCH_ASSOC);
+		}
+
+		public function modificarprestamos()
+		{
+			$sql = "CALL SP_modificarPrestamo(?,?,?)";
+			$stm = $this->db->prepare($sql);
+			$stm->bindParam(1, $this->fecha_limite);
+			$stm->bindParam(2, $this->valor_prestamo);
+			$stm->bindParam(3, $this->id_prestamos);
+			return $stm->execute();
+		}
+
+		public function cambiarestadoAbonos($codigo, $estado)
+		{
+			$sql ="CALL SP_anularAbonoPrestamos(?,?)";
+			$stm = $this->db->prepare($sql);
+			$stm->bindParam(1, $codigo);
+			$stm->bindParam(2, $estado);	
+			return $stm->execute();
 		}
 
 	}

@@ -99,7 +99,7 @@
                                       <i class="fa fa-calendar"></i>
                                     </div>
                                     <input type="text" disabled="" class="form-control pull-right" name="txtfechacontrato" id="fecha_Contrato" style="border-radius:5px;"  value="">
-                                    <input type="text" name="" id="idfeter" format="yyyy-mm-dd">
+                                    <input type="hidden" name="" id="idfeter" format="yyyy-mm-dd">
                                   </div>
                                 </div>
                               </div>
@@ -144,6 +144,14 @@
 
                                   <?php endforeach; ?>
                                 </select>
+                              </div>
+                              <div class="col-xs-12 col-md-4" id="divvalorpenditeprestamo">
+                                <label id="labelValorVentas">Pendiente de Préstamos</label>                                 <div class="input-group">
+                                  <input type="text" class="form-control" placeholder="Valor Pendiente" name="txtValorprestamo" id="valor_penprestamos">
+                                  <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" id="idbotonprestamos" onclick="traervalorprestamopen()" style="background-color: #E0F8E0"> <b>Consultar</b></button>
+                                  </span>
+                                </div>
                               </div>
 
                               <div class="col-xs-12 col-md-4" id="divTiempoPago">
@@ -193,8 +201,7 @@
 							      <span class="input-group-btn">
 							        <button class="btn btn-default" type="button" id="idbotonventas" onclick="traervalorVentas()" style="background-color: #E0F8E0"> <b>Consultar</b></button>
 							      </span>
-							    </div><!-- /input-group -->
-                                <!-- <input type="text" id="valor_Ventas" name="txtValorVentas" class="form-control" data-parsley-type="integer" data-parsley-required="true" value=""> -->
+							    </div>
                               </div>
                             </div>
                             <br>
@@ -341,6 +348,25 @@
       		}
       	</script>
         <script type="text/javascript">
+          function traervalorprestamopen() {
+            var identificacion = $("#identi").val();
+
+            $.ajax({
+              url: url +'Empleados/valorprestamopendiente',
+              type: 'POST',
+              dataType: 'JSON',
+              data: {identificacion: identificacion},
+            })
+            .done(function(respuesta) {
+              if (respuesta.v != null) {
+                var valorp = respuesta.v;
+                $("#valor_penprestamos").val(valorp);
+              };
+              
+            })
+          }
+        </script>
+        <script type="text/javascript">
 
           // $(document).ready(function(){
           //   $("#bguardar").click(function(){
@@ -390,6 +416,7 @@
                var pagototal = pagoneto + resulcomision;
                $("#vacaprima").val(resulvacaprima);
                var cesa =  parseInt($("#valorcesantias").val());
+               var pendientePrestamo = $("#valor_penprestamos").val();
 
                //En este bloque se saca la diferencia de días entre la fecha de contrato y fecha final
               var fechaContrato = $("#fecha_Contrato").val();
@@ -435,7 +462,6 @@
 
               var dates = fechaContrato2;
               var elems = dates.split('-');
-              console.log(elems);
               var years = elems[0];
               var mess = elems[1];
               var dias = elems[2];
@@ -451,7 +477,7 @@
 
 
               //Valor total liquidación
-              var totalliquidaciones = valvacaciones + valortotalcesantias;
+              var totalliquidaciones = valvacaciones + valortotalcesantias - pendientePrestamo;
 
 
               //Salario Neto
@@ -760,6 +786,7 @@
                     $("#divPagoTotalliquidacion").hide();
                     $("#divPagoTotalTemporallol").hide();
                     $("#divFechapagoPrima").hide();
+                    $("#divvalorpenditeprestamo").hide();
 
                   }else if (tipo == 2) {
 
@@ -784,6 +811,7 @@
                     $("#divPagoTotalliquidacion").show();
                     $("#divPagoTotaltemporal").hide();
                     $("#divFechapagoPrima").hide();
+                    $("#divvalorpenditeprestamo").show();
 
                   }
 
@@ -810,6 +838,7 @@
                     $("#divPagoTotalTemporallol").removeAttr('style');
                     $("#divdias").hide();
                     $("#divFechapagoPrima").removeAttr('style');
+                    $("#divvalorpenditeprestamo").hide();
                   }
                }
           </script>
@@ -843,6 +872,7 @@
               $("#valortotalprima").val("");
               $("#valorDiatemporal").val("");
               $("#dias_laborados").val("");
+              $("#valor_penprestamos").val("");
               $("#selectTipoPago").select2("destroy");
               $("#selectTipoPago").val(1);
               $("#selectTipoPago").select2();

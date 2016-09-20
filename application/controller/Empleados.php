@@ -25,6 +25,7 @@
         if (isset($_POST["btnRegistrarAbono"])) {
 
             $modelo->__SET("valor", $_POST["txtvalorabono"]);
+            $modelo->__SET("estadoabonos", 1);
             $modelo->__SET("Tbl_Prestamos_idprestamos",$_POST["txtidprestamo"]);
 
             if ($modelo->registrarAbonoPrestamo()) {
@@ -50,6 +51,37 @@
             }
 
         }
+
+        if (isset($_POST["btnmodificarprestamo"])) {
+        $modelo->__SET("fecha_limite",$_POST["txtfechalimetepre"]);
+        $modelo->__SET("valor_prestamo",$_POST["txtvalorprestamos"]);
+        $modelo->__SET("id_prestamos",$_POST["txthideidprestamo"]);
+
+        if ($modelo->modificarprestamos()) {
+              $_SESSION['alerta'] = ' swal({
+                  title: "Préstamo Modificado!",
+                  type: "success",
+                  confirmButton: "#3CB371",
+                  confirmButtonText: "Aceptar",
+                  // confirmButtonText: "Cancelar",
+                  closeOnConfirm: false,
+                  closeOnCancel: false
+                })';
+            }
+            else
+            {
+              $_SESSION['alerta'] = ' swal({
+                  title: "Error en la modificación!",
+                  type: "error",
+                  confirmButton: "#3CB371",
+                  confirmButtonText: "Aceptar",
+                  // confirmButtonText: "Cancelar",
+                  closeOnConfirm: false,
+                  closeOnCancel: false
+                })';
+            }
+        }
+
         require APP . 'view/_templates/header.php';
         require APP . 'view/Empleados/listarPrestamo.php';
         require APP . 'view/_templates/footer.php';
@@ -400,10 +432,10 @@
                   $html .= '<td>'.$estado.'</td>';
                   $html .= '<td>';
                   if ($val["estado_prestamo"] == 1) {
-                  $html.='<button type="button" class="btn btn-success btn-circle btn-md" onclick="abono('.$val['valor_prestamo'].','.$val['id_prestamos'].','.$valorPen.')"  title="Abonar"><i class="fa fa-money" aria-hidden="true"></i></button>';
+                  $html.='<button type="button" class="btn btn-warning btn-circle btn-md" onclick="abono('.$val['valor_prestamo'].','.$val['id_prestamos'].','.$valorPen.')"  title="Abonar"><i class="fa fa-money" aria-hidden="true"></i></button>';
+                  $html .= ' <button  title="Modificar Préstamo" type="button" class="btn btn-success btn-circle btn-md" data-toggle="modal" onclick="Modificarprestamo('.$val['id_prestamos'].')"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>';
                   }
                   $html .= ' <button type="button" onclick="traerDetalleAbonos('.$val["id_prestamos"].')" class="btn btn-primary btn-circle btn-md"   title="Ver Abonos"><i class="fa fa-eye" aria-hidden="true" ></i></button>';
-                  // $html .= ' <button  title="Anular" type="button" class="btn btn-danger btn-circle btn-md" data-toggle="modal" onclick="cambiarestado('.$val["id_prestamos"].', 0)"><i class="fa fa-refresh" aria-hidden="true"></i></button>';
                   $html .= '</td></tr>';
               }
                   $cabecera = '<tr>';
@@ -436,17 +468,25 @@
                 $html .= '<tr>';
                 $html .= '<td>'.$val['fecha_abono'].'</td>';
                 $html .= '<td>'.$val['valor'].'</td>';
-                $html .= '</tr>';
+                // $html .= '</tr>';
 
-                  // $html .= '<td>'.
+                  $html .= '<td>';
                   // '<button type="button" class="btn btn-success btn-circle btn-md" onclick="abono('.$val['valor_prestamo'].','.$val['id_prestamos'].')"  title="Abonar"><i class="fa fa-money" aria-hidden="true"></i></button>';
                   // $html .= ' <button type="button" class="btn btn-primary btn-circle btn-md" onclick="traerDetalleAbonos('.$val['id_prestamos'].')"  title="Abonar"><i class="fa fa-eye" aria-hidden="true"></i></button>';
-                  // $html .= ' <button  title="Anular" type="button" class="btn btn-danger btn-circle btn-md" data-toggle="modal" onclick="cambiarestado('.$val["id_prestamos"].', 0)"><i class="fa fa-remove" aria-hidden="true"></i></button>';
-                  // $html .= '</td></tr>';
+                  if ($val["estado_abono"] == 1) {
+                    
+                  $html .= ' <button  title="Anular" type="button" class="btn btn-success btn-circle btn-md" data-toggle="modal" id="btnbotoncheck" onclick="cambiarestadoabono('.$val["idTbl_Abono_Prestamo"].',0)"><i class="fa fa-check" aria-hidden="true"></i></button>';
+                  }
+
+                  if ($val["estado_abono"] == 0) {
+                  $html .= ' <button title="Anulado" disabled="" id="btnanulado" type="button" class="btn btn-danger btn-circle btn-md" data-toggle="modal"><i class="fa fa-remove" aria-hidden="true"></i></button>';
+                  }
+                  $html .= '</td></tr>';
               }
                   $cabecera = '<tr>';
                   $cabecera .= '<th>'.'Fecha del Abono'.'</th>';
                   $cabecera .= '<th>'.'Valor'.'</th>';
+                  $cabecera .= '<th>'.'Estado del Abono'.'</th>';
                   $cabecera .= '</tr>';
 
                   echo json_encode([
@@ -538,6 +578,47 @@
         else
         {
           echo json_encode(["v"=>null]);
+        }
+      }
+
+      public function valorprestamopendiente()
+      {
+        $modelo = $this->loadModel("mdlEmpleados");
+        $modelo->__SET("id_persona", $_POST["identificacion"]);
+        $valortotalpre = $modelo->prestamopendiente();
+        $resultadovalorprestamo = implode('', $valortotalpre);
+
+        if ($resultadovalorprestamo) {
+          echo json_encode(["v"=>$resultadovalorprestamo]);
+        }
+        else
+        {
+          echo json_encode(["v"=>null]);
+        }
+      }
+
+      public function infoprestamos()
+      {
+        header("Content-type: application/json");
+        $modelo = $this->loadModel("mdlEmpleados");
+        $modelo->__SET("id_prestamos", $_POST["id_prestamos"]);
+
+        $informacionprestamo = $modelo->informacionprestamo();
+        echo json_encode($informacionprestamo);
+      }
+
+      public function modificarestadoAbonos()
+      {
+
+        $modelo = $this->loadModel("mdlEmpleados");
+        $estadoabonos = $modelo->cambiarestadoAbonos($_POST["id"], $_POST["estado"]);
+
+        if ($estadoabonos) {
+          echo json_encode(["v"=>1]);
+        }
+        else
+        {
+          echo json_encode(["v"=>0]);
         }
       }
 

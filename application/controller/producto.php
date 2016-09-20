@@ -293,7 +293,7 @@ class producto extends Controller{
     $categoria = $this->mdlproducto->traerporcodigo($_POST['id']);
     echo json_encode($categoria);
 
-  }
+  } 
 
   private function modificarProducto(){
     $this->mdlproducto->id_producto = $_POST["txtcodigo"];

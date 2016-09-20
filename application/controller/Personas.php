@@ -12,7 +12,7 @@
       $this->modeloP = $this->loadModel("mdlPersona");
       $this->mdlTipoPersona = $this->loadModel("mdlTipoPersona");
       $this->modeloUsuario = $this->loadModel("mdlUsuario");
-      $this->modeloConfig = $this->loadModel("mdlConfiguracionPago");
+      // $this->modeloConfig = $this->loadModel("mdlConfiguracionPago");
     }
 
 

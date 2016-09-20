@@ -70,9 +70,60 @@
             </div>
           </div>
         </div>
+        <div class="modal fade" id="mymodificarprestamo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard ="false" data-backdrop = "static">
+          <div class="modal-dialog modal-md" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="abrirmodal()">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel" style="text-align:center; color: #3CB371"> Modificar Préstamo<span id=""></span></h4>
+              </div>
+              <div class="modal-body">
+                <form action="<?php echo URL?>Empleados/ListarPrest" method="POST" accept-charset="utf-8">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="panel-body">
+                      <div class="row">
+                        <div class="col-xs-12 col-md-6" id="divFechalimite">
+                          <label>Fecha Límite:</label>
+                          <div class="">
+                            <div class="input-group date" data-provide = "datepicker">
+                              <div class="input-group-addon" style="border-radius:5px;">
+                                <i class="fa fa-calendar"></i>
+                              </div>
+                              <input type="text" class="form-control pull-right" name="txtfechalimetepre" required="" style="border-radius:5px;" step="1"  value="" format="yyyy-mm-dd" id="fechalim">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-xs-12 col-md-6" id="divvalorpres">
+                          <label>Valor Préstamo:</label>
+                          <input type="hidden" name="txthideidprestamo" id="idprest">
+                          <input type="number" min ="1000" id="valorprestamos" name="txtvalorprestamos" step="1000" class="form-control" data-parsley-required="true">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                  <div class="row">
+                        <div class="modal-footer">
+                        <div class="col-xs-12 col-md-6">
+                          <button type="submit" name="btnmodificarprestamo" class="btn btn-success btn-active" id="btnguararAbono" style="float: left; margin-left: 70px"><i class="fa fa-floppy-o" aria-hidden="true">   Guardar</i></button>
+                        </div>
+                        <div class="col-xs-12 col-md-6">
+                          <button type="button" class="btn btn-danger btn-active"  data-dismiss="modal" style="float: right;margin-right: 70px" onclick="abrirmodal()"><i class="fa fa-times" aria-hidden="true">   Cancelar</i></button>
+                        </div>
+                      </div>
+                    </div>           
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
   </center>
               <div class="modal fade" id="abonosPrestamos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard ="false" data-backdrop = "static">
-                <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-dialog modal-md" role="document">
                   <div class="modal-content">
                     <div class="modal-header">
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="abrirmodal()">
@@ -116,8 +167,6 @@
                       </button>
                       <h4 class="modal-title" id="myModalLabel" style="text-align:center; color: #3CB371">Abono de Préstamos de <span id="empleado"></span></h4>
                     </div>
-                    <div class="modal-body">
-
                     <div class="modal-body">
                     <form method="POST" id="abonar" action="<?php echo URL?>Empleados/ListarPrest" data-parsley-validate="" onsubmit="return validarAbono()">
                     <div class="row">
@@ -350,4 +399,69 @@
 
     });
   }
+  </script>
+  <script type="text/javascript">
+  function Modificarprestamo(id_prestamos){
+    $.ajax({
+  type:"POST",
+  url:url+"Empleados/infoprestamos",
+  data:{
+    id_prestamos: id_prestamos,
+  },
+  success:function(respuesta){
+
+    $("#fechalim").val(respuesta.fecha_limite);
+        $("#valorprestamos").val(respuesta.valor_prestamo);
+        $("#idprest").val(respuesta.id_prestamos);
+        $("#mymodificarprestamo").modal("show");
+        $("#myJhoan").modal("hide");
+
+  },
+    });
+}
+  </script>
+  <script type="text/javascript">
+        function cambiarestadoabono(cod, est){
+    swal({
+      title: "¿Realmente Desea Anular el Abono?",
+      type: "warning",
+      confirmButton: "#3CB371",
+      confirmButtonText: "btn-danger",
+      cancelButtonText: "Cancelar",
+      showCancelButton: true,
+      confirmButtonClass: "btn-danger",
+      confirmButtonText: "Aceptar",
+      closeOnConfirm: false,
+
+    },
+    function(isConfirm){
+        if (isConfirm) {
+          swal({
+            title: "Abono Anulado.!",
+            type: "error",
+            confirmButton: "#3CB371",
+            confirmButtonText: "Aceptar",
+            // confirmButtonText: "Cancelar",
+            closeOnConfirm: false,
+            closeOnCancel: false
+          },
+          function(isConfirm){
+            $.ajax({
+              dataType:'json',
+              type:'post',
+              url:url+"Empleados/modificarestadoAbonos",
+              data:{id:cod, estado:est}
+            }).done(function(respuesta){
+              if(respuesta.v == 1){
+                window.location = url + "Empleados/listarPrest";
+              }else{
+                sweealert("Error al cambiar el estado");
+              }
+            }).fail(function(){
+
+            })
+          });
+        }
+        });
+}
   </script>

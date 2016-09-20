@@ -123,6 +123,7 @@ $(document).ready(function(){
                       $("#btnGuardarliqui").hide();
                       $("#btnGuardarPrima").hide();
                       $("#btnGuardartempo").hide();
+                      $("#divvalorpenditeprestamo").hide();
 
                     }
 
@@ -158,6 +159,8 @@ $(document).ready(function(){
                       $("#divPagoTotalTemporales").show();
                       $("#divFechacontrato").hide();
                       $("#divFechapagoliquidacion").hide();
+                      $("#divvalorpenditeprestamo").hide();
+                      $("#divvalorventas").hide();
 
                     };
            },500);
