@@ -107,3 +107,4 @@ function Traerdatoscategoria(id_categoria){
   },
     });
 }
+
