@@ -430,14 +430,27 @@
                   $html .= '<td class="price">'.$valorPen.'</td>';
                   $html .= '<td>'.$val['descripcion'].'</td>';
 
-                  $estado = $val["estado_prestamo"] == 1?"Pendiente":"Pagado";
+                  $estado = $val["estado_prestamo"] == 0?"Pagado":"Pendiente";
+                  $estado1 = $val["estado_prestamo"] == 1?"Pendiente":"Pagado";
+                  $estado3 = $val["estado_prestamo"] == 3?"Anulado":"Pendiente";
+                  
 
                   // $html .= '<td>'.$value['valorTotal'].'</td>';
+                  if ($val["estado_prestamo"] == 0) {
                   $html .= '<td>'.$estado.'</td>';
+                  }
+                  if ($val["estado_prestamo"] == 1) {
+                  $html .= '<td>'.$estado1.'</td>';
+                  }
+                  if ($val["estado_prestamo"] == 3) {
+                  $html .= '<td>'.$estado3.'</td>';            
+                  }
+                  // $html .= '<td>'.$estado.'</td>';
                   $html .= '<td>';
                   if ($val["estado_prestamo"] == 1) {
                   $html.='<button type="button" class="btn btn-warning btn-circle btn-md" onclick="abono('.$val['valor_prestamo'].','.$val['id_prestamos'].','.$valorPen.')"  title="Abonar"><i class="fa fa-money" aria-hidden="true"></i></button>';
                   $html .= ' <button  title="Modificar Préstamo" type="button" class="btn btn-success btn-circle btn-md" data-toggle="modal" onclick="Modificarprestamo('.$val['id_prestamos'].')"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>';
+                  $html .= ' <button  title="Anular" type="button" class="btn btn-danger btn-circle btn-md" data-toggle="modal" id="btnbotoncheck" onclick="cambiarestadoprestamo('.$val['id_prestamos'].',3 )"><i class="fa fa-refresh" aria-hidden="true"></i></button>';
                   }
                   $html .= ' <button type="button" onclick="traerDetalleAbonos('.$val["id_prestamos"].')" class="btn btn-primary btn-circle btn-md"   title="Ver Abonos"><i class="fa fa-eye" aria-hidden="true" ></i></button>';
                   $html .= '</td></tr>';
@@ -624,6 +637,36 @@
         else
         {
           echo json_encode(["v"=>0]);
+        }
+      }
+
+      public function modificarestadoPrestamo()
+      {
+
+        $modelo = $this->loadModel("mdlEmpleados");
+        $estadoPrestamo = $modelo->cambiarestadoPrestamo($_POST["id"], $_POST["estado"]);
+
+        if ($estadoPrestamo) {
+          echo json_encode(["v"=>1]);
+        }
+        else
+        {
+          echo json_encode(["v"=>3]);
+        }
+      }
+
+      public function ValidarAnularPrestamo()
+      {
+        $modelo = $this->loadModel("mdlEmpleados");
+        $modelo->__SET("id_prestamos",$_POST["cod"]);
+        $abonoPrestamo = $modelo->nullEnAbonos();
+
+        if ($abonoPrestamo) {
+          echo json_encode(["v"=>$abonoPrestamo]);
+        }
+        else
+        {
+          echo json_encode(["v"=>null]);
         }
       }
 

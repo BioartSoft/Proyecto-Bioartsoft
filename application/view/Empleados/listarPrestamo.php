@@ -472,3 +472,76 @@
         });
 }
   </script>
+  <script type="text/javascript">
+        function cambiarestadoprestamo(cod, est){
+          validarSiTieneAbono(cod);
+    swal({
+      title: "¿Desea Anular el Prestamo?",
+      type: "warning",
+      confirmButton: "#3CB371",
+      confirmButtonText: "btn-danger",
+      cancelButtonText: "Cancelar",
+      showCancelButton: true,
+      confirmButtonClass: "btn-danger",
+      confirmButtonText: "Aceptar",
+      closeOnConfirm: false,
+
+    },
+    function(isConfirm){
+        if (isConfirm) {
+          swal({
+            title: "Prestamo Anulado.!",
+            type: "error",
+            confirmButton: "#3CB371",
+            confirmButtonText: "Aceptar",
+            // confirmButtonText: "Cancelar",
+            closeOnConfirm: false,
+            closeOnCancel: false
+          },
+          function(isConfirm){
+            $.ajax({
+              dataType:'json',
+              type:'post',
+              url:url+"Empleados/modificarestadoPrestamo",
+              data:{id:cod, estado:est}
+            }).done(function(respuesta){
+              if(respuesta.v == 1){
+                window.location = url + "Empleados/listarPrest";
+              }else{
+                sweealert("Error al cambiar el estado");
+              }
+            }).fail(function(){
+
+            })
+          });
+        }
+        });
+}
+  </script>
+  <script type="text/javascript">
+    function validarSiTieneAbono(cod) {
+      $.ajax({
+        url: url + 'Empleados/ValidarAnularPrestamo',
+        type: 'POST',
+        dataType: 'JSON',
+        data: {cod: cod},
+      })
+      .done(function(respuesta) {
+          if (respuesta.v == null) {
+          }
+          else
+          {
+            swal({
+              title: "Préstamo con abonos realizados,no se puede anular!",
+              type: "error",
+              confirmButton: "#3CB371",
+              confirmButtonText: "Aceptar",
+              // confirmButtonText: "Cancelar",
+              closeOnConfirm: false,
+              closeOnCancel: false
+            });
+          }
+      });
+      
+    }
+  </script>
