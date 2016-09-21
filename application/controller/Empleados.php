@@ -370,7 +370,10 @@
                   // '<button type="button" class="btn btn-success btn-circle btn-md" data-toggle="modal" data-target="#myModal" title="Generar Recibo"><i class="fa fa-file-pdf-o" aria-hidden="true"></i>
                   // </button>';
                 if($value["estado"] == 1){
-                    $html .= ' <button  title="Anular" type="button" class="btn btn-danger btn-circle btn-md" data-toggle="modal" onclick="cambiarestado('.$value["id_pago"].', 0)"><i class="fa fa-remove" aria-hidden="true"></i></button>';
+                    $html .= ' <button  title="Anular" type="button" class="btn btn-success btn-circle btn-md" data-toggle="modal" onclick="cambiarestado('.$value["id_pago"].', 0)"><i class="fa fa-check" aria-hidden="true"></i></button>';
+                }
+                if ($value["estado"]==0) {
+                  $html .= ' <button  disabled="" title="Anular" type="button" class="btn btn-danger btn-circle btn-md" data-toggle="modal"><i class="fa fa-remove" aria-hidden="true"></i></button>';
                 }
                   $html .= '</td></tr>';
               }
@@ -398,7 +401,7 @@
                   $cabecera .= '<th>'.'Total Pago'.'</th>';
                 }
                   $cabecera .= '<th>'.'Estado'.'</th>';
-                  $cabecera .= '<th>'.'Opciones'.'</th>';
+                  $cabecera .= '<th>'.'Estado del pago'.'</th>';
                   $cabecera .= '</tr>';
 
                   echo json_encode([
@@ -484,8 +487,8 @@
                 $html .= '<tr>';
                 $html .= '<td>'.$val['fecha_abono'].'</td>';
                 $html .= '<td class="price">'.$val['valor'].'</td>';
-                $html .= '</tr>';
-                $html .= '<td>'.$val['valor'].'</td>';
+                // $html .= '</tr>';
+                // $html .= '<td>'.$val['valor'].'</td>';
                 // $html .= '</tr>';
 
                   $html .= '<td>';

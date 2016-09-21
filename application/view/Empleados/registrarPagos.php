@@ -802,7 +802,7 @@
                     $("#divFechapagoliquidacion").removeAttr('style');
                     $("#divTipoPago").show();
                     $("#divTiempoPago").hide();
-                    $("#divPorcentaje").hide();
+                    $("#divPorcentaje").show();
                     $("#divValorBase").show();
                     $("#divIdentificacion").show();
                     $("#divTipoEmpleado").show();
@@ -810,11 +810,11 @@
                     $("#divvalorprima").show();
                     $("#divvalorvacaciones").show();
                     $("#divvalorcesantias").show();
-                    $("#divvalorventas").hide();
+                    $("#divvalorventas").show();
                     $("#divPagoTotal").hide();
                     $("#divValordia").hide();
                     $("#divFechaInicial").hide();
-                    $("#divdias").hide();
+                    $("#divdias").show();
                     $("#divPagoTotalliquidacion").show();
                     $("#divPagoTotaltemporal").hide();
                     $("#divFechapagoPrima").hide();
