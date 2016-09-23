@@ -38,6 +38,20 @@ class mdlProducto
     }
   }
 
+ public function listarpdf()
+  {
+    $sql="CALL  SP_Informe_existencia(?,?)";
+    try {
+     $ca= $this->db->prepare($sql);
+     $ca->bindParam(1,$this->fechainicial);
+     $ca->bindParam(2,$this->fechafinal);
+    $ca->execute();
+     return $ca->fetchAll(PDO::FETCH_ASSOC);
+    } catch (Exception $e) {
+
+    }
+
+  }
 
   public function validarNombreCategoria(){
     $sql = "CALL 	SP_Validar_Nombre_Categoria(?)";
@@ -56,6 +70,17 @@ class mdlProducto
     $stm->execute();
     return $stm->fetch(PDO::FETCH_ASSOC);
 }
+
+  public function listarpdfp(){
+     $sql="CALL  SP_Listar_informe()";
+    try {
+      $ca=$this->db->prepare($sql);
+      $ca->execute();
+      return $ca->fetchAll(PDO::FETCH_ASSOC);
+    } catch (Exception $e) {
+
+    }
+  }
 
 
 public function validarCantidad(){

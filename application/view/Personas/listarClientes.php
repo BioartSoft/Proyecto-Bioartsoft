@@ -19,8 +19,7 @@
                                 <th>Identificación</th>
                                 <th>Nombres</th>
                                 <th>Apellidos</th>
-                                <th>Teléfono</th>
-                                <th>Dirección</th>
+                                <th>Tipo de cliente</th>
                                 <th>Estado</th>
                                 <th>Opciones</th>
                             </tr>
@@ -31,8 +30,7 @@
                                 <td><?= $valor['id_persona'] ?></td>
                                 <td><?=  $valor['nombres'] ?></td>
                                 <td><?=  $valor['apellidos'] ?></td>
-                                <td><?=  $valor['telefono'] ?></td>
-                                <td><?=  $valor['direccion'] ?></td>
+                                <td><?=  $valor['Tbl_nombre_tipo_persona'] ?></td>
                                 <td><?php if($valor['estado'] == 1): ?>
                                         Habilitado
                                        <?php else:  ?>
@@ -68,13 +66,22 @@
                         </tbody>
                     </table>
                 </div>
+                <div class="row">
+                 <div class="col-sm-12">
+                   <center>
+                   <a href="<?= URL ?>Personas/generarpdfClientes" target="_blank">
+                     <button class="btn btn-primary"><i class="fa fa-file-pdf-o" aria-hidden="true">   Reporte PDF de Clientes</i></button>
+                   </a>
+                 </center>
+                 </div>
+               </div>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-<?php if ($id!= 0 && $tipo == 1): ?>
+<?php if ($id!= "" && $tipo == 1): ?>
 <div class="modal fade" id="modal-actualizar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static">
    <div class="modal-dialog" role="document">
      <div class="modal-content">
@@ -206,19 +213,21 @@ $("#btnmodClientes").click(function(){
                     <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                       <thead>
                         <tr>
-                        <th>Celular</th>
-                        <th>Email</th>
-                        <th>Género</th>
-                        <th>Tipo Cliente</th>
+                          <th>Celular</th>
+                          <th>Teléfono</th>
+                          <th>Dirección</th>
+                          <th>Email</th>
+                          <th>Género</th>
                         </tr>
                       </thead>
                       <tbody>
 
                         <tr>
                           <td><?=  $clientes['celular'] ?></td>
+                          <td><?=  $clientes['telefono'] ?></td>
+                          <td><?=  $clientes['direccion'] ?></td>
                           <td><?=  $clientes['email'] ?></td>
                           <td><?=  $clientes['genero'] ?></td>
-                          <td><?=  $clientes['Tbl_nombre_tipo_persona'] ?></td>
                         </tr>
 
                       </tbody>

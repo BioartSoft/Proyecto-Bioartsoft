@@ -363,7 +363,7 @@
                 var valorp = respuesta.v;
                 $("#valor_penprestamos").val(valorp);
               };
-              
+
             })
           }
         </script>
@@ -1022,26 +1022,27 @@
                     $("#valorvacacionestot").val("");
               }
 
-              if(fecha == ""){
-
-                swal({
-                      title: "No se encontrarón primas registradas, no se puede cargar fecha de la última prima!",
-                      type: "error",
-                      confirmButton: "#3CB371",
-                      confirmButtonText: "Aceptar",
-                      // confirmButtonText: "Cancelar",
-                      closeOnConfirm: false,
-                      closeOnCancel: false
-                    });
-              }
+              // if(fecha == ""){
+              //
+              //   swal({
+              //         title: "No se encontrarón primas registradas, no se puede cargar fecha de la última prima!",
+              //         type: "error",
+              //         confirmButton: "#3CB371",
+              //         confirmButtonText: "Aceptar",
+              //         // confirmButtonText: "Cancelar",
+              //         closeOnConfirm: false,
+              //         closeOnCancel: false
+              //       });
+              // }
             });
 
 
             $("#CalcularTemporal").click(function(){
               var diasTemporal = $("#valorDiatemporal").val();
               var diasLaborados = $("#dias_laborados").val();
+              var tipoEmpleado = $("#tipoEmpleado").val();
 
-              if(diasTemporal == "" && diasLaborados == ""){
+              if(diasTemporal == "" && diasLaborados == "" && tipoEmpleado == "Empleado-temporal"){
                 swal({
                       title: "No se han ingresado un número válido!",
                       type: "error",
@@ -1052,6 +1053,7 @@
                       closeOnCancel: false
                     });
                     $("#valortotaltempo").val("");
+                    $("#idfechafin").removeAttr("data-parsley-required");
               }
             });
 

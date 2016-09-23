@@ -2,8 +2,8 @@
 <form id="forventas" method="post" action="<?= URL ?>Ventas/index"  name="fmVentas" data-parsley-validate="">
    <div class="row">
 
-    <h3 class="page-header" style="text-align:center; color: #3CB371; margin-top: 10px; margin-bottom: 5px">Registrar Venta</h3><br>
-    <div id="frmVent" method="post" data-parsley-validate="">
+    <h3 class="page-header" style="text-align:center; color: #3CB371; margin-top: 10px; margin-bottom: 5px">Registrar Venta</h3>
+    <br>
 
        <div class="col-md-5">
         <div class="panel panel-default">
@@ -109,11 +109,9 @@
       <div class="panel-footer" id="foodertotal">
         <h3 class="panel-title"><strong>Total:</strong> <input type="hidden" id="txttotal" name="txttotal" value=""> <span id="total">0</span></h3>
       </div>
-
     </div>
   </div>
      <button type="submit" class="btn btn-success pull-right" name="btn-guardar-venta" id="btnGuardar" onclick="validarCantidad()" title="Guardar Venta"><i class="fa fa-floppy-o" title="Guardar Venta"></i>   Guardar</button>
-   </div>
    </div>
 </form>
 <input type="hidden" id="txtProductoS" focus="true" autocomplete="off" >
@@ -360,7 +358,15 @@
          var cantAct = parseInt($("#txtcantidad").val());
          var cTotal = parseInt($("#unidades-actuales").val());
          if((cantAnt + cantAct) > cTotal){
-          swal("Cantidad actual: "+cTotal+ " unidades. Cantidad agregada " + cantAnt + " unidades.");
+           swal({
+                 title: "Cantidad actual: "+cTotal+ " unidades. Cantidad agregada " + cantAnt + " unidades.",
+                 type: "error",
+                 confirmButton: "#3CB371",
+                 confirmButtonText: "Aceptar",
+                 // confirmButtonText: "Cancelar",
+                 closeOnConfirm: false,
+                 closeOnCancel: false
+               });
            romper = true;
          } else {
            var c = $(value).find("span.cantidad").text(cantAnt + cantAct);
@@ -369,6 +375,7 @@
            var subAnt = parseInt($(value).find("span.subtotal").text().replace(".","").replace(",","").replace(",",""));
            var p = $(value).find("span.subtotal").text(subAnt + parseInt(precio * cantidad));
            $(value).find("p#subtotal").attr("data-valor", subAnt + parseInt (precio * cantidad));
+
            bandera = false;
          }
        }
@@ -384,7 +391,7 @@
        html += '      <h3 class="cta-title">'+productoText+'</h3>';
        html += '        <div class="cta-desc">';
        html += '           <p data-cantidad="'+cantidad+'" id="cantidad">Cantidad: <span class="cantidad" id="cantidad-' + productoCd + '">'+cantidad+'</span></p>';
-       html += '           <p data-valor="'+precio * cantidad+'" id= "subtotal">Valor subtotal: <span class="subtotal"> '+precio * cantidad+'</span></p>';
+       html += '           <p data-valor="'+precio * cantidad+'" id="subtotal">Valor subtotal: <span class="subtotal"> '+precio * cantidad+'</span></p>';
        html += '    </div>';
        html += '<input type="hidden" id="txtProducto" name="producto[]" value="'+productoCd+'">';
        html += '<input type="hidden" name="cantidad[]" id="cantidad-prod-'+productoCd+'" value="'+cantidad+'">';

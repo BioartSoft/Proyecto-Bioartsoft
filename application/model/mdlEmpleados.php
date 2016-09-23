@@ -212,6 +212,7 @@
 			return $stm->execute();
 		}
 
+
 		public function sumarAbonos()
 		{
 			$sql = "CALL SP_sumarValorAbonoPrestamo(?)";
@@ -312,7 +313,7 @@
 			$sql ="CALL SP_anularAbonoPrestamos(?,?)";
 			$stm = $this->db->prepare($sql);
 			$stm->bindParam(1, $codigo);
-			$stm->bindParam(2, $estado);	
+			$stm->bindParam(2, $estado);
 			return $stm->execute();
 		}
 

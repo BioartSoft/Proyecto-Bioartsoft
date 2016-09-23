@@ -80,7 +80,7 @@
                 <h4 class="modal-title" id="myModalLabel" style="text-align:center; color: #3CB371"> Modificar Préstamo<span id=""></span></h4>
               </div>
               <div class="modal-body">
-                <form action="<?php echo URL?>Empleados/ListarPrest" method="POST" accept-charset="utf-8">
+                <form action="<?php echo URL?>Empleados/ListarPrest" method="POST" id="formModPrest" accept-charset="utf-8" data-parsley-validate="" onsubmit="return validarAbono()">
                 <div class="row">
                   <div class="col-md-12">
                     <div class="panel-body">
@@ -92,7 +92,7 @@
                               <div class="input-group-addon" style="border-radius:5px;">
                                 <i class="fa fa-calendar"></i>
                               </div>
-                              <input type="text" class="form-control pull-right" name="txtfechalimetepre" required="" style="border-radius:5px;" step="1"  value="" format="yyyy-mm-dd" id="fechalim">
+                              <input type="text" class="form-control pull-right" name="txtfechalimetepre" data-parsley-required="true" style="border-radius:5px;" step="1"  value="" format="yyyy-mm-dd" id="fechalim">
                             </div>
                           </div>
                         </div>
@@ -108,14 +108,15 @@
                   <div class="row">
                         <div class="modal-footer">
                         <div class="col-xs-12 col-md-6">
-                          <button type="submit" name="btnmodificarprestamo" class="btn btn-success btn-active" id="btnguararAbono" style="float: left; margin-left: 70px"><i class="fa fa-floppy-o" aria-hidden="true">   Guardar</i></button>
+                          <button type="button" class="btn btn-secondary btn-active"  data-dismiss="modal" style="float: right;margin-right: 70px" onclick="abrirmodal()"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
                         </div>
                         <div class="col-xs-12 col-md-6">
-                          <button type="button" class="btn btn-danger btn-active"  data-dismiss="modal" style="float: right;margin-right: 70px" onclick="abrirmodal()"><i class="fa fa-times" aria-hidden="true">   Cancelar</i></button>
+
+                          <button type="submit" name="btnmodificarprestamo" class="btn btn-success btn-active" id="btnmodificarprestamo" style="float: left; margin-left: 70px"><i class="fa fa-floppy-o" aria-hidden="true">   Guardar</i></button>
                         </div>
                       </div>
                     </div>
-                </form>
+                <!-- </form> -->
               </div>
             </div>
           </div>
@@ -137,7 +138,7 @@
                         <div class="panel panel-green" >
                           <div class="panel-heading">
                           </div>
-                          <div class="panel-body" id="panel">
+                          <div class="panel-body">
                             <div class="dataTable_wrapper">
                               <div class="table-responsive">
                                 <div id="contenido_abonos">
@@ -169,7 +170,7 @@
                     </div>
 
                     <div class="modal-body">
-                    <form method="POST" id="abonar" action="<?php echo URL?>Empleados/ListarPrest" data-parsley-validate="" onsubmit="return validarAbono()">
+                    <!-- <form method="POST" id="abonar" action="<?php echo URL?>Empleados/ListarPrest" data-parsley-validate="" onsubmit="return validarAbono()"> -->
                     <div class="modal-body">
                     <div class="row">
                         <input type="hidden" name="txtidprestamo" id="idprestamos">
@@ -194,11 +195,15 @@
                     <br><br>
                       <div class="row">
                         <div class="modal-footer">
-                        <div class="col-xs-12 col-md-6">
-                          <button type="submit" name="btnRegistrarAbono" class="btn btn-success btn-active" id="btnguararAbono" style="float: left"><i class="fa fa-floppy-o" aria-hidden="true">   Guardar</i></button>
+                          <div class="col-md-2">
+                          </div>
+                        <div class="col-xs-12 col-md-4">
+                        <button type="button" class="btn btn-secondary btn-active"  data-dismiss="modal" style="float: right" onclick="abrirmodal()"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
                         </div>
-                        <div class="col-xs-12 col-md-6">
-                          <button type="button" class="btn btn-danger btn-active"  data-dismiss="modal" style="float: right" onclick="abrirmodal()"><i class="fa fa-times" aria-hidden="true">   Cancelar</i></button>
+                        <div class="col-md-2">
+                        </div>
+                        <div class="col-xs-12 col-md-4">
+                            <button type="submit" name="btnRegistrarAbono" class="btn btn-success btn-active" id="btnguararAbono" style="float: left"><i class="fa fa-floppy-o" aria-hidden="true">   Guardar</i></button>
                         </div>
                       </div>
                     </div>
@@ -207,18 +212,36 @@
               </div>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
 
           <script type="text/javascript">
             $(document).ready(function(){
 
               $("#btnguararAbono").click(function(){
 
-                $("#abonar").parsley().validate();
+                $("#formModPrest").parsley().validate();
               })
             })
           </script>
 
   <script type="text/javascript">
+
+  <script type="text/javascript">
+    $(document).ready(function(){
+
+      $("#btnmodificarprestamo").click(function(){
+
+        $("#formModPrest").parsley().validate();
+      })
+    })
+  </script>
+
+<script type="text/javascript">
 
   function abono(valor,idprestamo,valorpen){
 
@@ -374,7 +397,7 @@
        var valorpres = parseInt($("#idvalorPrestamo").val());
           if(valorabo > pendiente){
             swal({
-                  title: "El valor del abono es superior al valor pendiente!",
+                  title: "El valor del abono es superior al valor pendiente!\n Valor Pendiente: "+pendiente+"\n Valor abono: "+valorabo,
                   type: "error",
                   confirmButton: "#3CB371",
                   confirmButtonText: "Aceptar",
@@ -471,4 +494,22 @@
         }
         });
 }
+  </script>
+
+  <script type="text/javascript">
+  $("#valorprestamos").keydown(function(e){
+    if(e.which === 189 || e.which === 69){
+      e.preventDefault();
+
+    }
+
+  });
+
+  $("#idabono").keydown(function(e){
+    if(e.which === 189 || e.which === 69){
+      e.preventDefault();
+
+    }
+
+  });
   </script>

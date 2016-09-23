@@ -175,47 +175,49 @@
       var tipo=$(this).val();
       if (tipo == 1) {
         $("#conFechaContrato").slideDown();
-        $("#campoFechaContrato").attr("required", 'true');
+        $("#campoFechaContrato").attr("data-parsley-required", 'true');
         $("#conTipoRol").slideDown();
-        $("#campoTipoRol").attr("required", 'true');
+        $("#campoTipoRol").attr("data-parsley-required", 'true');
         $("#conNombreUsuario").slideDown();
-        $("#campoNombreUsuario").attr("required", 'true');
+        $("#campoNombreUsuario").attr("data-parsley-required", 'true');
         $("#conClave").slideDown();
-        $("#campoClave").attr("required", 'true');
+        $("#campoClave").attr("data-parsley-required", 'true');
         $("#conConfirmar").slideDown();
-        $("#campoConfirmar").attr("required", 'true');
+        $("#campoConfirmar").attr("data-parsley-required", 'true');
         $("#conNit").slideUp();
         $("#campoNit").removeAttr("data-parsley-required");
         $("#conNombreEmpresa").slideUp();
         $("#campoNombreEmpresa").removeAttr("data-parsley-required");
         $("#conDireccionEmpresa").slideUp();
         $("#campoDireccionEmpresa").removeAttr("data-parsley-required");
+        $("#campoEmail").attr("data-parsley-required", "true");
       }else if (tipo == 2) {
         $("#conFechaContrato").slideUp();
         $("#campoFechaContrato").removeAttr("data-parsley-required");
         $("#conTipoRol").slideDown();
-        $("#campoTipoRol").attr("required", 'true');
+        $("#campoTipoRol").attr("data-parsley-required", 'true');
         $("#conNombreUsuario").slideDown();
-        $("#campoNombreUsuario").attr("required", 'true');
+        $("#campoNombreUsuario").attr("data-parsley-required", 'true');
         $("#conClave").slideDown();
-        $("#campoClave").attr("required", 'true');
+        $("#campoClave").attr("data-parsley-required", 'true');
         $("#conConfirmar").slideDown();
-        $("#campoConfirmar").attr("required", 'true');
+        $("#campoConfirmar").attr("data-parsley-required", 'true');
         $("#conNit").slideUp();
         $("#campoNit").removeAttr("data-parsley-required");
         $("#conNombreEmpresa").slideUp();
         $("#campoNombreEmpresa").removeAttr("data-parsley-required");
         $("#conDireccionEmpresa").slideUp();
         $("#campoDireccionEmpresa").removeAttr("data-parsley-required");
+        $("#campoEmail").attr("data-parsley-required", "true");
       }else if(tipo == 4){
         $("#conFechaContrato").slideUp()
         $("#campoFechaContrato").removeAttr("data-parsley-required");
         $("#conNit").slideDown();
-        $("#campoNit").attr("required", 'true');
+        $("#campoNit").attr("data-parsley-required", 'true');
         $("#conNombreEmpresa").slideDown();
-        $("#campoNombreEmpresa").attr("required", 'true');
+        $("#campoNombreEmpresa").attr("data-parsley-required", 'true');
         $("#conDireccionEmpresa").slideDown();
-        $("#campoDireccionEmpresa").attr("required", 'true');
+        $("#campoDireccionEmpresa").attr("data-parsley-required", 'true');
         $("#conNombreUsuario").slideUp();
         $("#campoNombreUsuario").removeAttr("data-parsley-required");
         $("#conClave").slideUp();
@@ -224,6 +226,7 @@
         $("#campoConfirmar").removeAttr("data-parsley-required");
         $("#conTipoRol").slideUp();
         $("#campoTipoRol").removeAttr("data-parsley-required");
+        $("#campoEmail").removeAttr("data-parsley-required");
       }else if(tipo == 3){
         $("#conFechaContrato").slideUp()
         $("#campoFechaContrato").removeAttr("data-parsley-required");
@@ -241,6 +244,7 @@
         $("#campoConfirmar").removeAttr("data-parsley-required");
         $("#conTipoRol").slideUp();
         $("#campoTipoRol").removeAttr("data-parsley-required");
+        $("#campoEmail").removeAttr("data-parsley-required");
         }else if(tipo == 5){
           $("#conFechaContrato").slideUp()
           $("#campoFechaContrato").removeAttr("data-parsley-required");
@@ -258,6 +262,7 @@
           $("#campoConfirmar").removeAttr("data-parsley-required");
           $("#conTipoRol").slideUp();
           $("#campoTipoRol").removeAttr("data-parsley-required");
+          $("#campoEmail").removeAttr("data-parsley-required");
           }else if(tipo == 6){
             $("#conFechaContrato").slideUp()
             $("#campoFechaContrato").removeAttr("data-parsley-required");
@@ -275,6 +280,7 @@
             $("#campoConfirmar").removeAttr("data-parsley-required");
             $("#conTipoRol").slideUp();
             $("#campoTipoRol").removeAttr("data-parsley-required");
+            $("#campoEmail").removeAttr("data-parsley-required");
           }else{
             $("#conFechaContrato").slideUp()
             $("#campoFechaContrato").removeAttr("data-parsley-required");
@@ -292,6 +298,7 @@
             $("#campoConfirmar").removeAttr("data-parsley-required");
             $("#conTipoRol").slideUp();
             $("#campoTipoRol").removeAttr("data-parsley-required");
+            $("#campoEmail").removeAttr("data-parsley-required");
 
             }
     });

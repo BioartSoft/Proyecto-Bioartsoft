@@ -51,18 +51,33 @@
        <td>
         <?php if($val['estado'] == 1): ?>
 
+        <?php if($_SESSION['ROL'] == 1): ?>
           <button type="button" class="btn btn-primary btn-circle btn-md" data-toggle="modal" data-target="#myForm2" onclick="traerDetallesProducto(<?= $val['id_producto'] ?>)" title="Ver Detalles"><i class="fa fa-eye" aria-hidden="true" title="Ver Detalles"></i></button>
 
           <button type="button" onclick="Traerdatosdelproducto('<?= $val['id_producto'] ?>')" class="btn btn-success btn-circle btn-md" data-toggle="modal" data-target="#actualizar-producto" title="Modificar"><i class="fa fa-pencil-square-o" aria-hidden="true" title="Modificar"></i></button>
 
-         <a href="<?= URL ?>producto/generarcodigo?id=<?= $val['id_producto'] ?>" download="<?= $val['id_producto']?>.png">
+     <!--     <a href="<?= URL ?>producto/generarcodigo?id=<?= $val['id_producto'] ?>" download="<?= $val['id_producto']?>.png">
+           <button class="btn btn-warning btn-circle btn-md" title="Generar Código de Barras">
+             <i class="fa fa-barcode" title="Generar Código de Barras"></i>
+           </button>
+         </a> -->
+             <a href="<?= URL ?>producto/generarPdfCodigo?id=<?= $val['id_producto'] ?>" target="_blank">
            <button class="btn btn-warning btn-circle btn-md" title="Generar Código de Barras">
              <i class="fa fa-barcode" title="Generar Código de Barras"></i>
            </button>
          </a>
 
          <button type="button" class="btn btn-danger btn-circle btn-md" onclick="cambiarestado('<?= $val['id_producto']?>')" title="Cambiar Estado"><span class="glyphicon glyphicon-refresh" aria-hidden="true" title="Cambiar Estado"></span></button>
+           <?php else: ?>
+             <button type="button" class="btn btn-primary btn-circle btn-md" data-toggle="modal" data-target="#myForm2" onclick="traerDetallesProducto(<?= $val['id_producto'] ?>)" title="Ver Detalles"><i class="fa fa-eye" aria-hidden="true" title="Ver Detalles"></i></button>
 
+             <a href="<?= URL ?>producto/generarcodigo?id=<?= $val['id_producto'] ?>" download="<?= $val['id_producto']?>.png">
+               <button class="btn btn-warning btn-circle btn-md" title="Generar Código de Barras">
+                 <i class="fa fa-barcode" title="Generar Código de Barras"></i>
+               </button>
+             </a>
+
+        <?php endif; ?>
         <?php else:  ?>
           <button type="button" class="btn btn-danger btn-circle btn-md" onclick="cambiarestado('<?= $val['id_producto']?>')"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span></button>
 
@@ -74,6 +89,23 @@
 
 </tbody>
   </table>
+</div>
+<div class="row">
+<div class="col-sm-2"></div>
+  <div class="col-sm-4">
+    <center>
+    <a href="<?= URL ?>producto/generarPdfCodigoProductos" target="_blank">
+      <button class="btn btn-primary"><i class="fa fa-barcode" aria-hidden="true">   Generar Todos los códigos</i></button>
+    </a>
+  </center>
+  </div>
+  <div class="col-sm-4">
+    <center>
+    <a href="<?= URL ?>producto/informefproducto" target="_blank">
+      <button class="btn btn-primary"><i class="fa fa-file-pdf-o" aria-hidden="true">   Reporte PDF Productos</i></button>
+    </a>
+  </center>
+  </div>
 </div>
 </form>
 </div>
@@ -217,12 +249,23 @@
   });
 </script>
 
-<script type="text/javascript">
+<!-- <script type="text/javascript">
   $(document).ready(function(){
-    $("#txtcategoria").val();
 
+    $("#txtcategoria").change(function(){
+      var cate = $(this).val();
+
+      if(cate == "Ropa"){
+        $("#div-talla").show();
+        $("#txttamano").hide();
+      }else{
+        $("#div-talla").show();
+        $("#txttamano").show();
+
+      }
+    });
    });
-</script>
+</script> -->
 
 <script type="text/javascript">
 function cambiarestado(id){

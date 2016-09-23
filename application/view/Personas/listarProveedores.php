@@ -19,8 +19,8 @@
                                 <th>Identificación</th>
                                 <th>Nombres</th>
                                 <th>Apellidos</th>
-                                <th>Telefono</th>
-                                <th>Direccion</th>
+                                <!-- <th>Telefono</th> -->
+                                <th>Tipo de Persona</th>
                                 <th>Estado</th>
                                 <th>Opciones</th>
 
@@ -32,8 +32,8 @@
                                 <td><?= $valor['id_persona'] ?></td>
                                 <td><?=  $valor['nombres'] ?></td>
                                 <td><?=  $valor['apellidos'] ?></td>
-                                <td><?=  $valor['telefono'] ?></td>
-                                <td><?=  $valor['direccion'] ?></td>
+                                <!-- <td><?=  $valor['telefono'] ?></td> -->
+                                <td><?=  $valor['Tbl_nombre_tipo_persona'] ?></td>
                                 <td><?php if($valor['estado'] == 1): ?>
                                         Habilitado
                                        <?php else:  ?>
@@ -51,7 +51,7 @@
                                      <button type="button" class="btn btn-success btn-circle btn-md" onclick=""data-toggle="modal" data-target="#modal-actualizar-prov" title="Modificar"><i class="fa fa-pencil-square-o" aria-hidden="true" title="Modificar"></i></button>
                                      </a>
 
-                                   <button type="button"  onclick="cambiarestado(<?= $valor['id_persona']?>)" class="btn btn-danger btn-circle btn-md" title="Cambiar estado"><span class="glyphicon glyphicon-refresh" aria-hidden="true" title="Cambiar estado"></span></button>
+                                   <button type="button"  onclick="cambiarestado('<?= $valor['id_persona']?>')" class="btn btn-danger btn-circle btn-md" title="Cambiar estado"><span class="glyphicon glyphicon-refresh" aria-hidden="true" title="Cambiar estado"></span></button>
 
                                   <?php else:  ?>
 
@@ -59,7 +59,7 @@
                                     <button type="button" class="btn btn-primary btn-circle btn-md" onclick=""data-toggle="modal" data-target="#modal-detalles-Proveedor" title="Ver detalles"><i class="fa fa-eye" aria-hidden="true" title="Ver detalles"></i></button>
                                     </a>
 
-                                   <button type="button"  onclick="cambiarestado(<?= $valor['id_persona']?>)" class="btn btn-danger btn-circle btn-md" title="Cambiar estado"><span class="glyphicon glyphicon-refresh" aria-hidden="true" title="Cambiar estado"></span></button>
+                                   <button type="button"  onclick="cambiarestado('<?= $valor['id_persona']?>')" class="btn btn-danger btn-circle btn-md" title="Cambiar estado"><span class="glyphicon glyphicon-refresh" aria-hidden="true" title="Cambiar estado"></span></button>
 
                                  <?php endif ?>
                               </td>
@@ -67,6 +67,15 @@
                                 <?php endforeach; ?>
                         </tbody>
                     </table>
+                </div>
+                 <div class="row">
+                  <div class="col-sm-12">
+                    <center>
+                    <a href="<?= URL ?>Personas/generarpdfproveedor" target="_blank">
+                      <button class="btn btn-primary"><i class="fa fa-file-pdf-o" aria-hidden="true">   Reporte PDF de Proveedores</i></button>
+                    </a>
+                  </center>
+                  </div>
                 </div>
               </div>
             </div>
@@ -78,7 +87,7 @@
 </div>
 <!-- </form> -->
 
-<?php if ($id!= 0 && $tipo == 1): ?>
+<?php if ($id!= "" && $tipo == 1): ?>
 
 <div class="modal fade" id="modal-actualizar-prov" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static">
    <div class="modal-dialog" role="document">
@@ -244,8 +253,9 @@
                         <tr>
 
                         <th>Celular</th>
+                        <th>Teléfono</th>
                         <th>E-mail</th>
-                        <th>Tipo proveedor</th>
+                        <th>Dirección</th>
                       <?php if ( $proveedor['Tbl_TipoPersona_idTbl_TipoPersona'] == 4): ?>
                         <th>Nit empresa</th>
                         <th>Nombre empresa</th>
@@ -257,8 +267,9 @@
 
                         <tr>
                           <td><?=  $proveedor['celular'] ?></td>
+                          <td><?=  $proveedor['telefono'] ?></td>
                           <td><?=  $proveedor['email'] ?></td>
-                          <td><?=  $proveedor['Tbl_nombre_tipo_persona'] ?></td>
+                          <td><?=  $proveedor['direccion'] ?></td>
                           <?php if ( $proveedor['Tbl_TipoPersona_idTbl_TipoPersona'] == 4): ?>
                             <td><?=  $proveedorJ['nit'] ?></td>
                             <td><?=  $proveedorJ['empresa'] ?></td>

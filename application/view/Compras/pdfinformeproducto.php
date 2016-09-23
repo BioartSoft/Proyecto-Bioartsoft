@@ -1,7 +1,7 @@
 
-<form id="formPdfVentas" action="<?= URL ?>Ventas/pdfVentas" method="post" data-parsley-validate="">
+<form id="formPdfCompras" action="<?= URL ?>Compras/pdfCompras" method="post" data-parsley-validate="">
 <div class="row">
- <h3 class="page-header" style="text-align:center; color: #3CB371; margin-top: 10px; margin-bottom: 10px">REPORTE DE VENTAS</h3><br>
+ <h3 class="page-header" style="text-align:center; color: #3CB371; margin-top: 10px; margin-bottom: 10px">REPORTE DE COMPRAS</h3><br>
   <div class="row">
     <div class="col-md-1"></div>
     <div   class="col-md-4">
@@ -28,7 +28,7 @@
 <div class="row">
   <div class="col-md-5"></div>
     <div class="col-md-4">
-      <button type="submit"class="btn btn-primary active" id="btn-pdf" name="btnconsultar"><i class="fa fa-file-pdf-o" aria-hidden="true"> Generar PDF Ventas</i></button>
+      <button type="submit"class="btn btn-primary active" id="btn-pdf" name="btnconsultar"><i class="fa fa-file-pdf-o" aria-hidden="true"> Generar PDF Compras</i></button>
     </div>
 </div>
 </div>
@@ -37,7 +37,7 @@
 <script type="text/javascript">
   $(document).ready(function(){
     $("#btn-pdf").click(function(){
-      $("#formPdfVentas").parsley().validate();
+      $("#formPdfCompras").parsley().validate();
     })
   });
 </script>

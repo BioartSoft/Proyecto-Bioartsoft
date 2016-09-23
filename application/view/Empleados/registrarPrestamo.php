@@ -100,7 +100,7 @@
                 <div class="col-xs-12 col-md-6" id="divvalorprestamo">
                   <br>
                   <label>Valor Préstamo</label>
-                  <input type="number" min ="1000" id="valorpres" maxlength="8" name="txtvalorprestamo" size="9" class="form-control" data-parsley-type="integer" data-parsley-required="true">
+                  <input type="number" min ="1000" id="valorpres" maxlength="8" name="txtvalorprestamo" size="9" step="1000" class="form-control" data-parsley-type="integer" data-parsley-required="true">
                 </div>
                 <div class="col-xs-12 col-md-6" id="divdescripcion">
                   <br>

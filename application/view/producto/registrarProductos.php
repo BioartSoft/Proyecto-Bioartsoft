@@ -10,7 +10,7 @@
     <div class="row">
     <div class="col-md-4">
         <label for="form-control" class="control-label" style="color: #3CB371">Código *</label>
-        <input name="txtcodigo" id="campoCodigo" type="text" data-parsley-type="number" maxlength="10" min="1" class="form-control"  placeholder="Código" data-parsley-required="true">
+        <input name="txtcodigo" id="campoCodigo" type="text" data-parsley-type="number" maxlength="8" min="1" class="form-control"  placeholder="Código" data-parsley-required="true">
     </div>
 
     <div class="col-md-4">
@@ -34,15 +34,15 @@
 
     <div class="col-md-4">
         <label for="inputTwitter" class="control-label" style="color: #3CB371">Precio Unitario *</label>
-        <input name="txtpreciocompra" id="txtpreciocompra" type="text" data-parsley-type="integer" min="0" maxlength="10" class="form-control" id="inputTwitter" placeholder="Precio Unitario" data-parsley-required="true">
+        <input name="txtpreciocompra" id="txtpreciocompra" type="number" data-parsley-type="integer" min="0" maxlength="10" class="form-control" id="inputTwitter" placeholder="Precio Unitario" data-parsley-required="true">
     </div>
     <div class="col-md-4">
         <label for="inputTwitter" class="control-label" style="color: #3CB371">Precio al detal *</label>
-        <input name="txtprecioventa" id="txtprecioventa" type="text"  data-parsley-type="integer" min="0" maxlength="10" class="form-control" id="inputTwitter" placeholder="Precio Detal" data-parsley-required="true">
+        <input name="txtprecioventa" type="number" id="txtprecioventa" type="text"  data-parsley-type="integer" min="0" maxlength="10" class="form-control" id="inputTwitter" placeholder="Precio Detal" data-parsley-required="true">
     </div>
     <div class="col-md-4">
         <label for="inputTwitter" class="control-label" style="color: #3CB371">Precio al por mayor * </label>
-        <input id="txtprecioalpormayor"  name="txtprecioalpormayor" data-parsley-type="integer" min="0" maxlength="10" class="form-control"  placeholder="Precio por mayor" data-parsley-required="true">
+        <input id="txtprecioalpormayor" type="number" name="txtprecioalpormayor" data-parsley-type="integer" min="0" maxlength="10" class="form-control"  placeholder="Precio por mayor" data-parsley-required="true">
     </div>
 
   </div>
@@ -67,7 +67,7 @@
 
     <div class="col-md-4">
       <label for="inputTwitter" class="control-label" style="color: #3CB371">Stock Mínimo *</label>
-      <input id="txtstock"  name="txtstock" data-parsley-type="number" min="0" type="text"  maxlength="3" class="form-control"  placeholder="Stock Mínimo" data-parsley-required="true">
+      <input id="txtstock"  name="txtstock" data-parsley-type="number" min="1" type="number"  max="50" class="form-control"  placeholder="Stock Mínimo" data-parsley-required="true">
     </div>
   </div>
 
@@ -208,5 +208,35 @@ function cancelar() {
         }
       });
     });
+  });
+</script>
+
+<script type="text/javascript">
+  $("#txtpreciocompra").keydown(function(e){
+    if(e.which === 189 || e.which === 69){
+      e.preventDefault();
+      //return false;
+    }
+  });
+
+  $("#txtprecioventa").keydown(function(e){
+    if(e.which === 189 || e.which === 69){
+      e.preventDefault();
+      //return false;
+    }
+  });
+
+  $("#txtprecioalpormayor").keydown(function(e){
+    if(e.which === 189 || e.which === 69){
+      e.preventDefault();
+      //return false;
+    }
+  });
+
+  $("#txtstock").keydown(function(e){
+    if(e.which === 189 || e.which === 69){
+      e.preventDefault();
+      //return false;
+    }
   });
 </script>

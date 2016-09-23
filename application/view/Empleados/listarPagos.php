@@ -22,7 +22,7 @@
               </tr>
             </thead>
             <tbody>
-              <?php foreach ($listarE as $empleado): ?>
+              <?php foreach ($listarEmp as $empleado): ?>
                 <tr>
                   <td><?=  $empleado['id_persona'] ?></td>
                   <td><?=  $empleado['nombres'] ?></td>

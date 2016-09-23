@@ -20,8 +20,8 @@
                                   <th>Nombres</th>
                                   <th>Apellidos</th>
                                   <th>Celular</th>
-                                  <th>Tipo Empleado</th>
                                   <th>Dirección</th>
+                                  <th>Tipo Empleado</th>
                                   <th>Estado</th>
                                   <th>Opciones</th>
                               </tr>
@@ -34,8 +34,8 @@
                                   <td><?=  $valor['nombres'] ?></td>
                                   <td><?=  $valor['apellidos'] ?></td>
                                   <td><?=  $valor['celular'] ?></td>
-                                  <td><?=  $valor['Tbl_nombre_tipo_persona'] ?></td>
                                   <td><?=  $valor['direccion'] ?></td>
+                                  <td><?=  $valor['Tbl_nombre_tipo_persona'] ?></td>
                                   <td><?php if($valor['estado'] == 1): ?>
                                           Habilitado
                                          <?php else:  ?>
@@ -54,7 +54,7 @@
                                       <button type="button" class="btn btn-success btn-circle btn-md" onclick=""data-toggle="modal" data-target="#modal-actualizar" title="Modificar"><i class="fa fa-pencil-square-o" aria-hidden="true" title="Modificar"></i></button>
                                     </a>
 
-                                     <button type="button"  onclick="cambiarestado(<?= $valor['id_usuarios']?>)" class="btn btn-danger btn-circle btn-md" title="Cambiar estado"><span class="glyphicon glyphicon-refresh" aria-hidden="true" title="Cambiar estado"></span></button>
+                                     <button type="button"  onclick="cambiarestado('<?= $valor['id_usuarios']?>')" class="btn btn-danger btn-circle btn-md" title="Cambiar estado"><span class="glyphicon glyphicon-refresh" aria-hidden="true" title="Cambiar estado"></span></button>
 
                                    <a href="<?= URL. 'Personas/modificarContrasenia/' . $valor['id_usuarios'] ?>/2">
                                         <button type="button" class="btn btn-warning btn-circle btn-md" data-toggle="modal" data-target="#modal-cambiar-contras" title="Cambiar contraseña"><i class="fa fa-key" aria-hidden="true" title="Cambiar contraseña"></i></button>
@@ -64,7 +64,7 @@
                                        <button type="button" class="btn btn-primary btn-circle btn-md" onclick=""data-toggle="modal" data-target="#modal-detalles" title="Ver detalles"><i class="fa fa-eye" aria-hidden="true" title="Ver detalles"></i></button>
                                        </a>
 
-                                         <button type="button"  onclick="cambiarestado(<?= $valor['id_usuarios']?>)" class="btn btn-danger btn-circle btn-md" title="Cambiar estado"><span class="glyphicon glyphicon-refresh" aria-hidden="true" title="Cambiar estado"></span></button>
+                                         <button type="button"  onclick="cambiarestado('<?= $valor['id_usuarios']?>')" class="btn btn-danger btn-circle btn-md" title="Cambiar estado"><span class="glyphicon glyphicon-refresh" aria-hidden="true" title="Cambiar estado"></span></button>
 
                                    <?php endif ?>
                                 </td>
@@ -73,13 +73,22 @@
                           </tbody>
                       </table>
                   </div>
+                  <div class="row">
+                   <div class="col-sm-12">
+                     <center>
+                     <a href="<?= URL ?>Personas/generarpdfEmpleados" target="_blank">
+                       <button class="btn btn-primary"><i class="fa fa-file-pdf-o" aria-hidden="true">   Reporte PDF de Empledos</i></button>
+                     </a>
+                   </center>
+                   </div>
+                 </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-  <?php if ($id!= 0 && $tipo == 1): ?>
+  <?php if ($id!= "" && $tipo == 1): ?>
 
   <div class="modal fade" id="modal-actualizar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static">
      <div class="modal-dialog" role="document">
@@ -320,7 +329,7 @@
            <span aria-hidden="true">&times;</span>
              </button>
                <center>
-                 <h4 class="modal-title"  style="color: #3CB371" id="myModalLabel">Cambiar contraseña de <?php echo $persona['nombres'].' '.$persona['apellidos']?></h4>
+                 <h4 class="modal-title"  style="color: #3CB371" id="myModalLabel">Cambiar contraseña de <?= $persona['nombres'].' '.$persona['apellidos']?></h4>
                </center>
              </div>
 

@@ -54,6 +54,13 @@
                     </table>
                 </div>
               </div>
+                  <div class="col-sm-12">
+    <center>
+    <a href="<?= URL ?>Existencias/informbajas" target="_blank">
+      <button class="btn btn-primary"><i class="fa fa-file-pdf-o" aria-hidden="true">   Reporte PDF Bajas</i></button>
+    </a>
+  </center>
+  </div>
             </div>
             <!-- /.panel-body -->
         </div>

@@ -11,6 +11,8 @@ class mdlCompras
   private $valor_total;
   private $estado;
   private $empleado;
+  private $fechainicial;
+  private $fechafinal;
   private $db;
 
   public function __SET($attr, $valor){
@@ -29,6 +31,24 @@ class mdlCompras
       exit("No se pudo establecer conexión con la base de datos");
     }
   }
+
+
+  public function listarpdf()
+ {
+   $sql="CALL  SP_Informe_existencia(?,?)";
+   try {
+    $ca = $this->db->prepare($sql);
+    $ca->bindParam(1,$this->fechainicial);
+    $ca->bindParam(2,$this->fechafinal);
+   $ca->execute();
+    return $ca->fetchAll(PDO::FETCH_ASSOC);
+   } catch (Exception $e) {
+
+   }
+
+ }
+
+
 
   public function insertarCompra(){
     try{

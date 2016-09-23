@@ -1,4 +1,5 @@
 <?php
+use Dompdf\Dompdf;
 
   class Existencias extends controller{
 
@@ -10,6 +11,25 @@
     $this->mdlexistencias = $this->loadModel("mdlExistencias");
 
   }
+
+  public function informbajas()
+    {
+    require_once APP . 'libs/dompdf/autoload.inc.php';
+      // $urlImagen = URL . 'producto/generarcodigo?id=';
+      // $productos = $this->mdlproducto->listar();
+
+     $bajas = $this->mdlexistencias->listarBajas();
+      ob_start();
+      require APP . 'view/Existencias/pdfbaja.php';
+      $html = ob_get_clean();
+      $dompdf = new Dompdf();
+      $dompdf->loadHtml($html);
+      // $dompdf->load_html_file($urlImagen);
+      $dompdf->setPaper('A4', 'landscape');
+      $dompdf->render();
+      $dompdf->stream("Codigos.pdf", array("Attachment" => false, 'isRemoteEnabled' => true));
+    }
+
 
     public function registrarBajas(){
       $modeloconfiguracion = $this->loadModel("mdlConfiguracionPago");

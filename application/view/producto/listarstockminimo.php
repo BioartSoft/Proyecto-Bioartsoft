@@ -44,6 +44,13 @@
  </tbody>
   </table>
 </div>
+<div class="col-sm-12">
+    <center>
+    <a href="<?= URL ?>producto/informestock" target="_blank">
+      <button class="btn btn-primary"><i class="fa fa-file-pdf-o" aria-hidden="true">   Reporte PDF de Stock</i></button>
+    </a>
+  </center>
+  </div>
 </form>
 </div>
 

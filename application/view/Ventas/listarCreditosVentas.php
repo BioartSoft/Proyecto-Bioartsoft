@@ -134,21 +134,24 @@
                      <div class="col-xs-12 col-md-6">
                          <br>
                          <label >Ingresar Abono</label><br>
-                         <input type="text" class="form-control" placeholder="Valor Abono" id="idabono" min="1000" onblur="validarAbonoCreditoV()" name="txtvalorabono" data-parsley-type="number" data-parsley-required="true">
+                         <input type="number" class="form-control" step="1000" placeholder="Valor Abono" id="idabono" min="1000" onblur="validarAbonoCreditoV()" name="txtvalorabono" data-parsley-type="number" data-parsley-required="true">
                      </div>
                   </div>
                   <br>
                     <div class="row">
                       <div class="modal-footer">
-                        <div class="col-md-6">
+                        <div class="col-md-2">
                         </div>
 
-                      <div class="col-xs-12 col-md-3">
-                        <button type="button" class="btn btn-danger btn-active"  data-dismiss="modal" style="float: left" onclick="abrirmodal()"><i class="fa fa-times" aria-hidden="true">   Cancelar</i></button>
+                      <div class="col-xs-12 col-md-4">
+                        <button type="button" class="btn btn-secondary btn-active"  data-dismiss="modal" style="float: left" onclick="abrirmodal()"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
                       </div>
 
-                      <div class="col-xs-12 col-md-3">
-                        <button type="submit" name="btnRegistrarAbono" class="btn btn-success btn-active" id="btn-Guardar-Abono" style="float: right"><i class="fa fa-floppy-o" aria-hidden="true">   Guardar</i></button>
+                      <div class="col-xs-12 col-md-4">
+                        <button type="submit" name="btnRegistrarAbono" onclick="return validarAbonoCreditoV()" class="btn btn-success btn-active" id="btn-Guardar-Abono" style="float: right"><i class="fa fa-floppy-o" aria-hidden="true">   Guardar</i></button>
+                      </div>
+
+                      <div class="col-md-2">
                       </div>
                     </div>
                   </div>
@@ -249,8 +252,9 @@ function abonosV(valor,id_ventas, valorCreditoPendienteV){
 
 <script type="text/javascript">
  function validarAbonoCreditoV(){
-     var valorAbonoCV = parseInt($("#idabono").val());
-     var valorPendienteCV = parseInt($("#totalCreditoPendiente").val().replace(".", ""));
+   var valorAbonoCV = parseInt($("#idabono").val());
+   var valorTotalCV = parseInt($("#idvalorCreditoV").val());
+   var valorPendienteCV = parseInt($("#totalCreditoPendiente").val().replace(".", ""));
         if(valorAbonoCV > valorPendienteCV){
           swal({
             title: "El valor del abono es superior al crédito pendiente! \n \n Credito Pendiente = "+ valorPendienteCV + " pesos.",
@@ -261,6 +265,8 @@ function abonosV(valor,id_ventas, valorCreditoPendienteV){
             closeOnConfirm: false,
             closeOnCancel: false
           });
+
+          $("#idabono").val("");
 
           return false;
           }

@@ -1,5 +1,7 @@
 <?php
 
+use Dompdf\Dompdf;
+
 class Ventas extends controller
 {
 
@@ -24,6 +26,37 @@ class Ventas extends controller
 
       echo json_encode($ValidarCant);
   }
+
+
+  public function informeVentas()
+     {
+       require APP . 'view/_templates/header.php';
+       require APP. 'view/Ventas/reporteVentas.php';
+       require APP . 'view/_templates/footer.php';
+     }
+
+
+     public function pdfVentas()
+        {
+          if(isset($_POST['btnconsultar'])){
+            $this->mdlVentas->__SET('fechainicial',date("Y-m-d",strtotime($_POST['txtfechainicial'])));
+            $this->mdlVentas->__SET('fechafinal',date("Y-m-d",strtotime($_POST['txtfechafinal'])));
+            $ver = $this->mdlVentas->listarpdf();
+          }
+          require_once APP . 'libs/dompdf/autoload.inc.php';
+          // $urlImagen = URL . 'producto/generarcodigo?id=';
+          // $productos = $this->mdlproducto->listar();
+          ob_start();
+          require APP . 'view/Ventas/pdfinformeVentas.php';
+          $html = ob_get_clean();
+          $dompdf = new Dompdf();
+          $dompdf->loadHtml($html);
+          // $dompdf->load_html_file($urlImagen);
+          $dompdf->setPaper('A4', 'landscape');
+          $dompdf->render();
+          $dompdf->stream("Codigos.pdf", array("Attachment" => false, 'isRemoteEnabled' => true));
+
+        }
 
 
     public function index(){
@@ -167,8 +200,6 @@ class Ventas extends controller
     }
 
     public function modificarEstado(){
-      // $this->mdlCompras->__SET("codigo", $_POST['id']);
-      // $this->mdlCompras->__SET("estado", $_POST['estado']);
       $estado = $this->mdlVentas->cambiarEstado($_POST['id'], $_POST['estado']);
       if($estado){
       echo json_encode(["v"=>1]);
@@ -343,8 +374,8 @@ class Ventas extends controller
 
 
 
-        public function modificarestadoC()
-        {
+    public function modificarestadoC()
+    {
           $estado = $this->mdlVentas->cambiarEstadoCredito2($_POST["codigo"], $_POST["estado"]);
 
           if ($estado) {
@@ -355,7 +386,6 @@ class Ventas extends controller
             echo json_encode(["v"=>2]);
 
           }
-        }
-
+      }
 }
  ?>

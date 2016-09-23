@@ -57,7 +57,7 @@ function Traerdatosdelproducto(id_producto){
         $("#txttamano").val("");
         $("#txtstock").val("");
         if($("#txtcategoria").data("select2") !== undefined){
-          $("#txtcategoria").select2("destroy");
+        $("#txtcategoria").select2("destroy");
         }
         $("#txtcodigo").val(respuesta.id_producto);
         $("#txtcodigo-txt").val(respuesta.id_producto);
@@ -107,4 +107,3 @@ function Traerdatoscategoria(id_categoria){
   },
     });
 }
-

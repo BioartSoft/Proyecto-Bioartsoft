@@ -1,4 +1,5 @@
 <?php
+use Dompdf\Dompdf;
 
   class Personas extends controller{
 
@@ -6,13 +7,71 @@
     private $mdlTipoPersona;
     private $modeloUsuario;
     private $modeloConfig;
+    private $mdlClientes;
 
     function __construct(){
 
       $this->modeloP = $this->loadModel("mdlPersona");
       $this->mdlTipoPersona = $this->loadModel("mdlTipoPersona");
       $this->modeloUsuario = $this->loadModel("mdlUsuario");
-      // $this->modeloConfig = $this->loadModel("mdlConfiguracionPago");
+      $this->modeloConfig = $this->loadModel("mdlConfiguracionPago");
+      $this->mdlClientes = $this->loadModel("mdlCliente");
+    }
+
+
+    public function generarpdfproveedor()
+    {
+      require_once APP . 'libs/dompdf/autoload.inc.php';
+      // $urlImagen = URL . 'producto/generarcodigo?id=';
+      // $productos = $this->mdlproducto->listar();
+        $listarP = $this->modeloP->ListarProveedor();
+      ob_start();
+      require APP . 'view/Personas/pdfproveedor.php';
+      $html = ob_get_clean();
+      $dompdf = new Dompdf();
+      $dompdf->loadHtml($html);
+      // $dompdf->load_html_file($urlImagen);
+      $dompdf->setPaper('A4', 'landscape');
+      $dompdf->render();
+      $dompdf->stream("Codigos.pdf", array("Attachment" => false, 'isRemoteEnabled' => true));
+    }
+
+
+    public function generarpdfClientes()
+    {
+
+      require_once APP . 'libs/dompdf/autoload.inc.php';
+      // $urlImagen = URL . 'producto/generarcodigo?id=';
+      // $productos = $this->mdlproducto->listar();
+      $listarClientes = $this->modeloP->ListarPersClientes();
+      ob_start();
+      require APP . 'view/Personas/pdfClientes.php';
+      $html = ob_get_clean();
+      $dompdf = new Dompdf();
+      $dompdf->loadHtml($html);
+      // $dompdf->load_html_file($urlImagen);
+      $dompdf->setPaper('A4', 'landscape');
+      $dompdf->render();
+      $dompdf->stream("Codigos.pdf", array("Attachment" => false, 'isRemoteEnabled' => true));
+    }
+
+
+    public function generarpdfEmpleados()
+    {
+
+      require_once APP . 'libs/dompdf/autoload.inc.php';
+      // $urlImagen = URL . 'producto/generarcodigo?id=';
+      // $productos = $this->mdlproducto->listar();
+      $listarEmpleados = $this->modeloP->ListarPersEmpleadoFijo();
+      ob_start();
+      require APP . 'view/Personas/pdfEmpledos.php';
+      $html = ob_get_clean();
+      $dompdf = new Dompdf();
+      $dompdf->loadHtml($html);
+      // $dompdf->load_html_file($urlImagen);
+      $dompdf->setPaper('A4', 'landscape');
+      $dompdf->render();
+      $dompdf->stream("Codigos.pdf", array("Attachment" => false, 'isRemoteEnabled' => true));
     }
 
 
@@ -477,7 +536,7 @@
     }
 
 
-    public function listarPersonasEmpleados($id=0,$tipo=0){
+    public function listarPersonasEmpleados($id= "",$tipo=0){
       // $modeloconfiguracion = $this->loadModel("mdlConfiguracionPago");
       // $configuracion = $modeloconfiguracion->listarConfiguracion();
       $persona = null;
@@ -716,7 +775,7 @@
       // $modeloconfiguracion = $this->loadModel("mdlConfiguracionPago");
       // $configuracion = $modeloconfiguracion->listarConfiguracion();
 
-      if($id!=0){
+      if($id!= ""){
         $persona = $this->modeloP->ListarPersEmpleadoFijoID($id);
       }
       if(isset($_POST['btn-modificar-clave'])){

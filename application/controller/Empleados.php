@@ -39,7 +39,7 @@
                 }
 
                $_SESSION['jhoan'] = ' swal({
-                title: "Abono Registrado!",
+                title: "Abono Registrado Correctamente!",
                 type: "success",
                 confirmButton: "#3CB371",
                 confirmButtonText: "Aceptar",
@@ -59,7 +59,7 @@
 
         if ($modelo->modificarprestamos()) {
               $_SESSION['alerta'] = ' swal({
-                  title: "Préstamo Modificado!",
+                  title: "Préstamo Modificado Correctamente!",
                   type: "success",
                   confirmButton: "#3CB371",
                   confirmButtonText: "Aceptar",
@@ -106,7 +106,7 @@
           if ($modelo->registrarPrestamo()) {
 
             $_SESSION['jhoan'] = ' swal({
-                title: "Prestamo Registrado!",
+                title: "Prestamo Registrado Correctamente!",
                 type: "success",
                 confirmButton: "#3CB371",
                 confirmButtonText: "Aceptar",
@@ -209,7 +209,7 @@
               $modelo->registrarDetallepagoconfiTemp();
 
               $_SESSION['jhoan'] = ' swal({
-                  title: "Pago Registrado!",
+                  title: "Pago Registrado Correctamente!",
                   type: "success",
                   confirmButton: "#3CB371",
                   confirmButtonText: "Aceptar",
@@ -257,7 +257,7 @@
             $modelo->modificarValorBase();
 
             $_SESSION['alerta'] = ' swal({
-              title: "Configuración actualizada!",
+              title: "Configuración actualizada Correctamente!",
               type: "success",
               confirmButton: "#3CB371",
               confirmButtonText: "Aceptar",
@@ -302,7 +302,7 @@
         $configuracion = $modelo->listarConfiguracion();
         $confi2 = $modelo->listarConfiguracion2();
         $modelo = $this->loadModel("mdlEmpleados");
-        $listarE = $this->modeloP->ListarPersEmpleadoFijo();
+        //$listarE = $this->modeloP->ListarPersEmpleadoFijo();
         $listarEmp = $modelo->listarPagosEmp();
 
         if (isset($_POST["btnActualizarPrestamo"])) {
@@ -471,8 +471,8 @@
                 $html .= '<tr>';
                 $html .= '<td>'.$val['fecha_abono'].'</td>';
                 $html .= '<td class="price">'.$val['valor'].'</td>';
-                $html .= '</tr>';
-                $html .= '<td>'.$val['valor'].'</td>';
+                //$html .= '</tr>';
+                //$html .= '<td class="price">'.$val['valor'].'</td>';
                 // $html .= '</tr>';
 
                   $html .= '<td>';

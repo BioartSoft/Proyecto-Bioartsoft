@@ -1,5 +1,7 @@
 <?php
 
+  use Dompdf\Dompdf;
+
   class Compras extends Controller{
 
     private $mdlCompras;
@@ -24,6 +26,38 @@
       require APP . 'view/Compras/registrarCompra.php';
       require APP . 'view/_templates/footer.php';
     }
+
+
+    public function informeproducto()
+       {
+         require APP . 'view/_templates/header.php';
+         require APP. 'view/Compras/pdfinformeproducto.php';
+         require APP . 'view/_templates/footer.php';
+       }
+
+
+       public function pdfCompras()
+          {
+            if(isset($_POST['btnconsultar'])){
+              $this->mdlCompras->__SET('fechainicial',date("Y-m-d",strtotime($_POST['txtfechainicial'])));
+              $this->mdlCompras->__SET('fechafinal',date("Y-m-d",strtotime($_POST['txtfechafinal'])));
+              $ver = $this->mdlCompras->listarpdf();
+            }
+            require_once APP . 'libs/dompdf/autoload.inc.php';
+            // $urlImagen = URL . 'producto/generarcodigo?id=';
+            // $productos = $this->mdlproducto->listar();
+            ob_start();
+            require APP . 'view/Compras/pdfinforme2.php';
+            $html = ob_get_clean();
+            $dompdf = new Dompdf();
+            $dompdf->loadHtml($html);
+            // $dompdf->load_html_file($urlImagen);
+            $dompdf->setPaper('A4', 'landscape');
+            $dompdf->render();
+            $dompdf->stream("Codigos.pdf", array("Attachment" => false, 'isRemoteEnabled' => true));
+
+          }
+
 
     public function registrarCompra(){
       $modeloconfiguracion = $this->loadModel("mdlConfiguracionPago");
@@ -137,7 +171,7 @@
 
 
     public function ajaxDetallesCompra(){
-      
+
       $detalles = $this->mdlCompras->getDetallesCompra($_POST['idCompra']);
       $info = $this->mdlCompras->getInfoCompra($_POST['idCompra']);
 

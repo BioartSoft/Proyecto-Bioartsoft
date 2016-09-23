@@ -18,6 +18,8 @@ class mdlVentas
   private $_Porcentaje_MaximoD;
   private $codigoEmpleado;
   private $dias_credito;
+  private $fechainicial;
+  private $fechafinal;
   private $db;
 
   public function __SET($attr, $valor){
@@ -38,6 +40,20 @@ class mdlVentas
   }
 
 
+  public function listarpdf()
+ {
+   $sql="CALL SP_Informe_Ventas(?,?)";
+   try {
+    $ca = $this->db->prepare($sql);
+    $ca->bindParam(1,$this->fechainicial);
+    $ca->bindParam(2,$this->fechafinal);
+   $ca->execute();
+    return $ca->fetchAll(PDO::FETCH_ASSOC);
+   } catch (Exception $e) {
+
+   }
+
+ }
 
   public function insertarVenta(){
     $sql = "CALL 	SP_InsertarVenta(?,?,?,?,?, ?)";
@@ -248,7 +264,7 @@ class mdlVentas
 
 
   public function cambiarEstadoCredito($estado){
-    $sql = "CALL SP_Cambiar_Estado_Credito(?, ?)";
+    $sql = "CALL 	SP_Cambiar_Estado_Credito2(?, ?)";
     $stm = $this->db->prepare($sql);
     $stm->bindParam(1, $this->codigo_venta);
     $stm->bindParam(2, $estado);

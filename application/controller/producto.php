@@ -1,5 +1,7 @@
 <?php
 
+use Dompdf\Dompdf;
+
 class producto extends Controller{
 
 
@@ -14,6 +16,56 @@ class producto extends Controller{
   }
 
 
+    public function informestock()
+    {
+    require_once APP . 'libs/dompdf/autoload.inc.php';
+      // $urlImagen = URL . 'producto/generarcodigo?id=';
+      // $productos = $this->mdlproducto->listar();
+
+     $stock=$this->mdlproducto->listarstock();
+      ob_start();
+      require APP . 'view/producto/pdfstock.php';
+      $html = ob_get_clean();
+      $dompdf = new Dompdf();
+      $dompdf->loadHtml($html);
+      // $dompdf->load_html_file($urlImagen);
+      $dompdf->setPaper('A4', 'landscape');
+      $dompdf->render();
+      $dompdf->stream("Codigos.pdf", array("Attachment" => false, 'isRemoteEnabled' => true));
+    }
+
+
+  public function generarPdfCodigo(){
+    $id = $_GET['id'];
+    require_once APP . 'libs/dompdf/autoload.inc.php';
+    $urlImagen = URL . 'producto/generarcodigo?id=' . $id;
+    ob_start();
+    require APP . 'view/producto/pdfcodigo.php';
+    $html = ob_get_clean();
+
+    $dompdf = new Dompdf();
+    $dompdf->loadHtml($html);
+    // $dompdf->load_html_file($urlImagen);
+    $dompdf->setPaper('A4', 'landscape');
+    $dompdf->render();
+    $dompdf->stream("Codigos.pdf", array("Attachment" => false, 'isRemoteEnabled' => true));
+  }
+
+  public function generarPdfCodigoProductos(){
+    require_once APP . 'libs/dompdf/autoload.inc.php';
+    $urlImagen = URL . 'producto/generarcodigo?id=';
+    $productos = $this->mdlproducto->listar();
+    ob_start();
+    require APP . 'view/producto/pdfCodigoProductos.php';
+    $html = ob_get_clean();
+    $dompdf = new Dompdf();
+    $dompdf->loadHtml($html);
+    // $dompdf->load_html_file($urlImagen);
+    $dompdf->setPaper('A4', 'landscape');
+    $dompdf->render();
+    $dompdf->stream("Codigos.pdf", array("Attachment" => false, 'isRemoteEnabled' => true));
+  }
+
   public function validacion(){
       $this->mdlproducto->__SET("id_producto", $_POST['campoCodigo']);
       $Validar = $this->mdlproducto->validarCodigo();
@@ -23,6 +75,38 @@ class producto extends Controller{
       else
         echo "0";
   }
+
+   public function guardarImagenCodigo($url, $nombre){
+    $ruta = APP . "imagenes/$nombre.png";
+    $content = file_get_contents($url);
+    $fp = fopen($ruta, 'w');
+    fwrite($fp, $content);
+    fclose($fp);
+    // $img = imagecreatefrompng($url);
+    // var_dump($img, $url);
+    // exit();
+    // imagepng($img);
+    // imagedestroy($img);
+    return realpath($ruta);
+  }
+
+    public function informefproducto()
+    {
+     $ver2= $this->mdlproducto->listarpdfp();
+    require_once APP . 'libs/dompdf/autoload.inc.php';
+      // $urlImagen = URL . 'producto/generarcodigo?id=';
+      // $productos = $this->mdlproducto->listar();
+        $ver2 = $this->mdlproducto->listarpdfp();
+      ob_start();
+      require APP . 'view/producto/pdfinformepf.php';
+      $html = ob_get_clean();
+      $dompdf = new Dompdf();
+      $dompdf->loadHtml($html);
+      // $dompdf->load_html_file($urlImagen);
+      $dompdf->setPaper('A4', 'landscape');
+      $dompdf->render();
+      $dompdf->stream("Codigos.pdf", array("Attachment" => false, 'isRemoteEnabled' => true));
+    }
 
 
   public function validacionCantidad(){
@@ -293,7 +377,7 @@ class producto extends Controller{
     $categoria = $this->mdlproducto->traerporcodigo($_POST['id']);
     echo json_encode($categoria);
 
-  } 
+  }
 
   private function modificarProducto(){
     $this->mdlproducto->id_producto = $_POST["txtcodigo"];
