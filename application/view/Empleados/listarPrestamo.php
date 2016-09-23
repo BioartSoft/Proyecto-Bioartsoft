@@ -159,7 +159,7 @@
           </div>
         </div>
 
-              <div class="modal fade" id="abonos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard ="false" data-backdrop = "static">
+            <div class="modal fade" id="abonos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard ="false" data-backdrop = "static">
                 <div class="modal-dialog" role="document" style="width: 35% !important">
                   <div class="modal-content">
                     <div class="modal-header">
@@ -168,78 +168,68 @@
                       </button>
                       <h4 class="modal-title" id="myModalLabel" style="text-align:center; color: #3CB371">Abono de Préstamos de <span id="empleado"></span></h4>
                     </div>
-
                     <div class="modal-body">
-                    <!-- <form method="POST" id="abonar" action="<?php echo URL?>Empleados/ListarPrest" data-parsley-validate="" onsubmit="return validarAbono()"> -->
-                    <div class="modal-body">
-                    <div class="row">
-                        <input type="hidden" name="txtidprestamo" id="idprestamos">
-                        <input type="hidden" name="" id="totalsumaabono">
-                        <div class="col-xs-12 col-md-6">
-                          <label >Valor Abono</label><br>
-                          <input type="number" class="form-control" placeholder="Valor Abono" id="idabono" min="1000" name="txtvalorabono" data-parsley-type="integer" step="1000" data-parsley-required="true">
-                      </div>
-                      <div class="col-xs-12 col-md-6">
-                          <label >Valor Préstamo</label><br>
-                          <input type="text" class="form-control" name="txtresta" placeholder="" id="idvalorPrestamo" readonly="">
-                          <input type="hidden" name="txtva" id="idtruefalse" value="true">
-                      </div>
-                      </div>
-                      <br>
-                      <div class="row">
-                        <div class="col-xs-12 col-md-6" style="float: right">
-                          <label >Valor Pendiente</label><br>
-                          <input type="text" class="form-control" name="txtpendiente" placeholder="" id="idvalorPendiente" readonly="">
-                        </div>
-                      </div>
-                    <br><br>
-                      <div class="row">
-                        <div class="modal-footer">
-                          <div class="col-md-2">
+                      <form method="POST" id="abonar" action="<?php echo URL?>Empleados/ListarPrest" onsubmit="return validarAbono()" data-parsley-validate="">
+                          <div class="row">
+                            <input type="hidden" name="txtidprestamo" id="idprestamos">
+                            <input type="hidden" name="" id="totalsumaabono">
+                          <div class="col-xs-12 col-md-6">
+                              <label >Valor Abono</label><br>
+                              <input type="number" class="form-control" placeholder="Valor Abono" id="idabono" min="1000" step="1000" name="txtvalorabono" data-parsley-type="integer" data-parsley-required="true">
                           </div>
-                        <div class="col-xs-12 col-md-4">
-                        <button type="button" class="btn btn-secondary btn-active"  data-dismiss="modal" style="float: right" onclick="abrirmodal()"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
+                          <div class="col-xs-12 col-md-6">
+                              <label >Valor Préstamo</label><br>
+                              <input type="text" class="form-control" name="txtresta" placeholder="" id="idvalorPrestamo" readonly="">
+                              <input type="hidden" name="txtva" id="idtruefalse" value="true">
+                          </div>
                         </div>
-                        <div class="col-md-2">
-                        </div>
-                        <div class="col-xs-12 col-md-4">
-                            <button type="submit" name="btnRegistrarAbono" class="btn btn-success btn-active" id="btnguararAbono" style="float: left"><i class="fa fa-floppy-o" aria-hidden="true">   Guardar</i></button>
-                        </div>
+                          <br>
+                          <div class="row">
+                            <div class="col-xs-12 col-md-6" style="float: right">
+                              <label >Valor Pendiente</label><br>
+                              <input type="text" class="form-control" name="txtpendiente" placeholder="" id="idvalorPendiente" readonly="">
+                            </div>
+                          </div>
+                        <br><br>
+                          <div class="row">
+                            <div class="modal-footer">
+                                <div class="col-md-2">
+                                </div>
+                              <div class="col-xs-12 col-md-4">
+                              <button type="button" class="btn btn-secondary btn-active"  data-dismiss="modal" style="float: right" onclick="abrirmodal()"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
+                              </div>
+                              <div class="col-md-2">
+                              </div>
+                              <div class="col-xs-12 col-md-4">
+                                  <button type="submit" name="btnRegistrarAbono" class="btn btn-success btn-active" id="btnguararAbono" style="float: left"><i class="fa fa-floppy-o" aria-hidden="true">   Guardar</i></button>
+                              </div>
+                          </div>
                       </div>
-                    </div>
+                    </form>
                   </div>
-                </form>
               </div>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-</div>
 
           <script type="text/javascript">
             $(document).ready(function(){
 
               $("#btnguararAbono").click(function(){
 
-                $("#formModPrest").parsley().validate();
+                $("#abonar").parsley().validate();
               })
             })
           </script>
 
-  <script type="text/javascript">
+          <script type="text/javascript">
+            $(document).ready(function(){
 
-  <script type="text/javascript">
-    $(document).ready(function(){
+              $("#btnmodificarprestamo").click(function(){
 
-      $("#btnmodificarprestamo").click(function(){
-
-        $("#formModPrest").parsley().validate();
-      })
-    })
-  </script>
+                $("#formModPrest").parsley().validate();
+              })
+            })
+          </script>
 
 <script type="text/javascript">
 

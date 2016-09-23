@@ -516,6 +516,6 @@
                 }
               ?>
               });
-</script>
+            </script>
 
 <div id="page-wrapper">

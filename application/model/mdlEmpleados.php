@@ -317,16 +317,26 @@
 			$stm = $this->db->prepare($sql);
 			$stm->bindParam(1, $codigo);
 			$stm->bindParam(2, $estado);
-			return $stm->execute();
+			$respuesta = $stm->execute();
+
+			if($respuesta == true && $this->devolverProductosAbono($codigo)){
+			      # confirmamos los cambios
+			      $this->db->commit();
+			    } else {
+			      # hubo error, entonces devolvemos los cambios realizados
+			      $this->db->rollback();
+			    }
+			    return $respuesta;
 		}
 
-		public function devolverProductos($codigo){
+
+		public function devolverProductosAbono($codigo){
 		  # listamos los detalles
 		  $detalles = $this->getDetallesCompra($codigo);
 		  $ok = true;
 		  # recorremos los detalles
 		  foreach($detalles AS $detalle){
-		    $r = $this->devolverProducto($detalle['cantidad'], $detalle['id_producto']);
+		    $r = $this->devolverValorAbono($detalle['cantidad'], $detalle['id_producto']);
 		    # si ocurrió un error al devolver el producto cancelamos todo
 		    if($r == false){
 		      $ok = false;
@@ -337,7 +347,7 @@
 		}
 
 
-		public function devolverProducto($cantidad, $producto){
+		public function devolverValorAbono($cantidad, $producto){
 		  $sql = "CALL SP_Actualizar_Existencia_compra(?, ?)";
 		  $stm = $this->db->prepare($sql);
 		  $stm->bindParam(1, $cantidad);

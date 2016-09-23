@@ -187,10 +187,7 @@
                                       <i class="fa fa-calendar"></i>
                                     </div>
                                     <input type="text" class="form-control pull-right" name="txtfechainicial" id="idfechainicial" style="border-radius:5px;" step="1" readonly="">
-                                    <?php
-                                      $hoy = date("Y-m-d");
-                                    ?>
-                                    <input type="hidden" id="fecha_final" name="txtfecha_final" value="<?php echo $hoy ?>">
+                                    <input type="hidden" id="fecha_final" name="txtfecha_final" value="">
                                   </div>
                                 </div>
                               </div>
