@@ -673,5 +673,39 @@
         }
       }
 
+      public function AsociarPagoLiquidacion()
+      {
+        $modelo = $this->loadModel("mdlEmpleados");
+        $modelo->__SET("id_persona",$_POST["identidad"]);
+        $valorPago = $modelo->asociarPago();
+        $resultadovalorpago = implode('', $valorPago);
+
+        if ($resultadovalorpago) {
+          echo json_encode(["v"=>$resultadovalorpago]);
+        }
+        else
+        {
+          echo json_encode(["v"=>null]);
+        }
+
+      }
+
+      public function AsociarPagoPrima()
+      {
+        $modelo = $this->loadModel("mdlEmpleados");
+        $modelo->__SET("id_persona",$_POST["identidad"]);
+        $valorPagoPrima = $modelo->asociarPagoPrima();
+        $resultadovalorpagoPrima = implode('', $valorPagoPrima);
+
+        if ($resultadovalorpagoPrima) {
+          echo json_encode(["v"=>$resultadovalorpagoPrima]);
+        }
+        else
+        {
+          echo json_encode(["v"=>null]);
+        }
+
+      }
+
   }
 ?>

@@ -147,9 +147,18 @@
                               </div>
                               <div class="col-xs-12 col-md-4" id="divvalorpenditeprestamo">
                                 <label id="labelValorVentas">Pendiente de Préstamos</label>                                 <div class="input-group">
-                                  <input type="text" class="form-control" placeholder="Valor Pendiente" name="txtValorprestamo" id="valor_penprestamos">
+                                  <input type="number" class="form-control" placeholder="Valor Pendiente" name="txtValorprestamo" id="valor_penprestamos" readonly="" min="0">
                                   <span class="input-group-btn">
                                     <button class="btn btn-default" type="button" id="idbotonprestamos" onclick="traervalorprestamopen()" style="background-color: #E0F8E0"> <b>Consultar</b></button>
+                                  </span>
+                                </div>
+                              </div>
+                              <div class="col-xs-12 col-md-4" id="divvalorultipago">
+                                <label>Asociar Pago</label>                                 
+                                <div class="input-group">
+                                  <input type="number" class="form-control" placeholder="Valor Pago" name="txtValorultipago" id="valor_ultimopago" value="0" min="0" readonly="">
+                                  <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" id="idbotonasociarpago" onclick="traerPagonormal()" style="background-color: #E0F8E0"> <b>Asociar</b></button>
                                   </span>
                                 </div>
                               </div>
@@ -202,6 +211,15 @@
 							        <button class="btn btn-default" type="button" id="idbotonventas" onclick="traervalorVentas()" style="background-color: #E0F8E0"> <b>Consultar</b></button>
 							      </span>
 							    </div>
+                              </div>
+                              <div class="col-xs-12 col-md-4" id="divvalorprimaservicios">
+                                <label>Asociar Prima</label>                                 
+                                <div class="input-group">
+                                  <input type="number" class="form-control" placeholder="Valor Prima" name="txtValorprimaServicios" id="valor_primaser" value="0" min="0" readonly="">
+                                  <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" id="idbotonasociarprima" onclick="traerPagoprima()" style="background-color: #E0F8E0"> <b>Asociar</b></button>
+                                  </span>
+                                </div>
                               </div>
                             </div>
                             <br>
@@ -325,6 +343,42 @@
           </div>
         </div>
       </center>
+        <script type="text/javascript">
+            function traerPagonormal() {
+              var identidad = $("#identi").val();
+              $.ajax({
+                url: url +'Empleados/AsociarPagoLiquidacion',
+                type: 'POST',
+                dataType: 'JSON',
+                data: {identidad: identidad},
+              })
+              .done(function(respuesta) {
+                if (respuesta.v != null) {
+                var valorpago = respuesta.v;
+                $("#valor_ultimopago").val(valorpago);                 
+                };
+              });
+              
+            }
+          </script>
+          <script type="text/javascript">
+            function traerPagoprima() {
+              var identidad = $("#identi").val();
+              $.ajax({
+                url: url +'Empleados/AsociarPagoPrima',
+                type: 'POST',
+                dataType: 'JSON',
+                data: {identidad: identidad},
+              })
+              .done(function(respuesta) {
+                if (respuesta.v != null) {
+                var valorpagoPrima = respuesta.v;
+                $("#valor_primaser").val(valorpagoPrima);                 
+                };
+              });
+              
+            }
+          </script>
       	<script type="text/javascript">
       		function traervalorVentas() {
 
@@ -427,6 +481,8 @@
                $("#vacaprima").val(resulvacaprima);
                var cesa =  parseInt($("#valorcesantias").val());
                var pendientePrestamo = $("#valor_penprestamos").val();
+               var asociarPago = parseInt($("#valor_ultimopago").val());
+               var asociarPrima = parseInt($("#valor_primaser").val());
 
                //En este bloque se saca la diferencia de días entre la fecha de contrato y fecha final
               var fechaContrato = $("#fecha_Contrato").val();
@@ -483,9 +539,8 @@
 
               var PagototalPrima = salario * diffDayssjhoan / 360;
               }
-
               //Valor total liquidación
-              var totalliquidaciones = valvacaciones + valortotalcesantias - pendientePrestamo;
+              var totalliquidaciones = valvacaciones + valortotalcesantias + asociarPago + asociarPrima - pendientePrestamo;
 
               //Salario Neto
                var html = '        <div class="cta-desc">';
@@ -794,6 +849,19 @@
                     $("#divPagoTotalTemporallol").hide();
                     $("#divFechapagoPrima").hide();
                     $("#divvalorpenditeprestamo").hide();
+                    $("#divvalorultipago").hide();
+                    $("#divvalorprimaservicios").hide();
+                    $("#valor_penprestamos").val(0);
+                    $("#valor_ultimopago").val(0);
+                    $("#valor_primaser").val(0);
+                    $("#totalvacaciones").html("0");
+                    $("#idtotalcesantias").html("0");
+                    $("#totalliquidaciones").html("0");
+                    $("#valorvacacionestot").val("");
+                    $("#valorcesantias").val("");
+                    $("#valortotliquidacion").val("");
+                    $("#totalprimates").html("0");
+                    $("#valortotalprima").val("");
 
                   }else if (tipo == 2) {
 
@@ -802,7 +870,7 @@
                     $("#divFechapagoliquidacion").removeAttr('style');
                     $("#divTipoPago").show();
                     $("#divTiempoPago").hide();
-                    $("#divPorcentaje").show();
+                    $("#divPorcentaje").hide();
                     $("#divValorBase").show();
                     $("#divIdentificacion").show();
                     $("#divTipoEmpleado").show();
@@ -810,15 +878,26 @@
                     $("#divvalorprima").show();
                     $("#divvalorvacaciones").show();
                     $("#divvalorcesantias").show();
-                    $("#divvalorventas").show();
+                    $("#divvalorventas").hide();
                     $("#divPagoTotal").hide();
                     $("#divValordia").hide();
                     $("#divFechaInicial").hide();
-                    $("#divdias").show();
+                    $("#divdias").hide();
                     $("#divPagoTotalliquidacion").show();
                     $("#divPagoTotaltemporal").hide();
                     $("#divFechapagoPrima").hide();
                     $("#divvalorpenditeprestamo").show();
+                    $("#divvalorultipago").show();
+                    $("#divvalorprimaservicios").show();
+                    $("#valor_Ventas").val("");
+                    $("#total").html("0");
+                    $("#totalco").html("0");
+                    $("#totalpagos").html("0");
+                    $("#neto").val("");
+                    $("#valorcomision").val("");
+                    $("#totalpago").val("");
+                    $("#totalprimates").html("0");
+                    $("#valortotalprima").val("");
 
                   }
 
@@ -846,6 +925,24 @@
                     $("#divdias").hide();
                     $("#divFechapagoPrima").removeAttr('style');
                     $("#divvalorpenditeprestamo").hide();
+                    $("#divvalorultipago").hide();
+                    $("#divvalorprimaservicios").hide();
+                    $("#valor_penprestamos").val(0);
+                    $("#valor_ultimopago").val(0);
+                    $("#valor_primaser").val(0);
+                    $("#totalvacaciones").html("0");
+                    $("#idtotalcesantias").html("0");
+                    $("#totalliquidaciones").html("0");
+                    $("#valorvacacionestot").val("");
+                    $("#valorcesantias").val("");
+                    $("#valortotliquidacion").val("");
+                    $("#valor_Ventas").val("");
+                    $("#total").html("0");
+                    $("#totalco").html("0");
+                    $("#totalpagos").html("0");
+                    $("#neto").val("");
+                    $("#valorcomision").val("");
+                    $("#totalpago").val("");
                   }
                }
           </script>
@@ -1163,3 +1260,4 @@
               }
             }
           </script>
+          

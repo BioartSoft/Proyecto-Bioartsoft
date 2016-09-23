@@ -362,5 +362,23 @@
 			return $stm->fetch(PDO::FETCH_ASSOC);
 		}
 
+		public function asociarPago()
+		{
+			$sql = "CALL SP_AsociarPagoaLiquidacion(?)";
+			$stm = $this->db->prepare($sql);
+			$stm->bindParam(1, $this->id_persona);
+			$stm->execute();
+			return $stm->fetch(2);
+		}
+
+		public function asociarPagoPrima()
+		{
+			$sql = "CALL SP_AsociarPrimaLiquidacion(?)";
+			$stm = $this->db->prepare($sql);
+			$stm->bindParam(1, $this->id_persona);
+			$stm->execute();
+			return $stm->fetch(2);
+		}
+
 	}
  ?>

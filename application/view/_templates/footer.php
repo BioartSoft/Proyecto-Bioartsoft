@@ -124,6 +124,8 @@ $(document).ready(function(){
                       $("#btnGuardarPrima").hide();
                       $("#btnGuardartempo").hide();
                       $("#divvalorpenditeprestamo").hide();
+                      $("#divvalorultipago").hide();
+                      $("#divvalorprimaservicios").hide();
 
                     }
 
