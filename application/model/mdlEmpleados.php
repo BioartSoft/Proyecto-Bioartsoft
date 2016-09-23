@@ -311,10 +311,74 @@
 		public function cambiarestadoAbonos($codigo, $estado)
 		{
 			$sql ="CALL SP_anularAbonoPrestamos(?,?)";
+
+			$this->db->beginTransaction();
+			
 			$stm = $this->db->prepare($sql);
 			$stm->bindParam(1, $codigo);
 			$stm->bindParam(2, $estado);
 			return $stm->execute();
+		}
+
+		public function devolverProductos($codigo){
+		  # listamos los detalles
+		  $detalles = $this->getDetallesCompra($codigo);
+		  $ok = true;
+		  # recorremos los detalles
+		  foreach($detalles AS $detalle){
+		    $r = $this->devolverProducto($detalle['cantidad'], $detalle['id_producto']);
+		    # si ocurrió un error al devolver el producto cancelamos todo
+		    if($r == false){
+		      $ok = false;
+		      break;
+		    }
+		  }
+		  return $ok;
+		}
+
+
+		public function devolverProducto($cantidad, $producto){
+		  $sql = "CALL SP_Actualizar_Existencia_compra(?, ?)";
+		  $stm = $this->db->prepare($sql);
+		  $stm->bindParam(1, $cantidad);
+		  $stm->bindParam(2, $producto);
+		  return $stm->execute();
+		}
+
+		public function cambiarestadoPrestamo($codigo, $estado)
+		{
+			$sql ="CALL SP_AnularPrestamo(?,?)";
+			$stm = $this->db->prepare($sql);
+			$stm->bindParam(1, $codigo);
+			$stm->bindParam(2, $estado);	
+			return $stm->execute();
+		}
+
+		public function nullEnAbonos()
+		{
+			$sql = "CALL SP_ValAbonoAnularPrestamo(?)";
+			$stm = $this->db->prepare($sql);
+			$stm->bindParam(1, $this->id_prestamos);
+			$stm->execute();
+			return $stm->fetch(PDO::FETCH_ASSOC);
+		}
+
+		public function asociarPago()
+		{
+			$sql = "CALL SP_AsociarPagoaLiquidacion(?)";
+			$stm = $this->db->prepare($sql);
+			$stm->bindParam(1, $this->id_persona);
+			$stm->execute();
+			return $stm->fetch(2);
+		}
+
+		public function asociarPagoPrima()
+		{
+			$sql = "CALL SP_AsociarPrimaLiquidacion(?)";
+			$stm = $this->db->prepare($sql);
+			$stm->bindParam(1, $this->id_persona);
+			$stm->execute();
+			return $stm->fetch(2);
 		}
 
 	}
