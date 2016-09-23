@@ -323,52 +323,6 @@
       });
     }
   </script>
-  <script type="text/javascript">
-    function cambiarestadoPrestamo(cod, est){
-    swal({
-      title: "Realmente Desea Anular el Pago",
-      type: "warning",
-      confirmButton: "#3CB371",
-      confirmButtonText: "btn-danger",
-      cancelButtonText: "Cancelar",
-      showCancelButton: true,
-      confirmButtonClass: "btn-danger",
-      confirmButtonText: "Aceptar",
-      closeOnConfirm: false,
-
-    },
-    function(isConfirm){
-        if (isConfirm) {
-          swal({
-            title: "Pago Anulado.!",
-            type: "error",
-            confirmButton: "#3CB371",
-            confirmButtonText: "Aceptar",
-            // confirmButtonText: "Cancelar",
-            closeOnConfirm: false,
-            closeOnCancel: false
-          },
-          function(isConfirm){
-            $.ajax({
-              dataType:'json',
-              type:'post',
-              url:url+"Empleados/modificarEstado",
-              data:{id:cod, estado:est}
-            }).done(function(respuesta){
-              if(respuesta.v == 1){
-                window.location = url + "Empleados/listarPagos";
-              }else{
-                sweealert("Error al cambiar el estado");
-              }
-            }).fail(function(){
-
-            })
-          });
-        }
-        });
-}
-
-  </script>
 
   <script type="text/javascript">
     function abonar(nombre, detalle)
@@ -513,7 +467,6 @@
 
   });
 
-  <script type="text/javascript">
         function cambiarestadoprestamo(cod, est){
           validarSiTieneAbono(cod);
     swal({
@@ -585,5 +538,4 @@
       });
 
     }
->>>>>>> b87213fc22e1211045a3a6e5b03765b28def8929
   </script>
