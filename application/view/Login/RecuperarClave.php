@@ -95,9 +95,6 @@
                 </div>
             </div>
 
-
-
-
         <script src="<?php echo URL ?>js/bootstrap.min.js"></script>
 
         <script src="<?php echo URL ?>js/sb-admin-2.js"></script>
@@ -137,7 +134,16 @@
 
   <?php if($alerta == true): ?>
       <script type="text/javascript">
-          swal("La contraseña fue enviada a su correo!");
+          //swal("La contraseña fue enviada a su correo!");
+          swal({
+            title: "La contraseña fue enviada a su correo!",
+            type: "success",
+            confirmButton: "#3CB371",
+            confirmButtonText: "Aceptar",
+            // confirmButtonText: "Cancelar",
+            closeOnConfirm: false,
+            closeOnCancel: false
+          });
       </script>
   <?php endif; ?>
   </body>

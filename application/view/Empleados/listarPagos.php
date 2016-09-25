@@ -65,6 +65,14 @@
    </tbody>
     </table>
   </div>
+
+  <div class="col-sm-12">
+    <center>
+    <a href="<?= URL ?>Empleados/informePagos" target="_blank">
+      <button class="btn btn-primary"><i class="fa fa-file-pdf-o" aria-hidden="true">   Reporte PDF Pagos</i></button>
+    </a>
+  </center>
+  </div>
   </form>
   </div>
   </center>

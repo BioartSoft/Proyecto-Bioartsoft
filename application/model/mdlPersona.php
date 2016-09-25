@@ -53,6 +53,24 @@ class mdlPersona
   }
 
 
+  public function listarPagosEmp()
+  {
+    $sql = "CALL SP_Informe_Pagos()";
+          $stm = $this->db->prepare($sql);
+          $stm->execute();
+          return $stm->fetchAll(PDO::FETCH_ASSOC);
+  }
+
+
+  public function listarInformePrestamos()
+  {
+    $sql = "CALL SP_Informe_Prestamos()";
+          $stm = $this->db->prepare($sql);
+          $stm->execute();
+          return $stm->fetchAll(PDO::FETCH_ASSOC);
+  }
+
+
 
   public function guardarPersona()
   {

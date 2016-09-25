@@ -8,6 +8,10 @@
   </style>
 </head>
 <body>
+<!-- <div class="row" style="border: 2px solid black"> -->
+  <img src="<?php echo URL ?>img/BioartesV2.png" height="100" width="200">
+<!-- </div> -->
+  <br>
 <center><legend>INFORME DE BAJAS</legend></center>
   <br><br>
   <table border="1">

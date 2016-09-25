@@ -1,7 +1,7 @@
 
-<form id="formPdfVentas" action="<?= URL ?>Ventas/pdfVentas" method="post" data-parsley-validate="">
+<form id="formPdfVentas" action="<?= URL ?>Ventas/pdfVentas" method="post" data-parsley-validate="" target="_blank">
 <div class="row">
- <h3 class="page-header" style="text-align:center; color: #3CB371; margin-top: 10px; margin-bottom: 10px">REPORTE DE VENTAS</h3><br>
+ <h3 class="page-header" style="text-align:center; color: #3CB371; margin-top: 10px; margin-bottom: 10px">Reporte de Ventas</h3><br>
   <div class="row">
     <div class="col-md-1"></div>
     <div   class="col-md-4">

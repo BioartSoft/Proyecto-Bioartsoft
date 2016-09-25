@@ -154,7 +154,7 @@
                                 </div>
                               </div>
                               <div class="col-xs-12 col-md-4" id="divvalorultipago">
-                                <label>Asociar Pago</label>                                 
+                                <label>Asociar Pago</label>
                                 <div class="input-group">
                                   <input type="number" class="form-control" placeholder="Valor Pago" name="txtValorultipago" id="valor_ultimopago" value="0" min="0" readonly="">
                                   <span class="input-group-btn">
@@ -187,10 +187,8 @@
                                       <i class="fa fa-calendar"></i>
                                     </div>
                                     <input type="text" class="form-control pull-right" name="txtfechainicial" id="idfechainicial" style="border-radius:5px;" step="1" readonly="">
-                                    <?php
-                                      $hoy = date("Y-m-d");
-                                    ?>
-                                    <input type="hidden" id="fecha_final" name="txtfecha_final" value="<?php echo $hoy ?>">
+                              
+                                    <input type="hidden" id="fecha_final" name="txtfecha_final">
                                   </div>
                                 </div>
                               </div>
@@ -213,7 +211,7 @@
 							    </div>
                               </div>
                               <div class="col-xs-12 col-md-4" id="divvalorprimaservicios">
-                                <label>Asociar Prima</label>                                 
+                                <label>Asociar Prima</label>
                                 <div class="input-group">
                                   <input type="number" class="form-control" placeholder="Valor Prima" name="txtValorprimaServicios" id="valor_primaser" value="0" min="0" readonly="">
                                   <span class="input-group-btn">
@@ -323,6 +321,7 @@
                             </div>
                         </div>
                         </div>
+                        <br>
                         <div class="row">
                           <div class="col-xs-1 col-md-3">
                           </div>
@@ -355,10 +354,10 @@
               .done(function(respuesta) {
                 if (respuesta.v != null) {
                 var valorpago = respuesta.v;
-                $("#valor_ultimopago").val(valorpago);                 
+                $("#valor_ultimopago").val(valorpago);
                 };
               });
-              
+
             }
           </script>
           <script type="text/javascript">
@@ -373,10 +372,10 @@
               .done(function(respuesta) {
                 if (respuesta.v != null) {
                 var valorpagoPrima = respuesta.v;
-                $("#valor_primaser").val(valorpagoPrima);                 
+                $("#valor_primaser").val(valorpagoPrima);
                 };
               });
-              
+
             }
           </script>
       	<script type="text/javascript">
@@ -1139,7 +1138,7 @@
               var diasLaborados = $("#dias_laborados").val();
               var tipoEmpleado = $("#tipoEmpleado").val();
 
-              if(diasTemporal == "" && diasLaborados == "" && tipoEmpleado == "Empleado-temporal"){
+              if(diasTemporal == "" || diasLaborados == "" && tipoEmpleado == "Empleado-temporal"){
                 swal({
                       title: "No se han ingresado un número válido!",
                       type: "error",
@@ -1262,4 +1261,3 @@
               }
             }
           </script>
-          

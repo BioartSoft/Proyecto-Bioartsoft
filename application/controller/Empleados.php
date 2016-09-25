@@ -1,5 +1,7 @@
 <?php
 
+use Dompdf\Dompdf;
+
   class Empleados extends controller
   {
 
@@ -13,6 +15,49 @@
         $this->mdlTipoPersona = $this->loadModel("mdlTipoPersona");
         $this->modeloUsuario = $this->loadModel("mdlUsuario");
       }
+
+
+      public function informePagos()
+      {
+
+        $listarPagos = $this->modeloP->listarPagosEmp();
+
+      require_once APP . 'libs/dompdf/autoload.inc.php';
+        // $urlImagen = URL . 'producto/generarcodigo?id=';
+        // $productos = $this->mdlproducto->listar();
+          $listarPagos = $this->modeloP->listarPagosEmp();
+        ob_start();
+        require APP . 'view/Empleados/pdfinformePagos.php';
+        $html = ob_get_clean();
+        $dompdf = new Dompdf();
+        $dompdf->loadHtml($html);
+        // $dompdf->load_html_file($urlImagen);
+        $dompdf->setPaper('A4', 'landscape');
+        $dompdf->render();
+        $dompdf->stream("Informe Pagos.pdf", array("Attachment" => false, 'isRemoteEnabled' => true));
+      }
+
+
+      public function informePrestamos()
+      {
+
+        $listarPrestamos = $this->modeloP->listarInformePrestamos();
+
+      require_once APP . 'libs/dompdf/autoload.inc.php';
+        // $urlImagen = URL . 'producto/generarcodigo?id=';
+        // $productos = $this->mdlproducto->listar();
+      $listarPrestamos = $this->modeloP->listarInformePrestamos();
+        ob_start();
+        require APP . 'view/Empleados/pdfinformePrestamos.php';
+        $html = ob_get_clean();
+        $dompdf = new Dompdf();
+        $dompdf->loadHtml($html);
+        // $dompdf->load_html_file($urlImagen);
+        $dompdf->setPaper('A4', 'landscape');
+        $dompdf->render();
+        $dompdf->stream("Informe Préstamos.pdf", array("Attachment" => false, 'isRemoteEnabled' => true));
+      }
+
 
       public function ListarPrest(){
 
@@ -39,7 +84,7 @@
                 }
 
                $_SESSION['jhoan'] = ' swal({
-                title: "Abono Registrado Correctamente!",
+                title: "Guardado exitoso!",
                 type: "success",
                 confirmButton: "#3CB371",
                 confirmButtonText: "Aceptar",
@@ -59,7 +104,7 @@
 
         if ($modelo->modificarprestamos()) {
               $_SESSION['alerta'] = ' swal({
-                  title: "Préstamo Modificado Correctamente!",
+                  title: "Modificación exitosa!",
                   type: "success",
                   confirmButton: "#3CB371",
                   confirmButtonText: "Aceptar",
@@ -106,7 +151,7 @@
           if ($modelo->registrarPrestamo()) {
 
             $_SESSION['jhoan'] = ' swal({
-                title: "Prestamo Registrado Correctamente!",
+                title: "Guardado exitoso!",
                 type: "success",
                 confirmButton: "#3CB371",
                 confirmButtonText: "Aceptar",
@@ -179,7 +224,7 @@
                 $modelo->registrarDetallepagoconfi();
                 }
                     $_SESSION['jhoan'] = ' swal({
-                  title: "Pago Registrado Correctamente!",
+                  title: "Guardado exitoso!",
                   type: "success",
                   confirmButton: "#3CB371",
                   confirmButtonText: "Aceptar",
@@ -209,7 +254,7 @@
               $modelo->registrarDetallepagoconfiTemp();
 
               $_SESSION['jhoan'] = ' swal({
-                  title: "Pago Registrado Correctamente!",
+                  title: "Guardado exitoso!",
                   type: "success",
                   confirmButton: "#3CB371",
                   confirmButtonText: "Aceptar",
@@ -257,7 +302,7 @@
             $modelo->modificarValorBase();
 
             $_SESSION['alerta'] = ' swal({
-              title: "Configuración actualizada Correctamente!",
+              title: "Modificación exitosa",
               type: "success",
               confirmButton: "#3CB371",
               confirmButtonText: "Aceptar",
@@ -453,7 +498,7 @@
                   if ($val["estado_prestamo"] == 1) {
                   $html.='<button type="button" class="btn btn-warning btn-circle btn-md" onclick="abono('.$val['valor_prestamo'].','.$val['id_prestamos'].','.$valorPen.')"  title="Abonar"><i class="fa fa-money" aria-hidden="true"></i></button>';
                   $html .= ' <button  title="Modificar Préstamo" type="button" class="btn btn-success btn-circle btn-md" data-toggle="modal" onclick="Modificarprestamo('.$val['id_prestamos'].')"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>';
-                  $html .= ' <button  title="Anular" type="button" class="btn btn-danger btn-circle btn-md" data-toggle="modal" id="btnbotoncheck" onclick="cambiarestadoprestamo('.$val['id_prestamos'].',3 )"><i class="fa fa-refresh" aria-hidden="true"></i></button>';
+                  $html .= ' <button  title="Cambiar Estado" type="button" class="btn btn-danger btn-circle btn-md" data-toggle="modal" id="btnbotoncheck" onclick="cambiarestadoprestamo('.$val['id_prestamos'].',3 )"><i class="fa fa-refresh" aria-hidden="true"></i></button>';
                   }
                   $html .= ' <button type="button" onclick="traerDetalleAbonos('.$val["id_prestamos"].')" class="btn btn-primary btn-circle btn-md"   title="Ver Abonos"><i class="fa fa-eye" aria-hidden="true" ></i></button>';
                   $html .= '</td></tr>';

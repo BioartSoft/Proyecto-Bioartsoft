@@ -54,7 +54,7 @@ class Ventas extends controller
           // $dompdf->load_html_file($urlImagen);
           $dompdf->setPaper('A4', 'landscape');
           $dompdf->render();
-          $dompdf->stream("Codigos.pdf", array("Attachment" => false, 'isRemoteEnabled' => true));
+          $dompdf->stream("Informe Ventas.pdf", array("Attachment" => false, 'isRemoteEnabled' => true));
 
         }
 

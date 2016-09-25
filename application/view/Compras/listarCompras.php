@@ -137,7 +137,7 @@ function traerDetallesCompra(id){
 function cambiarEstado(cod, est){
     var bandera = true;
     swal({
-      title: "Realmente desea anular está compra",
+      title: "¿Realmente desea anular está compra?",
       type: "warning",
       confirmButton: "#3CB371",
       confirmButtonText: "btn-danger",

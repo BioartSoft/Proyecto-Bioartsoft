@@ -33,7 +33,7 @@ use Dompdf\Dompdf;
       // $dompdf->load_html_file($urlImagen);
       $dompdf->setPaper('A4', 'landscape');
       $dompdf->render();
-      $dompdf->stream("Codigos.pdf", array("Attachment" => false, 'isRemoteEnabled' => true));
+      $dompdf->stream("Informe Proveedores.pdf", array("Attachment" => false, 'isRemoteEnabled' => true));
     }
 
 
@@ -52,7 +52,7 @@ use Dompdf\Dompdf;
       // $dompdf->load_html_file($urlImagen);
       $dompdf->setPaper('A4', 'landscape');
       $dompdf->render();
-      $dompdf->stream("Codigos.pdf", array("Attachment" => false, 'isRemoteEnabled' => true));
+      $dompdf->stream("Informe Clientes.pdf", array("Attachment" => false, 'isRemoteEnabled' => true));
     }
 
 
@@ -71,7 +71,7 @@ use Dompdf\Dompdf;
       // $dompdf->load_html_file($urlImagen);
       $dompdf->setPaper('A4', 'landscape');
       $dompdf->render();
-      $dompdf->stream("Codigos.pdf", array("Attachment" => false, 'isRemoteEnabled' => true));
+      $dompdf->stream("Informe Empleados.pdf", array("Attachment" => false, 'isRemoteEnabled' => true));
     }
 
 

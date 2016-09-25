@@ -36,8 +36,23 @@
                   <td><button type="button" class="btn btn-primary btn-circle btn-md" data-toggle="modal" data-target="#myJhoan" data-tipop = "<?=  $prestamos['Tbl_nombre_tipo_persona'] ?>" title="Generar Recibo" onclick="traerDetallePrestamos('<?=  $prestamos['id_persona'] ?>')"><i class="fa fa-eye" aria-hidden="true"></i></button></td>
                 </tr>
             </tbody>
-
               <?php endforeach; ?>
+            </table>
+          </div>
+
+          <div class="col-sm-12">
+            <center>
+            <a href="<?= URL ?>Empleados/informePrestamos" target="_blank">
+              <button class="btn btn-primary"><i class="fa fa-file-pdf-o" aria-hidden="true">   Reporte PDF Préstamos</i></button>
+            </a>
+          </center>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
               <div class="modal fade" id="myJhoan" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard ="false" data-backdrop = "static">
                 <div class="modal-dialog" role="document" style="width: 90% !important">
                   <div class="modal-content">
@@ -70,6 +85,7 @@
             </div>
           </div>
         </div>
+
         <div class="modal fade" id="mymodificarprestamo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard ="false" data-backdrop = "static">
           <div class="modal-dialog modal-md" role="document">
             <div class="modal-content">
@@ -87,14 +103,12 @@
                       <div class="row">
                         <div class="col-xs-12 col-md-6" id="divFechalimite">
                           <label>Fecha Límite:</label>
-                          <div class="">
                             <div class="input-group date" data-provide = "datepicker">
                               <div class="input-group-addon" style="border-radius:5px;">
                                 <i class="fa fa-calendar"></i>
                               </div>
-                              <input type="text" class="form-control pull-right" name="txtfechalimetepre" data-parsley-required="true" style="border-radius:5px;" step="1"  value="" format="yyyy-mm-dd" id="fechalim">
+                              <input type="text" class="form-control pull-right" name="txtfechalimetepre" data-parsley-required="true" style="border-radius:5px;" step="1" format="yyyy-mm-dd" id="fechalim">
                             </div>
-                          </div>
                         </div>
                         <div class="col-xs-12 col-md-6" id="divvalorpres">
                           <label>Valor Préstamo:</label>
@@ -116,13 +130,12 @@
                         </div>
                       </div>
                     </div>
-                <!-- </form> -->
+                </form>
               </div>
             </div>
           </div>
         </div>
-      </div>
-  </center>
+
               <div class="modal fade" id="abonosPrestamos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard ="false" data-backdrop = "static">
                 <div class="modal-dialog modal-md" role="document">
                   <div class="modal-content">
@@ -168,9 +181,7 @@
                       </button>
                       <h4 class="modal-title" id="myModalLabel" style="text-align:center; color: #3CB371">Abono de Préstamos de <span id="empleado"></span></h4>
                     </div>
-
-                    <div class="modal-body">
-                    <!-- <form method="POST" id="abonar" action="<?php echo URL?>Empleados/ListarPrest" data-parsley-validate="" onsubmit="return validarAbono()"> -->
+                    <form method="POST" id="abonar" action="<?php echo URL?>Empleados/ListarPrest" data-parsley-validate="" onsubmit="return validarAbono()">
                     <div class="modal-body">
                     <div class="row">
                         <input type="hidden" name="txtidprestamo" id="idprestamos">
@@ -212,17 +223,13 @@
               </div>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-</div>
+        <!-- </div> -->
+
 
           <script type="text/javascript">
             $(document).ready(function(){
 
-              $("#btnguararAbono").click(function(){
+              $("#btnmodificarprestamo").click(function(){
 
                 $("#formModPrest").parsley().validate();
               })
@@ -230,13 +237,11 @@
           </script>
 
   <script type="text/javascript">
-
-  <script type="text/javascript">
     $(document).ready(function(){
 
-      $("#btnmodificarprestamo").click(function(){
+      $("#btnguararAbono").click(function(){
 
-        $("#formModPrest").parsley().validate();
+        $("#abonar").parsley().validate();
       })
     })
   </script>
@@ -470,7 +475,7 @@
         function cambiarestadoprestamo(cod, est){
           validarSiTieneAbono(cod);
     swal({
-      title: "¿Desea Anular el Prestamo?",
+      title: "¿Realmente desea Anular el Préstamo?",
       type: "warning",
       confirmButton: "#3CB371",
       confirmButtonText: "btn-danger",
@@ -484,7 +489,7 @@
     function(isConfirm){
         if (isConfirm) {
           swal({
-            title: "Prestamo Anulado.!",
+            title: "Préstamo Anulado.!",
             type: "error",
             confirmButton: "#3CB371",
             confirmButtonText: "Aceptar",
@@ -526,7 +531,7 @@
           else
           {
             swal({
-              title: "Préstamo con abonos realizados,no se puede anular!",
+              title: "Préstamo con abonos registrados,no se puede anular!",
               type: "error",
               confirmButton: "#3CB371",
               confirmButtonText: "Aceptar",

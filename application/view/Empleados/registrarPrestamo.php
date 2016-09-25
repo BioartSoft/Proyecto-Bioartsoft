@@ -115,11 +115,15 @@
               <div class="row">
                 <div class="col-xs-1 col-md-2">
                 </div>
-                <div class="col-xs-5 col-md-4" id="btnGuardarPrestamo">
-                  <button type="submit" class="btn btn-success btn-md active"  name="btnRegistrarPrestamo" id="btnguardarPrestamo"><i class="fa fa-floppy-o" aria-hidden="true">   Guardar</i></button>
-                </div>
                 <div class="col-xs-5 col-md-4">
-                  <button type="button" class="btn btn-danger btn-md active" onclick="cancelarprestamo()" style="float: right;" id="btncancelar"><i class="fa fa-times" aria-hidden="true">   Cancelar</i></button>
+                  <button type="button" class="btn btn-secondary btn-md active" style="float: right;" id="btncerrar" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
+                </div>
+
+                <div class="col-md-2">
+                </div>
+
+                <div class="col-xs-5 col-md-4">
+                  <button type="submit" class="btn btn-success btn-md active"  name="btnRegistrarPrestamo" id="btnguardarPrestamo"><i class="fa fa-floppy-o" aria-hidden="true">   Guardar</i></button>
                 </div>
               </div>
             </form>
@@ -194,7 +198,7 @@ $(function(){
 
       if(resut == "1"){
         swal({
-              title: "Empleado ya tiene préstamos registrado, no se puede registrar!",
+              title: "Empleado ya tiene préstamos registrados en estado Pendiente, no se puede registrar!",
               type: "error",
               confirmButton: "#3CB371",
               confirmButtonText: "Aceptar",

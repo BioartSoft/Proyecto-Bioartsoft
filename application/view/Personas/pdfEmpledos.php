@@ -8,8 +8,10 @@
   </style>
 </head>
 <body>
+<img src="<?php echo URL ?>img/BioartesV2.png" height="100" width="200">
+<br>
 <center><legend>INFORME  USUARIOS/EMPLEADOS</legend></center>
-  <br><br>
+  <br><br
   <table border="1">
     <thead>
       <tr>
