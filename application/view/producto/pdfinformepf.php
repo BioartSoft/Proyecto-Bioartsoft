@@ -17,11 +17,11 @@
       <tr>
        <th>Código Producto</th>
        <th>Nombre Producto</th>
-       <th>Categoria</th>
+       <th>Categoría</th>
        <th>Cantidad </th>
        <th>Precio Unitario</th>
-       <th>Precio detal</th>
-       <th>Precio al por mayor</th>
+       <th>Precio Detal</th>
+       <th>Precio al por Mayor</th>
       </tr>
     </thead>
     <tbody>

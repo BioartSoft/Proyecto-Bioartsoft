@@ -34,8 +34,22 @@
                 <td><?=  $cliente['apellidos'] ?></td>
                 <td><?=  $cliente['Tbl_nombre_tipo_persona'] ?></td>
                 <td><button type="button" class="btn btn-primary btn-circle btn-md" data-toggle="modal" data-target="#myJhoan" data-tipop = "<?=  $cliente['Tbl_nombre_tipo_persona'] ?>" title="Listar Créditos" onclick="traerDetalleCreditoV('<?=  $cliente['id_persona'] ?>')"><i class="fa fa-eye" aria-hidden="true"></i></button>
-
+              </tr>
             <?php endforeach; ?>
+          </tbody>
+        </table>
+      </div>
+
+            <div class="row">
+             <div class="col-sm-12">
+               <center>
+               <a href="<?= URL ?>Ventas/generarpdfCreditos" target="_blank">
+                 <button class="btn btn-primary"><i class="fa fa-file-pdf-o" aria-hidden="true">   Reporte PDF de Créditos</i></button>
+               </a>
+             </center>
+             </div>
+           </div>
+
             <div class="modal fade" id="mdListarCreditos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard ="false" data-backdrop = "static">
               <div class="modal-dialog" role="document" style="width: 96% !important">
                 <div class="modal-content">
@@ -43,7 +57,7 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="cerrar()">
                       <span aria-hidden="true">&times;</span>
                     </button>
-                      <h4 class="modal-title" id="creditosClientModal" style="text-align:center; color: #3CB371">Detalles de crédito de: <span id="cliente"></span> </h4>
+                      <h4 class="modal-title" id="creditosClientModal" style="text-align:center; color: #3CB371">Detalles de Crédito de: <span id="cliente"></span> </h4>
                   </div>
                   <div class="modal-body">
                   <div class="row">
@@ -76,7 +90,7 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="abrirmodal()">
                       <span aria-hidden="true">&times;</span>
                     </button>
-                    <h4 class="modal-title" id="creditosClientModal" style="text-align:center; color: #3CB371">Detalles abonos de: <span id="cliente-DetallesAbonos"><span></h4>
+                    <h4 class="modal-title" id="creditosClientModal" style="text-align:center; color: #3CB371">Detalles Abonos de: <span id="cliente-DetallesAbonos"><span></h4>
                   </div>
                   <div class="modal-body">
                   <div class="row">
@@ -84,7 +98,7 @@
                       <div class="panel panel-green" >
                         <div class="panel-heading">
                         </div>
-                        <div class="panel-body" id="panel">
+                        <div class="panel-body" id="panelAb">
                           <div class="dataTable_wrapper">
                             <div class="table-responsive">
                               <div id="contenido_abonos_CreditosV">
@@ -112,7 +126,7 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"onclick="abrirmodal()" >
                       <span aria-hidden="true">&times;</span>
                     </button>
-                    <h4 class="modal-title" id="myModalLabel" style="text-align:center; color: #3CB371">Abono A Créditos de: <span id="cliente-abonos"></span></h4>
+                    <h4 class="modal-title" id="myModalLabel" style="text-align:center; color: #3CB371">Abono a Créditos de: <span id="cliente-abonos"></span></h4>
                   </div>
                   <div class="modal-body">
                   <form method="POST" id="form-abonos" action="<?php echo URL?>Ventas/registrarAbonoCreditoVen" data-parsley-validate="">
@@ -257,7 +271,7 @@ function abonosV(valor,id_ventas, valorCreditoPendienteV){
    var valorPendienteCV = parseInt($("#totalCreditoPendiente").val().replace(".", ""));
         if(valorAbonoCV > valorPendienteCV){
           swal({
-            title: "El valor del abono es superior al crédito pendiente! \n \n Credito Pendiente = "+ valorPendienteCV + " pesos.",
+            title: "El valor del abono es superior al crédito pendiente! \n \n Crédito Pendiente = "+ valorPendienteCV + " pesos.",
             type: "error",
             confirmButton: "#3CB371",
             confirmButtonText: "Aceptar",
@@ -361,5 +375,55 @@ $("#btn-Guardar-Abono").click(function(){
 
   $("#form-abonos").parsley().validate();
 })
+
+</script>
+
+
+<script type="text/javascript">
+  function cambiarestado(cod, est){
+  swal({
+    title: "¿Realmente desea cambiar el estado del abono?",
+    type: "warning",
+    confirmButton: "#3CB371",
+    //confirmButtonText: "btn-danger",
+    cancelButtonText: "Cancelar",
+    showCancelButton: true,
+    confirmButtonClass: "btn-danger",
+    confirmButtonText: "Aceptar",
+    closeOnConfirm: false,
+
+  },
+  function(isConfirm){
+      if (isConfirm) {
+        swal({
+          title: "Estado cambiado.!",
+          type: "success",
+          confirmButton: "#3CB371",
+          confirmButtonText: "Aceptar",
+          // confirmButtonText: "Cancelar",
+          closeOnConfirm: false,
+          closeOnCancel: false
+        },
+        function(isConfirm){
+          $.ajax({
+            dataType:'json',
+            type:'post',
+            url:url+"Ventas/modificarestadoAbonos",
+            data:{codigo:cod, estado:est}
+          }).done(function(respuesta){
+            if(respuesta.v == 1){
+              window.location = url + "Ventas/listarVentasCredito";
+            }else if(respuesta.v == 0){
+            window.location = url + "Ventas/listarVentasCredito";
+          }else{
+            sweealert("Error cambiando el estado");
+          }
+          }).fail(function(){
+
+          })
+        });
+      }
+      });
+}
 
 </script>

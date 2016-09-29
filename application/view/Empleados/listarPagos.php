@@ -37,7 +37,7 @@
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                       </button>
-                      <h4 class="modal-title" id="myModalLabel" style="text-align:center; color: #3CB371">Detalles de pago de <span id="empleado"></span></h4>
+                      <h4 class="modal-title" id="myModalLabel" style="text-align:center; color: #3CB371">Detalles de Pago de: <span id="empleado"></span></h4>
                     </div>
                     <div class="modal-body">
                       <form class="" action="" method="post">

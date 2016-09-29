@@ -85,7 +85,7 @@
 
               <div class="form-group" id="contenedorDescuento">
                 <label for="form-control">Descuento</label>
-                <input type="text" id="txt-campo-des" name="txt-campo-des" class="form-control" value="0" min="0" data-parsley-type="integer">
+                <input type="number" id="txt-campo-des" name="txt-campo-des" class="form-control" value="0" min="0" data-parsley-type="integer">
               </div>
             </div>
           </div>
@@ -170,7 +170,7 @@
       var productos = $("[data-producto]").length;
       if(productos == 0) {
         swal({
-              title: "No se encontrarón productos asociados!",
+              title: "No se encontraron productos asociados!",
               type: "error",
               confirmButton: "#3CB371",
               confirmButtonText: "Aceptar",
@@ -604,3 +604,12 @@ function validarCantidad(){
     }
   });
 </script>
+
+<!-- <script type="text/javascript">
+  $("#txt-campo-des").keydown(function(e){
+    if(e.which === 189 || e.which === 69){
+      e.preventDefault();
+      //return false;
+    }
+  })
+</script> -->

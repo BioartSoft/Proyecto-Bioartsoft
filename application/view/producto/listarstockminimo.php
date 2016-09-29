@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-lg-12">
-       <center> <h3 class="page-header" style="text-align:center; color: #3CB371; margin-top:10px; margin-bottom: 10px">Listar stock mínimo</h3></center>
+       <center> <h3 class="page-header" style="text-align:center; color: #3CB371; margin-top:10px; margin-bottom: 10px">Listar Stock Mínimo</h3></center>
     </div>
     <!-- /.col-lg-12 -->
 </div>
@@ -19,11 +19,11 @@
      <tr>
        <th>Código</th>
        <th>Nombre Producto</th>
-       <th>categoría</th>
+       <th>Categoría</th>
        <th>Talla</th>
        <th>Tamaño</th>
        <th>Cantidad </th>
-      <th>Stock</th>
+      <th>Stock Mínimo</th>
      </tr>
    </thead>
 

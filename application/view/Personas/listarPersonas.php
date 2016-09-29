@@ -157,12 +157,12 @@
           <br>
           <div class="row">
                        <div class="col-md-6">
-                         <label>Telefono</label><br>
+                         <label>Teléfono</label><br>
                          <input type="text" class="form-control" id="ejemplo_password_2"
                                 value="<?= $persona['telefono'] ?>" name="txttel" maxlength="10" minlength="7" data-parsley-type="number" data-parsley-required="false">
                         </div>
                         <div class="col-md-6">
-                          <label>Direccion</label><br>
+                          <label>Dirección</label><br>
                             <input type="text" class="form-control" id="ejemplo_password_2"
                                value="<?= $persona['direccion'] ?>" name="txtdirecc" maxlength="22" minlength="3" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9!@#\$%\-\*\?_~\\ \/$]+" ata-parsley-required="false">
                         </div>
@@ -193,7 +193,7 @@
                           <?php if ($persona['Tbl_TipoPersona_idTbl_TipoPersona'] == 1): ?>
                         <div class="row">
                         <div id="conFechaContrato" style="" class="col-md-6">
-                            <label for="form-control">Fecha contrato</label>
+                            <label for="form-control">Fecha Contrato</label>
                             <div class="input-group date" data-provide="datepicker" id="dataPicker">
                             <input type="text" class="form-control" value="<?= $persona['fecha_Contrato'] ?>" name="txtfechac" id="campoFechaContrato" placeholder="Fecha Contrato" data-parsley-required="false">
                             <div class="input-group-addon">
@@ -207,7 +207,7 @@
                           <?php if ($persona['Tbl_TipoPersona_idTbl_TipoPersona'] == 2): ?>
                             <div class="row">
                             <div id="conFechaContrato" style="" class="col-md-6" style="display: none">
-                                <label for="" style="display: none" id="ftitulo">Fecha contrato</label>
+                                <label for="" style="display: none" id="ftitulo">Fecha Contrato</label>
                                 <div class="input-group date" data-provide="datepicker" id="dataPicker" style="display: none">
                                 <input type="text" class="form-control" value="" name="txtfechac" id="campoFechaContrato" data-parsley-required="false">
                                 <div class="input-group-addon">
@@ -268,12 +268,12 @@
                         <thead>
                           <tr>
                           <th>Nombre Usuario</th>
-                          <th>Rol usuario</th>
+                          <th>Rol Usuario</th>
                           <th>Email</th>
                           <th>Género</th>
                         <?php if($persona['Tbl_TipoPersona_idTbl_TipoPersona'] == 1): ?>
-                          <th>Fecha inicio contrato</th>
-                          <th>Fecha Terminación contrato</th>
+                          <th>Fecha Inicio Contrato</th>
+                          <th>Fecha Terminación Contrato</th>
                         <?php endif; ?>
                           <th>Teléfono</th>
                           </tr>
@@ -320,7 +320,7 @@
     </script>
 
   <?php if ($id != "" && $tipo == 2): ?>
-  <form method="POST" id="form-3" role="form"  action="#" data-parsley-validate="">
+  <form method="POST" id="form-3" role="form" data-parsley-validate="">
   <div class="modal fade" id="modal-cambiar-contras" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static">
    <div class="modal-dialog" role="document">
      <div class="modal-content">
@@ -370,7 +370,7 @@
   <script type="text/javascript">
   function cambiarestado(id){
 swal({
-  title: "Realmente desea cambiar el estado del usuario",
+  title: "¿Realmente desea cambiar el estado del usuario?",
   type: "warning",
   confirmButton: "#3CB371",
   confirmButtonText: "btn-danger",

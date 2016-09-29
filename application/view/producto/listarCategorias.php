@@ -56,7 +56,7 @@
                   <span aria-hidden="true">&times;</span>
                 </button>
                 <center>
-                  <h4 class="modal-title" id="myModalLabel" style="text-align:center; color: #3CB371">Modificar Categoria</h4>
+                  <h4 class="modal-title" id="myModalLabel" style="text-align:center; color: #3CB371">Modificar Categoría</h4>
                   </center>
               </div>
            <div class="modal-body">

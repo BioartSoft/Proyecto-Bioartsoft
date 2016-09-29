@@ -19,7 +19,7 @@
     </div>
 
     <div class="col-md-4">
-      <label for="form-control" style="color: #3CB371">Categoria *</label>
+      <label for="form-control" style="color: #3CB371">Categoría *</label>
       <select name="txtcategoria" id="txtcategoria" class="form-control" maxlength="20" data-parsley-type"alphanum" data-parsley-required="true">
         <option value="">Seleccionar Categoría</option>
         <?php foreach ($categorias as   $value): ?>
@@ -37,12 +37,12 @@
         <input name="txtpreciocompra" id="txtpreciocompra" type="number" data-parsley-type="integer" min="0" maxlength="10" class="form-control" id="inputTwitter" placeholder="Precio Unitario" data-parsley-required="true">
     </div>
     <div class="col-md-4">
-        <label for="inputTwitter" class="control-label" style="color: #3CB371">Precio al detal *</label>
+        <label for="inputTwitter" class="control-label" style="color: #3CB371">Precio al Detal *</label>
         <input name="txtprecioventa" type="number" id="txtprecioventa" type="text"  data-parsley-type="integer" min="0" maxlength="10" class="form-control" id="inputTwitter" placeholder="Precio Detal" data-parsley-required="true">
     </div>
     <div class="col-md-4">
-        <label for="inputTwitter" class="control-label" style="color: #3CB371">Precio al por mayor * </label>
-        <input id="txtprecioalpormayor" type="number" name="txtprecioalpormayor" data-parsley-type="integer" min="0" maxlength="10" class="form-control"  placeholder="Precio por mayor" data-parsley-required="true">
+        <label for="inputTwitter" class="control-label" style="color: #3CB371">Precio al por Mayor * </label>
+        <input id="txtprecioalpormayor" type="number" name="txtprecioalpormayor" data-parsley-type="integer" min="0" maxlength="10" class="form-control"  placeholder="Precio por Mayor" data-parsley-required="true">
     </div>
 
   </div>

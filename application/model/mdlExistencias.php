@@ -101,6 +101,75 @@ class mdlExistencias
 		} catch (Exception $e) {
 		}
 	}
+
+
+	public function pdfBajas()
+	{
+		$sql = "CALL SP_Informe_Bajas()";
+		try {
+			$stm=$this->db->prepare($sql);
+			$stm->execute();
+	  return $stm->fetchAll(PDO::FETCH_ASSOC);
+		} catch (Exception $e) {
+		}
+	}
+
+
+	public function cambiarEstado($codigo, $estado){
+    $sql = "CALL SP_AnularBaja(?, ?)";
+
+    $this->db->beginTransaction();
+
+    $stm = $this->db->prepare($sql);
+    $stm->bindParam(1, $codigo);
+    $stm->bindParam(2, $estado);
+    $respuesta =  $stm->execute();
+
+    if($respuesta == true && $this->devolverProductos($codigo)){
+      # confirmamos los cambios
+      $this->db->commit();
+    } else {
+      # hubo error, entonces devolvemos los cambios realizados
+      $this->db->rollback();
+    }
+    return $respuesta;
+}
+
+
+public function devolverProductos($codigo){
+  # listamos los detalles
+  $detalles = $this->getDetallesBajas($codigo);
+  $ok = true;
+  # recorremos los detalles
+  foreach($detalles AS $detalle){
+    $r = $this->devolverProducto($detalle['Cantidad'], $detalle['Tbl_Productos_id_productos']);
+    # si ocurrió un error al devolver el producto cancelamos todo
+    if($r == false){
+      $ok = false;
+      break;
+    }
+  }
+  return $ok;
+}
+
+
+public function devolverProducto($cantidad, $producto){
+  $sql = "CALL SP_Actualizar_Exitencia_Bajas(?, ?)";
+  $stm = $this->db->prepare($sql);
+  $stm->bindParam(1, $cantidad);
+  $stm->bindParam(2, $producto);
+  return $stm->execute();
+}
+
+public function getDetallesBajas($idBaja){
+	$sql = "CALL SP_DetallesBajas(?)";
+	$stm = $this->db->prepare($sql);
+	$stm->bindParam(1, $idBaja);
+	$stm->execute();
+	return $stm->fetchAll(2);
+
+}
+
 }
 
 

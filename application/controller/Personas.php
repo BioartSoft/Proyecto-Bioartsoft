@@ -113,8 +113,7 @@ use Dompdf\Dompdf;
 
 
     public function registrarPersonas(){
-        // $modeloconfiguracion = $this->loadModel("mdlConfiguracionPago");
-        // $configuracion = $modeloconfiguracion->listarConfiguracion();
+      
         $errorId = true;
         $errorUsuario = true;
         $errorEmail = true;
@@ -275,8 +274,7 @@ use Dompdf\Dompdf;
 
 
     private function guardarProveedorNatural(){
-      // $modelo = $this->loadModel("mdlConfiguracionPago");
-      // $configuracion = $modelo->listarConfiguracion();
+
       $this->modeloP->__SET("idPersona", $_POST['txtIdPersona']);
       $this->modeloP->__SET("nombres", $_POST['txtNombres']);
       $this->modeloP->__SET("apellidos", $_POST['txtApellidos']);
@@ -320,8 +318,7 @@ use Dompdf\Dompdf;
 
 
     private function guardarProveedorJuridico(){
-      // $modelo = $this->loadModel("mdlConfiguracionPago");
-      // $configuracion = $modelo->listarConfiguracion();
+
       $this->modeloP->__SET("idPersona", $_POST['txtIdPersona']);
       $this->modeloP->__SET("nombres", $_POST['txtNombres']);
       $this->modeloP->__SET("apellidos", $_POST['txtApellidos']);
@@ -372,8 +369,7 @@ use Dompdf\Dompdf;
 
 
     public function listarProveedores($id=0, $tipo=0){
-      // $modeloconfiguracion = $this->loadModel("mdlConfiguracionPago");
-      // $configuracion = $modeloconfiguracion->listarConfiguracion();
+
 
      if (isset($_POST['btn-modificar-prov'])) {
        $this->modeloP->__SET('idPersona', $_POST['txtidPersona']);
@@ -512,8 +508,7 @@ use Dompdf\Dompdf;
 
 
     public function listarTipoPers(){
-      // $modeloconfiguracion = $this->loadModel("mdlConfiguracionPago");
-      // $configuracion = $modeloconfiguracion->listarConfiguracion();
+
       $TipoPerVendedor = $this->mdlTipoPersona->listarTipoPerVendedor();
       $TipoPersona = $this->mdlTipoPersona->listarTipoPersonas();
       $Roles = $this->modeloUsuario->listarRol();
@@ -525,8 +520,7 @@ use Dompdf\Dompdf;
 
 
     public function listarUsuarios(){
-      // $modeloconfiguracion = $this->loadModel("mdlConfiguracionPago");
-      // $configuracion = $modeloconfiguracion->listarConfiguracion();
+
       $usuarios = $this->modeloUsuario->ListarUsuarios();
       $rol = $this->modeloUsuario->listarRol();
 
@@ -537,8 +531,7 @@ use Dompdf\Dompdf;
 
 
     public function listarPersonasEmpleados($id= "",$tipo=0){
-      // $modeloconfiguracion = $this->loadModel("mdlConfiguracionPago");
-      // $configuracion = $modeloconfiguracion->listarConfiguracion();
+
       $persona = null;
       if(isset($_POST['btn-modificar'])){
         if($_POST['txtTipoEmpleado'] == 1){
@@ -717,8 +710,6 @@ use Dompdf\Dompdf;
 
 
         public function listarPersonasClientes($id=0, $tipo=0){
-          // $modeloconfiguracion = $this->loadModel("mdlConfiguracionPago");
-          // $configuracion = $modeloconfiguracion->listarConfiguracion();
 
           if(isset($_POST['btn-modificar-cliente'])){
             $this->modeloP->__SET('idPersona', $_POST['idPersona']);
@@ -772,8 +763,6 @@ use Dompdf\Dompdf;
 
 
     public function modificarContrasenia($id=0,$tipo=0){
-      // $modeloconfiguracion = $this->loadModel("mdlConfiguracionPago");
-      // $configuracion = $modeloconfiguracion->listarConfiguracion();
 
       if($id!= ""){
         $persona = $this->modeloP->ListarPersEmpleadoFijoID($id);
@@ -792,11 +781,11 @@ use Dompdf\Dompdf;
           closeOnConfirm: false,
           closeOnCancel: false
         })';
-      header("Location: " . URL . 'Personas/listarPersonasEmpleados');
+
     }
 
-    if(isset($_GET['id_c'])){
-      $persona = $this->modeloUsuario->modificarContrasenia($_GET['id_c']);
+    if(isset($_POSt['id_c'])){
+      $persona = $this->modeloUsuario->modificarContrasenia($_POSt['id_c']);
     }
     $listarU = $this->modeloUsuario->ListarUsuarios();
     $listarE = $this->modeloP->ListarPersEmpleadoFijo();

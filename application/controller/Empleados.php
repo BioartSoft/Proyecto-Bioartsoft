@@ -446,7 +446,7 @@ use Dompdf\Dompdf;
                   $cabecera .= '<th>'.'Total Pago'.'</th>';
                 }
                   $cabecera .= '<th>'.'Estado'.'</th>';
-                  $cabecera .= '<th>'.'Estado del pago'.'</th>';
+                  $cabecera .= '<th>'.'Estado del Pago'.'</th>';
                   $cabecera .= '</tr>';
 
                   echo json_encode([

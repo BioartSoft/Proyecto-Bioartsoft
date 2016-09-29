@@ -8,9 +8,9 @@
         <div class="row">
           <div class="col-md-4">
 
-              <label for="" style="color: #3CB371">Seleccione tipo de documento *</label>
+              <label for="" style="color: #3CB371">Seleccionar tipo de documento *</label>
               <select name="txtTipoDocumento"class="form-control" id="documento" style="width: 100%" data-parsley-required="true">
-                  <option value="">Seleccione tipo de documento</option>
+                  <option value="">Seleccionar tipo de documento</option>
                   <option value="Cedula">Cédula</option>
                   <option value="Cédula_Extranjera">Documento de  Extranjería</option>
                   <option value="Otro">Otro</option>
@@ -60,7 +60,7 @@
           </div>
             <div class="col-md-4">
                   <label for="" style="color: #3CB371">Dirección</label>
-                   <input type="text" name="txtDireccion" maxlength="22" minlength="3" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9@#\-\_\\.\\ \/$]+" class="form-control" id="campoDireccion" placeholder="Direccion" data-parsley-required="false">
+                   <input type="text" name="txtDireccion" maxlength="22" minlength="3" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9@#\-\_\\.\\ \/$]+" class="form-control" id="campoDireccion" placeholder="Dirección" data-parsley-required="false">
               </div>
             </div>
             <br><br>

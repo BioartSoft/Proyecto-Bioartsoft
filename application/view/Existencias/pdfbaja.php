@@ -19,10 +19,10 @@
       <tr>
       <th>Código Producto</th>
       <th>Nombre</th>
-      <th>Categoria</th>
+      <th>Categoría</th>
       <th>Fecha Registro Baja</th>
       <th>Cantidad</th>
-      <th>Tipo De Baja</th>
+      <th>Tipo de Baja</th>
 
       </tr>
     </thead>

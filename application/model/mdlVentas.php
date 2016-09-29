@@ -241,6 +241,13 @@ class mdlVentas
     return $stm->fetchAll(2);
   }
 
+  public function listarCreditosPdf(){
+    $sql= "CALL SP_Reporte_Creditos()";
+    $stm = $this->db->prepare($sql);
+    $stm->execute();
+    return $stm->fetchAll(2);
+  }
+
 
 
   public function getDetalleCreditosV($idPersona)
@@ -309,6 +316,17 @@ class mdlVentas
       $stm->bindParam(1, $id_ventas);
       $stm->execute();
       return $stm->fetchAll(2);
+  }
+
+
+  public function cambiarestadoAbonos($codigo, $estado)
+  {
+    $sql ="CALL SP_anularAbonoCreditos(?,?)";
+
+    $stm = $this->db->prepare($sql);
+    $stm->bindParam(1, $codigo);
+    $stm->bindParam(2, $estado);
+    return $stm->execute();
   }
 
 }

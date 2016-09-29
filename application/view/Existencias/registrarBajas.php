@@ -14,11 +14,11 @@
 
         <div class="panel-body">
           <div class="form-group">
-            <label for="">Tipo de baja</label>
+            <label for="">Tipo de Baja</label>
             <select name="tipo_baja" id="baja" class="form-control" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ@\-\.\\ \/$]+" data-parsley-required="true">
               <option value="">Seleccionar</option>
               <option value="Robo">Robo</option>
-              <option value="Averia">Averia</option>
+              <option value="Averia">Avería</option>
             </select>
           </div>
           <hr>
@@ -116,7 +116,7 @@ $(document).ready(function(){
    var productos = $("[data-producto]").length;
    if(productos == 0) {
      swal({
-           title: "No se encontrarón productos asociados!",
+           title: "No se encontraron productos asociados!",
            type: "error",
            confirmButton: "#3CB371",
            confirmButtonText: "Aceptar",

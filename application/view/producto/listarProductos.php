@@ -1,7 +1,7 @@
 
 <div class="row">
     <div class="col-lg-12">
-       <center> <h3 class="page-header" style="text-align:center; color: #3CB371; margin-top: 10px; margin-bottom: 10px">Listar productos</h3></center>
+       <center> <h3 class="page-header" style="text-align:center; color: #3CB371; margin-top: 10px; margin-bottom: 10px">Listar Productos</h3></center>
     </div>
     <!-- /.col-lg-12 -->
 </div>
@@ -270,7 +270,7 @@
 <script type="text/javascript">
 function cambiarestado(id){
   swal({
-    title: "Realmente desea cambiar el estado del producto",
+    title: "¿Realmente desea cambiar el estado del producto?",
     type: "warning",
     confirmButton: "#3CB371",
     confirmButtonText: "btn-danger",

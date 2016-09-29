@@ -60,7 +60,7 @@
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                       </button>
-                      <h4 class="modal-title" id="myModalLabel" style="text-align:center; color: #3CB371">Detalles de Préstamos de <span id="empleado-prestamo"></span></h4>
+                      <h4 class="modal-title" id="myModalLabel" style="text-align:center; color: #3CB371">Detalles de Préstamos de: <span id="empleado-prestamo"></span></h4>
                     </div>
                     <div class="modal-body">
                     <div class="row">
@@ -143,7 +143,7 @@
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="abrirmodal()">
                         <span aria-hidden="true">&times;</span>
                       </button>
-                      <h4 class="modal-title" id="myModalLabel" style="text-align:center; color: #3CB371">Detalles de abonos de <span id="empleado-det-abonos"></span></h4>
+                      <h4 class="modal-title" id="myModalLabel" style="text-align:center; color: #3CB371">Detalles de Abonos de: <span id="empleado-det-abonos"></span></h4>
                     </div>
                     <div class="modal-body">
                     <div class="row">

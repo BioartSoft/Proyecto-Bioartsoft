@@ -21,9 +21,9 @@
        <th>Fecha Pago</th>
        <th>Tipo Pago</th>
        <th>Valor Comisión</th>
-       <th>Total Pago</th>
        <th>Valor Día</th>
        <th>Total Días</th>
+       <th>Total Pagado</th>
       </tr>
     </thead>
     <tbody>
@@ -35,9 +35,9 @@
        <td style="width: 15%"><?= $val["fecha_pago"] ?></td>
        <td style="width: 12%"><?= $val["tipo_pago"]  ?></td>
        <td style="width: 15%"><?= $val["valorComision"]  ?></td>
-       <td><?= $val["total_pago"] ?></td>
        <td><?= $val["valor_dia"] ?></td>
        <td><?= $val["cantidad_dias"] ?></td>
+       <td><?= $val["total_pago"] ?></td>
 </tr>
  <?php endforeach ?>
     </tbody>

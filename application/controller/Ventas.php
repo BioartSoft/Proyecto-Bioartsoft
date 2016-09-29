@@ -28,6 +28,24 @@ class Ventas extends controller
   }
 
 
+  public function generarpdfCreditos()
+  {
+    require_once APP . 'libs/dompdf/autoload.inc.php';
+    // $urlImagen = URL . 'producto/generarcodigo?id=';
+    // $productos = $this->mdlproducto->listar();
+      $listarC = $this->mdlVentas->listarCreditosPdf();
+    ob_start();
+    require APP . 'view/Ventas/pdfCreditos.php';
+    $html = ob_get_clean();
+    $dompdf = new Dompdf();
+    $dompdf->loadHtml($html);
+    // $dompdf->load_html_file($urlImagen);
+    $dompdf->setPaper('A4', 'landscape');
+    $dompdf->render();
+    $dompdf->stream("Informe Créditos.pdf", array("Attachment" => false, 'isRemoteEnabled' => true));
+  }
+
+
   public function informeVentas()
      {
        require APP . 'view/_templates/header.php';
@@ -83,7 +101,6 @@ class Ventas extends controller
           })';
       }
 
-      header("Location:".URL.'Ventas/index');
     }
 
       if(isset($_POST['btn-guardar-venta'])){
@@ -242,9 +259,9 @@ class Ventas extends controller
             $html .= '<td>'.$val['id_ventas'].'</td>';
             $html .= '<td>'.$val['fecha_venta'].'</td>';
             $html .= '<td>'.$val['fecha_limite_credito'].'</td>';
-              $html .= '<td class="price">'.$val['total_venta'].'</$abonoCredit td>';
-              $html .= '<td class="price">'.$val['total_abonado'].'</td>';
-              $html .= '<td class="price">'.$pendienteCredit.'</td>';
+            $html .= '<td class="price">'.$val['total_venta'].'</$abonoCredit td>';
+            $html .= '<td class="price">'.$val['total_abonado'].'</td>';
+            $html .= '<td class="price">'.$pendienteCredit.'</td>';
               if($val["estado_credito"] == 0){
                 $estado = "Pagado";
               } else if($val["estado_credito"] == 1) {
@@ -285,8 +302,8 @@ class Ventas extends controller
 
 
   public function registrarAbonoCreditoVen(){
-    $modeloconfiguracion = $this->loadModel("mdlConfiguracionPago");
-    $configuracion = $modeloconfiguracion->listarConfiguracion();
+    // $modeloconfiguracion = $this->loadModel("mdlConfiguracionPago");
+    // $configuracion = $modeloconfiguracion->listarConfiguracion();
 
     if (isset($_POST["txtva"])== 'true') {
 
@@ -349,13 +366,25 @@ class Ventas extends controller
             $html .= '<td>'.$val['fechaAbono'].'</td>';
             $html .= '<td class="price">'.$val['valor_abono'].'</td>';
             $html .= '<td class="price">'.$val['saldo_abono'].'</td>';
-            $html .= '</tr>';
+            $html .= '<td>';
+            // '<button type="button" class="btn btn-success btn-circle btn-md" onclick="abono('.$val['valor_prestamo'].','.$val['id_prestamos'].')"  title="Abonar"><i class="fa fa-money" aria-hidden="true"></i></button>';
+            // $html .= ' <button type="button" class="btn btn-primary btn-circle btn-md" onclick="traerDetalleAbonos('.$val['id_prestamos'].')"  title="Abonar"><i class="fa fa-eye" aria-hidden="true"></i></button>';
+            if ($val["estado_abono"] == 1) {
+
+            $html .= ' <button  title="Anular" type="button" class="btn btn-success btn-circle btn-md" data-toggle="modal" id="btnbotoncheck" onclick="cambiarestado('.$val["idabono"].',0)"><i class="fa fa-check" aria-hidden="true"></i></button>';
+            }
+
+            if ($val["estado_abono"] == 0) {
+            $html .= ' <button title="Anulado" disabled="" id="btnanulado" type="button" class="btn btn-danger btn-circle btn-md" data-toggle="modal"><i class="fa fa-remove" aria-hidden="true"></i></button>';
+            }
+            $html .= '</td></tr>';
 
           }
               $cabecera = '<tr>';
               $cabecera .= '<th>'.'Fecha del Abono'.'</th>';
               $cabecera .= '<th>'.'Valor Abono'.'</th>';
               $cabecera .= '<th>'.'Total Abonado'.'</th>';
+              $cabecera .= '<th>'.'Estado Abono'.'</th>';
               $cabecera .= '</tr>';
 
               echo json_encode([
@@ -387,5 +416,21 @@ class Ventas extends controller
 
           }
       }
+
+
+      public function modificarestadoAbonos()
+      {
+
+        $estadoabonos = $this->mdlVentas->cambiarestadoAbonos($_POST["codigo"], $_POST["estado"]);
+
+        if ($estadoabonos) {
+          echo json_encode(["v"=>1]);
+        }
+        else
+        {
+          echo json_encode(["v"=>0]);
+        }
+      }
+
 }
  ?>

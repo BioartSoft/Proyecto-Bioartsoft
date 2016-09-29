@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-lg-12">
-        <h3 class="page-header" style="text-align:center; color: #3CB371; margin-top: 10px; margin-bottom: 10px">Registrar pagos</h3>
+        <h3 class="page-header" style="text-align:center; color: #3CB371; margin-top: 10px; margin-bottom: 10px">Registrar Pagos</h3>
     </div>
 </div>
 <div class="row">
@@ -50,7 +50,7 @@
             </div>
           </div>
         </div>
-                  <div class="modal fade" id="myjhoanlopez" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard ="false" data-backdrop = "static">
+                  <div class="modal fade" id="myjhoanlopez" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard ="false" data-backdrop = "static" style="height: 103% !important">
                     <div class="modal-dialog modal-lg" role="document" id="modalcss">
                       <div class="modal-content">
                         <div class="modal-header">
@@ -78,11 +78,11 @@
                               <div class="row">
                               <div class="col-xs-12 col-md-4" id="divValorDiatemporal" style="display: none">
                                 <label for="">Valor Día</label>
-                                <input type="number" step="1000" min="1000" id="valorDiatemporal" name="txtValorDia" class="form-control" data-parsley-type="integer">
+                                <input type="number" step="1000" min="1000" id="valorDiatemporal" name="txtValorDia" class="form-control" data-parsley-type="integer" data-parsley-required="true">
                               </div>
                               <div class="col-xs-12 col-md-4" id="divDiasLaborados" style="display: none">
                                 <label id="labelDias">Días Laborados</label>
-                                <input type="number" min="1" id="dias_laborados" name="txtdiasLaborados" class="form-control" data-parsley-type="number">
+                                <input type="number" min="1" id="dias_laborados" name="txtdiasLaborados" class="form-control" data-parsley-type="number" data-parsley-required="true">
                               </div>
                               </div>
 
@@ -187,7 +187,7 @@
                                       <i class="fa fa-calendar"></i>
                                     </div>
                                     <input type="text" class="form-control pull-right" name="txtfechainicial" id="idfechainicial" style="border-radius:5px;" step="1" readonly="">
-                              
+
                                     <input type="hidden" id="fecha_final" name="txtfecha_final">
                                   </div>
                                 </div>
@@ -222,7 +222,7 @@
                             </div>
                             <br>
                             <div class="row">
-                              <div class="col-xs-12 col-md-12" style="margin-top: 5px;" id="divPagoTotal">
+                              <div class="col-xs-12 col-md-12" id="divPagoTotal">
                                 <div class="panel panel-success class">
                                   <div class="panel-heading">
                                     <h3 class="panel-title"><strong>Pago Total</strong></h3>
@@ -320,7 +320,7 @@
                               </div>
                             </div>
                         </div>
-                        </div>
+                      </div>
                         <br>
                         <div class="row">
                           <div class="col-xs-1 col-md-3">
@@ -1117,19 +1117,6 @@
                     $("#totalpago").val("");
                     $("#valorvacacionestot").val("");
               }
-
-              // if(fecha == ""){
-              //
-              //   swal({
-              //         title: "No se encontrarón primas registradas, no se puede cargar fecha de la última prima!",
-              //         type: "error",
-              //         confirmButton: "#3CB371",
-              //         confirmButtonText: "Aceptar",
-              //         // confirmButtonText: "Cancelar",
-              //         closeOnConfirm: false,
-              //         closeOnCancel: false
-              //       });
-              // }
             });
 
 
@@ -1153,32 +1140,7 @@
               }
             });
 
-            // $("#calcularFijos").click(function(){
-            //   var fecha = $("#idfechafin").val();
-            //
-            //   if(fecha == ""){
-            //     swal({
-            //           title: "No se han ingresado una fecha válida!",
-            //           type: "error",
-            //           confirmButton: "#3CB371",
-            //           confirmButtonText: "Aceptar",
-            //           // confirmButtonText: "Cancelar",
-            //           closeOnConfirm: false,
-            //           closeOnCancel: false
-            //         });
-            //         $("#valorvacacionestot").val("");
-            //   }
-            // })
           </script>
-
-          <!-- <script type="text/javascript">
-            var tipoE = $("['data-tipo']").val();
-
-            if($("#tipoEmpleado").val() == "Empleado-fijo"){
-              $("#valorDiatemporal").removeAttr("data-parsley-required");
-            }
-          </script> -->
-
 
           <script type="text/javascript">
             function validarTotales(){
@@ -1204,6 +1166,8 @@
                 }else{
                   return true;
                 }
+                $("#valorDiatemporal").removeAttr("data-parsley-required");
+                $("#dias_laborados").removeAttr("data-parsley-required");
 
               }else if(tipoPago == 2 && tipoEmpleado == "Empleado-fijo"){
 
@@ -1223,6 +1187,9 @@
                 }else{
                   return true;
                 }
+                $("#valorDiatemporal").removeAttr("data-parsley-required");
+                $("#dias_laborados").removeAttr("data-parsley-required");
+
               }else if(tipoPago == 3 && tipoEmpleado == "Empleado-fijo"){
 
                 var totalPrima = $("#valortotalprima").val();
@@ -1239,6 +1206,8 @@
                   });
                   return false;
                 }
+                $("#valorDiatemporal").removeAttr("data-parsley-required");
+                $("#dias_laborados").removeAttr("data-parsley-required");
 
               }else if(tipoEmpleado == "Empleado-temporal"){
 

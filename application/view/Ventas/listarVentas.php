@@ -64,7 +64,7 @@
                     <span aria-hidden="true">&times;</span>
                  </button>
                <center>
-                    <h4 class="modal-title" id="myModalLabel" style="text-align:center; color: #3CB371">Detalles de Venta número <span id="codigo-venta"></span></h4>
+                    <h4 class="modal-title" id="myModalLabel" style="text-align:center; color: #3CB371">Detalles de Venta Número: <span id="codigo-venta"></span></h4>
                </center>
              </div>
 

@@ -160,6 +160,15 @@ public function devolverProducto($cantidad, $producto){
 
   }
 
+  public function pdfDetallesCompra($idCompra){
+    $sql = "CALL SP_DetallesCompra(?)";
+    $stm = $this->db->prepare($sql);
+    $stm->bindParam(1, $id_Compra);
+    $stm->execute();
+    return $stm->fetchAll(2);
+
+  }
+
 
 
   public function getInfoCompra($codigo){

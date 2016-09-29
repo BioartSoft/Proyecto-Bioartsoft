@@ -55,8 +55,27 @@
             $dompdf->setPaper('A4', 'landscape');
             $dompdf->render();
             $dompdf->stream("Informe Compras.pdf", array("Attachment" => false, 'isRemoteEnabled' => true));
-
           }
+
+
+
+          public function generarpdfDetallesCompras()
+          {
+            require_once APP . 'libs/dompdf/autoload.inc.php';
+
+            $detalles = $this->mdlCompras->pdfDetallesCompra();
+
+            ob_start();
+            require APP . 'view/Compras/pdfDetallesCompras.php';
+            $html = ob_get_clean();
+            $dompdf = new Dompdf();
+            $dompdf->loadHtml($html);
+            // $dompdf->load_html_file($urlImagen);
+            $dompdf->setPaper('A4', 'landscape');
+            $dompdf->render();
+            $dompdf->stream("Informe Compras.pdf", array("Attachment" => false, 'isRemoteEnabled' => true));
+          }
+
 
 
     public function registrarCompra(){

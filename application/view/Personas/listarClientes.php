@@ -19,7 +19,7 @@
                                 <th>Identificación</th>
                                 <th>Nombres</th>
                                 <th>Apellidos</th>
-                                <th>Tipo de cliente</th>
+                                <th>Tipo de Cliente</th>
                                 <th>Estado</th>
                                 <th>Opciones</th>
                             </tr>
@@ -149,7 +149,7 @@
                       </div>
 
                       <div class="col-md-6">
-                        <label>Tipo cliente</label><br>
+                        <label>Tipo de Cliente</label><br>
                         <select class="form-control" id="selectCliente" name="txtTipoCliente" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9!@#\$%\-\*\?_~\\ \/$]+" data-parsley-required="true">
                           <?php foreach($TipoCliente AS $tipo): ?>
                             <option value="<?= $tipo['idTbl_tipo_persona'] ?>" <?= $clientes['idTbl_tipo_persona'] == $tipo['idTbl_tipo_persona'] ? 'selected="selected"' : '' ?>>

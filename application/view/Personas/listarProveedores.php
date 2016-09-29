@@ -20,7 +20,7 @@
                                 <th>Nombres</th>
                                 <th>Apellidos</th>
                                 <!-- <th>Telefono</th> -->
-                                <th>Tipo de Persona</th>
+                                <th>Tipo de Proveedor</th>
                                 <th>Estado</th>
                                 <th>Opciones</th>
 
@@ -162,7 +162,7 @@
                    </div>
                    <?php if (isset($proveedorJ)): ?>
                      <div class="col-md-6" id="div-empresa">
-                       <label>Nit empresa</label><br>
+                       <label>Nit Empresa</label><br>
                        <input type="text" class="form-control" id="txtnit"  maxlength="30" minlength="6" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9!@#\$%\-\.\?_~\\ \\()\/$]+"
                               value="<?= $proveedorJ['nit'] ?>" name="txtNit" data-parsley-required="true">
                       </div>
@@ -174,12 +174,12 @@
                       <div class="row">
                          <?php if (isset($proveedorJ)): ?>
                                    <div class="col-md-6" id="div-nombreEmp">
-                                     <label>Nombre empresa</label><br>
+                                     <label>Nombre Empresa</label><br>
                                      <input type="text" class="form-control" id="txtnombreEmp" maxlength="30" minlength="3" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9!@#\$%\-\.\?_~\\ \\()\/$]+"
                                             value="<?= $proveedorJ['empresa'] ?>" name="txtEmpresa" data-parsley-required="true">
                                     </div>
                                     <div class="col-md-6" id="div-telefonoEmp">
-                                      <label>Teléfono empresa </label><br>
+                                      <label>Teléfono Empresa </label><br>
                                         <input type="text" class="form-control" id="txttelefonoEmp" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9!@#\$%\-\.\?_~\\ \\()\/$]+" minlength="6" maxlength="20"
                                            value="<?= $proveedorJ['telefono_empresa'] ?>" name="txtTele" data-parsley-required="true">
                                     </div>
@@ -195,17 +195,17 @@
                                   </div>
                                   <br>
                                   <div class="col-md-4" id="div-emp" style="display: none">
-                                    <label>Nit empresa</label><br>
+                                    <label>Nit Empresa</label><br>
                                     <input type="text" class="form-control" id="txtNitE" maxlength="30" minlength="6" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9!@#\$%\-\.\?_~\\ \/$]+"
                                            value="" name="txtNitEmp" data-parsley-required="true">
                                    </div>
                                    <div class="col-md-4" id="div-nombreEmpresa"  style="display: none">
-                                     <label>Nombre empresa</label><br>
+                                     <label>Nombre Empresa</label><br>
                                      <input type="text" class="form-control" id="txtNombreEmpresa" maxlength="30" minlength="3" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9!@#\$%\-\.\?_~\\ \\()\/$]+"
                                             value="" name="txtNombreE" data-parsley-required="true">
                                     </div>
                                     <div class="col-md-4" id="div-telefEmp"  style="display: none">
-                                      <label>Teléfono empresa </label><br>
+                                      <label>Teléfono Empresa </label><br>
                                         <input type="text" class="form-control" id="txttelefonoEmpresa" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9!@#\$%\-\.\?_~\\ \\()\/$]+" minlength="6" maxlength="20"
                                            value="" name="txtTeleEmp" data-parsley-required="true">
                                     </div>
@@ -254,12 +254,12 @@
 
                         <th>Celular</th>
                         <th>Teléfono</th>
-                        <th>E-mail</th>
+                        <th>Email</th>
                         <th>Dirección</th>
                       <?php if ( $proveedor['Tbl_TipoPersona_idTbl_TipoPersona'] == 4): ?>
-                        <th>Nit empresa</th>
-                        <th>Nombre empresa</th>
-                        <th>Teléfono empresa</th>
+                        <th>Nit Empresa</th>
+                        <th>Nombre Empresa</th>
+                        <th>Teléfono Empresa</th>
                       <?php endif; ?>
                         </tr>
                       </thead>

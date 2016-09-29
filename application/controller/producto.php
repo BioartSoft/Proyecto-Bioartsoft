@@ -483,4 +483,46 @@ class producto extends Controller{
           echo "0";
     }
 
+
+    public function AnularBaja(){
+      $guardar=false;
+      $error=false;
+
+      $estado = $this->mdlexistencias->cambiarEstado($_POST['id'], $_POST['estado']);
+       if($estado){
+       echo json_encode(["v"=>1]);
+
+    }else{
+      echo json_encode(["v"=>0]);
+
+   }
+
+   if($estado){
+
+     $guardar=true;
+   }
+   else {
+     $error=true;
+   }
+
+ if($guardar == true)
+ {
+
+ }
+
+ if($error == true)
+ {
+   $_SESSION['alerta'] =  'swal({
+     title: "Error al intentar anular la compra!",
+     type: "error",
+     confirmButton: "#3CB371",
+     confirmButtonText: "Aceptar",
+     // confirmButtonText: "Cancelar",
+     closeOnConfirm: false,
+     closeOnCancel: false
+   })';
+  }
+}
+
+
 }

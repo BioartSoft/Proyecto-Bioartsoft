@@ -126,7 +126,7 @@
       var productos = $("[data-producto]").length;
       if(productos == 0) {
         swal({
-              title: "No se encontrarón productos asociados!",
+              title: "No se encontraron productos asociados!",
               type: "error",
               confirmButton: "#3CB371",
               confirmButtonText: "Aceptar",

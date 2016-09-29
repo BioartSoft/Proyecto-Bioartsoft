@@ -55,7 +55,7 @@
                     <span aria-hidden="true">&times;</span>
                  </button>
                <center>
-                    <h4 class="modal-title" id="myModalLabel" style="text-align:center; color: #3CB371">Detalles de Compra número: <span id="codigoC"></span></h4>
+                    <h4 class="modal-title" id="myModalLabel" style="text-align:center; color: #3CB371">Detalles de Compra Número: <span id="codigoC"></span></h4>
                </center>
              </div>
 
@@ -96,7 +96,22 @@
 
               </tbody>
             </table>
-            <button type="button" class="btn btn-secondary btn-md active pull-right"  data-dismiss="modal"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
+            <br>
+            <div class="row">
+              <div class="col-md-8">
+                <button type="button" class="btn btn-secondary btn-md active pull-right"  data-dismiss="modal"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
+              </div>
+
+              <div class="col-md-1">
+              </div>
+
+              <div class="col-md-2">
+                <a href="<?= URL ?>Compras/generarpdfDetallesCompras" target="_blank">
+                  <button class="btn btn-primary" name="btnComprasD"><i class="fa fa-file-pdf-o" aria-hidden="true">   Informe Compra</i></button>
+                </a>
+              </div>
+            </div>
+            <br>
           </div>
         </div>
       </div>
@@ -137,7 +152,7 @@ function traerDetallesCompra(id){
 function cambiarEstado(cod, est){
     var bandera = true;
     swal({
-      title: "¿Realmente desea anular está compra?",
+      title: "¿Realmente desea anular esta compra?",
       type: "warning",
       confirmButton: "#3CB371",
       confirmButtonText: "btn-danger",

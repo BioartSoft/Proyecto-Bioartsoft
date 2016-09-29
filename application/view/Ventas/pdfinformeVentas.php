@@ -17,9 +17,9 @@
       <tr>
         <th>Código Venta</th>
         <th>Fecha Venta</th>
-        <th>Valor Total Venta</th>
         <th>Valor Subtotal Venta</th>
         <th>Descuento</th>
+        <th>Valor Total Venta</th>
         <th>Cliente</th>
         <th>Tipo Pago</th>
       </tr>
@@ -29,9 +29,9 @@
       <tr>
           <td><?= $valor['id_ventas'] ?></td>
           <td><?= $valor['fecha_venta'] ?></td>
-          <td class="price"><?= $valor['total_venta'] ?></td>
           <td class="price"><?= $valor['subtotal_venta'] ?></td>
           <td class="price"><?= $valor['descuento'] ?></td>
+          <td class="price"><?= $valor['total_venta'] ?></td>
           <td><?= $valor['cliente'] ?></td>
           <td> <?= $valor["tipo_de_pago"] == 2? "Contado": "Crédito" ?></td>
       </tr>

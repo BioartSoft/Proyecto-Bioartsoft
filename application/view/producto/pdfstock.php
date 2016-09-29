@@ -17,9 +17,9 @@
       <tr>
          <th>Código</th>
          <th>Nombre Producto</th>
-         <th>categoria</th>
+         <th>Categoría</th>
          <th>Cantidad </th>
-         <th>Stock</th>
+         <th>Stock Mínimo</th>
          <!-- <th>Precio Detal</th>
          <th>Precio Por Mayor</th>
          <th>Precio Unitario</th>

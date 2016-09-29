@@ -18,7 +18,7 @@ use Dompdf\Dompdf;
       // $urlImagen = URL . 'producto/generarcodigo?id=';
       // $productos = $this->mdlproducto->listar();
 
-     $bajas = $this->mdlexistencias->listarBajas();
+     $bajas = $this->mdlexistencias->pdfBajas();
       ob_start();
       require APP . 'view/Existencias/pdfbaja.php';
       $html = ob_get_clean();
