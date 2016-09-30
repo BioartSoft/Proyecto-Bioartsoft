@@ -39,6 +39,8 @@
 		private $fecha_final;
 		private $cantidad_dias;
 		private $estadoabonos;
+		private $valor_abono;
+		private $id_prest;
 		private $db;
 
 		public function __SET($atributo, $valor)
@@ -224,11 +226,10 @@
 
 		public function modificarEstadoPre()
 		{
-			$sql = "UPDATE tbl_prestamos SET estado_prestamo = 0 WHERE id_prestamos = ?";
+			$sql = "CALL SP_ModificarEstadoPrestamoAbonoCero(?)";
 			$stm = $this->db->prepare($sql);
-			$stm->bindParam(1, $this->Tbl_Prestamos_idprestamos);
-			$stm->execute();
-			return $stm;
+			$stm->bindParam(1, $this->id_prest);
+			return $stm->execute();
 		}
 
 		public function traerFechaDiaDespues()
@@ -311,48 +312,28 @@
 		public function cambiarestadoAbonos($codigo, $estado)
 		{
 			$sql ="CALL SP_anularAbonoPrestamos(?,?)";
-
-			$this->db->beginTransaction();
-			
 			$stm = $this->db->prepare($sql);
 			$stm->bindParam(1, $codigo);
 			$stm->bindParam(2, $estado);
-			$respuesta = $stm->execute();
-
-			if($respuesta == true && $this->devolverProductosAbono($codigo)){
-			      # confirmamos los cambios
-			      $this->db->commit();
-			    } else {
-			      # hubo error, entonces devolvemos los cambios realizados
-			      $this->db->rollback();
-			    }
-			    return $respuesta;
+			return $stm->execute();
 		}
 
+		// public function devolverAbonoPrestamo()
+		// {
+		// 	$sql ="CALL SP_devolverAbono(?,?)";
+		// 	$stm = $this->db->prepare($sql);
+		// 	$stm->bindParam(1, $valor_abono);
+		// 	$stm->bindParam(2, $id_prestamos);
+		// 	return $stm->execute();
+		// }
 
-		public function devolverProductosAbono($codigo){
-		  # listamos los detalles
-		  $detalles = $this->getDetallesCompra($codigo);
-		  $ok = true;
-		  # recorremos los detalles
-		  foreach($detalles AS $detalle){
-		    $r = $this->devolverValorAbono($detalle['cantidad'], $detalle['id_producto']);
-		    # si ocurrió un error al devolver el producto cancelamos todo
-		    if($r == false){
-		      $ok = false;
-		      break;
-		    }
-		  }
-		  return $ok;
-		}
-
-
-		public function devolverValorAbono($cantidad, $producto){
-		  $sql = "CALL SP_Actualizar_Existencia_compra(?, ?)";
-		  $stm = $this->db->prepare($sql);
-		  $stm->bindParam(1, $cantidad);
-		  $stm->bindParam(2, $producto);
-		  return $stm->execute();
+		public function traerValorAbonoPorPrestamo($id_prestamos)
+		{
+			$sql ="CALL SP_traerAbonosPorPrestamos(?)";
+			$stm = $this->db->prepare($sql);
+			$stm->bindParam(1, $id_prestamos);
+			$stm->execute();
+			return $stm->fetch(2);
 		}
 
 		public function cambiarestadoPrestamo($codigo, $estado)

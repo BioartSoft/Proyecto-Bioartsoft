@@ -27,12 +27,15 @@
             $modelo->__SET("valor", $_POST["txtvalorabono"]);
             $modelo->__SET("estadoabonos", 1);
             $modelo->__SET("Tbl_Prestamos_idprestamos",$_POST["txtidprestamo"]);
+            $modelo->__SET("id_prest",$_POST["txtidprestamo"]);
 
             if ($modelo->registrarAbonoPrestamo()) {
 
               $sumarabo =  implode('',$modelo->sumarAbonos());
               $valorPrestamo = $_POST["txtresta"];
               $valorPendiente = (int)$valorPrestamo - (int)$sumarabo;
+              // var_dump($valorPendiente, $sumarabo);
+              // exit();
 
                 if ($valorPendiente == 0) {
                   $modelo->modificarEstadoPre();
@@ -415,12 +418,26 @@
         $configuracion = $modelo->listarConfiguracion();
         $modelo = $this->loadModel("mdlEmpleados");
         $detalle = $modelo->getDetallePrestamos($_POST["idPersona"]);
+
+
           $fijo = false;
           $html = "";
-              foreach ($detalle as $val) {
-                $empleado = $val['empleado'];
-                $valorpres = $val['valor_prestamo'];
-                $abono = $val['Total'];
+              foreach ($detalle as $val) {       
+                $idPre = $val['id_prestamos'];         
+                $detalleAbono = $modelo->traerValorAbonoPorPrestamo($idPre);
+                  
+                 $abonoAnulado = $detalleAbono['TotalAbono'];
+                 $estadoAbono = $detalleAbono['estado_abono'];
+
+                 if ($abonoAnulado != null) {
+                    $abono = $val['Total'] - $abonoAnulado;
+                 }
+                 else
+                 {
+                  $abono = $val['Total'];
+                 }
+                  $empleado = $val['empleado'];
+                  $valorpres = $val['valor_prestamo'];
                 $valorPen = $valorpres - $abono;
                 $html .= '<tr>';
                 $html .= '<td>'.$val['id_persona'].'</td>';
@@ -428,7 +445,7 @@
 
                   $html .= '<td>'.$val['fecha_limite'].'</td>';
                   $html .= '<td class="price">'.$val['valor_prestamo'].'</td>';
-                  $v= $val['Total']==null?0:$val['Total'];
+                  $v= $val['Total']==null?0:$abono;
                   $html .= '<td class="price">'.$v.'</td>';
                   $html .= '<td class="price">'.$valorPen.'</td>';
                   $html .= '<td>'.$val['descripcion'].'</td>';
@@ -473,6 +490,7 @@
                   echo json_encode([
                   'html' => $html,'cabecera'=>$cabecera
                   ]);
+              
       }
 
       public function ajaxDetalleAbonos()
@@ -481,7 +499,7 @@
         $configuracion = $modelo->listarConfiguracion();
         $modelo = $this->loadModel("mdlEmpleados");
         $detalle = $modelo->ListarAbonos($_POST["id_prestamos"]);
-
+        $id_prestam = $_POST["id_prestamos"];
           $html = "";
               foreach ($detalle as $val) {
                 $html .= '<tr>';
@@ -498,7 +516,7 @@
                   // $html .= ' <button type="button" class="btn btn-primary btn-circle btn-md" onclick="traerDetalleAbonos('.$val['id_prestamos'].')"  title="Abonar"><i class="fa fa-eye" aria-hidden="true"></i></button>';
                   if ($val["estado_abono"] == 1) {
 
-                  $html .= ' <button  title="Anular" type="button" class="btn btn-success btn-circle btn-md" data-toggle="modal" id="btnbotoncheck" onclick="cambiarestadoabono('.$val["idTbl_Abono_Prestamo"].',0)"><i class="fa fa-check" aria-hidden="true"></i></button>';
+                  $html .= ' <button  title="Anular" type="button" class="btn btn-success btn-circle btn-md" data-toggle="modal" id="btnbotoncheck" onclick="cambiarestadoabono('.$val["idTbl_Abono_Prestamo"].',0); devolverAbono('.$val['valor'].','.$id_prestam.');"><i class="fa fa-check" aria-hidden="true"></i></button>';
                   }
 
                   if ($val["estado_abono"] == 0) {
@@ -707,6 +725,22 @@
           echo json_encode(["v"=>null]);
         }
 
+      }
+
+      public function retornarAbono()
+      {
+        $modelo = $this->loadModel("mdlEmpleados");
+        $modelo->__SET('valor_abono',$_POST["valorAbono"]);
+        $modelo->__SET('id_prestamos',$_POST["id_prestam"]);
+        $valorAbonoreturn = $modelo->devolverAbonoPrestamo();
+
+        if ($valorAbonoreturn) {
+          echo json_encode(["v"=>1]);
+        }
+        else
+        {
+          echo json_encode(["v"=>0]);
+        }
       }
 
   }

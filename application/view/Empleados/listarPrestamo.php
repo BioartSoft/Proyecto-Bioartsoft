@@ -439,6 +439,22 @@
         });
 }
   </script>
+  <script type="text/javascript">
+    function devolverAbono(valorAbono,id_prestam) {
+
+      $.ajax({
+        url: url +'Empleados/retornarAbono',
+        type: 'POST',
+        dataType: 'JSON',
+        data: {valorAbono:valorAbono,id_prestam:id_prestam},
+      })
+      .done(function(respuesta) {
+        if (respuesta.v) {
+          window.location = url + "Empleados/listarPrest";
+        };
+      });
+    }
+  </script>
 
   <script type="text/javascript">
   $("#valorprestamos").keydown(function(e){
