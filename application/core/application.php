@@ -19,7 +19,7 @@ class Application
     {
         // create array with URL parts in $url
         $this->splitUrl();
-        if(!isset($_SESSION['SESION INICIADA']) && $_GET['url'] !== 'login/iniciar' && $_GET['url'] !== 'login/recuperarContras'){
+        if(!isset($_SESSION['SESION INICIADA']) && $_GET['url'] !== 'login/iniciar' && $_GET['url'] !== 'login/recuperarContras' && $this->url_action !== 'generarcodigo'){
               header("Location: " . URL . 'login/recuperarContras');
               header("Location: " . URL . 'login/iniciar');
         }
@@ -27,7 +27,7 @@ class Application
         $url = "$this->url_controller/$this->url_action";
         require $rutaMenu;
         $menu = new Menu();
-        $validar = $this->url_controller !== "login" && $this->url_controller !== "error";
+        $validar = $this->url_controller !== "login" && $this->url_controller !== "error" && $this->url_action !== 'generarcodigo';
         $tienePermiso = $menu->getPermisos($url);
         if($validar && !$tienePermiso){
           header("Location: " . URL . 'error/sinPermiso');

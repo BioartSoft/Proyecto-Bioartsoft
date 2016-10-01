@@ -106,7 +106,7 @@
               </div>
 
               <div class="col-md-2">
-                <a href="<?= URL ?>Compras/generarpdfDetallesCompras" target="_blank">
+                <a href="<?= URL ?>Compras/generarpdfDetallesCompras" target="_blank" id="pdfDeta">
                   <button class="btn btn-primary" name="btnComprasD"><i class="fa fa-file-pdf-o" aria-hidden="true">   Informe Compra</i></button>
                 </a>
               </div>
@@ -128,6 +128,10 @@ $(document).ready(function(){
 })
 
 function traerDetallesCompra(id){
+  var enlace = $("#pdfDeta");
+  var nUrl = '<?= URL ?>Compras/generarpdfDetallesCompras?id=' + id;
+  enlace.attr("href", nUrl);
+
   $.ajax({
     url:url+"Compras/ajaxDetallesCompra",
     type:'POST',

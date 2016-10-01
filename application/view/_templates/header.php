@@ -1,3 +1,9 @@
+<?php
+require_once(implode(DS, [RAIZ, 'application', 'model', 'mdlConfiguracionPago.php']));
+$configuraciones = mdlConfiguracionPago::getConfiguraciones();
+$configuracion = $configuraciones['config1'];
+$listarConfiguracionVentas = $configuraciones['config2'];
+ ?>
 <!DOCTYPE html>
 <html lang="es">
 

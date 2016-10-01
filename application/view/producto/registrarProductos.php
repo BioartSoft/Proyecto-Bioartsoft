@@ -10,7 +10,7 @@
     <div class="row">
     <div class="col-md-4">
         <label for="form-control" class="control-label" style="color: #3CB371">Código *</label>
-        <input name="txtcodigo" id="campoCodigo" type="text" data-parsley-type="number" maxlength="8" min="1" class="form-control"  placeholder="Código" data-parsley-required="true">
+        <input name="txtcodigo" id="campoCodigo" type="text" data-parsley-type="number" maxlength="6" min="1" class="form-control"  placeholder="Código" data-parsley-required="true">
     </div>
 
     <div class="col-md-4">

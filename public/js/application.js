@@ -87,6 +87,34 @@ function Traerdatosdelproducto(id_producto){
    });
 }
 
+$(function(){
+  $("#txtcategoria").change(function(){
+    var valor = parseInt($(this).val());
+    if(valor === 1){
+      var contenedorOcultar = $("#txttamano");
+      var contenedorMostrar = $("#div-talla");
+      contenedorMostrar.find('label').show();
+      contenedorMostrar.find('input').show();
+      contenedorOcultar.find('input').show();
+      contenedorOcultar.find('label').show();
+
+      contenedorOcultar.slideUp(function(){
+        contenedorMostrar.slideDown();
+      });
+    } else {
+      var contenedorOcultar = $("#div-talla");
+      var contenedorMostrar = $("#txttamano");
+      contenedorMostrar.find('input').show();
+      contenedorMostrar.find('label').show();
+      contenedorOcultar.find('input').show();
+      contenedorOcultar.find('label').show();
+      contenedorOcultar.slideUp(function(){
+        contenedorMostrar.slideDown();
+      });
+    }
+  });
+});
+
 function Traerdatoscategoria(id_categoria){
     $.ajax({
   type:"POST",

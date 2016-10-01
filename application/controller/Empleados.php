@@ -134,8 +134,9 @@ use Dompdf\Dompdf;
 
       public function registrarPrestamo(){
 
-        $modelo = $this->loadModel("mdlConfiguracionPago");
-        $configuracion = $modelo->listarConfiguracion();
+        // $modelo = $this->loadModel("mdlConfiguracionPago");
+        // $configuracion = $modelo->listarConfiguracion();
+
         $modelo = $this->loadModel("mdlEmpleados");
         $listarEmpleadoFijo = $this->modeloP->ListarPersEmpleado();
 

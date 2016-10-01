@@ -36,7 +36,7 @@
               <option value="">Seleccionar</option>
               <?php foreach ($producto as $value): ?>
                 <?php if($value['estado'] == 1): ?>
-                    <option Precio="<?= $value['precio_detal'] ?>" Precio2="<?= $value['precio_por_mayor'] ?>" data-cantidad="<?= $value['cantidad']?>" value="<?= $value['id_producto'] ?>"><?= $value['id_producto']." ".$value['nombre_producto'] ?></option>
+                    <option Precio="<?= $value['precio_detal'] ?>" Precio2="<?= $value['precio_por_mayor'] ?>" data-cantidad="<?= $value['cantidad'] ?>" value="<?= $value['id_producto'] ?>"><?= $value['id_producto']." ".$value['nombre_producto'] ?></option>
                 <?php else:  ?>
 
                 <?php endif; ?>
@@ -62,7 +62,10 @@
 
           <div class="form-group" id="cantidad">
             <label for="form-control">Cantidad</label>
-            <input type="text" id="txtcantidad" min="1" maxlength="6" name="txtcantidad" class="form-control" data-parsley-type="number" data-parsley-required="true">
+            <div class="input-group">
+              <input type="text" id="txtcantidad" min="1" maxlength="6" name="txtcantidad" class="form-control" data-parsley-type="number" data-parsley-required="true">
+              <div class="input-group-addon">Unidades (<span id="unidades-actuales-info"></span>)</div>
+            </div>
         </div>
 
           <div class="form-group">
@@ -187,6 +190,8 @@
      // este es el código
      $("#ddlproducto").change(function(){
         $("#txtcantidad").val();
+        var op = $(this).find("option:selected");
+        $("#unidades-actuales-info").html(op.attr("data-cantidad"));
      });
 
      $("#ddlcliente").select2();
@@ -461,10 +466,11 @@
        subtotal += parseInt($(value).attr("data-valor"));
      });
 
-     $(".subtotal").html(subtotal);
-     $(".subtotal").val(subtotal);
+    //  $(".subtotal").html(subtotal);
+    //  $(".subtotal").val(subtotal);
+    //
      $("#txtsubtotal").val(subtotal);
-     $("#txtsubtotal").html(subtotal);
+    //  $("#txtsubtotal").html(subtotal);
 
      $(".subtotal").priceFormat(
        {

@@ -113,7 +113,7 @@ use Dompdf\Dompdf;
 
 
     public function registrarPersonas(){
-      
+
         $errorId = true;
         $errorUsuario = true;
         $errorEmail = true;
@@ -782,11 +782,10 @@ use Dompdf\Dompdf;
           closeOnCancel: false
         })';
 
+        header('Location: ' . URL . '/Personas/listarPersonasEmpleados');
+        exit();
     }
 
-    if(isset($_POSt['id_c'])){
-      $persona = $this->modeloUsuario->modificarContrasenia($_POSt['id_c']);
-    }
     $listarU = $this->modeloUsuario->ListarUsuarios();
     $listarE = $this->modeloP->ListarPersEmpleadoFijo();
 
@@ -795,7 +794,6 @@ use Dompdf\Dompdf;
     require APP . 'view/_templates/footer.php';
 
   }
-
 
 
   public function cambiarEstadoCliente(){

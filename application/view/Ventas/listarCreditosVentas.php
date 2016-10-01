@@ -148,7 +148,7 @@
                      <div class="col-xs-12 col-md-6">
                          <br>
                          <label >Ingresar Abono</label><br>
-                         <input type="number" class="form-control" step="1000" placeholder="Valor Abono" id="idabono" min="1000" onblur="validarAbonoCreditoV()" name="txtvalorabono" data-parsley-type="number" data-parsley-required="true">
+                         <input type="number" class="form-control" placeholder="Valor Abono" id="idabono" onblur="validarAbonoCreditoV()" name="txtvalorabono" data-parsley-type="number" data-parsley-required="true">
                      </div>
                   </div>
                   <br>
@@ -293,7 +293,7 @@ function abonosV(valor,id_ventas, valorCreditoPendienteV){
 
 
 <script type="text/javascript">
-  function cambiarestado(cod, est){
+  function cambiarestado2(cod, est){
   swal({
     title: "¿Realmente desea cambiar el estado del crédito?",
     type: "warning",
@@ -412,9 +412,9 @@ $("#btn-Guardar-Abono").click(function(){
             data:{codigo:cod, estado:est}
           }).done(function(respuesta){
             if(respuesta.v == 1){
-              window.location = url + "Ventas/listarVentasCredito";
+              // window.location = url + "Ventas/listarVentasCredito";
             }else if(respuesta.v == 0){
-            window.location = url + "Ventas/listarVentasCredito";
+              // window.location = url + "Ventas/listarVentasCredito";
           }else{
             sweealert("Error cambiando el estado");
           }

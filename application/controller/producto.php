@@ -386,8 +386,15 @@ class producto extends Controller{
     $this->mdlproducto->precio_por_mayor = $_POST["txtprecioalpormayor"];
     $this->mdlproducto->precio_unitario = $_POST["txtpreciocompra"];
     $this->mdlproducto->Tbl_Categoria_idcategoria = $_POST["txtcategoria"];
-    $this->mdlproducto->Talla = $_POST["txttalla"];
-    $this->mdlproducto->Tamano = $_POST["txttamano"];
+    if($this->mdlproducto->Tbl_Categoria_idcategoria == 1){
+      $this->mdlproducto->Talla = $_POST["txttalla"];
+      $this->mdlproducto->Tamano = "";
+    } else {
+      $this->mdlproducto->Tamano = $_POST["txttamano"];
+      $this->mdlproducto->Talla = "";
+    }
+    // $this->mdlproducto->Talla = $_POST["txttalla"];
+    // $this->mdlproducto->Tamano = $_POST["txttamano"];
     $this->mdlproducto->stock = $_POST["txtstock"];
 
     if($this->mdlproducto->actualizarProducto()){

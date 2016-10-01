@@ -61,12 +61,26 @@
 
           public function generarpdfDetallesCompras()
           {
+            $id = $_GET['id'];
+
+            $detalles = $this->mdlCompras->getDetallesCompra($id);
+            $info = $this->mdlCompras->getInfoCompra($id);
+
+            $tabla = "";
+            foreach ($detalles as $key => $value) {
+              $tabla .= '<tr>';
+              $tabla .= '<td>' . $value['nombre_producto'] . '</td>';
+              $tabla .= '<td>' . $value['cantidad'] . ' unidades</td>';
+              $tabla .= '<td class="price">' . $value['precio_unitario'] . '</td>';
+              $tabla .= '<td class="price">' . $value['total'] . '</td>';
+              $tabla .= '</tr>';
+            }
+
             require_once APP . 'libs/dompdf/autoload.inc.php';
-
-            $detalles = $this->mdlCompras->pdfDetallesCompra();
-
             ob_start();
             require APP . 'view/Compras/pdfDetallesCompras.php';
+
+
             $html = ob_get_clean();
             $dompdf = new Dompdf();
             $dompdf->loadHtml($html);

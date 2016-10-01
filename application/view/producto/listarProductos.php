@@ -143,7 +143,7 @@
                        <select id="txtcategoria" name="txtcategoria" name="txtcategoria" class="form-control" maxlength="20" data-parsley-type"alphanum" data-parsley-required="true">
                           <option value="">Seleccione una categoría</option>
                           <?php foreach ($categorias as $value): ?>
-                          <option value="<?= $value['id_categoria']  ?>"><?= $value['nombre']  ?></option>
+                          <option value="<?= $value['id_categoria'] ?>"><?= $value['nombre']  ?></option>
                           <?php endforeach ?>
                        </select>
                     </div>

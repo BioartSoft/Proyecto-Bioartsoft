@@ -278,7 +278,7 @@ class Ventas extends controller
               }
               $html .= ' <button type="button" onclick="traerDetalleAbonosCreditosV('.$val["id_ventas"].')" class="btn btn-primary btn-circle btn-md"   title="Ver Abonos CreditosV"><i class="fa fa-eye" aria-hidden="true" ></i></button>';
               if($val['estado_credito'] != 0){
-                $html .= ' <button  title="Cambiar Estado" type="button" class="btn btn-warning btn-circle btn-md" data-toggle="modal" onclick="cambiarestado('.$val["id_ventas"].', 2)"><i class="fa fa-refresh" aria-hidden="true"></i></button>';
+                $html .= ' <button  title="Cambiar Estado" type="button" class="btn btn-warning btn-circle btn-md" data-toggle="modal" onclick="cambiarestado2('.$val["id_ventas"].', 2)"><i class="fa fa-refresh" aria-hidden="true"></i></button>';
               }
               $html .= '</td></tr>';         //traerDetalleAbonosCreditosV()
           }
@@ -312,8 +312,7 @@ class Ventas extends controller
         $this->mdlVentas->__SET("codigo_venta", $_POST['txtidprestamoCredV']);
 
         $consultaAbono = $this->mdlVentas->totalAbono($_POST['txtvalorabono']);
-        if($consultaAbono['total'] == 0){
-
+        if($consultaAbono['total'] !== null && $consultaAbono['total'] == 0){
           //$this->mdlVentas->__SET("codigo_venta", $_POST['txtidprestamoCredV']);
           $this->mdlVentas->cambiarEstadoCredito(0);
         }
@@ -406,7 +405,6 @@ class Ventas extends controller
     public function modificarestadoC()
     {
           $estado = $this->mdlVentas->cambiarEstadoCredito2($_POST["codigo"], $_POST["estado"]);
-
           if ($estado) {
             echo json_encode(["v"=>1]);
           }
@@ -422,7 +420,6 @@ class Ventas extends controller
       {
 
         $estadoabonos = $this->mdlVentas->cambiarestadoAbonos($_POST["codigo"], $_POST["estado"]);
-
         if ($estadoabonos) {
           echo json_encode(["v"=>1]);
         }

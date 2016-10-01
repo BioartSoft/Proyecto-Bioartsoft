@@ -57,4 +57,8 @@ define('DB_NAME', 'proyecto_bioartsoft');
 define('DB_USER', 'root');
 define('DB_PASS', '');
 define('DB_CHARSET', 'utf8');
+
+define('RAIZ', realpath(__DIR__ . '/../../'));
+define('DS', DIRECTORY_SEPARATOR);
+
 require APP. 'libs/e.php';
