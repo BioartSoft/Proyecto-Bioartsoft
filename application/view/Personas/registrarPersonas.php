@@ -46,7 +46,7 @@
        <div class="row">
           <div class="col-xs-12 col-md-4">
               <div class="form-group">
-                <label for="" style="color: #3CB371">Correo Electrónico *</label>
+                <label for="" style="color: #3CB371">Correo Electrónico <span id="asterisco">*</span></label>
                 <input type="email" class="form-control" name="txtEmail" id="campoEmail" data-parsley-type="email" placeholder="Email"  data-parsley-required="true">
                </div>
           </div>
@@ -191,6 +191,7 @@
         $("#conDireccionEmpresa").slideUp();
         $("#campoDireccionEmpresa").removeAttr("data-parsley-required");
         $("#campoEmail").attr("data-parsley-required", "true");
+        $("#asterisco").show();
       }else if (tipo == 2) {
         $("#conFechaContrato").slideUp();
         $("#campoFechaContrato").removeAttr("data-parsley-required");
@@ -209,6 +210,7 @@
         $("#conDireccionEmpresa").slideUp();
         $("#campoDireccionEmpresa").removeAttr("data-parsley-required");
         $("#campoEmail").attr("data-parsley-required", "true");
+        $("#asterisco").show();
       }else if(tipo == 4){
         $("#conFechaContrato").slideUp()
         $("#campoFechaContrato").removeAttr("data-parsley-required");
@@ -227,6 +229,7 @@
         $("#conTipoRol").slideUp();
         $("#campoTipoRol").removeAttr("data-parsley-required");
         $("#campoEmail").removeAttr("data-parsley-required");
+        $("#asterisco").hide();
       }else if(tipo == 3){
         $("#conFechaContrato").slideUp()
         $("#campoFechaContrato").removeAttr("data-parsley-required");
@@ -245,6 +248,7 @@
         $("#conTipoRol").slideUp();
         $("#campoTipoRol").removeAttr("data-parsley-required");
         $("#campoEmail").removeAttr("data-parsley-required");
+        $("#asterisco").hide();
         }else if(tipo == 5){
           $("#conFechaContrato").slideUp()
           $("#campoFechaContrato").removeAttr("data-parsley-required");
@@ -263,6 +267,7 @@
           $("#conTipoRol").slideUp();
           $("#campoTipoRol").removeAttr("data-parsley-required");
           $("#campoEmail").removeAttr("data-parsley-required");
+          $("#asterisco").hide();
           }else if(tipo == 6){
             $("#conFechaContrato").slideUp()
             $("#campoFechaContrato").removeAttr("data-parsley-required");
@@ -281,6 +286,7 @@
             $("#conTipoRol").slideUp();
             $("#campoTipoRol").removeAttr("data-parsley-required");
             $("#campoEmail").removeAttr("data-parsley-required");
+            $("#asterisco").hide();
           }else{
             $("#conFechaContrato").slideUp()
             $("#campoFechaContrato").removeAttr("data-parsley-required");
@@ -299,7 +305,7 @@
             $("#conTipoRol").slideUp();
             $("#campoTipoRol").removeAttr("data-parsley-required");
             $("#campoEmail").removeAttr("data-parsley-required");
-
+            $("#asterisco").hide();
             }
     });
   });
@@ -496,4 +502,10 @@ function cancelar() {
         }
         });
      }
+</script>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $("#asterisco").hide();
+  });
 </script>

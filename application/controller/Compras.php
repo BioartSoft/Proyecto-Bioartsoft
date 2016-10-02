@@ -38,11 +38,35 @@
 
        public function pdfCompras()
           {
+
             if(isset($_POST['btnconsultar'])){
               $this->mdlCompras->__SET('fechainicial',date("Y-m-d",strtotime($_POST['txtfechainicial'])));
+              $fecha = $this->mdlCompras->validarFechaCompra();
+
               $this->mdlCompras->__SET('fechafinal',date("Y-m-d",strtotime($_POST['txtfechafinal'])));
-              $ver = $this->mdlCompras->listarpdf();
+              $fecha2 = $this->mdlCompras->validarFechaCompra();
+
+              if($fecha == true && $fecha2 == true){
+
+                $this->mdlCompras->__SET('fechainicial',date("Y-m-d",strtotime($_POST['txtfechainicial'])));
+                $this->mdlCompras->__SET('fechafinal',date("Y-m-d",strtotime($_POST['txtfechafinal'])));
+                $ver = $this->mdlCompras->listarpdf();
+
+                }else{
+                  $_SESSION['alerta'] = ' swal({
+                    title: "Rango de fecha no existe!",
+                    type: "error",
+                    confirmButton: "#3CB371",
+                    confirmButtonText: "Aceptar",
+                    // confirmButtonText: "Cancelar",
+                    closeOnConfirm: false,
+                    closeOnCancel: false
+                  })';
+                header("Location:".URL.'Compras/informeproducto');
+                exit();
+              }
             }
+
             require_once APP . 'libs/dompdf/autoload.inc.php';
             // $urlImagen = URL . 'producto/generarcodigo?id=';
             // $productos = $this->mdlproducto->listar();

@@ -19,6 +19,7 @@
                                 <th>Nombres Empleado </th>
                                 <th>Apellidos Empleado</th>
                                 <th>Tipo Empleado</th>
+                                <th>Cargo</th>
                                 <th>Email</th>
                                 <th>Celular</th>
                                 <th>Teléfono</th>
@@ -33,6 +34,7 @@
                                 <td><?=  $valor['nombres'] ?></td>
                                 <td><?=  $valor['apellidos'] ?></td>
                                 <td style="width: 14%"><?=  $valor['Tbl_nombre_tipo_persona'] ?></td>
+                                <td style="width: 10%"><?=  $valor['nombre_rol'] ?></td>
                                 <td style="width: 8%"><?=  $valor['email'] ?></td>
                                 <td><?=  $valor['celular'] ?></td>
                                 <td><?=  $valor['telefono'] ?></td>

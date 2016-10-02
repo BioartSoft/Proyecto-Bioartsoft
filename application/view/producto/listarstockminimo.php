@@ -47,7 +47,7 @@
 <div class="col-sm-12">
     <center>
     <a href="<?= URL ?>producto/informestock" target="_blank">
-      <button class="btn btn-primary"><i class="fa fa-file-pdf-o" aria-hidden="true">   Reporte PDF de Stock</i></button>
+      <button class="btn btn-primary"><i class="fa fa-file-pdf-o" aria-hidden="true">   Reporte PDF de Stock Mínimo</i></button>
     </a>
   </center>
   </div>

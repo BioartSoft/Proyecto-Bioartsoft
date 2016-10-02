@@ -124,5 +124,32 @@ class mdlUsuario
       $stm->execute();
       return $stm->fetch(PDO::FETCH_ASSOC);
     }
+
+
+    public function validarModUsuario($id){
+      $sql = "CALL SP_Validar_Modificacion_Usuario(?, ?)";
+      $stm = $this->db->prepare($sql);
+      $stm->bindParam(1, $id);
+      $stm->bindParam(2, $this->nombreUsuario);
+      $stm->execute();
+      return $stm->fetch(PDO::FETCH_ASSOC);
+    }
+
+
+    public function consultarUsuarios(){
+      $sql = "CALL SP_Consultar_Usuarios()";
+      $stm = $this->db->prepare($sql);
+      $stm->execute();
+      return $stm->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
+    public function ModNombreUsu($id){
+      $sql = "CALL SP_Validar_Nombre_Usuario(?)";
+      $stm = $this->db->prepare($sql);
+      $stm->bindParam(1, $id);
+      $stm->execute();
+      return $stm->fetchAll(PDO::FETCH_ASSOC);
+    }
   }
  ?>

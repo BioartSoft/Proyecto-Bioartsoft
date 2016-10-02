@@ -76,6 +76,17 @@ class producto extends Controller{
         echo "0";
   }
 
+
+  public function validacionNombre(){
+      $this->mdlproducto->__SET("nombre_producto", $_POST['campoNombre']);
+      $ValidarNombre = $this->mdlproducto->validarNombre();
+
+      if ($ValidarNombre != false)
+        echo "1";
+      else
+        echo "0";
+  }
+
    public function guardarImagenCodigo($url, $nombre){
     $ruta = APP . "imagenes/$nombre.png";
     $content = file_get_contents($url);
@@ -175,14 +186,17 @@ class producto extends Controller{
 
 
   public function registrarProductos(){
-    $modeloconfiguracion = $this->loadModel("mdlConfiguracionPago");
-    $configuracion = $modeloconfiguracion->listarConfiguracion();
+    // $modeloconfiguracion = $this->loadModel("mdlConfiguracionPago");
+    // $configuracion = $modeloconfiguracion->listarConfiguracion();
     $error = false;
     $guardado = false;
     $errorCodigo = true;
+    $errorNombre = true;
     if(isset($_POST["btnguardarpro"])){
       $this->mdlproducto->__SET("id_producto", $_POST['txtcodigo']);
       $ValidarCod = $this->mdlproducto->validarCodigo();
+      $this->mdlproducto->__SET("nombre_producto", $_POST['txtnombreproducto']);
+      $validarNombre = $this->mdlproducto->validarNombre();
       $this->mdlproducto->__SET("id_producto",$_POST["txtcodigo"]);
       $this->mdlproducto->__SET("nombre_producto",$_POST["txtnombreproducto"]);
       $this->mdlproducto->__SET("precio_detal",$_POST["txtprecioventa"]);
@@ -200,13 +214,17 @@ class producto extends Controller{
           $errorCodigo = false;
         }else{
 
-        if($this->mdlproducto->Guardar()){
-          $guardado = true;
+          if($validarNombre != false){
+            $errorNombre = false;
+          }else{
 
-        }else {
-          $error = true;
-        }
+            if($this->mdlproducto->Guardar()){
+              $guardado = true;
 
+            }else {
+              $error = true;
+            }
+          }
       }
     }catch (PDOException $ex) {
         echo  $ex->getMessage();

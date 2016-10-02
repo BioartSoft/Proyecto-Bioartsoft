@@ -34,15 +34,15 @@
 
     <div class="col-md-4">
         <label for="inputTwitter" class="control-label" style="color: #3CB371">Precio Unitario *</label>
-        <input name="txtpreciocompra" id="txtpreciocompra" type="number" data-parsley-type="integer" min="0" maxlength="10" class="form-control" id="inputTwitter" placeholder="Precio Unitario" data-parsley-required="true">
+        <input name="txtpreciocompra" id="txtpreciocompra" type="number" data-parsley-type="integer" min="0" max="100000" class="form-control" placeholder="Precio Unitario" data-parsley-required="true">
     </div>
     <div class="col-md-4">
         <label for="inputTwitter" class="control-label" style="color: #3CB371">Precio al Detal *</label>
-        <input name="txtprecioventa" type="number" id="txtprecioventa" type="text"  data-parsley-type="integer" min="0" maxlength="10" class="form-control" id="inputTwitter" placeholder="Precio Detal" data-parsley-required="true">
+        <input name="txtprecioventa" type="number" id="txtprecioventa" type="text"  data-parsley-type="integer" min="0" max="100000" class="form-control" placeholder="Precio Detal" data-parsley-required="true">
     </div>
     <div class="col-md-4">
         <label for="inputTwitter" class="control-label" style="color: #3CB371">Precio al por Mayor * </label>
-        <input id="txtprecioalpormayor" type="number" name="txtprecioalpormayor" data-parsley-type="integer" min="0" maxlength="10" class="form-control"  placeholder="Precio por Mayor" data-parsley-required="true">
+        <input id="txtprecioalpormayor" type="number" name="txtprecioalpormayor" data-parsley-type="integer" min="0" max="100000" class="form-control"  placeholder="Precio por Mayor" data-parsley-required="true">
     </div>
 
   </div>
@@ -56,8 +56,8 @@
         <option value="S">S</option>
         <option value="M">M</option>
         <option value="L">L</option>
-        <option value="XS">XS</option>
-        <option value="XM">XM</option>
+        <option value="XS">XL</option>
+        <option value="XM">XXL</option>
       </select>
     </div>
     <div class="col-md-4" id="tamano" style="display:block" >
@@ -93,6 +93,22 @@
     $(document).ready(function(){
       swal({
             title: "Código ya existe, no se puede registrar!",
+            type: "error",
+            confirmButton: "#3CB371",
+            confirmButtonText: "Aceptar",
+            // confirmButtonText: "Cancelar",
+            closeOnConfirm: false,
+            closeOnCancel: false
+          });
+    });
+</script>
+<?php endif; ?>
+
+<?php if (isset($errorNombre) && $errorNombre == false): ?>
+<script type="text/javascript">
+    $(document).ready(function(){
+      swal({
+            title: "Nombre ya existe, no se puede registrar!",
             type: "error",
             confirmButton: "#3CB371",
             confirmButtonText: "Aceptar",
@@ -238,5 +254,34 @@ function cancelar() {
       e.preventDefault();
       //return false;
     }
+  });
+</script>
+
+<script type="text/javascript">
+  $(function(){
+
+    $("#txtnombreproducto").change(function(){
+
+      var campoNombre = $("#txtnombreproducto").val();
+
+      $.ajax({
+        url: url + 'producto/validacionNombre',
+        data:{'campoNombre': campoNombre},
+        type: 'post',
+        dataType:"text"
+      }).done(function(resut){
+
+        if(resut == "1"){
+          swal({
+                title: "Nombre Producto ya existe, no se puede registrar!",
+                type: "error",
+                confirmButton: "#3CB371",
+                confirmButtonText: "Aceptar",
+                closeOnConfirm: false,
+                closeOnCancel: false
+              });
+        }
+      });
+    });
   });
 </script>

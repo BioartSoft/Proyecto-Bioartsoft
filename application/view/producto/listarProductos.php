@@ -55,12 +55,6 @@
           <button type="button" class="btn btn-primary btn-circle btn-md" data-toggle="modal" data-target="#myForm2" onclick="traerDetallesProducto(<?= $val['id_producto'] ?>)" title="Ver Detalles"><i class="fa fa-eye" aria-hidden="true" title="Ver Detalles"></i></button>
 
           <button type="button" onclick="Traerdatosdelproducto('<?= $val['id_producto'] ?>')" class="btn btn-success btn-circle btn-md" data-toggle="modal" data-target="#actualizar-producto" title="Modificar"><i class="fa fa-pencil-square-o" aria-hidden="true" title="Modificar"></i></button>
-
-     <!--     <a href="<?= URL ?>producto/generarcodigo?id=<?= $val['id_producto'] ?>" download="<?= $val['id_producto']?>.png">
-           <button class="btn btn-warning btn-circle btn-md" title="Generar Código de Barras">
-             <i class="fa fa-barcode" title="Generar Código de Barras"></i>
-           </button>
-         </a> -->
              <a href="<?= URL ?>producto/generarPdfCodigo?id=<?= $val['id_producto'] ?>" target="_blank">
            <button class="btn btn-warning btn-circle btn-md" title="Generar Código de Barras">
              <i class="fa fa-barcode" title="Generar Código de Barras"></i>
@@ -141,7 +135,7 @@
                        <div class="col-md-6">
                        <label >Categoría</label><br>
                        <select id="txtcategoria" name="txtcategoria" name="txtcategoria" class="form-control" maxlength="20" data-parsley-type"alphanum" data-parsley-required="true">
-                          <option value="">Seleccione una categoría</option>
+                          <option value="">Seleccionar Categoría</option>
                           <?php foreach ($categorias as $value): ?>
                           <option value="<?= $value['id_categoria'] ?>"><?= $value['nombre']  ?></option>
                           <?php endforeach ?>
@@ -149,7 +143,14 @@
                     </div>
                     <div class="col-md-6" id="div-talla" name="txttalla">
                         <label id="lbltalla">Talla</label><br>
-                        <input id="txttalla" name="txttalla" type="text" class="form-control" data-parsley-type="alphanum" maxlength="15">
+                        <select id="txttalla" name="txttalla" class="form-control" data-parsley-type="alphanum" maxlength="15">
+                          <option value="">Seleccionar Talla</option>
+                          <option>S</option>
+                          <option>M</option>
+                          <option>L</option>
+                          <option>XL</option>
+                          <option>XXL</option>
+                        </select>
                     </div>
                   </div>
                   <br>
@@ -169,7 +170,7 @@
                    </div>
 
                      <div class="col-md-6" >
-                       <label>Precio al Por Mayor </label><br>
+                       <label>Precio al por Mayor </label><br>
                        <input id="txtprecioalpormayor" name="txtprecioalpormayor" type="text" class="form-control" data-parsley-type="integer" min="0" maxlength="10" data-parsley-required="true">
                    </div>
                  </div>
@@ -223,7 +224,7 @@
                  <tr>
                   <th>Precio Unitario</th>
                   <th>Precio al Detal</th>
-                  <th>Precio Al Por Mayor</th>
+                  <th>Precio al por Mayor</th>
                 </tr>
               </thead>
               <tbody class="precios" id="detalles-productos">
@@ -248,24 +249,6 @@
 
   });
 </script>
-
-<!-- <script type="text/javascript">
-  $(document).ready(function(){
-
-    $("#txtcategoria").change(function(){
-      var cate = $(this).val();
-
-      if(cate == "Ropa"){
-        $("#div-talla").show();
-        $("#txttamano").hide();
-      }else{
-        $("#div-talla").show();
-        $("#txttamano").show();
-
-      }
-    });
-   });
-</script> -->
 
 <script type="text/javascript">
 function cambiarestado(id){

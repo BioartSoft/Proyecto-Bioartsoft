@@ -95,11 +95,12 @@ $(function(){
       var contenedorMostrar = $("#div-talla");
       contenedorMostrar.find('label').show();
       contenedorMostrar.find('input').show();
+      contenedorMostrar.find('select').show();
       contenedorOcultar.find('input').show();
       contenedorOcultar.find('label').show();
 
       contenedorOcultar.slideUp(function(){
-        contenedorMostrar.slideDown();
+      contenedorMostrar.slideDown();
       });
     } else {
       var contenedorOcultar = $("#div-talla");
@@ -107,9 +108,10 @@ $(function(){
       contenedorMostrar.find('input').show();
       contenedorMostrar.find('label').show();
       contenedorOcultar.find('input').show();
+      contenedorOcultar.find('select').show();
       contenedorOcultar.find('label').show();
       contenedorOcultar.slideUp(function(){
-        contenedorMostrar.slideDown();
+      contenedorMostrar.slideDown();
       });
     }
   });

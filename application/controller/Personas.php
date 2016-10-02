@@ -533,99 +533,140 @@ use Dompdf\Dompdf;
     public function listarPersonasEmpleados($id= "",$tipo=0){
 
       $persona = null;
+      $validarUsu = true;
+      $existe = false;
+      $existe2 = false;
+      $noExiste = false;
       if(isset($_POST['btn-modificar'])){
-        if($_POST['txtTipoEmpleado'] == 1){
-        $this->modeloUsuario->__SET('idUsuario',$id);
-        $this->modeloUsuario->__SET('nombreUsuario', $_POST['txtnombreusuario']);
-        $this->modeloUsuario->__SET('rolId', $_POST['txtrol']);
-        $modUsu = $this->modeloUsuario->modificarUsuario();
 
-        $this->modeloP->__SET('idPersona', $_POST['idPersona']);
-        $this->modeloP->__SET('nombres', $_POST['txtnombre']);
-        $this->modeloP->__SET('apellidos', $_POST['txtapell']);
-        $this->modeloP->__SET('celular', $_POST['txtcel']);
-        $this->modeloP->__SET('email', $_POST['txtcorreo']);
-        $this->modeloP->__SET('telefono', $_POST['txttel']);
-        $this->modeloP->__SET('direccion', $_POST['txtdirecc']);
-        $this->modeloP->__SET("fechaContrato", date("Y-m-d",strtotime($_POST['txtfechac'])));
-        $fecha = $_POST['txtfechac'];
-        $this->modeloP->__SET("fechaTerminacion",date("Y-m-d", strtotime($fecha)));
-        $this->modeloP->__SET('genero', $_POST['txtgenero']);
-        $this->modeloP->__SET('tipoPersona', $_POST['txtTipoEmpleado']);
-        $modPer = $this->modeloP->modificarPersona();
+        $this->modeloUsuario->__SET("nombreUsuario", $_POST['txtnombreusuario']);
+        $ValidarNomUsu = $this->modeloUsuario->validarModUsuario($id);
+        $ConsultarUsuarios = $this->modeloUsuario->consultarUsuarios();
+        $usuario = $this->modeloUsuario->ModNombreUsu($id);
 
-        if($modUsu == true && $modPer == true){
-
-          $_SESSION['alerta'] = ' swal({
-            title: "Modificación exitosa!",
-            type: "success",
-            confirmButton: "#3CB371",
-            confirmButtonText: "Aceptar",
-            // confirmButtonText: "Cancelar",
-            closeOnConfirm: false,
-            closeOnCancel: false
-          })';
-
-        }else{
-
-          $_SESSION['alerta'] = ' swal({
-            title: "Error en la modificación!",
-            type: "error",
-            confirmButton: "#3CB371",
-            confirmButtonText: "Aceptar",
-            // confirmButtonText: "Cancelar",
-            closeOnConfirm: false,
-            closeOnCancel: false
-          })';
-
+        foreach ($ConsultarUsuarios as $value) {
+          if ($value['nombre_usuario'] == $ValidarNomUsu['nombre_usuario']) {
+            $existe = true;#dejar guardar
+            break;
+          }
         }
 
+        foreach ($usuario as $val) {
+          if($val['nombre_usuario'] == $_POST['txtnombreusuario']){
+            $existe2 = true;# NO dejar guardar
+            break;
+          }
+        }
 
+        foreach ($ConsultarUsuarios as $valor) {
+          if ($valor['nombre_usuario'] != $_POST['txtnombreusuario']) {
+            $noExiste = true;# dejar guardar
+          }
+        }
 
-      }else if($_POST['txtTipoEmpleado'] == 2){
-        $this->modeloUsuario->__SET('idUsuario',$id);
-        $this->modeloUsuario->__SET('nombreUsuario', $_POST['txtnombreusuario']);
-        $this->modeloUsuario->__SET('rolId', $_POST['txtrol']);
-        $modUsu = $this->modeloUsuario->modificarUsuario();
+        if(($existe === false && $existe2 === true) || $noExiste === false){
+          $validarUsu = false;
+          // var_dump("no guardado");
+          // exit();
+        }else if(($existe === true && $existe2 === false) || $noExiste === true){
+          // var_dump("Guardado");
+          // exit();
 
-        $this->modeloP->__SET('idPersona', $_POST['idPersona']);
-        $this->modeloP->__SET('nombres', $_POST['txtnombre']);
-        $this->modeloP->__SET('apellidos', $_POST['txtapell']);
-        $this->modeloP->__SET('celular', $_POST['txtcel']);
-        $this->modeloP->__SET('email', $_POST['txtcorreo']);
-        $this->modeloP->__SET('telefono', $_POST['txttel']);
-        $this->modeloP->__SET('direccion', $_POST['txtdirecc']);
-        $this->modeloP->__SET("fechaContrato", null);
-        $this->modeloP->__SET("fechaTerminacion", null);
-        $this->modeloP->__SET('genero', $_POST['txtgenero']);
-        $this->modeloP->__SET('tipoPersona', $_POST['txtTipoEmpleado']);
-        $modPer = $this->modeloP->modificarPersona();
+          if($_POST['txtTipoEmpleado'] == 1){
+          $this->modeloUsuario->__SET('idUsuario',$id);
+          $this->modeloUsuario->__SET('nombreUsuario', $_POST['txtnombreusuario']);
+          $this->modeloUsuario->__SET('rolId', $_POST['txtrol']);
+          $modUsu = $this->modeloUsuario->modificarUsuario();
 
-        if($modUsu == true && $modPer == true){
+          $this->modeloP->__SET('idPersona', $_POST['idPersona']);
+          $this->modeloP->__SET('nombres', $_POST['txtnombre']);
+          $this->modeloP->__SET('apellidos', $_POST['txtapell']);
+          $this->modeloP->__SET('celular', $_POST['txtcel']);
+          $this->modeloP->__SET('email', $_POST['txtcorreo']);
+          $this->modeloP->__SET('telefono', $_POST['txttel']);
+          $this->modeloP->__SET('direccion', $_POST['txtdirecc']);
+          $this->modeloP->__SET("fechaContrato", date("Y-m-d",strtotime($_POST['txtfechac'])));
+          $fecha = $_POST['txtfechac'];
+          $this->modeloP->__SET("fechaTerminacion",date("Y-m-d", strtotime($fecha)));
+          $this->modeloP->__SET('genero', $_POST['txtgenero']);
+          $this->modeloP->__SET('tipoPersona', $_POST['txtTipoEmpleado']);
+          $modPer = $this->modeloP->modificarPersona();
 
-          $_SESSION['alerta'] = ' swal({
-            title: "Modificación exitosa!",
-            type: "success",
-            confirmButton: "#3CB371",
-            confirmButtonText: "Aceptar",
-            // confirmButtonText: "Cancelar",
-            closeOnConfirm: false,
-            closeOnCancel: false
-          })';
+          if($modUsu == true && $modPer == true){
 
-        }else{
+            $_SESSION['alerta'] = ' swal({
+              title: "Modificación exitosa!",
+              type: "success",
+              confirmButton: "#3CB371",
+              confirmButtonText: "Aceptar",
+              // confirmButtonText: "Cancelar",
+              closeOnConfirm: false,
+              closeOnCancel: false
+            })';
 
-          $_SESSION['alerta'] = ' swal({
-            title: "Error en la modificación!",
-            type: "error",
-            confirmButton: "#3CB371",
-            confirmButtonText: "Aceptar",
-            // confirmButtonText: "Cancelar",
-            closeOnConfirm: false,
-            closeOnCancel: false
-          })';
+          }else{
+
+            $_SESSION['alerta'] = ' swal({
+              title: "Error en la modificación!",
+              type: "error",
+              confirmButton: "#3CB371",
+              confirmButtonText: "Aceptar",
+              // confirmButtonText: "Cancelar",
+              closeOnConfirm: false,
+              closeOnCancel: false
+            })';
 
           }
+
+
+
+        }else if($_POST['txtTipoEmpleado'] == 2){
+          $this->modeloUsuario->__SET('idUsuario',$id);
+          $this->modeloUsuario->__SET('nombreUsuario', $_POST['txtnombreusuario']);
+          $this->modeloUsuario->__SET('rolId', $_POST['txtrol']);
+          $modUsu = $this->modeloUsuario->modificarUsuario();
+
+          $this->modeloP->__SET('idPersona', $_POST['idPersona']);
+          $this->modeloP->__SET('nombres', $_POST['txtnombre']);
+          $this->modeloP->__SET('apellidos', $_POST['txtapell']);
+          $this->modeloP->__SET('celular', $_POST['txtcel']);
+          $this->modeloP->__SET('email', $_POST['txtcorreo']);
+          $this->modeloP->__SET('telefono', $_POST['txttel']);
+          $this->modeloP->__SET('direccion', $_POST['txtdirecc']);
+          $this->modeloP->__SET("fechaContrato", null);
+          $this->modeloP->__SET("fechaTerminacion", null);
+          $this->modeloP->__SET('genero', $_POST['txtgenero']);
+          $this->modeloP->__SET('tipoPersona', $_POST['txtTipoEmpleado']);
+          $modPer = $this->modeloP->modificarPersona();
+
+          if($modUsu == true && $modPer == true){
+
+            $_SESSION['alerta'] = ' swal({
+              title: "Modificación exitosa!",
+              type: "success",
+              confirmButton: "#3CB371",
+              confirmButtonText: "Aceptar",
+              // confirmButtonText: "Cancelar",
+              closeOnConfirm: false,
+              closeOnCancel: false
+            })';
+
+          }else{
+
+            $_SESSION['alerta'] = ' swal({
+              title: "Error en la modificación!",
+              type: "error",
+              confirmButton: "#3CB371",
+              confirmButtonText: "Aceptar",
+              // confirmButtonText: "Cancelar",
+              closeOnConfirm: false,
+              closeOnCancel: false
+            })';
+
+            }
+
+          }
+
 
         }
 

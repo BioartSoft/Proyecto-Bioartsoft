@@ -35,7 +35,7 @@ class mdlCompras
 
   public function listarpdf()
  {
-   $sql="CALL  SP_Informe_existencia(?,?)";
+   $sql="CALL  SP_Informe_Compras(?,?)";
    try {
     $ca = $this->db->prepare($sql);
     $ca->bindParam(1,$this->fechainicial);
@@ -47,6 +47,21 @@ class mdlCompras
    }
 
  }
+
+
+ public function validarFechaCompra()
+{
+  $sql="CALL  SP_Validar_Fecha(?)";
+  try {
+   $ca = $this->db->prepare($sql);
+   $ca->bindParam(1,$this->fechainicial);
+   $ca->execute();
+   return $ca->fetch(PDO::FETCH_ASSOC);
+  } catch (Exception $e) {
+
+  }
+
+}
 
 
 

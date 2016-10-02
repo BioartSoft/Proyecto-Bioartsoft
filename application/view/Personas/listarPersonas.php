@@ -77,7 +77,7 @@
                    <div class="col-sm-12">
                      <center>
                      <a href="<?= URL ?>Personas/generarpdfEmpleados" target="_blank">
-                       <button class="btn btn-primary"><i class="fa fa-file-pdf-o" aria-hidden="true">   Reporte PDF de Empledos</i></button>
+                       <button class="btn btn-primary"><i class="fa fa-file-pdf-o" aria-hidden="true">   Reporte PDF de Empleados</i></button>
                      </a>
                    </center>
                    </div>
@@ -125,7 +125,7 @@
           <div class="row">
                        <div class="col-md-6">
                          <label>Nombre Usuario</label><br>
-                         <input type="text" class="form-control" id="ejemplo_password_2"
+                         <input type="text" class="form-control" id="txtusuario"
                                 value="<?= $persona['nombre_usuario'] ?>" name="txtnombreusuario" maxlength="30" minlength="3" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9@#\-\_\\.\\ \/$]+" data-parsley-required="true">
                       </div>
                         <div class="col-md-6">
@@ -200,6 +200,11 @@
                             <span class="glyphicon glyphicon-th"></span>
                           </div>
                           </div>
+                        </div>
+
+                        <div class="col-md-6" id="div-fechaTer">
+                          <label>Fecha Terminación Contrato</label>
+                          <input class="form-control" name="fechaTerminacionC" id="fechaTer" readonly="true" value="<?= $persona['fecha_Terminacion_Contrato'] ?>">
                         </div>
                           </div>
                            <?php endif; ?>
@@ -424,13 +429,16 @@ function(isConfirm){
    var tipo=$(this).val();
    if(tipo == 1){
      $("#conFechaContrato").slideDown();
-       $("#dataPicker").slideDown();
+     $("#dataPicker").slideDown();
      $("#campoFechaContrat").attr("required", 'true');
+     $("#div-fechaTer").slideDown();
 
    }else if(tipo == 2){
      $("#conFechaContrato").slideUp();
      $("#dataPicker").slideUp();
      $("#campoFechaContrat").removeAttr("required");
+     $("#div-fechaTer").slideUp();
+
    }
   });
   });
@@ -449,6 +457,7 @@ function(isConfirm){
      $("#conFechaContrato").slideDown();
       $("#dataPicker").slideDown();
      $("#campoFechaContrato").attr("required", 'true');
+     $("#div-fechaTer").slideDown();
 
    }else if(tipo == 2){
 
@@ -456,8 +465,25 @@ function(isConfirm){
      $("#conFechaContrato").slideUp();
      $("#dataPicker").slideUp();
      $("#campoFechaContrato").removeAttr("required");
+     $("#div-fechaTer").slideUp();
    }
   });
   });
+  </script>
+<?php endif; ?>
+
+<?php if (isset($validarUsu) && $validarUsu == false): ?>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      swal({
+            title: "Nombre de usuario ya existe, no se puede modificar!",
+            type: "error",
+            confirmButton: "#3CB371",
+            confirmButtonText: "Aceptar",
+            // confirmButtonText: "Cancelar",
+            closeOnConfirm: false,
+            closeOnCancel: false
+          });
+    });
   </script>
 <?php endif; ?>

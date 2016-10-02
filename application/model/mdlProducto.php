@@ -71,6 +71,16 @@ class mdlProducto
     return $stm->fetch(PDO::FETCH_ASSOC);
 }
 
+
+public function validarNombre(){
+  $sql = "CALL 	SP_Validar_Nombre_Producto(?)";
+  $stm = $this->db->prepare($sql);
+  $stm->bindParam(1, $this->nombre_producto);
+  $stm->execute();
+  return $stm->fetch(PDO::FETCH_ASSOC);
+}
+
+
   public function listarpdfp(){
      $sql="CALL  SP_Listar_informe()";
     try {
