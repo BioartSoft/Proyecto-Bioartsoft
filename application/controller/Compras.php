@@ -87,11 +87,22 @@
           {
             $id = $_GET['id'];
 
-            $detalles = $this->mdlCompras->getDetallesCompra($id);
-            $info = $this->mdlCompras->getInfoCompra($id);
+            $detalles2 = $this->mdlCompras->pdfDetallesCompra($id);
 
+            $tabla2 = "";
+            foreach ($detalles2 as $val) {
+              $tabla2 .= '<tr>';
+              $tabla2 .= '<td>' . $val['fecha_compra'] . '</td>';
+              // var_dump($tabla);
+              // exit();
+              $tabla2 .= '<td>' . $val['proveedor'] . '</td>';
+              $tabla2 .= '<td>' . $val['valor_total'] . '</td>';
+              $tabla2 .= '</tr>';
+            }
+
+            $detalles = $this->mdlCompras->getDetallesCompra($id);
             $tabla = "";
-            foreach ($detalles as $key => $value) {
+            foreach ($detalles as $value) {
               $tabla .= '<tr>';
               $tabla .= '<td>' . $value['nombre_producto'] . '</td>';
               $tabla .= '<td>' . $value['cantidad'] . ' unidades</td>';

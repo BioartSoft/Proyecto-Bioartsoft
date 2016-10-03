@@ -18,7 +18,7 @@
        <th>Código Producto</th>
        <th>Nombre Producto</th>
        <th>Categoría</th>
-       <th>Cantidad </th>
+       <th>Cantidad Disponible</th>
        <th>Precio Unitario</th>
        <th>Precio Detal</th>
        <th>Precio al por Mayor</th>

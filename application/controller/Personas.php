@@ -537,12 +537,21 @@ use Dompdf\Dompdf;
       $existe = false;
       $existe2 = false;
       $noExiste = false;
+      $existeEmail = false;
+      $existeEmail2 = false;
+      $noExisteEmail = false;
       if(isset($_POST['btn-modificar'])){
 
         $this->modeloUsuario->__SET("nombreUsuario", $_POST['txtnombreusuario']);
+        $this->modeloUsuario->__SET("correo", $_POST['txtcorreo']);
+
         $ValidarNomUsu = $this->modeloUsuario->validarModUsuario($id);
         $ConsultarUsuarios = $this->modeloUsuario->consultarUsuarios();
         $usuario = $this->modeloUsuario->ModNombreUsu($id);
+
+        $ValidarEmail = $this->modeloUsuario->ValidarModEmail($id);
+        $ConsultarEmails = $this->modeloUsuario->ConsultarEmail();
+        $email = $this->modeloUsuario->ModEmailusuario($id);
 
         foreach ($ConsultarUsuarios as $value) {
           if ($value['nombre_usuario'] == $ValidarNomUsu['nombre_usuario']) {
@@ -564,11 +573,31 @@ use Dompdf\Dompdf;
           }
         }
 
-        if(($existe === false && $existe2 === true) || $noExiste === false){
+        foreach ($ConsultarEmails as $va) {
+          if ($va['email'] == $ValidarEmail['email']) {
+            $existeEmail = true;#dejar guardar
+            break;
+          }
+        }
+
+        foreach ($email as $valores) {
+          if($valores['email'] == $_POST['txtcorreo']){
+            $existeEmail2 = true;# NO dejar guardar
+            break;
+          }
+        }
+
+        foreach ($ConsultarEmails as $valor2) {
+          if ($valor2['email'] != $_POST['txtcorreo']) {
+            $noExisteEmail = true;# dejar guardar
+          }
+        }
+
+        if(($existe === false && $existe2 === true) || $noExiste === false || ($existeEmail === false && $existeEmail2 === true) || $noExisteEmail === false){
           $validarUsu = false;
           // var_dump("no guardado");
           // exit();
-        }else if(($existe === true && $existe2 === false) || $noExiste === true){
+        }else if(($existe === true && $existe2 === false) || $noExiste === true || ($existeEmail === true && $existeEmail2 === false) || $noExisteEmail === true){
           // var_dump("Guardado");
           // exit();
 

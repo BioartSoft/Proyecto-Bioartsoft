@@ -128,7 +128,7 @@
                          <div class="col-md-6">
                            <label>Email</label><br>
                            <input type="email" class="form-control" id="ejemplo_password_2" data-parsley-type="email"
-                           value="<?= $proveedor['email'] ?>" name="txtcorreo" data-parsley-required="true">
+                           value="<?= $proveedor['email'] ?>" name="txtcorreo">
                          </div>
         </div>
         <br>

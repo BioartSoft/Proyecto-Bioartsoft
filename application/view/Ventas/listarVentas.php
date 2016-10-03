@@ -109,10 +109,25 @@
 
               </tbody>
             </table>
-            <button type="button" class="btn btn-secondary btn-md active pull-right"  data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"> Cerrar</span></button>
           </div>
         </div>
       </div>
+    </div>
+  </div>
+</div>
+
+      <div class="row">
+
+        <div class="col-md-9">
+          <button type="button" class="btn btn-secondary btn-md active pull-right"  data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"> Cerrar</span></button>
+        </div>
+        <div class="col-md-2">
+          <a href="<?= URL ?>Ventas/generarpdfDetallesVentas" target="_blank" id="pdfDeta">
+            <button class="btn btn-primary" name="btnComprasD"><i class="fa fa-file-pdf-o" aria-hidden="true">   Detalles Ventas</i></button>
+          </a>
+        </div>
+      </div>
+      <br>
     </div>
   </div>
 </div>
@@ -121,6 +136,11 @@
 <script type="text/javascript">
 
 function traerDetallesVenta(id){
+  var enlace = $("#pdfDeta");
+  var nUrl = '<?= URL ?>Ventas/generarpdfDetallesVentas?id=' + id;
+  enlace.attr("href", nUrl);
+
+
   $.ajax({
     url:url+"Ventas/ajaxDetallesVenta",
     type:'POST',

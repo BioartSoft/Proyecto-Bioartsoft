@@ -46,6 +46,60 @@ class Ventas extends controller
   }
 
 
+  public function generarpdfDetallesVentas()
+  {
+    $id = $_GET['id'];
+
+
+    $info = $this->mdlVentas->pdfDetallesVenta($id);
+
+    $tabla2 = "";
+    foreach ($info as $val) {
+      $tabla2 .= '<tr>';
+      $tabla2 .= '<td>' . $val['fecha_venta'] . '</td>';
+      // var_dump($tabla);
+      // exit();
+      $tabla2 .= '<td>' . $val['cliente'] . '</td>';
+      $tabla2 .= '<td>' . $val['total_venta'] . '</td>';
+      $tabla2 .= '</tr>';
+    }
+
+    $detalles = $this->mdlVentas->getDetallesVenta($id);
+    $info = $this->mdlVentas->getInfoVenta($id);
+    $tabla = "";
+    foreach ($detalles as $value) {
+      $tabla .= '<tr>';
+      $tabla .= '<td>' . $value['nombre_producto'] . '</td>';
+        if($info['Tbl_TipoPersona_idTbl_TipoPersona'] == 6){
+      $tabla .= '<td class="price">' . $value['precio_detal'] . '</td>';
+    }else{
+      $tabla .= '<td class="price">' . $value['precio_por_mayor'] . '</td>';
+    }
+      $tabla .= '<td>' . $value['cantidad'] . ' unidades</td>';
+      if($info['Tbl_TipoPersona_idTbl_TipoPersona'] == 6){
+      $tabla .= '<td class="price">' . $value['cantidad'] * $value['precio_detal'] . '</td>';
+    }else{
+      $tabla .= '<td class="price">' . $value['cantidad'] * $value['precio_por_mayor'] . '</td>';
+    }
+      $tabla .= '</tr>';
+    }
+
+    require_once APP . 'libs/dompdf/autoload.inc.php';
+    ob_start();
+    require APP . 'view/Ventas/pdfDetallesVentas.php';
+
+
+    $html = ob_get_clean();
+    $dompdf = new Dompdf();
+    $dompdf->loadHtml($html);
+    // $dompdf->load_html_file($urlImagen);
+    $dompdf->setPaper('A4', 'landscape');
+    $dompdf->render();
+    $dompdf->stream("Informe Ventas.pdf", array("Attachment" => false, 'isRemoteEnabled' => true));
+  }
+
+
+
   public function informeVentas()
      {
        require APP . 'view/_templates/header.php';

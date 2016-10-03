@@ -301,6 +301,60 @@ public function validarCantidad(){
   }
 
 
+  public function validarModNombre(){
+    $sql = "CALL SP_Validar_Modificacion_Nombre_Producto(?, ?)";
+    $stm = $this->db->prepare($sql);
+    $stm->bindParam(1, $this->id_producto);
+    $stm->bindParam(2, $this->nombre_producto);
+    $stm->execute();
+    return $stm->fetch(PDO::FETCH_ASSOC);
+  }
+
+
+  public function validarModCategoria(){
+    $sql = "CALL SP_Validar_Modificacion_Nombre_Categoria(?, ?)";
+    $stm = $this->db->prepare($sql);
+    $stm->bindParam(1, $this->id_categoria);
+    $stm->bindParam(2, $this->nombre);
+    $stm->execute();
+    return $stm->fetch(PDO::FETCH_ASSOC);
+  }
+
+
+  public function consultarProductos(){
+    $sql = "CALL SP_Consultar_Nombre_Productos()";
+    $stm = $this->db->prepare($sql);
+    $stm->execute();
+    return $stm->fetchAll(PDO::FETCH_ASSOC);
+  }
+
+
+  public function consultarCategorias(){
+    $sql = "CALL SP_Consultar_Nombres_Categorias()";
+    $stm = $this->db->prepare($sql);
+    $stm->execute();
+    return $stm->fetchAll(PDO::FETCH_ASSOC);
+  }
+
+
+  public function ModNombreProd(){
+    $sql = "CALL SP_Validar_Nombre_Productos(?)";
+    $stm = $this->db->prepare($sql);
+    $stm->bindParam(1, $this->id_producto);
+    $stm->execute();
+    return $stm->fetchAll(PDO::FETCH_ASSOC);
+  }
+
+
+  public function ModNombreCateg(){
+    $sql = "CALL SP_Validar_Nombres_Categorias(?)";
+    $stm = $this->db->prepare($sql);
+    $stm->bindParam(1, $this->id_categoria);
+    $stm->execute();
+    return $stm->fetchAll(PDO::FETCH_ASSOC);
+  }
+
+
 }
 
  ?>

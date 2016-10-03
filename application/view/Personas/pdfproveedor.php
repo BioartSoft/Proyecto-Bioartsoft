@@ -16,8 +16,8 @@
     <thead>
       <tr>
                                 <th>Identificación</th>
-                                <th>Nombres</th>
-                                <th>Apellidos</th>
+                                <th>Nombres Proveedor</th>
+                                <th>Apellidos Proveedor</th>
                                 <th>Tipo Proveedor</th>
                                 <!-- <th>NiT Empresa</th>
                                 <th>Nombre Empresa</th> -->
@@ -33,9 +33,9 @@
                                 <td><?=  $valor['nombres'] ?></td>
                                 <td><?=  $valor['apellidos'] ?></td>
                                 <td><?=  $valor['Tbl_nombre_tipo_persona'] ?></td>
-                                <td><?=  $valor['email'] ?></td>
-                                <td><?=  $valor['telefono'] ?></td>
-                                <td><?=  $valor['celular'] ?></td>
+                                <td style="width: 15%"><?=  $valor['email'] ?></td>
+                                <td style="width: 10%"><?=  $valor['telefono'] ?></td>
+                                <td style="width: 10%"><?=  $valor['celular'] ?></td>
                               </tr>
                                 <?php endforeach; ?>
     </tbody>

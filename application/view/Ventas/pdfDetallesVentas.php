@@ -10,14 +10,14 @@
 <body>
   <img src="<?php echo URL ?>img/BioartesV2.png" height="100" width="200">
   <br>
-  <center><legend>INFORME DETALLES COMPRAS</legend></center>
+  <center><legend>INFORME DETALLES VENTAS</legend></center>
   <br><br>
   <table border="1">
     <thead>
       <tr>
-        <th>Fecha Compra</th>
-        <th>Nombre Proveedor</th>
-        <th>Total Compra</th>
+        <th>Fecha Venta</th>
+        <th>Nombre Cliente</th>
+        <th>Total Venta</th>
       </tr>
     </thead>
     <tbody>
@@ -32,8 +32,8 @@
     <thead>
       <tr>
         <th>Nombre Producto</th>
-        <th>Cantidad</th>
         <th>Precio</th>
+        <th>Cantidad</th>
         <th>Total</th>
       </tr>
     </thead>

@@ -190,6 +190,16 @@ class mdlVentas
   }
 
 
+  public function pdfDetallesVenta($idVenta){
+    $sql = "CALL SP_Pdf_Detalles_Venta(?)";
+    $stm = $this->db->prepare($sql);
+    $stm->bindParam(1, $idVenta);
+    $stm->execute();
+    return $stm->fetchAll(2);
+
+  }
+
+
   public function getInfoVenta($codigo){
     $sql = "CALL SP_Info_Venta(?)";
     $stm = $this->db->prepare($sql);
@@ -265,7 +275,7 @@ class mdlVentas
     $stm = $this->db->prepare($sql);
     $stm->bindParam(1, $this->codigo_venta);
     $stm->bindParam(2, $abono);
-    $stm->execute();    
+    $stm->execute();
     return $stm->fetch(2);
   }
 

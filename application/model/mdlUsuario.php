@@ -8,6 +8,7 @@ class mdlUsuario
   private $estado;
   private $nombreUsuario;
   private $rolId;
+  private $correo;
   private $db;
 
     public function __SET($variable, $valor){
@@ -136,6 +137,16 @@ class mdlUsuario
     }
 
 
+    public function ValidarModEmail($id){
+      $sql = "CALL SP_Validar_Modificacion_Email(?, ?)";
+      $stm = $this->db->prepare($sql);
+      $stm->bindParam(1, $id);
+      $stm->bindParam(2, $this->correo);
+      $stm->execute();
+      return $stm->fetch(PDO::FETCH_ASSOC);
+    }
+
+
     public function consultarUsuarios(){
       $sql = "CALL SP_Consultar_Usuarios()";
       $stm = $this->db->prepare($sql);
@@ -144,8 +155,25 @@ class mdlUsuario
     }
 
 
+    public function consultarEmail(){
+      $sql = "CALL SP_Consultar_Emails()";
+      $stm = $this->db->prepare($sql);
+      $stm->execute();
+      return $stm->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
     public function ModNombreUsu($id){
       $sql = "CALL SP_Validar_Nombre_Usuario(?)";
+      $stm = $this->db->prepare($sql);
+      $stm->bindParam(1, $id);
+      $stm->execute();
+      return $stm->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
+    public function ModEmailusuario($id){
+      $sql = "CALL SP_Validar_Mod_Email(?)";
       $stm = $this->db->prepare($sql);
       $stm->bindParam(1, $id);
       $stm->execute();

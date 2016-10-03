@@ -131,8 +131,8 @@ class producto extends Controller{
 
 
   public function registrarBajas(){
-    $modeloconfiguracion = $this->loadModel("mdlConfiguracionPago");
-    $configuracion = $modeloconfiguracion->listarConfiguracion();
+    // $modeloconfiguracion = $this->loadModel("mdlConfiguracionPago");
+    // $configuracion = $modeloconfiguracion->listarConfiguracion();
 
     if(isset($_POST['btn-agregar'])){
       $this->mdlexistencias->tipo_baja = $_POST['tipo_baja'];
@@ -175,8 +175,8 @@ class producto extends Controller{
 
 
   public function listarBajas(){
-    $modeloconfiguracion = $this->loadModel("mdlConfiguracionPago");
-    $configuracion = $modeloconfiguracion->listarConfiguracion();
+    // $modeloconfiguracion = $this->loadModel("mdlConfiguracionPago");
+    // $configuracion = $modeloconfiguracion->listarConfiguracion();
     $bajas = $this->mdlexistencias->listarBajas();
     require APP . 'view/_templates/header.php';
     require APP . 'view/Existencias/listarbajas.php';
@@ -264,8 +264,8 @@ class producto extends Controller{
 
 
   public function registrarCategoria(){
-    $modeloconfiguracion = $this->loadModel("mdlConfiguracionPago");
-    $configuracion = $modeloconfiguracion->listarConfiguracion();
+    // $modeloconfiguracion = $this->loadModel("mdlConfiguracionPago");
+    // $configuracion = $modeloconfiguracion->listarConfiguracion();
 
     $guarda = false;
     $eror = false;
@@ -315,8 +315,8 @@ class producto extends Controller{
 
 
   public function listarProductos($id = 0,$tipo = 0){
-    $modeloconfiguracion = $this->loadModel("mdlConfiguracionPago");
-    $configuracion = $modeloconfiguracion->listarConfiguracion();
+    // $modeloconfiguracion = $this->loadModel("mdlConfiguracionPago");
+    // $configuracion = $modeloconfiguracion->listarConfiguracion();
     $actualizado = false;
     if(isset($_POST['txtcodigo'])){
     $actualizado = $this->modificarProducto();
@@ -330,56 +330,104 @@ class producto extends Controller{
 
 
   public function listarCategorias(){
-    $modeloconfiguracion = $this->loadModel("mdlConfiguracionPago");
-    $configuracion = $modeloconfiguracion->listarConfiguracion();
+    // $modeloconfiguracion = $this->loadModel("mdlConfiguracionPago");
+    // $configuracion = $modeloconfiguracion->listarConfiguracion();
 
     $guardar=false;
     $error=false;
+    $existeCategoria = false;
+    $existeCategoria2 = false;
+    $noExisteCategoria = false;
+
     if(isset($_POST['txtcodigo'])){
 
       $this->mdlproducto->__SET('nombre', $_POST['txtnombreca']);
       $this->mdlproducto->__SET('id_categoria', $_POST['txtcodigo']);
-      $resultado = $this->mdlproducto->ModificarCategoria();
 
-      if($resultado){
+      $validarNombreC = $this->mdlproducto->validarModCategoria();
+      $consultarcategorias = $this->mdlproducto->consultarCategorias();
+      $categoria = $this->mdlproducto->ModNombreCateg();
 
-        $guardar=true;
+      foreach ($consultarcategorias as $categ) {
+        if ($categ['nombre'] == $validarNombreC['nombre']) {
+          $existeCategoria = true;#dejar guardar
+          break;
+        }
       }
-      else {
-        $error=true;
+
+      foreach ($categoria as $categoria) {
+        if($categoria['nombre'] == strtolower($_POST['txtnombreca'])){
+          $existeCategoria2 = true;# NO dejar guardar
+          break;
+        }
       }
-    }
 
-    if($guardar == true)
-    {
-        $_SESSION['alerta']=  'swal({
-          title: "Modificación exitosa!",
-          type: "success",
-          confirmButton: "#3CB371",
-          confirmButtonText: "Aceptar",
-          // confirmButtonText: "Cancelar",
-          closeOnConfirm: false,
-          closeOnCancel: false
-        })';
-    }
+      foreach ($consultarcategorias as $ca) {
+        if ($ca['nombre'] != strtolower($_POST['txtnombreca'])) {
+          $noExisteCategoria = true;# dejar guardar
+        }
+      }
 
-    if($error == true)
-    {
-      $_SESSION['alerta'] =  'swal({
-        title: "Error en la modificación!",
-        type: "error",
-        confirmButton: "#3CB371",
-        confirmButtonText: "Aceptar",
-        // confirmButtonText: "Cancelar",
-        closeOnConfirm: false,
-        closeOnCancel: false
-      })';
-    }
+        if(($existeCategoria === false && $existeCategoria2 === true) || $noExisteCategoria === false){
+          $_SESSION['alerta'] = ' swal({
+                title: "Nombre de categoría ya existe, no se puede modificar!",
+                type: "error",
+                confirmButton: "#3CB371",
+                confirmButtonText: "Aceptar",
+                // confirmButtonText: "Cancelar",
+                closeOnConfirm: false,
+                closeOnCancel: false
+              })';
 
-    $cate = $this->mdlproducto->listarca();
-    require APP . 'view/_templates/header.php';
-    require APP . 'view/producto/listarCategorias.php';
-    require APP . 'view/_templates/footer.php';
+          // var_dump("no guardado");
+          // exit();
+
+        }else if(($existeCategoria === true && $existeCategoria2 === false) || $noExisteCategoria === true){
+          // var_dump("guardado");
+          // exit();
+
+          $resultado = $this->mdlproducto->ModificarCategoria();
+
+          if($resultado){
+
+            $guardar=true;
+          }
+          else {
+            $error=true;
+          }
+        }
+
+        if($guardar == true)
+        {
+            $_SESSION['alerta']=  'swal({
+              title: "Modificación exitosa!",
+              type: "success",
+              confirmButton: "#3CB371",
+              confirmButtonText: "Aceptar",
+              // confirmButtonText: "Cancelar",
+              closeOnConfirm: false,
+              closeOnCancel: false
+            })';
+        }
+
+        if($error == true)
+        {
+          $_SESSION['alerta'] =  'swal({
+            title: "Error en la modificación!",
+            type: "error",
+            confirmButton: "#3CB371",
+            confirmButtonText: "Aceptar",
+            // confirmButtonText: "Cancelar",
+            closeOnConfirm: false,
+            closeOnCancel: false
+          })';
+        }
+
+        }
+        $cate = $this->mdlproducto->listarca();
+        require APP . 'view/_templates/header.php';
+        require APP . 'view/producto/listarCategorias.php';
+        require APP . 'view/_templates/footer.php';
   }
 
 
@@ -398,12 +446,60 @@ class producto extends Controller{
   }
 
   private function modificarProducto(){
+
+    $existe = false;
+    $existe2 = false;
+    $noExiste = false;
+
     $this->mdlproducto->id_producto = $_POST["txtcodigo"];
     $this->mdlproducto->nombre_producto = $_POST["txtnombreproducto"];
+
+    $validarNombre = $this->mdlproducto->validarModNombre();
+    $consultarNombres = $this->mdlproducto->consultarProductos();
+    $nombre = $this->mdlproducto->ModNombreProd();
+
+    foreach ($consultarNombres as $value) {
+      if ($value['nombre'] == $validarNombre['nombre']) {
+        $existe = true;#dejar guardar
+        break;
+      }
+    }
+
+    foreach ($nombre as $val) {
+      if($val['nombre'] == strtolower($_POST['txtnombreproducto'])){
+        $existe2 = true;# NO dejar guardar
+        break;
+      }
+    }
+
+    foreach ($consultarNombres as $valor) {
+      if ($valor['nombre'] != $_POST['txtnombreproducto']) {
+        $noExiste = true;# dejar guardar
+      }
+    }
+
+    if(($existe === false && $existe2 === true) || $noExiste === false){
+
+      $_SESSION['alerta'] = ' swal({
+            title: "Nombre de producto ya existe, no se puede modificar!",
+            type: "error",
+            confirmButton: "#3CB371",
+            confirmButtonText: "Aceptar",
+            // confirmButtonText: "Cancelar",
+            closeOnConfirm: false,
+            closeOnCancel: false
+          })';
+      // var_dump("no guardado");
+      // exit();
+    }else if(($existe === true && $existe2 === false) || $noExiste === true){
+      // var_dump("Guardado");
+      // exit();
+
     $this->mdlproducto->precio_detal = $_POST["txtprecioventa"];
     $this->mdlproducto->precio_por_mayor = $_POST["txtprecioalpormayor"];
     $this->mdlproducto->precio_unitario = $_POST["txtpreciocompra"];
     $this->mdlproducto->Tbl_Categoria_idcategoria = $_POST["txtcategoria"];
+
     if($this->mdlproducto->Tbl_Categoria_idcategoria == 1){
       $this->mdlproducto->Talla = $_POST["txttalla"];
       $this->mdlproducto->Tamano = "";
@@ -438,11 +534,45 @@ class producto extends Controller{
       })', 1);
     }
   }
+}
 
 
   public function ModificarCategoria(){
+
+    $validarNombreCateg = true;
+    $existeCategoria = false;
+    $existeCategoria2 = false;
+    $noExisteCategoria = false;
+
     $this->mdlproducto->__SET('id_categoria', $_POST['txtcodigo']);
     $this->mdlproducto->__SET('nombre',$_POST['txtnombreca']);
+
+    $validarNombreC = $this->mdlproducto->validarModCategoria();
+    var_dump($validarNombreC);
+    exit();
+    $consultarcategorias = $this->mdlproducto->consultarCategorias();
+    $categoria = $this->mdlproducto->ModNombreCateg();
+
+    foreach ($consultarcategorias as $categ) {
+      if ($categ['nombre'] == $validarNombreC['nombre']) {
+        $existeCategoria = true;#dejar guardar
+        break;
+      }
+    }
+
+    foreach ($categoria as $categoria) {
+      if($categoria['nombre'] == $_POST['txtnombreca']){
+        $existeCategoria2 = true;# NO dejar guardar
+        break;
+      }
+    }
+
+    foreach ($consultarcategorias as $ca) {
+      if ($ca['nombre'] != $_POST['txtnombreca']) {
+        $noExisteCategoria = true;# dejar guardar
+      }
+    }
+
     $this->mdlproducto-> ModificarCategoria();
     console.log($this->mdlproducto-> ModificarCategoria());
   }

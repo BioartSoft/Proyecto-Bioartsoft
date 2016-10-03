@@ -31,9 +31,9 @@
                                 <td><?=  $valor['nombres'] ?></td>
                                 <td><?=  $valor['apellidos'] ?></td>
                                 <td style="width: 15%"><?=  $valor['Tbl_nombre_tipo_persona'] ?></td>
-                                <td><?=  $valor['email'] ?></td>
-                                <td><?=  $valor['celular'] ?></td>
-                                <td><?=  $valor['telefono'] ?></td>
+                                <td style="width: 15%"><?=  $valor['email'] ?></td>
+                                <td style="width: 12%"><?=  $valor['celular'] ?></td>
+                                <td style="width: 12%"><?=  $valor['telefono'] ?></td>
                               </tr>
                                 <?php endforeach; ?>
     </tbody>

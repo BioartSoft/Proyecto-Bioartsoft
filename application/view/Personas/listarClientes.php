@@ -122,7 +122,7 @@
                          <div class="col-md-6">
                            <label>Email</label><br>
                            <input type="email" class="form-control" id="ejemplo_password_2" data-parsley-type="email"
-                           value="<?= $clientes['email'] ?>" name="txtcorreo" data-parsley-required="true">
+                           value="<?= $clientes['email'] ?>" name="txtcorreo">
                          </div>
         </div>
         <br>

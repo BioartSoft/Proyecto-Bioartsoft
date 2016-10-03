@@ -476,7 +476,7 @@ function(isConfirm){
   <script type="text/javascript">
     $(document).ready(function(){
       swal({
-            title: "Nombre de usuario ya existe, no se puede modificar!",
+            title: "Nombre de usuario o correo ya existe, no se puede modificar!",
             type: "error",
             confirmButton: "#3CB371",
             confirmButtonText: "Aceptar",

@@ -107,7 +107,7 @@
 
               <div class="col-md-2">
                 <a href="<?= URL ?>Compras/generarpdfDetallesCompras" target="_blank" id="pdfDeta">
-                  <button class="btn btn-primary" name="btnComprasD"><i class="fa fa-file-pdf-o" aria-hidden="true">   Informe Compra</i></button>
+                  <button class="btn btn-primary" name="btnComprasD"><i class="fa fa-file-pdf-o" aria-hidden="true">   Detalles Compra</i></button>
                 </a>
               </div>
             </div>
