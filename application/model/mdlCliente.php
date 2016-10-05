@@ -32,7 +32,7 @@ class mdlCliente
 
 
   public function listar(){
-    $sql = "CALL  SP_ListarClientes()";
+    $sql = "CALL  SP_ListarClientesVenta()";
     $stm = $this->db->prepare($sql);
     $stm->execute();
     return $stm->fetchAll(PDO::FETCH_ASSOC);

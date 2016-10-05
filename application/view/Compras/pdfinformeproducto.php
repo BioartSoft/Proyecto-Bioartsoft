@@ -1,5 +1,5 @@
 
-<form id="formPdfCompras" action="<?= URL ?>Compras/pdfCompras" method="post" data-parsley-validate="">
+<form id="formPdfCompras" action="<?= URL ?>Compras/pdfCompras" method="post" data-parsley-validate="" target="_blank">
 <div class="row">
  <h3 class="page-header" style="text-align:center; color: #3CB371; margin-top: 10px; margin-bottom: 10px">Reporte de Compras</h3><br>
   <div class="row">
@@ -7,7 +7,7 @@
     <div   class="col-md-4">
         <label for="" style="color: #3CB371">Fecha Inicial </label>
         <div class="input-group date" data-provide="datepicker">
-        <input type="text" class="form-control" name="txtfechainicial" id="txtfechainicial" placeholder="Fecha Inicial" data-parsley-required="true">
+        <input type="text" class="form-control" readonly="true"name="txtfechainicial" id="txtfechainicial" placeholder="Fecha Inicial" data-parsley-required="true">
         <div class="input-group-addon">
         <span class="glyphicon glyphicon-th"></span>
       </div>
@@ -17,7 +17,7 @@
     <div   class="col-md-4">
         <label for="" style="color: #3CB371">Fecha Final </label>
         <div class="input-group date" data-provide="datepicker">
-        <input type="text" class="form-control" name="txtfechafinal" id="txtfechafinal"  placeholder="Fecha final" data-parsley-required="true">
+        <input type="text" class="form-control" name="txtfechafinal" readonly="true" id="txtfechafinal"  placeholder="Fecha final" data-parsley-required="true">
         <div class="input-group-addon">
         <span class="glyphicon glyphicon-th"></span>
       </div>

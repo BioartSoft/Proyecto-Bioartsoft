@@ -80,12 +80,13 @@ class mdlCompras
   }
   }
 
-  public function insertarDetalleCompra($codigoProd, $cant){
-    $sql = "CALL 	SP_insertarDetalleCompra(?,?,?)";
+  public function insertarDetalleCompra($codigoProd, $cant, $precio){
+    $sql = "CALL 	SP_insertarDetalleCompra(?,?,?,?)";
     $stm = $this->db->prepare($sql);
     $stm->bindParam(1, $codigoProd);
     $stm->bindParam(2, $this->id_compra);
     $stm->bindParam(3, $cant);
+    $stm->bindParam(4, $precio);
     return $stm->execute();
   }
 

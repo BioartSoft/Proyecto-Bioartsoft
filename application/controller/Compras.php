@@ -54,14 +54,14 @@
 
                 }else{
                   $_SESSION['alerta'] = ' swal({
-                    title: "Rango de fecha no existe!",
+                    title: "No existen registros en ese rango de fecha!",
                     type: "error",
                     confirmButton: "#3CB371",
                     confirmButtonText: "Aceptar",
                     // confirmButtonText: "Cancelar",
                     closeOnConfirm: false,
                     closeOnCancel: false
-                  })';
+                  }, function(isConfirm){ if(isConfirm){ window.close(); } })';
                 header("Location:".URL.'Compras/informeproducto');
                 exit();
               }
@@ -141,15 +141,15 @@
       if($C){
 
         for ($i=0; $i < count($_POST['producto']); $i++) {
-          $this->mdlCompras->insertarDetalleCompra($_POST['producto'][$i], $_POST['cantidad'][$i]);
+          $this->mdlCompras->insertarDetalleCompra($_POST['producto'][$i], $_POST['cantidad'][$i], $_POST['precioProducto'][$i]);
         }
 
         if($C){
 
-          $guardar=true;
+          $guardar = true;
         }
         else {
-          $error=true;
+          $error = true;
         }
       }
 
@@ -180,8 +180,9 @@
       }
 
       header("Location:".URL.'Compras/index');
-
+      exit();
     }
+
 
 
     public function listarCompras(){
@@ -198,29 +199,40 @@
 
 
     public function modificarEstado(){
-      $guardar=false;
-      $error=false;
+      $guardar = false;
+      $error = false;
 
-      $estado = $this->mdlCompras->cambiarEstado($_POST['id'], $_POST['estado']);
+      if($this->validarProductos()){
+          $error = true;
+          $estado = false;
+          echo json_encode(["v"=>1]);
+      } else {
+          $estado = $this->mdlCompras->cambiarEstado($_POST['id'], $_POST['estado']);
+          if($estado){
+            echo json_encode(["v"=>1]);
+          }else{
+            echo json_encode(["v"=>0]);
+          }
+      }
+
        if($estado){
-       echo json_encode(["v"=>1]);
-
-    }else{
-      echo json_encode(["v"=>0]);
-
-   }
-
-   if($estado){
-
-     $guardar=true;
-   }
-   else {
-     $error=true;
-   }
+         $guardar = true;
+       }
+       else {
+         $error = true;
+       }
 
  if($guardar == true)
  {
-
+   $_SESSION['alerta'] =  'swal({
+     title: "Compra anulada!",
+     type: "error",
+     confirmButton: "#3CB371",
+     confirmButtonText: "Aceptar",
+     // confirmButtonText: "Cancelar",
+     closeOnConfirm: false,
+     closeOnCancel: false
+   })';
  }
 
  if($error == true)
@@ -238,6 +250,23 @@
 }
 
 
+
+    private function validarProductos(){
+      $id = $_POST['id'];
+      $detalles = $this->mdlCompras->getDetallesCompra($id);
+      $error = false;
+
+      foreach ($detalles as $key => $detalle) {
+        $cantProd = intval($detalle['cantidad_producto']);
+        $cantComp = intval($detalle['cantidad']);
+        $error = $cantProd < $cantComp;
+        if($error){ break; }
+      }
+      return $error;
+    }
+
+
+
     public function ajaxDetallesCompra(){
 
       $detalles = $this->mdlCompras->getDetallesCompra($_POST['idCompra']);
@@ -246,9 +275,11 @@
       $html = "";
       foreach ($detalles as $key => $value) {
         $html .= '<tr>';
-        $html .= '<td>' . $value['nombre_producto'] . '</td>';
+        $html .= '<td>' . $value['nombre_producto'];
+        $html .= '</td>';
+
         $html .= '<td>' . $value['cantidad'] . ' unidades</td>';
-        $html .= '<td class="price">' . $value['precio_unitario'] . '</td>';
+        $html .= '<td class="price">' . $value['valor_compra'] . '</td>';
         $html .= '<td class="price">' . $value['total'] . '</td>';
         $html .= '</tr>';
       }

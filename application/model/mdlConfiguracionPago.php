@@ -23,6 +23,55 @@
 			];
 		}
 
+		public static function getNotificaciones(){
+			$notificaciones = [];
+
+			$options = array(PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC, PDO::ATTR_ERRMODE => PDO::ERRMODE_WARNING);
+			$db = new PDO(DB_TYPE . ':host=' . DB_HOST . ';dbname=' . DB_NAME . ';charset=' . DB_CHARSET, DB_USER, DB_PASS, $options);
+
+			self::consultaStock($notificaciones, $db);
+			self::consultaCreditos($notificaciones, $db);
+
+			return $notificaciones;
+		}
+
+
+
+		public static function consultaCreditos(&$notificaciones, $db){
+			#Consultar créditos de clientes que se cumplen en 5 días
+			//$sql = "SELECT CURDATE() AS fecha_actual, fecha_limite_credito FROM tbl_ventas WHERE DATE_SUB(fecha_limite_credito,INTERVAL 5 DAY) = CURDATE()";
+			$sql = "CALL SP_Notificacion_Creditos()";
+			$stm = $db->prepare($sql);
+			$stm->execute();
+			$resultado = $stm ->fetchAll(PDO::FETCH_ASSOC);
+
+			if(count($resultado) > 0){
+				$notificaciones[] = [
+					'icono' => 'fa fa-credit-card',
+					'url' => "#",
+					'texto' => 'Hay créditos a punto de vencer ',
+				];
+			}
+	}
+
+
+		public static function consultaStock(&$notificaciones, $db){
+				# consultar productos en stock minimo
+				//$sql = "SELECT * FROM tbl_productos WHERE cantidad <= stock_minimo";
+				$sql = "CALL SP_Notificacion_Stock_Minimo()";
+				$stm = $db->prepare($sql);
+				$stm->execute();
+				$resultados = $stm->fetchAll(2);
+
+				if(count($resultados) > 0){
+					$notificaciones[] = [
+						'icono' => 'fa fa-cubes',
+						'url' => 'view/producto/listarstockminimo',
+						'texto' => 'Hay productos por debajo del stock mínimo',
+					];
+				}
+		}
+
 		public function __SET($atributo, $valor)
 		{
 			$this->$atributo = $valor;
@@ -45,8 +94,7 @@
 
 		public function listarConfiguracion()
 		{
-			$sql = "SELECT tipo_pago, tiempo_pago, Valor_dia, porcentaje_comision, valor_base, idTbl_Configuracion FROM Tbl_configuracion WHERE idTbl_Configuracion = 1";
-
+			$sql = "CALL SP_Listar_configuracion()";
 			$stm = $this->db->prepare($sql);
 			$stm->execute();
 			return $stm->fetchAll();
@@ -54,7 +102,7 @@
 
 		public function listarConfiguracion2()
 		{
-			$sql = "SELECT tipo_pago, tiempo_pago, porcentaje_comision, valor_base, idTbl_Configuracion FROM Tbl_configuracion WHERE idTbl_Configuracion = 2";
+			$sql = "CALL SP_Listar_Configuracion2()";
 			$stm = $this->db->prepare($sql);
 			$stm->execute();
 			return $stm->fetchAll();
@@ -62,7 +110,7 @@
 
 		public function listarconfiguracion3()
 		{
-			$sql = "SELECT tipo_pago, tiempo_pago, porcentaje_comision, valor_base, idTbl_Configuracion FROM Tbl_configuracion WHERE idTbl_Configuracion = 3";
+			$sql = "CALL SP_Listar_Configuracion3()";
 			$stm = $this->db->prepare($sql);
 			$stm->execute();
 			return $stm->fetchAll();
@@ -70,8 +118,7 @@
 
 		public function listarConfiguracionPagos()
 		{
-			$sql = "SELECT idTbl_Configuracion, tipo_pago FROM Tbl_configuracion";
-
+			$sql = "CALL SP_Listar_Configuracion_Pagos()";
 			$stm = $this->db->prepare($sql);
 			$stm->execute();
 			return $stm->fetchAll();
@@ -79,10 +126,8 @@
 
 		public function modificarConfiguracion()
 		{
-			$sql = "UPDATE tbl_configuracion SET tiempo_pago = ?, Valor_dia = ?, porcentaje_comision = ?, valor_base = ? WHERE idTbl_Configuracion = 1";
+			$sql = "CALL SP_Modificar_Configuracion(?, ?, ?, ?)";
 			$stm = $this->db->prepare($sql);
-			// $stm->bindParam(1, $this->idTbl_Configuracion);
-			// $stm->bindParam(1, $this->tipo_pago);
 			$stm->bindParam(1, $this->tiempo_pago);
 			$stm->bindParam(2, $this->Valor_dia);
 			$stm->bindParam(3, $this->porcentaje_comision);
@@ -92,7 +137,7 @@
 
 		public function modificarValorBase()
 		{
-			$sql = "UPDATE tbl_configuracion SET valor_base = ? WHERE idTbl_Configuracion BETWEEN 1 AND 3";
+			$sql = "CALL SP_Modificar_Valor_Base(?)";
 			$stm = $this->db->prepare($sql);
 			$stm->bindParam(1, $this->valor_base);
 			$stm->execute();

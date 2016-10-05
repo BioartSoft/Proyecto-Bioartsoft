@@ -170,7 +170,11 @@
                               </div>
                               <div class="col-xs-12 col-md-4" style="" id="divPorcentaje">
                                 <label id="labelPorcentaje">Porcentaje Comisión</label><br>
-                                <input type="text" class="form-control" name="txtporceComision" placeholder="Porcentaje Comision" value="<?= $valor["porcentaje_comision"]. " %" ?>" readonly="" id="comision">
+                                <div class="input-group">
+                                  <input type="text" class="form-control" name="txtporceComision" placeholder="Porcentaje Comision" value="<?= floatval($valor["porcentaje_comision"]) * 100 ?>" readonly="">
+                                  <div class="input-group-addon">%</div>
+                                </div>
+                                <input type="hidden" class="form-control" name="txtporceComision" placeholder="Porcentaje Comision" value="<?= $valor["porcentaje_comision"]. " %" ?>" readonly="" id="comision">
                               </div>
                             </div>
                             <br>

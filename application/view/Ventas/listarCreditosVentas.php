@@ -412,9 +412,9 @@ $("#btn-Guardar-Abono").click(function(){
             data:{codigo:cod, estado:est}
           }).done(function(respuesta){
             if(respuesta.v == 1){
-              // window.location = url + "Ventas/listarVentasCredito";
+              window.location = url + "Ventas/listarVentasCredito";
             }else if(respuesta.v == 0){
-              // window.location = url + "Ventas/listarVentasCredito";
+              window.location = url + "Ventas/listarVentasCredito";
           }else{
             sweealert("Error cambiando el estado");
           }

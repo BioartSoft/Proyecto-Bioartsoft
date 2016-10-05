@@ -17,6 +17,8 @@
       <tr>
         <th>Fecha Venta</th>
         <th>Nombre Cliente</th>
+        <th>Subtotal venta</th>
+        <th>Descuento</th>
         <th>Total Venta</th>
       </tr>
     </thead>

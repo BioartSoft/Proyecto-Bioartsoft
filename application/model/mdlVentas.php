@@ -55,6 +55,22 @@ class mdlVentas
 
  }
 
+
+ public function validarFechaventa()
+{
+  $sql="CALL  SP_Validar_Fecha_Venta(?)";
+  try {
+   $ca = $this->db->prepare($sql);
+   $ca->bindParam(1,$this->fechainicial);
+   $ca->execute();
+   return $ca->fetch(PDO::FETCH_ASSOC);
+  } catch (Exception $e) {
+
+  }
+
+}
+
+
   public function insertarVenta(){
     $sql = "CALL 	SP_InsertarVenta(?,?,?,?,?, ?)";
     $stm = $this->db->prepare($sql);
@@ -98,12 +114,13 @@ class mdlVentas
   }
 
 
-    public function insertarDetalleVenta($codigoProd, $cant){
-    $sql = "CALL 	SP_InsertarDetalleVenta(?,?,?)";
+    public function insertarDetalleVenta($codigoProd, $cant, $precioProducto){
+    $sql = "CALL 	SP_InsertarDetalleVenta(?,?,?,?)";
     $stm = $this->db->prepare($sql);
     $stm->bindParam(1, $codigoProd);
     $stm->bindParam(2, $this->codigo_venta);
     $stm->bindParam(3, $cant);
+    $stm->bindParam(4, $precioProducto);
     return $stm->execute();
   }
 
@@ -332,11 +349,20 @@ class mdlVentas
   public function cambiarestadoAbonos($codigo, $estado)
   {
     $sql ="CALL SP_anularAbonoCreditos(?,?)";
-
+    // var_dump($codigo, $estado);
+    // exit();
     $stm = $this->db->prepare($sql);
     $stm->bindParam(1, $codigo);
     $stm->bindParam(2, $estado);
     return $stm->execute();
+  }
+
+  public function getAbonos($idVenta){
+    $sql = "SELECT COUNT(*) AS total FROM tbl_abono_ventas WHERE Tbl_Ventas_idventas = ? AND estado_abono = 1";
+    $stm = $this->db->prepare($sql);
+    $stm->bindParam(1, $idVenta);
+    $stm->execute();
+    return $stm->fetch(2);
   }
 
 }

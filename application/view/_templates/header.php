@@ -3,6 +3,8 @@ require_once(implode(DS, [RAIZ, 'application', 'model', 'mdlConfiguracionPago.ph
 $configuraciones = mdlConfiguracionPago::getConfiguraciones();
 $configuracion = $configuraciones['config1'];
 $listarConfiguracionVentas = $configuraciones['config2'];
+
+$notificaciones = mdlConfiguracionPago::getNotificaciones();
  ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -97,65 +99,31 @@ $listarConfiguracionVentas = $configuraciones['config2'];
 
                 </li>
               <?php endif; ?>
+               <?php if($_SESSION['ROL'] == 1): ?>
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-bell fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                        <i class="fa fa-bell fa-fw"></i>
+                          <?php if(count($notificaciones) > 0): ?>
+                            <span class="badge badge-danger" style="background-color: red;font-size: 8px;position: absolute;left: 0px;top: 12px;"><?= count($notificaciones) ?></span>
+                          <?php endif ?>
+                        </i>
                     </a>
                     <ul class="dropdown-menu dropdown-alerts">
+                      <?php foreach($notificaciones AS $noti): ?>
                         <li>
-                            <a href="#">
+                            <a href="<?= $noti['url'] ?>">
                                 <div>
-                                    <i class="fa fa-comment fa-fw"></i> Nuevo comentario
-                                    <span class="pull-right text-muted small"> Hace 4 minutos</span>
+                                    <i class="<?= $noti['icono'] ?> fa-fw"></i> <?= $noti['texto'] ?>
                                 </div>
                             </a>
                         </li>
                         <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <i class="fa fa-twitter fa-fw"></i> 3 Nuevos seguidores
-                                    <span class="pull-right text-muted small">Hace 12 minutos</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <i class="fa fa-envelope fa-fw"></i> Mensaje enviado
-                                    <span class="pull-right text-muted small">Hace 4 minutos</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <i class="fa fa-tasks fa-fw"></i> Nueva tarea
-                                    <span class="pull-right text-muted small">Hace 4 minutos</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <i class="fa fa-upload fa-fw"></i>Reiniciamos el servidor
-                                    <span class="pull-right text-muted small">Hcae 4 minutos</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a class="text-center" href="#">
-                                <strong>Vea todas las alertas</strong>
-                                <i class="fa fa-angle-right"></i>
-                            </a>
-                        </li>
+                      <?php endforeach ?>
+
                     </ul>
                     <!-- /.dropdown-alerts -->
                 </li>
+                  <?php endif; ?>
                 <!-- /.dropdown -->
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -224,11 +192,7 @@ $listarConfiguracionVentas = $configuraciones['config2'];
                                 <?php foreach ($configuracion as $valor): ?>
 
                                 <div class="row">
-                                  <!-- <div class="col-xs-12 col-md-6" id="divTiempoP">
-                                  <label>Tipo de Pago</label>
-                                    <input type="hidden" name="txtid" value="<?= $valor["idTbl_Configuracion"]?>" >
-                                    <input id="inputTipopago" type="text" class="form-control" name="txttiPago" placeholder="Tiempo de Pago" value="<?= $valor["tipo_pago"]?>" readonly="" pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚ.\s]+" data-parsley-required="true">
-                                  </div> -->
+                                  
                                   <div class="col-xs-12 col-md-6" id="divValorBa">
                                     <label id="labelValorBase">Valor Base Liquidación</label><br>
                                     <input type="text" class="form-control" name="txtvBase" placeholder="Valor Base" value="<?= $valor["valor_base"] ?>" readonly="" id="valorBase" data-parsley-type="integer" min="0" maxlength="7" data-parsley-required="true">

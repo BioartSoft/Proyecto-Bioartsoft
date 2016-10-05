@@ -96,27 +96,26 @@
 
               </tbody>
             </table>
-            <br>
-            <div class="row">
-              <div class="col-md-8">
-                <button type="button" class="btn btn-secondary btn-md active pull-right"  data-dismiss="modal"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
-              </div>
-
-              <div class="col-md-1">
-              </div>
-
-              <div class="col-md-2">
-                <a href="<?= URL ?>Compras/generarpdfDetallesCompras" target="_blank" id="pdfDeta">
-                  <button class="btn btn-primary" name="btnComprasD"><i class="fa fa-file-pdf-o" aria-hidden="true">   Detalles Compra</i></button>
-                </a>
-              </div>
-            </div>
-            <br>
           </div>
         </div>
       </div>
     </div>
   </div>
+  <div class="row">
+    <div class="col-md-9">
+      <button type="button" class="btn btn-secondary btn-md active pull-right"  data-dismiss="modal"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
+    </div>
+
+    <div class="col-md-0.5">
+    </div>
+
+    <div class="col-md-2">
+      <a href="<?= URL ?>Compras/generarpdfDetallesCompras" target="_blank" id="pdfDeta">
+        <button class="btn btn-primary" name="btnComprasD"><i class="fa fa-file-pdf-o" aria-hidden="true">   Pdf Detalles Compra</i></button>
+      </a>
+    </div>
+  </div>
+  <br>
 </div>
 
 <script type="text/javascript">
@@ -167,19 +166,7 @@ function cambiarEstado(cod, est){
       closeOnConfirm: false,
 
     },
-    function(isConfirm){
-        var bandera = true;
-        if (isConfirm) {
-          swal({
-            title: "Compra Anulada.!",
-            type: "error",
-            confirmButton: "#3CB371",
-            confirmButtonText: "Aceptar",
-            // confirmButtonText: "Cancelar",
-            closeOnConfirm: false,
-            closeOnCancel: false
-          },
-          function(isConfirm){
+    function(){
             var bandera = true;
             $.ajax({
               dataType:'json',
@@ -189,40 +176,23 @@ function cambiarEstado(cod, est){
               async: false
             }).done(function(respuesta){
               if(respuesta.v == 1){
+
                 window.location = url + "Compras/listarCompras";
-                bandera = false;
+
               }else{
-                swal({
-                  title: "Error al intentar anular la compra!",
-                  type: "error",
-                  confirmButton: "#3CB371",
-                  confirmButtonText: "Aceptar",
-                  // confirmButtonText: "Cancelar",
-                  closeOnConfirm: false,
-                  closeOnCancel: false
-                });
+
+                  bandera = false;
               }
-            }).fail(function(respuesta){
-              if(respuesta.v == 0){
-                swal({
-                  title: "Error al intentar anular la compra!",
-                  type: "error",
-                  confirmButton: "#3CB371",
-                  confirmButtonText: "Aceptar",
-                  // confirmButtonText: "Cancelar",
-                  closeOnConfirm: false,
-                  closeOnCancel: false
-                });
-                  window.location = url + "Compras/listarCompras";
-              }
+            }).fail(function(){
+
 
             })
             // location.href="<?= URL ?>Compras/listarCompras";
           });
+          return bandera;
         }
+
+        $(".modal-content").css({
+          width: '900px'
         });
-
-        return bandera;
-}
-
 </script>

@@ -6,8 +6,31 @@
 
     <div class="container-fluid">
         <div class="row">
+          <?php if ($_SESSION['ROL'] == 1): ?>
           <div class="col-md-4">
+            <label for="" style="color: #3CB371">Seleccionar tipo persona *</label>
+            <select class="form-control" id="tipoPersona" name="txtTipoPersona" style="width: 100%" data-parsley-type="alphanum" data-parsley-required="true">
+              <option value="">Seleccionar tipo persona</option>
+              <?php foreach ($TipoPersona as $value): ?>
+                <option value="<?= $value['idTbl_tipo_persona'] ?>"><?= $value['Tbl_nombre_tipo_persona'] ?></option>
 
+               <?php endforeach; ?>
+            </select>
+          </div>
+        <?php elseif ($_SESSION['ROL'] == 2):?>
+        <div class="col-md-4">
+          <label for="" style="color: #3CB371">Seleccionar tipo persona *</label>
+          <select class="form-control" id="tipoPersona" name="txtTipoPersona" style="width: 100%" data-parsley-type="alphanum" data-parsley-required="true">
+            <option value="">Seleccionar tipo persona</option>
+            <?php foreach ($TipoPerVendedor as $value): ?>
+              <option value="<?= $value['idTbl_tipo_persona'] ?>"><?= $value['Tbl_nombre_tipo_persona'] ?></option>
+
+             <?php endforeach; ?>
+          </select>
+        </div>
+      <?php endif; ?>
+
+          <div class="col-md-4">
               <label for="" style="color: #3CB371">Seleccionar tipo de documento *</label>
               <select name="txtTipoDocumento"class="form-control" id="documento" style="width: 100%" data-parsley-required="true">
                   <option value="">Seleccionar tipo de documento</option>
@@ -20,14 +43,15 @@
                 <label for="" style="color: #3CB371">Número de documento *</label>
                 <input type="text" name="txtIdPersona"  minlength="8" maxlength="12" style="width: 100%"class="form-control" id="campoId" placeholder="Número Documento" data-parsley-required="true">
             </div>
-             <div class="col-md-4">
-                 <label for="" style="color: #3CB371">Nombres *</label>
-                  <input type="text"  name="txtNombres" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ@\-\.\\ \/$]+" minlength="3" maxlength="30" class="form-control" style="width: 100%" id="campoNombre" placeholder="Nombres" data-parsley-required="true">
-            </div>
           </div>
           <br><br>
 
           <div class="row">
+            <div class="col-md-4">
+                <label for="" style="color: #3CB371">Nombres *</label>
+                 <input type="text"  name="txtNombres" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ@\-\.\\ \/$]+" minlength="3" maxlength="30" class="form-control" style="width: 100%" id="campoNombre" placeholder="Nombres" data-parsley-required="true">
+           </div>
+
             <div class="col-md-4">
                 <label for="" style="color: #3CB371">Apellidos *</label>
                   <input type="text"  name="txtApellidos" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ@\-\.\\ \/$]+" minlength="3" maxlength="30" class="form-control" id="campoApellido" placeholder="Apellidos" data-parsley-required="true">
@@ -36,14 +60,14 @@
                  <label for="" style="color: #3CB371">Número de teléfono</label>
                 <input type="text"  name="txtTelefono" maxlength="10" minlength="7" data-parsley-type="number" class="form-control" id="campoTelefono" placeholder="Telefono" data-parsley-required="false">
             </div>
-            <div class="col-md-4">
-                <label for="" style="color: #3CB371">Número de celular</label>
-                <input type="text"  name="txtCelular" maxlength="12" minlength="10" data-parsley-type="number" class="form-control" id="campoCelular" placeholder="Numero Celular" data-parsley-required="false">
-            </div>
           </div>
           <br><br>
 
        <div class="row">
+         <div class="col-md-4">
+             <label for="" style="color: #3CB371">Número de celular</label>
+             <input type="text"  name="txtCelular" maxlength="12" minlength="10" data-parsley-type="number" class="form-control" id="campoCelular" placeholder="Numero Celular" data-parsley-required="false">
+         </div>
           <div class="col-xs-12 col-md-4">
               <div class="form-group">
                 <label for="" style="color: #3CB371">Correo Electrónico <span id="asterisco">*</span></label>
@@ -58,42 +82,19 @@
                  <option value="Femenino">Femenino</option>
             </select>
           </div>
-            <div class="col-md-4">
-                  <label for="" style="color: #3CB371">Dirección</label>
-                   <input type="text" name="txtDireccion" maxlength="22" minlength="3" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9@#\-\_\\.\\ \/$]+" class="form-control" id="campoDireccion" placeholder="Dirección" data-parsley-required="false">
-              </div>
             </div>
             <br><br>
 
             <div class="row">
-              <?php if ($_SESSION['ROL'] == 1): ?>
               <div class="col-md-4">
-                <label for="" style="color: #3CB371">Seleccionar tipo persona *</label>
-                <select class="form-control" id="tipoPersona" name="txtTipoPersona" style="width: 100%" data-parsley-type="alphanum" data-parsley-required="true">
-                  <option value="">Seleccionar tipo persona</option>
-                  <?php foreach ($TipoPersona as $value): ?>
-                    <option value="<?= $value['idTbl_tipo_persona'] ?>"><?= $value['Tbl_nombre_tipo_persona'] ?></option>
-
-                   <?php endforeach; ?>
-                </select>
-              </div>
-            <?php elseif ($_SESSION['ROL'] == 2):?>
-            <div class="col-md-4">
-              <label for="" style="color: #3CB371">Seleccionar tipo persona *</label>
-              <select class="form-control" id="tipoPersona" name="txtTipoPersona" style="width: 100%" data-parsley-type="alphanum" data-parsley-required="true">
-                <option value="">Seleccionar tipo persona</option>
-                <?php foreach ($TipoPerVendedor as $value): ?>
-                  <option value="<?= $value['idTbl_tipo_persona'] ?>"><?= $value['Tbl_nombre_tipo_persona'] ?></option>
-
-                 <?php endforeach; ?>
-              </select>
-            </div>
-          <?php endif; ?>
+                    <label for="" style="color: #3CB371">Dirección</label>
+                     <input type="text" name="txtDireccion" maxlength="22" minlength="3" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9@#\-\_\\.\\ \/$]+" class="form-control" id="campoDireccion" placeholder="Dirección" data-parsley-required="false">
+                </div>
 
               <div id="conFechaContrato" style="display: none" class="col-md-4">
                   <label for="" style="color: #3CB371">Fecha Contrato *</label>
                   <div class="input-group date" data-provide="datepicker">
-                  <input type="text" class="form-control" name="txtFechaContrato" id="campoFechaContrato" placeholder="Fecha Contrato" data-parsley-requred="true">
+                  <input type="text" class="form-control" name="txtFechaContrato" id="campoFechaContrato" readonly="true" placeholder="Fecha Contrato" data-parsley-requred="true">
                   <div class="input-group-addon">
                   <span class="glyphicon glyphicon-th"></span>
                 </div>

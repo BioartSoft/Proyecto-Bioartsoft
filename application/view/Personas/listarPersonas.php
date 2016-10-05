@@ -195,7 +195,7 @@
                         <div id="conFechaContrato" style="" class="col-md-6">
                             <label for="form-control">Fecha Contrato</label>
                             <div class="input-group date" data-provide="datepicker" id="dataPicker">
-                            <input type="text" class="form-control" value="<?= $persona['fecha_Contrato'] ?>" name="txtfechac" id="campoFechaContrato" placeholder="Fecha Contrato" data-parsley-required="false">
+                            <input type="text" class="form-control" value="<?= $persona['fecha_Contrato'] ?>" name="txtfechac" readonly="true" id="campoFechaContrato" placeholder="Fecha Contrato" data-parsley-required="false">
                             <div class="input-group-addon">
                             <span class="glyphicon glyphicon-th"></span>
                           </div>
@@ -214,7 +214,7 @@
                             <div id="conFechaContrato" style="" class="col-md-6" style="display: none">
                                 <label for="" style="display: none" id="ftitulo">Fecha Contrato</label>
                                 <div class="input-group date" data-provide="datepicker" id="dataPicker" style="display: none">
-                                <input type="text" class="form-control" value="" name="txtfechac" id="campoFechaContrato" data-parsley-required="false">
+                                <input type="text" class="form-control" value="" name="txtfechac" id="campoFechaContrato" readonly="true" data-parsley-required="false">
                                 <div class="input-group-addon">
                                 <span class="glyphicon glyphicon-th"></span>
                               </div>

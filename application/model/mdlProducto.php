@@ -227,13 +227,12 @@ public function validarCantidad(){
         $sql="CALL SP_Consultar_Configuracion";
         $stm = $this->db->prepare($sql);
         $stm->execute();
-        return $stm->fetch(PDO::FETCH_ASSOC);
+        return $stm->fetchAll(PDO::FETCH_ASSOC);
       }
 
 
 
   public function Modificar(){
-
     $sql="CALL SP_Modificar_producto(?,?,?,?,?,?,?,?) ";
     try {
       $ca = $this->db->prepare($sql);

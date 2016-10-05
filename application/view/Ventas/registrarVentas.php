@@ -17,7 +17,7 @@
                   <option value="">Seleccionar</option>
                   <?php foreach ($cliente as $val): ?>
                     <?php if($val['estado'] == 1): ?>
-                      <option data-tipo="<?= $val['tipo']?>" value="<?= $val['documento'] ?>"><?= $val['documento']." - " .$val['nombres'] . " (" . $val['tipo_cliente'] . ")"?></option>
+                      <option data-creditos="<?= $val['total_creditos'] ?>" data-tipo="<?= $val['tipo']?>" value="<?= $val['documento'] ?>"><?= $val['documento']." - " .$val['nombres'] . " (" . $val['tipo_cliente'] . ")"?></option>
                     <?php else: ?>
 
                       <<?php endif; ?>
@@ -81,11 +81,12 @@
               <input type="number" id="txtplazo" min="1" maxlength="2" max="30" name="txtplazo" class="form-control" data-parsley-type="number" data-parsley-required="true">
             </div>
               <br>
-              <input type="hidden" value="<?= $configuraciones['Porcentaje_Maximo_Dcto'] ?>" id="porc-max">
-              <input type="hidden" value="<?= $configuraciones['Porcentaje_Minimo_Dcto'] ?>" id="porc-min">
-              <input type="hidden" value="<?= $configuraciones['Valor_Subtotal_Maximo'] ?>" id="vlr-max">
-              <input type="hidden" value="<?= $configuraciones['Valor_Subtotal_Minimo'] ?>" id="vlr-min">
-
+              <?php foreach ($listarConfiguracionVentas as $va): ?>
+              <input type="hidden" value="<?= $va['Porcentaje_Maximo_Dcto'] ?>" id="porc-max">
+              <input type="hidden" value="<?= $va['Porcentaje_Minimo_Dcto'] ?>" id="porc-min">
+              <input type="hidden" value="<?= $va['Valor_Subtotal_Maximo'] ?>" id="vlr-max">
+              <input type="hidden" value="<?= $va['Valor_Subtotal_Minimo'] ?>" id="vlr-min">
+            <?php endforeach; ?>
               <div class="form-group" id="contenedorDescuento">
                 <label for="form-control">Descuento</label>
                 <input type="number" id="txt-campo-des" name="txt-campo-des" class="form-control" value="0" min="0" data-parsley-type="integer">
@@ -222,7 +223,7 @@
          var valMinDes = total * porMin;
          var valMaxDes = total * porMax;
 
-         //console.log(valMinDes, valMaxDes, desMin, desMax);
+         console.log(valMinDes, valMaxDes, desMin, desMax);
 
          if(total > desMin && total < desMax && descuento > valMinDes){
            swal({
@@ -352,8 +353,8 @@
      }
      var cantidad = $("#txtcantidad").val();
      precio = precio.replace(".", "");
+     var precioGuardar = precio;
      var total = $("#total").val();
-
      var bandera = true;
      var romper = false;
      $(".datos").each(function(key,value){
@@ -399,6 +400,7 @@
        html += '           <p data-valor="'+precio * cantidad+'" id="subtotal">Valor subtotal: <span class="subtotal"> '+precio * cantidad+'</span></p>';
        html += '    </div>';
        html += '<input type="hidden" id="txtProducto" name="producto[]" value="'+productoCd+'">';
+       html += '<input type="hidden" name="precioProducto[]" value="' + precioGuardar +  '" />';
        html += '<input type="hidden" name="cantidad[]" id="cantidad-prod-'+productoCd+'" value="'+cantidad+'">';
        html += ' </div>';
        html += '  <div class="col-md-3 cta-button">';
@@ -582,14 +584,33 @@ function validarCantidad(){
 </script>
 
 <script type="text/javascript">
+  $("#ddlcliente").change(function(){
+    $("#select-pago").val("");
+  });
   $("#select-pago").change(function(){
-    if($("#select-pago").val() == "1"){
-    $("#div-plazo").css("display", "block");
-  }else{
-    $("#div-plazo").css("display", "none");
-    $("#txtplazo").removeAttr("data-parsley-required");
-  }
-  })
+    if($(this).val() == 1){
+      var cliente = $("#ddlcliente option:selected");
+      var totalCreditos = parseInt(cliente.attr("data-creditos"));
+      if(totalCreditos > 0){
+        swal({
+        title: "Este cliente ya tiene créditos registrados en estado pendiente!",
+        type: "error",
+        confirmButton: "#3CB371",
+        confirmButtonText: "Aceptar",
+        closeOnConfirm: false,
+        closeOnCancel: false
+        });
+        $(this).val(2);
+      }
+    }
+
+      if($("#select-pago").val() == "1"){
+      $("#div-plazo").css("display", "block");
+    }else{
+      $("#div-plazo").css("display", "none");
+      $("#txtplazo").removeAttr("data-parsley-required");
+    }
+});
 
   $("#txtplazo").keyup(function(e){
     var input = $(this);
@@ -610,12 +631,3 @@ function validarCantidad(){
     }
   });
 </script>
-
-<!-- <script type="text/javascript">
-  $("#txt-campo-des").keydown(function(e){
-    if(e.which === 189 || e.which === 69){
-      e.preventDefault();
-      //return false;
-    }
-  })
-</script> -->

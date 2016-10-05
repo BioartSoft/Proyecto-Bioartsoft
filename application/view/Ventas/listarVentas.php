@@ -114,19 +114,17 @@
       </div>
     </div>
   </div>
+  <div class="row">
+    <div class="col-md-9">
+      <button type="button" class="btn btn-secondary btn-md active pull-right"  data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"> Cerrar</span></button>
+    </div>
+    <div class="col-md-2">
+      <a href="<?= URL ?>Ventas/generarpdfDetallesVentas" target="_blank" id="pdfDeta">
+        <button class="btn btn-primary" name="btnComprasD"><i class="fa fa-file-pdf-o" aria-hidden="true">   Pdf Detalles Ventas</i></button>
+      </a>
+    </div>
+  </div>
 </div>
-
-      <div class="row">
-
-        <div class="col-md-9">
-          <button type="button" class="btn btn-secondary btn-md active pull-right"  data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"> Cerrar</span></button>
-        </div>
-        <div class="col-md-2">
-          <a href="<?= URL ?>Ventas/generarpdfDetallesVentas" target="_blank" id="pdfDeta">
-            <button class="btn btn-primary" name="btnComprasD"><i class="fa fa-file-pdf-o" aria-hidden="true">   Detalles Ventas</i></button>
-          </a>
-        </div>
-      </div>
       <br>
     </div>
   </div>
@@ -163,49 +161,41 @@ function traerDetallesVenta(id){
 
 
 function cambiarEstado(cod, est){
+    var bandera = true;
   swal({
     title:"¿Realmente desea anular esta venta?",
     type: "warning",
     confirmButton: "#3CB371",
-    confirmButtonText:"btn-danger",
+    confirmButtonText:"btn-error",
     cancelButtonText:"Cancelar",
     showCancelButton: true,
     confirmButtonClass:"btn-danger",
     confirmButtonText:"Aceptar",
     closeOnConfirm:false,
   },
-  function(isConfirm){
-    if(isConfirm){
-      swal({
-        title:"Venta Anulada",
-        type: "error",
-        confirmButton: "#3CB371",
-        confirmButtonText:"Aceptar",
-        closeOnConfirm:false,
-        closeOnCancel:false,
-      },
-      function(isConfirm){
+      function(){
+          var bandera = true;
         $.ajax({
           dataType:'json',
           type:'post',
           url:url+"Ventas/modificarEstado",
-          data:{id:cod, estado:est}
+          data:{id:cod, estado:est},
+          async: false
         }).done(function(respuesta){
           if(respuesta.v == 1){
             window.location = url + "Ventas/listarVentas";
           }else{
-            alert("Error al cambiar el estado");
+
+            bandera = false;
           }
         }).fail(function(){
 
         })
         });
+          return bandera;
        }
-      });
-    }
 
-    $(".modal-content").css({
-
-      width: '900px'
-    });
+       $(".modal-content").css({
+         width: '900px'
+       });
 </script>

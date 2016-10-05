@@ -60,6 +60,8 @@ class Ventas extends controller
       // var_dump($tabla);
       // exit();
       $tabla2 .= '<td>' . $val['cliente'] . '</td>';
+      $tabla2 .= '<td>' . $val['subtotal_venta'] . '</td>';
+      $tabla2 .= '<td>' . $val['descuento'] . '</td>';
       $tabla2 .= '<td>' . $val['total_venta'] . '</td>';
       $tabla2 .= '</tr>';
     }
@@ -112,8 +114,32 @@ class Ventas extends controller
         {
           if(isset($_POST['btnconsultar'])){
             $this->mdlVentas->__SET('fechainicial',date("Y-m-d",strtotime($_POST['txtfechainicial'])));
+            $fecha = $this->mdlVentas->validarFechaVenta();
+
+
             $this->mdlVentas->__SET('fechafinal',date("Y-m-d",strtotime($_POST['txtfechafinal'])));
-            $ver = $this->mdlVentas->listarpdf();
+            $fecha2 = $this->mdlVentas->validarFechaVenta();
+
+            if($fecha == true && $fecha2 == true){
+
+                $this->mdlVentas->__SET('fechainicial',date("Y-m-d",strtotime($_POST['txtfechainicial'])));
+                $this->mdlVentas->__SET('fechafinal',date("Y-m-d",strtotime($_POST['txtfechafinal'])));
+                $ver = $this->mdlVentas->listarpdf();
+
+            }else{
+
+              $_SESSION['alerta'] = ' swal({
+                title: "No existen registros en ese rango de fecha!",
+                type: "error",
+                confirmButton: "#3CB371",
+                confirmButtonText: "Aceptar",
+                // confirmButtonText: "Cancelar",
+                closeOnConfirm: false,
+                closeOnCancel: false
+              }, function(isConfirm){ if(isConfirm){ window.close(); } })';
+            header("Location:".URL.'Compras/informeproducto');
+            exit();
+            }
           }
           require_once APP . 'libs/dompdf/autoload.inc.php';
           // $urlImagen = URL . 'producto/generarcodigo?id=';
@@ -132,9 +158,6 @@ class Ventas extends controller
 
 
     public function index(){
-      // $modeloconfiguracion = $this->loadModel("mdlConfiguracionPago");
-      // $configuracion = $modeloconfiguracion->listarConfiguracion();
-
       $listarConfiguracionVentas = $this->mdlVentas->listarConfiguracionVentas();
       $configuracion = $this->mdlVentas->listarConfiguracionVentas();
 
@@ -158,7 +181,6 @@ class Ventas extends controller
     }
 
       if(isset($_POST['btn-guardar-venta'])){
-
           if($_POST['txtpago'] == "1"){
             $this->mdlVentas->__SET("valor_subtotal", $_POST['txtsubtotal']);
             $this->mdlVentas->__SET("valor_total", $_POST['txttotal']);
@@ -171,7 +193,7 @@ class Ventas extends controller
             $C = $this->mdlVentas->insertarVentaCredito();
             if($C){
               for ($i=0; $i < count($_POST['producto']); $i++) {
-                $this->mdlVentas-> insertarDetalleVenta($_POST['producto'][$i], $_POST['cantidad'][$i]);
+                $this->mdlVentas-> insertarDetalleVenta($_POST['producto'][$i], $_POST['cantidad'][$i], $_POST['precioProducto'][$i]);
 
               }
             }
@@ -187,7 +209,7 @@ class Ventas extends controller
             $C = $this->mdlVentas->insertarVenta();
             if($C){
               for ($i=0; $i < count($_POST['producto']); $i++) {
-                $this->mdlVentas-> insertarDetalleVenta($_POST['producto'][$i], $_POST['cantidad'][$i]);
+                $this->mdlVentas-> insertarDetalleVenta($_POST['producto'][$i], $_POST['cantidad'][$i], $_POST['precioProducto'][$i]);
 
               }
             }
@@ -217,9 +239,6 @@ class Ventas extends controller
 
 
   public function listarVentas(){
-    // $modeloconfiguracion = $this->loadModel("mdlConfiguracionPago");
-    // $configuracion = $modeloconfiguracion->listarConfiguracion();
-
     $Ventas=$this->mdlVentas->listarVentas();
     $cliente = $this->mdlCliente->listar();
     $producto = $this->mdlProducto->listar();
@@ -229,8 +248,6 @@ class Ventas extends controller
   }
 
   public function listarConfiguracionVentas(){
-    // $modeloconfiguracion = $this->loadModel("mdlConfiguracionPago");
-    // $configuracion = $modeloconfiguracion->listarConfiguracion();
     require APP . 'view/_templates/header.php';
     require APP . 'view/Ventas/listarConfiguracionVentas.php';
     require APP . 'view/_templates/footer.php';
@@ -245,17 +262,9 @@ class Ventas extends controller
       foreach ($detalles as $key => $value) {
         $html .= '<tr>';
         $html .= '<td>' . $value['nombre_producto'] . '</td>';
-          if($info['Tbl_TipoPersona_idTbl_TipoPersona'] == 6){
-        $html .= '<td class="price">' . $value['precio_detal'] . '</td>';
-      }else{
-        $html .= '<td class="price">' . $value['precio_por_mayor'] . '</td>';
-      }
+        $html .= '<td class="price">' . $value['precio_venta'] . '</td>';
         $html .= '<td>' . $value['cantidad'] . ' unidades</td>';
-        if($info['Tbl_TipoPersona_idTbl_TipoPersona'] == 6){
-        $html .= '<td class="price">' . $value['cantidad'] * $value['precio_detal'] . '</td>';
-      }else{
-        $html .= '<td class="price">' . $value['cantidad'] * $value['precio_por_mayor'] . '</td>';
-      }
+        $html .= '<td class="price">' . $value['cantidad'] * $value['precio_venta'] . '</td>';
         $html .= '</tr>';
       }
       echo json_encode([
@@ -271,12 +280,63 @@ class Ventas extends controller
     }
 
     public function modificarEstado(){
-      $estado = $this->mdlVentas->cambiarEstado($_POST['id'], $_POST['estado']);
+
+      $guardar = false;
+      $error = false;
+      if($this->validarAbonos($_POST['id'])){
+        $error = true;
+        $estado = false;
+        echo json_encode(["v"=>1]);
+      } else {
+        $estado = $this->mdlVentas->cambiarEstado($_POST['id'], $_POST['estado']);
+
+        if($estado){
+          echo json_encode(["v"=>1]);
+        }else{
+          echo json_encode(["v"=>0]);
+        }
+
+      }
+
       if($estado){
-      echo json_encode(["v"=>1]);
-    }else{
-      echo json_encode(["v"=>0]);
-    }
+        $guardar = true;
+      }
+      else {
+        $error = true;
+      }
+
+  if($guardar == true)
+  {
+  $_SESSION['alerta'] =  'swal({
+    title: "Venta anulada!",
+    type: "error",
+    confirmButton: "#3CB371",
+    confirmButtonText: "Aceptar",
+    // confirmButtonText: "Cancelar",
+    closeOnConfirm: false,
+    closeOnCancel: false
+  })';
+  }
+
+  if($error == true)
+  {
+  $_SESSION['alerta'] =  'swal({
+    title: "Error al intentar anular la Venta!",
+    type: "error",
+    confirmButton: "#3CB371",
+    confirmButtonText: "Aceptar",
+    // confirmButtonText: "Cancelar",
+    closeOnConfirm: false,
+    closeOnCancel: false
+  })';
+  }
+}
+
+
+private function validarAbonos($idVenta){
+  $resultados = $this->mdlVentas->getAbonos($idVenta);
+  $total = intval($resultados['total']);
+  return $total > 0;
 }
 
 
@@ -358,13 +418,11 @@ class Ventas extends controller
   public function registrarAbonoCreditoVen(){
     // $modeloconfiguracion = $this->loadModel("mdlConfiguracionPago");
     // $configuracion = $modeloconfiguracion->listarConfiguracion();
-
     if (isset($_POST["txtva"])== 'true') {
 
       if(isset($_POST['btnRegistrarAbono'])){
         $this->mdlVentas->__SET("valorAbonarCreditoV",$_POST['txtvalorabono']);
         $this->mdlVentas->__SET("codigo_venta", $_POST['txtidprestamoCredV']);
-
         $consultaAbono = $this->mdlVentas->totalAbono($_POST['txtvalorabono']);
         if($consultaAbono['total'] !== null && $consultaAbono['total'] == 0){
           //$this->mdlVentas->__SET("codigo_venta", $_POST['txtidprestamoCredV']);

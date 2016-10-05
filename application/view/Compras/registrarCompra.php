@@ -205,8 +205,10 @@
      var productoCd = $("#ddlproducto").val();
      var productoText = $("#ddlproducto [value='"+productoCd+"']").text();
      var precio = $("#precio").text();
+     var precioGuardar = precio;
      var cantidad = $("#txtcantidad").val();
      precio = precio.replace(".","");
+     precioGuardar = precio.replace(".","");
      var total = $("#total").val();
 
       var bandera = true;
@@ -236,6 +238,7 @@
         html += '           <p data-valor="'+precio * cantidad+'" id="subtotal" required value="">Valor subtotal: <span class="subtotal">'+precio * cantidad+'</span></p>';
         html += '    </div>';
         html += '<input id="txtProducto" type="hidden" name="producto[]" value="'+productoCd+'">';
+        html += '<input type="hidden" name="precioProducto[]" value="' + precioGuardar +  '" />';
         html += '<input type="hidden" name="cantidad[]" id="cantidad-prod-'+productoCd+'" value="'+cantidad+'">';
         html += ' </div>';
         html += '  <div class="col-md-3 cta-button">';
