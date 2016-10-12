@@ -78,7 +78,7 @@ $notificaciones = mdlConfiguracionPago::getNotificaciones();
             </div>
 
             <ul class="nav navbar-top-links navbar-right">
-             <?php if($_SESSION['ROL'] == 1): ?>
+             <?php if($_SESSION['ROL'] == 1 || $_SESSION['ROL'] == 3): ?>
                  <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-cog"></i>  <i class="fa fa-caret-down"></i>
@@ -89,9 +89,12 @@ $notificaciones = mdlConfiguracionPago::getNotificaciones();
                           <button type="button" style="width: 100%;" class="btn-link" data-toggle="modal" id="configurarVenta" data-target="#myjohnatan" aria-hidden="true" onclick="inhabilitarboton()">Configurar Ventas</button>
                         <form action="<?php echo URL?>Empleados/ListarConfiguraciones" method="POST">
                         <!-- <button type="button" style="width: 100%;" class="btn-link" data-toggle="modal" data-target="#mylopez" aria-hidden="true" name="btnMostrar">Ver Configuración Ventas</button> -->
+
+                          <?php if($_SESSION['ROL'] == 3): ?>
                             <form action="<?php echo URL?>Empleados/ListarConfiguraciones" method="POST">
                             <button type="button" style="width: 100%;" class="btn-link" data-toggle="modal" data-target="#my" aria-hidden="true" name="btnMostrar">Configuración de Pago</button>
                             </form>
+                          <?php endif; ?>
 
                         </li>
 
@@ -99,7 +102,7 @@ $notificaciones = mdlConfiguracionPago::getNotificaciones();
 
                 </li>
               <?php endif; ?>
-               <?php if($_SESSION['ROL'] == 1): ?>
+               <?php if($_SESSION['ROL'] == 1 || $_SESSION['ROL'] == 2 || $_SESSION['ROL'] == 3): ?>
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-bell fa-fw"></i>
@@ -192,7 +195,7 @@ $notificaciones = mdlConfiguracionPago::getNotificaciones();
                                 <?php foreach ($configuracion as $valor): ?>
 
                                 <div class="row">
-                                  
+
                                   <div class="col-xs-12 col-md-6" id="divValorBa">
                                     <label id="labelValorBase">Valor Base Liquidación</label><br>
                                     <input type="text" class="form-control" name="txtvBase" placeholder="Valor Base" value="<?= $valor["valor_base"] ?>" readonly="" id="valorBase" data-parsley-type="integer" min="0" maxlength="7" data-parsley-required="true">

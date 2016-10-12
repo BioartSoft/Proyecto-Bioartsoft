@@ -54,7 +54,7 @@
                              </td>
 
                              <td>
-                               <?php if($value['estado'] == 1 && $_SESSION['ROL'] == 1) { ?>
+                               <?php if(($value['estado'] == 1) && ($_SESSION['ROL'] == 1 || $_SESSION['ROL'] == 3)) { ?>
                                    <button type="button" class="btn btn-danger btn-circle btn-md" onclick="cambiarEstado(<?= $value['id_bajas']?>, 0)" title="Anular"><i class="fa fa-remove" aria-hidden="true" title="Anular"></i></button>
                                  <?php }else {?>
                                  <?php } ?>

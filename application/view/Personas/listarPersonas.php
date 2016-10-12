@@ -43,7 +43,7 @@
                                          <?php endif ?></td>
                                          <td>
 
-                                    <?php if ($valor['estado']==1): ?>
+                                    <?php if ($valor['estado'] == 1): ?>
 
                                       <a href="<?= URL. 'Personas/listarPersonasEmpleados/' . $valor['id_usuarios'] ?>/3">
                                        <button type="button" class="btn btn-primary btn-circle btn-md" onclick=""data-toggle="modal" data-target="#modal-detalles" title="Ver detalles"><i class="fa fa-eye" aria-hidden="true" title="Ver detalles"></i></button>
@@ -54,8 +54,9 @@
                                       <button type="button" class="btn btn-success btn-circle btn-md" onclick=""data-toggle="modal" data-target="#modal-actualizar" title="Modificar"><i class="fa fa-pencil-square-o" aria-hidden="true" title="Modificar"></i></button>
                                     </a>
 
+                                    <?php if($valor['id_rol'] != 3): ?>
                                      <button type="button"  onclick="cambiarestado('<?= $valor['id_usuarios']?>')" class="btn btn-danger btn-circle btn-md" title="Cambiar estado"><span class="glyphicon glyphicon-refresh" aria-hidden="true" title="Cambiar estado"></span></button>
-
+                                   <?php endif; ?>
                                    <a href="<?= URL. 'Personas/modificarContrasenia/' . $valor['id_usuarios'] ?>/2">
                                         <button type="button" class="btn btn-warning btn-circle btn-md" data-toggle="modal" data-target="#modal-cambiar-contras" title="Cambiar contraseña"><i class="fa fa-key" aria-hidden="true" title="Cambiar contraseña"></i></button>
                                      </a>
@@ -63,9 +64,9 @@
                                       <a href="<?= URL. 'Personas/listarPersonasEmpleados/' . $valor['id_usuarios'] ?>/3">
                                        <button type="button" class="btn btn-primary btn-circle btn-md" onclick=""data-toggle="modal" data-target="#modal-detalles" title="Ver detalles"><i class="fa fa-eye" aria-hidden="true" title="Ver detalles"></i></button>
                                        </a>
-
+                                       <?php if($valor['id_rol'] != 3): ?>
                                          <button type="button"  onclick="cambiarestado('<?= $valor['id_usuarios']?>')" class="btn btn-danger btn-circle btn-md" title="Cambiar estado"><span class="glyphicon glyphicon-refresh" aria-hidden="true" title="Cambiar estado"></span></button>
-
+                                       <?php endif; ?>
                                    <?php endif ?>
                                 </td>
                                 </tr>
@@ -89,7 +90,6 @@
         </div>
 
   <?php if ($id!= "" && $tipo == 1): ?>
-
   <div class="modal fade" id="modal-actualizar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static">
      <div class="modal-dialog" role="document">
        <div class="modal-content">

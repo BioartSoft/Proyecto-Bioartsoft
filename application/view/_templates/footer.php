@@ -163,6 +163,8 @@ $(document).ready(function(){
                       $("#divFechapagoliquidacion").hide();
                       $("#divvalorpenditeprestamo").hide();
                       $("#divvalorventas").hide();
+                      $("#divvalorultipago").hide();
+                      $("#divvalorprimaservicios").hide();
 
                     };
            },500);

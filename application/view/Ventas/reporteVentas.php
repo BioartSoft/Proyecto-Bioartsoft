@@ -7,7 +7,7 @@
     <div   class="col-md-4">
         <label for="" style="color: #3CB371">Fecha Inicial </label>
         <div class="input-group date" data-provide="datepicker">
-        <input type="text" class="form-control" name="txtfechainicial" id="txtfechainicial" placeholder="Fecha Inicial" data-parsley-required="true">
+        <input type="text" class="form-control" name="txtfechainicial" id="txtfechainicial" placeholder="Fecha Inicial" readonly="true" data-parsley-required="true">
         <div class="input-group-addon">
         <span class="glyphicon glyphicon-th"></span>
       </div>
@@ -17,7 +17,7 @@
     <div   class="col-md-4">
         <label for="" style="color: #3CB371">Fecha Final </label>
         <div class="input-group date" data-provide="datepicker">
-        <input type="text" class="form-control" name="txtfechafinal" id="txtfechafinal"  placeholder="Fecha final" data-parsley-required="true">
+        <input type="text" class="form-control" name="txtfechafinal" id="txtfechafinal" readonly="true"  placeholder="Fecha final" data-parsley-required="true">
         <div class="input-group-addon">
         <span class="glyphicon glyphicon-th"></span>
       </div>

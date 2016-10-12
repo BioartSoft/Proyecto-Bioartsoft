@@ -54,7 +54,7 @@
               <div class="modal-dialog" role="document" style="width: 96% !important">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="cerrar()">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
                     </button>
                       <h4 class="modal-title" id="creditosClientModal" style="text-align:center; color: #3CB371">Detalles de Crédito de: <span id="cliente"></span> </h4>
@@ -169,6 +169,60 @@
                       </div>
                     </div>
                   </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="modal fade" id="mymodificarCredito" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard ="false" data-backdrop = "static">
+          <div class="modal-dialog modal-md" role="document" style="width: 35% !important">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="abrirmodal()">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel" style="text-align:center; color: #3CB371"> Modificar Fecha Límite Crédito<span id=""></span></h4>
+              </div>
+              <div class="modal-body">
+                <form action="<?php echo URL?>Ventas/listarVentasCredito" method="POST" id="formModCredito" accept-charset="utf-8" data-parsley-validate="">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="panel-body">
+                      <div class="row">
+                        <div class="col-xs-12 col-md-6" id="divFechalimite">
+                          <label for="txtfechalimeteCredito">Fecha Límite:</label>
+                              <div class="input-group date" data-provide="datepicker">
+                                <input type="text" class="form-control" name="txtfechalimeteCredito" data-parsley-required="true" step="1" format="yyyy-mm-dd" id="fechalim" readonly="true">
+                                <div class="input-group-addon">
+                                <span class="glyphicon glyphicon-th"></span>
+                              </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                        </div>
+
+                        <input type="hidden" name="txthiddenCredito" id="idCredito">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                  <div class="row">
+                        <div class="modal-footer">
+                          <div class="col-md-3">
+                          </div>
+
+                        <div class="col-xs-12 col-md-3">
+                          <button type="button" class="btn btn-secondary btn-active"  data-dismiss="modal" onclick="abrirmodal()"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
+                        </div>
+
+                        <div class="col-xs-12 col-md-3">
+                          <button type="submit" name="btnmodificarCredito" class="btn btn-success btn-active" id="btnmodificarCredito" style="float: left; margin-left: 70px"><i class="fa fa-floppy-o" aria-hidden="true">   Guardar</i></button>
+                        </div>
+                      </div>
+                    </div>
                 </form>
               </div>
             </div>
@@ -380,6 +434,14 @@ $("#btn-Guardar-Abono").click(function(){
 
 
 <script type="text/javascript">
+  $("#btnmodificarCredito").click(function(){
+
+    $("#formModCredito").parsley().validate();
+  })
+</script>
+
+
+<script type="text/javascript">
   function cambiarestado(cod, est){
   swal({
     title: "¿Realmente desea cambiar el estado del abono?",
@@ -426,4 +488,24 @@ $("#btn-Guardar-Abono").click(function(){
       });
 }
 
+</script>
+
+
+<script type="text/javascript">
+function ModificarCreditos(id_ventas){
+  $.ajax({
+    type:"POST",
+    url:url+"Ventas/infoCreditos",
+    data:{
+    id_ventas: id_ventas,
+  },
+  success:function(respuesta){
+
+  $("#fechalim").val(respuesta.fecha_limite_credito);
+      $("#idCredito").val(respuesta.id_ventas);
+      $("#mymodificarCredito").modal("show");
+      $("#mdListarCreditos").modal("hide");
+},
+  });
+}
 </script>

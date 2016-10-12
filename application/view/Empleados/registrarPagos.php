@@ -186,7 +186,7 @@
                               <div class="col-xs-12 col-md-4" id="divFechaInicial" style="">
                                 <label>Fecha Inicial:</label>
                                 <div class="">
-                                  <div class="input-group date" data-provide = "datepicker" data-parsley-required="true">
+                                  <div class="input-group date" data-parsley-required="true">
                                     <div class="input-group-addon" style="border-radius:5px;">
                                       <i class="fa fa-calendar"></i>
                                     </div>
@@ -324,8 +324,7 @@
                               </div>
                             </div>
                         </div>
-                      </div>
-                        <br>
+                        </div>
                         <div class="row">
                           <div class="col-xs-1 col-md-3">
                           </div>
@@ -1153,6 +1152,8 @@
               var tipoEmpleado = $("#tipoEmpleado").val();
 
               if(tipoPago == 1 && tipoEmpleado == "Empleado-fijo"){
+                $("#valorDiatemporal").removeAttr("data-parsley-required");
+                $("#dias_laborados").removeAttr("data-parsley-required");
 
                 var neto = $("#neto").val();
 
@@ -1170,10 +1171,10 @@
                 }else{
                   return true;
                 }
-                $("#valorDiatemporal").removeAttr("data-parsley-required");
-                $("#dias_laborados").removeAttr("data-parsley-required");
 
               }else if(tipoPago == 2 && tipoEmpleado == "Empleado-fijo"){
+                $("#valorDiatemporal").removeAttr("data-parsley-required");
+                $("#dias_laborados").removeAttr("data-parsley-required");
 
                 var vacaciones = $("#valorvacacionestot").val();
 
@@ -1191,10 +1192,10 @@
                 }else{
                   return true;
                 }
-                $("#valorDiatemporal").removeAttr("data-parsley-required");
-                $("#dias_laborados").removeAttr("data-parsley-required");
 
               }else if(tipoPago == 3 && tipoEmpleado == "Empleado-fijo"){
+                $("#valorDiatemporal").removeAttr("data-parsley-required");
+                $("#dias_laborados").removeAttr("data-parsley-required");
 
                 var totalPrima = $("#valortotalprima").val();
 
@@ -1210,8 +1211,6 @@
                   });
                   return false;
                 }
-                $("#valorDiatemporal").removeAttr("data-parsley-required");
-                $("#dias_laborados").removeAttr("data-parsley-required");
 
               }else if(tipoEmpleado == "Empleado-temporal"){
 

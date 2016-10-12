@@ -389,6 +389,7 @@
     });
   }
   </script>
+
   <script type="text/javascript">
   function Modificarprestamo(id_prestamos){
     $.ajax({
@@ -409,6 +410,7 @@
     });
 }
   </script>
+
   <script type="text/javascript">
         function cambiarestadoabono(cod, est){
     swal({
@@ -454,6 +456,22 @@
         });
 }
   </script>
+  <script type="text/javascript">
+    function devolverAbono(valorAbono,id_prestam) {
+
+      $.ajax({
+        url: url +'Empleados/retornarAbono',
+        type: 'POST',
+        dataType: 'JSON',
+        data: {valorAbono:valorAbono,id_prestam:id_prestam},
+      })
+      .done(function(respuesta) {
+        if (respuesta.v) {
+          window.location = url + "Empleados/listarPrest";
+        };
+      });
+    }
+  </script>
 
   <script type="text/javascript">
   $("#valorprestamos").keydown(function(e){
@@ -475,7 +493,7 @@
         function cambiarestadoprestamo(cod, est){
           validarSiTieneAbono(cod);
     swal({
-      title: "¿Realmente desea Anular el Préstamo?",
+      title: "¿Desea Anular el Prestamo?",
       type: "warning",
       confirmButton: "#3CB371",
       confirmButtonText: "btn-danger",

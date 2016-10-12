@@ -44,6 +44,7 @@
  </tbody>
   </table>
 </div>
+<?php if($_SESSION['ROL'] == 1 || $_SESSION['ROL'] == 3): ?>
 <div class="col-sm-12">
     <center>
     <a href="<?= URL ?>producto/informestock" target="_blank">
@@ -51,6 +52,7 @@
     </a>
   </center>
   </div>
+<?php endif; ?>
 </form>
 </div>
 

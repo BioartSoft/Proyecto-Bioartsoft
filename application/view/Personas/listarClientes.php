@@ -49,7 +49,7 @@
                                     <button type="button" class="btn btn-success btn-circle btn-md" data-toggle="modal" data-target="#modal-actualizar" title="Modificar"><i class="fa fa-pencil-square-o" aria-hidden="true" title="Modificar"></i></button>
                                   </a>
 
-                                  <?php if($_SESSION['ROL'] == 1): ?>
+                                  <?php if($_SESSION['ROL'] == 1 || $_SESSION['ROL'] == 3): ?>
                                    <button type="button"  onclick="cambiarestado('<?= $valor['id_persona']?>')" class="btn btn-danger btn-circle btn-md" title="Cambiar estado"><span class="glyphicon glyphicon-refresh" aria-hidden="true" title="Cambiar estado"></span></button>
                                  <?php endif; ?>
                                 <?php else:  ?>
@@ -66,6 +66,7 @@
                         </tbody>
                     </table>
                 </div>
+                <?php if($_SESSION['ROL'] == 1 || $_SESSION['ROL'] == 3): ?>
                 <div class="row">
                  <div class="col-sm-12">
                    <center>
@@ -75,6 +76,7 @@
                  </center>
                  </div>
                </div>
+             <?php endif; ?>
               </div>
             </div>
           </div>

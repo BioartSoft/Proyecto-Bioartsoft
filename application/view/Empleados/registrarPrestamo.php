@@ -115,15 +115,15 @@
               <div class="row">
                 <div class="col-xs-1 col-md-2">
                 </div>
-                <div class="col-xs-5 col-md-4">
-                  <button type="button" class="btn btn-secondary btn-md active" style="float: right;" id="btncerrar" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
+                <div class="col-xs-5 col-md-4" id="btnGuardarPrestamo">
+                  <button type="submit" class="btn btn-success btn-md active"  name="btnRegistrarPrestamo" id="btnguardarPrestamo"><i class="fa fa-floppy-o" aria-hidden="true">   Guardar</i></button>
                 </div>
 
                 <div class="col-md-2">
                 </div>
 
                 <div class="col-xs-5 col-md-4">
-                  <button type="submit" class="btn btn-success btn-md active"  name="btnRegistrarPrestamo" id="btnguardarPrestamo"><i class="fa fa-floppy-o" aria-hidden="true">   Guardar</i></button>
+                  <button type="button" class="btn btn-danger btn-md active" onclick="cancelarprestamo()" style="float: right; margin-right: 55%" id="btncancelar"><i class="fa fa-times" aria-hidden="true">   Cancelar</i></button>
                 </div>
               </div>
             </form>

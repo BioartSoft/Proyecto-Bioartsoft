@@ -2,7 +2,7 @@
 <form id="detallesC" action="<?= URL ?>Compras/registrarCompra" method="post" name="formC" data-parsley-validate="">
    <div class="row">
 
-    <h3 class="page-header" style="text-align:center; color: #3CB371; margin-top: 10px; margin-bottom: 10px">Registrar Compra</h3><br>
+    <h3 class="page-header" style="text-align:center; color: #3CB371; margin-top: 10px; margin-bottom: 10px">Registrar Entradas</h3><br>
     <div id="frmC" method="post" data-parsley-validate="">
 
        <div class="col-md-5">

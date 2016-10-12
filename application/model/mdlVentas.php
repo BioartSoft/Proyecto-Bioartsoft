@@ -227,6 +227,25 @@ class mdlVentas
 
 
 
+  public function fechaLimiteCredito()
+  {
+    $sql = "CALL SP_traerinfoCreditos(?)";
+    $stm = $this->db->prepare($sql);
+    $stm->bindParam(1, $this->codigo_venta);
+    $stm->execute();
+    return $stm->fetch(PDO::FETCH_ASSOC);
+  }
+
+
+  public function modificarCredito()
+  {
+    $sql = "CALL SP_Actualizar_Fecha_Limite(?, ?)";
+    $stm = $this->db->prepare($sql);
+    $stm->bindParam(1, $this->codigo_venta);
+    $stm->bindParam(2, $this->dias_credito);
+    return $stm->execute();
+  }
+
 
   public function facturaVenta($cod){
     $sql = "SELECT * FROM venta v INNER JOIN venta_producto vp ON v.codigo = vp.codigo_venta INNER JOIN producto p.codigo = vp.codigoProducto INNER JOIN cliente c ON v.codigo_cliente = c.documento WHERE v.codigo = ?";

@@ -55,6 +55,7 @@
 	}
 
 
+
 		public static function consultaStock(&$notificaciones, $db){
 				# consultar productos en stock minimo
 				//$sql = "SELECT * FROM tbl_productos WHERE cantidad <= stock_minimo";

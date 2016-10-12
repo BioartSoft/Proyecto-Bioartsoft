@@ -6,17 +6,30 @@
 
     <div class="container-fluid">
         <div class="row">
-          <?php if ($_SESSION['ROL'] == 1): ?>
+          <?php if ($_SESSION['ROL'] == 1):?>
           <div class="col-md-4">
             <label for="" style="color: #3CB371">Seleccionar tipo persona *</label>
             <select class="form-control" id="tipoPersona" name="txtTipoPersona" style="width: 100%" data-parsley-type="alphanum" data-parsley-required="true">
               <option value="">Seleccionar tipo persona</option>
               <?php foreach ($TipoPersona as $value): ?>
+                <?php if($value['idTbl_tipo_persona'] != 1 && $value['idTbl_tipo_persona'] != 2): ?>
                 <option value="<?= $value['idTbl_tipo_persona'] ?>"><?= $value['Tbl_nombre_tipo_persona'] ?></option>
+              <?php endif; ?>
 
                <?php endforeach; ?>
             </select>
           </div>
+        <?php elseif ($_SESSION['ROL'] == 3):?>
+        <div class="col-md-4">
+          <label for="" style="color: #3CB371">Seleccionar tipo persona *</label>
+          <select class="form-control" id="tipoPersona" name="txtTipoPersona" style="width: 100%" data-parsley-type="alphanum" data-parsley-required="true">
+            <option value="">Seleccionar tipo persona</option>
+            <?php foreach ($TipoPersona as $value): ?>
+              <option value="<?= $value['idTbl_tipo_persona'] ?>"><?= $value['Tbl_nombre_tipo_persona'] ?></option>
+
+             <?php endforeach; ?>
+          </select>
+        </div>
         <?php elseif ($_SESSION['ROL'] == 2):?>
         <div class="col-md-4">
           <label for="" style="color: #3CB371">Seleccionar tipo persona *</label>

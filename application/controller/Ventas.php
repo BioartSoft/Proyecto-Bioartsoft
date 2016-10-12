@@ -351,6 +351,37 @@ private function validarAbonos($idVenta){
     // $modeloconfiguracion = $this->loadModel("mdlConfiguracionPago");
     // $configuracion = $modeloconfiguracion->listarConfiguracion();
 
+    if (isset($_POST["btnmodificarCredito"])) {
+
+    $this->mdlVentas->__SET("dias_credito",$_POST["txtfechalimeteCredito"]);
+    $this->mdlVentas->__SET("codigo_venta",$_POST["txthiddenCredito"]);
+    $this->mdlVentas->modificarCredito();
+
+    if ($this->mdlVentas->modificarCredito()) {
+          $_SESSION['alerta'] = ' swal({
+              title: "Modificación exitosa!",
+              type: "success",
+              confirmButton: "#3CB371",
+              confirmButtonText: "Aceptar",
+              // confirmButtonText: "Cancelar",
+              closeOnConfirm: false,
+              closeOnCancel: false
+            })';
+        }
+        else
+        {
+          $_SESSION['alerta'] = ' swal({
+              title: "Error en la modificación!",
+              type: "error",
+              confirmButton: "#3CB371",
+              confirmButtonText: "Aceptar",
+              // confirmButtonText: "Cancelar",
+              closeOnConfirm: false,
+              closeOnCancel: false
+            })';
+        }
+    }
+
     $clientesCredito = $this->mdlVentas->listarClientesCreditoV();
 
     require APP . 'view/_templates/header.php';
@@ -388,12 +419,17 @@ private function validarAbonos($idVenta){
               $html .= '<td>'.$estado.'</td>';
               $html .= '<td>';
               if($val['estado_credito'] == 1){
-                $html .= '<button type="button" id="idAbonoCreditV_btn" class="btn btn-success btn-circle btn-md" onclick="abonosV('.$val['total_venta'].','.$val['id_ventas'].','.$pendienteCredit.')" title="Abonar"><i class="fa fa-money" aria-hidden="true"></i></button>';
+                $html .= '<button type="button" id="idAbonoCreditV_btn" class="btn btn-warning btn-circle btn-md" onclick="abonosV('.$val['total_venta'].','.$val['id_ventas'].','.$pendienteCredit.')" title="Abonar"><i class="fa fa-money" aria-hidden="true"></i></button>';
+                if($_SESSION['ROL'] == 1 || $_SESSION['ROL'] == 3){
+                $html .= ' <button  title="Modificar Préstamo" type="button" class="btn btn-success btn-circle btn-md" data-toggle="modal" onclick="ModificarCreditos('.$val['id_ventas'].')"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>';
               }
+            }
               $html .= ' <button type="button" onclick="traerDetalleAbonosCreditosV('.$val["id_ventas"].')" class="btn btn-primary btn-circle btn-md"   title="Ver Abonos CreditosV"><i class="fa fa-eye" aria-hidden="true" ></i></button>';
               if($val['estado_credito'] != 0){
-                $html .= ' <button  title="Cambiar Estado" type="button" class="btn btn-warning btn-circle btn-md" data-toggle="modal" onclick="cambiarestado2('.$val["id_ventas"].', 2)"><i class="fa fa-refresh" aria-hidden="true"></i></button>';
+                  if($_SESSION['ROL'] == 1 || $_SESSION['ROL'] == 3){
+                $html .= ' <button  title="Cambiar Estado" type="button" class="btn btn-danger btn-circle btn-md" data-toggle="modal" onclick="cambiarestado2('.$val["id_ventas"].', 2)"><i class="fa fa-refresh" aria-hidden="true"></i></button>';
               }
+            }
               $html .= '</td></tr>';         //traerDetalleAbonosCreditosV()
           }
               $cabecera = '<tr>';
@@ -510,6 +546,20 @@ private function validarAbonos($idVenta){
     echo json_encode([
       'cliente'=>$info['cliente'],
     ]);
+  }
+
+
+  public function infoCreditos(){
+
+    header("Content-type: application/json");
+    $this->mdlVentas->__SET('codigo_venta', $_POST["id_ventas"]);
+    //$info = $this->mdlVentas->fechaLimiteCredito($_POST['id_ventas']);
+
+    $informacionCredito = $this->mdlVentas->fechaLimiteCredito();
+    echo json_encode($informacionCredito);
+    // echo json_encode([
+    //   'fecha'=>$info['fecha_limite_credito'],
+    // ]);
   }
 
 
