@@ -129,6 +129,61 @@ class producto extends Controller{
   }
 
 
+  public function informeBajas()
+     {
+       require APP . 'view/_templates/header.php';
+       require APP. 'view/Existencias/reporteBajas2.php';
+       require APP . 'view/_templates/footer.php';
+     }
+
+
+  public function pdfBajas()
+     {
+
+       if(isset($_POST['btnconsultar'])){
+         $this->mdlexistencias->__SET('fechainicial',date("Y-m-d",strtotime($_POST['txtfechainicial'])));
+         $fecha = $this->mdlexistencias->validarFechaBaja();
+
+         $this->mdlexistencias->__SET('fechafinal',date("Y-m-d",strtotime($_POST['txtfechafinal'])));
+         $fecha2 = $this->mdlexistencias->validarFechaBaja();
+
+         if($fecha == true && $fecha2 == true){
+
+           $this->mdlexistencias->__SET('fechainicial',date("Y-m-d",strtotime($_POST['txtfechainicial'])));
+           $this->mdlexistencias->__SET('fechafinal',date("Y-m-d",strtotime($_POST['txtfechafinal'])));
+           $ver = $this->mdlexistencias->listarpdf();
+
+           }else{
+             $_SESSION['alerta'] = ' swal({
+               title: "No existen registros en ese rango de fecha!",
+               type: "error",
+               confirmButton: "#3CB371",
+               confirmButtonText: "Aceptar",
+               // confirmButtonText: "Cancelar",
+               closeOnConfirm: false,
+               closeOnCancel: false
+             }, function(isConfirm){ if(isConfirm){ window.close(); } })';
+           header("Location:".URL.'producto/informeBajas');
+           exit();
+         }
+       }
+
+       require_once APP . 'libs/dompdf/autoload.inc.php';
+       // $urlImagen = URL . 'producto/generarcodigo?id=';
+       // $productos = $this->mdlproducto->listar();
+       ob_start();
+       require APP . 'view/Existencias/reporteBajas.php';
+       $html = ob_get_clean();
+       $dompdf = new Dompdf();
+       $dompdf->loadHtml($html);
+       // $dompdf->load_html_file($urlImagen);
+       $dompdf->setPaper('A4', 'landscape');
+       $dompdf->render();
+       $dompdf->stream("Informe Bajas.pdf", array("Attachment" => false, 'isRemoteEnabled' => true));
+     }
+
+
+
 
   public function registrarBajas(){
     // $modeloconfiguracion = $this->loadModel("mdlConfiguracionPago");
@@ -175,8 +230,6 @@ class producto extends Controller{
 
 
   public function listarBajas(){
-    // $modeloconfiguracion = $this->loadModel("mdlConfiguracionPago");
-    // $configuracion = $modeloconfiguracion->listarConfiguracion();
     $bajas = $this->mdlexistencias->listarBajas();
     require APP . 'view/_templates/header.php';
     require APP . 'view/Existencias/listarbajas.php';
@@ -186,8 +239,6 @@ class producto extends Controller{
 
 
   public function registrarProductos(){
-    // $modeloconfiguracion = $this->loadModel("mdlConfiguracionPago");
-    // $configuracion = $modeloconfiguracion->listarConfiguracion();
     $error = false;
     $guardado = false;
     $errorCodigo = true;
@@ -442,8 +493,8 @@ class producto extends Controller{
     header("Content-type: application/json");
     $categoria = $this->mdlproducto->traerporcodigo($_POST['id']);
     echo json_encode($categoria);
-
   }
+
 
   private function modificarProducto(){
 

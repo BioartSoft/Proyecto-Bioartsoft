@@ -34,30 +34,28 @@
                           <?php foreach ($bajas as $value): ?>
                            <tr>
                              <td><?= $value['Tbl_Productos_id_productos'] ?></td>
+                             <td><?= $value['nombre_producto'] ?></td>
+                             <td><?= $value['nombre'] ?></td>
+                             <td><?= $value['fecha_salida'] ?></td>
+                             <td><?= $value['Cantidad'] ?></td>
+                             <td><?= $value['tipo_baja'] ?></td>
+                             <td><?= $value['estado'] == 1? "Activa" : "Anulada" ?></td>
                              <td>
-                               <?= $value['nombre_producto'] ?>
-                             </td>
-                             <td>
-                               <?= $value['nombre'] ?>
-                             </td>
-                             <td>
-                               <?= $value['fecha_salida'] ?>
-                             </td>
-                             <td>
-                               <?= $value['Cantidad'] ?>
-                             </td>
-                             <td>
-                               <?= $value['tipo_baja'] ?>
-                             </td>
-                             <td>
-                               <?= $value['estado'] == 1? "Activa" : "Anulada" ?>
-                             </td>
 
-                             <td>
+                               <?php
+                                      $fechaActual = date('Y-m-d');
+                                      $nuevaFecha = strtotime ( '-1 day' , strtotime ( $fechaActual )) ;
+                                      $nuevaFecha = date ( 'Y-m-d' , $nuevaFecha );
+                               ?>
+
+                               <?php if($value['fecha_salida'] == $nuevaFecha): ?>
                                <?php if(($value['estado'] == 1) && ($_SESSION['ROL'] == 1 || $_SESSION['ROL'] == 3)) { ?>
                                    <button type="button" class="btn btn-danger btn-circle btn-md" onclick="cambiarEstado(<?= $value['id_bajas']?>, 0)" title="Anular"><i class="fa fa-remove" aria-hidden="true" title="Anular"></i></button>
                                  <?php }else {?>
                                  <?php } ?>
+                               <?php else: ?>
+
+                               <?php endif; ?>
                              </td>
                            </tr>
                           <?php endforeach; ?>

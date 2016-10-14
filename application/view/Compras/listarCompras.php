@@ -35,10 +35,21 @@
        <td><?= $value["estado"] == 1?"Activa":"Anulada" ?></td>
        <td>
          <button type="button" class="btn btn-primary btn-circle btn-md" data-toggle="modal" data-target="#myForm2" onclick="traerDetallesCompra(<?= $value['id_compras'] ?>)" title="Ver Detalles"><i class="fa fa-eye" aria-hidden="true" title="Ver Detalles"></i></button></a>
+
+         <?php
+                $fechaActual = date('Y-m-d');
+                $nuevaFecha = strtotime ( '-1 day' , strtotime ( $fechaActual ) ) ;
+                $nuevaFecha = date ( 'Y-m-d' , $nuevaFecha );
+         ?>
+
+         <?php if($value['fecha_compra'] == $nuevaFecha): ?>
          <?php if(($value['estado'] == 1) && ($_SESSION['ROL'] == 1 || $_SESSION['ROL'] == 3)) { ?>
              <button type="button" class="btn btn-danger btn-circle btn-md" onclick="cambiarEstado(<?= $value['id_compras']?>, 0)" title="Anular"><i class="fa fa-remove" aria-hidden="true" title="Anular"></i></button>
            <?php }else {?>
            <?php } ?>
+         <?php else: ?>
+
+        <?php endif; ?>
        </td>
      </tr>
 <?php endforeach; ?>

@@ -34,7 +34,3 @@
   </table>
 </body>
 </html>
-
-<script type="text/javascript">
-  $(".price").priceFormat({centsLimit: 3, clearPrefix: true});
-</script>

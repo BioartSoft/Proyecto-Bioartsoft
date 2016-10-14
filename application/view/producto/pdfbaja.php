@@ -14,16 +14,14 @@
     <thead>
       <tr>
          <th>codigo</th>
-       <th>Nombre Producto</th>
-
-       <th>categoria</th>
-
-       <th>Cantidad </th>
-      <th>Stock</th>
-       <th>Precio Detal</th>
-       <th>Precio Por Mayor</th>
-       <th>Precio Unitario</th>
-       <th>Estado</th>
+         <th>Nombre Producto</th>
+         <th>categoria</th>
+         <th>Cantidad </th>
+         <th>Stock</th>
+         <th>Precio Detal</th>
+         <th>Precio Por Mayor</th>
+         <th>Precio Unitario</th>
+         <th>Estado</th>
       </tr>
     </thead>
     <tbody>

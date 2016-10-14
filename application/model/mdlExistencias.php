@@ -10,6 +10,8 @@ class mdlExistencias
   private $fecha_salida;
   private $tipo_baja;
   private $id_bajas;
+	private $fechainicial;
+	private $fechafinal;
 
 	public function __SET($parametros, $valor){
 
@@ -136,39 +138,70 @@ class mdlExistencias
 }
 
 
-public function devolverProductos($codigo){
-  # listamos los detalles
-  $detalles = $this->getDetallesBajas($codigo);
-  $ok = true;
-  # recorremos los detalles
-  foreach($detalles AS $detalle){
-    $r = $this->devolverProducto($detalle['Cantidad'], $detalle['Tbl_Productos_id_productos']);
-    # si ocurrió un error al devolver el producto cancelamos todo
-    if($r == false){
-      $ok = false;
-      break;
-    }
-  }
-  return $ok;
-}
+		public function devolverProductos($codigo){
+		  # listamos los detalles
+		  $detalles = $this->getDetallesBajas($codigo);
+		  $ok = true;
+		  # recorremos los detalles
+		  foreach($detalles AS $detalle){
+		    $r = $this->devolverProducto($detalle['Cantidad'], $detalle['Tbl_Productos_id_productos']);
+		    # si ocurrió un error al devolver el producto cancelamos todo
+		    if($r == false){
+		      $ok = false;
+		      break;
+		    }
+		  }
+		  return $ok;
+		}
 
 
-public function devolverProducto($cantidad, $producto){
-  $sql = "CALL SP_Actualizar_Exitencia_Bajas(?, ?)";
-  $stm = $this->db->prepare($sql);
-  $stm->bindParam(1, $cantidad);
-  $stm->bindParam(2, $producto);
-  return $stm->execute();
-}
+		public function devolverProducto($cantidad, $producto){
+		  $sql = "CALL SP_Actualizar_Exitencia_Bajas(?, ?)";
+		  $stm = $this->db->prepare($sql);
+		  $stm->bindParam(1, $cantidad);
+		  $stm->bindParam(2, $producto);
+		  return $stm->execute();
+		}
 
-public function getDetallesBajas($idBaja){
-	$sql = "CALL SP_DetallesBajas(?)";
-	$stm = $this->db->prepare($sql);
-	$stm->bindParam(1, $idBaja);
-	$stm->execute();
-	return $stm->fetchAll(2);
+		public function getDetallesBajas($idBaja){
+			$sql = "CALL SP_DetallesBajas(?)";
+			$stm = $this->db->prepare($sql);
+			$stm->bindParam(1, $idBaja);
+			$stm->execute();
+			return $stm->fetchAll(2);
 
-}
+		}
+
+
+		public function validarFechaBaja()
+		{
+		 $sql="CALL  SP_Validar_Fecha_Baja(?)";
+		 try {
+			$ca = $this->db->prepare($sql);
+			$ca->bindParam(1,$this->fechainicial);
+			$ca->execute();
+			return $ca->fetch(PDO::FETCH_ASSOC);
+		 } catch (Exception $e) {
+
+		 }
+
+		}
+
+
+		public function listarpdf()
+	 {
+	   $sql="CALL  SP_Informe_Bajas_Por_fecha(?,?)";
+	   try {
+	    $ca = $this->db->prepare($sql);
+	    $ca->bindParam(1,$this->fechainicial);
+	    $ca->bindParam(2,$this->fechafinal);
+	   $ca->execute();
+	    return $ca->fetchAll(PDO::FETCH_ASSOC);
+	   } catch (Exception $e) {
+
+	   }
+
+	 }
 
 }
 

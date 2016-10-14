@@ -144,6 +144,7 @@
        if(e.which == 13){
          $("#ddlproducto").val($("#txtProductoS").val()).trigger("change");
          $("#txtProductoS").val("");
+         $("#txtcantidad").val("");
        } else {
          var c = String.fromCharCode(e.keyCode);
          var input = $("#txtProductoS");

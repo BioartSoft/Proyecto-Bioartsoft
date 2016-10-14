@@ -101,6 +101,7 @@
        if(e.which == 13){
          $("#ddlproducto").val($("#txtProductoS").val()).trigger("change");
          $("#txtProductoS").val("");
+         $("#txtcantidad").val("");
        } else {
          var c = String.fromCharCode(e.keyCode);
          var input = $("#txtProductoS");
@@ -167,7 +168,7 @@
    function ponerPrecio(elemento){
      var valor = $("#ddlproducto").val();
      var precio = $("#ddlproducto [value='"+valor+"']").attr("precio");
-      var cant = $("#txtcantidad").val(1);
+      var cant = $("#txtcantidad").val();
      $("#precio").text(precio);
      $("#precio").priceFormat(
        {

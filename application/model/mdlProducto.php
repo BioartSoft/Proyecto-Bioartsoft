@@ -18,7 +18,7 @@ class mdlProducto
   private $precio_por_mayor;
   private $id_categoria;
   private $stock;
-
+  private $id_baja;
   private $db;
 
   public function __SET($attr, $valor){
@@ -53,6 +53,8 @@ class mdlProducto
 
   }
 
+
+
   public function validarNombreCategoria(){
     $sql = "CALL 	SP_Validar_Nombre_Categoria(?)";
     $stm = $this->db->prepare($sql);
@@ -60,7 +62,6 @@ class mdlProducto
     $stm->execute();
     return $stm->fetch(PDO::FETCH_ASSOC);
   }
-
 
 
   public function validarCodigo(){
@@ -72,13 +73,13 @@ class mdlProducto
 }
 
 
-public function validarNombre(){
-  $sql = "CALL 	SP_Validar_Nombre_Producto(?)";
-  $stm = $this->db->prepare($sql);
-  $stm->bindParam(1, $this->nombre_producto);
-  $stm->execute();
-  return $stm->fetch(PDO::FETCH_ASSOC);
-}
+  public function validarNombre(){
+    $sql = "CALL 	SP_Validar_Nombre_Producto(?)";
+    $stm = $this->db->prepare($sql);
+    $stm->bindParam(1, $this->nombre_producto);
+    $stm->execute();
+    return $stm->fetch(PDO::FETCH_ASSOC);
+  }
 
 
   public function listarpdfp(){

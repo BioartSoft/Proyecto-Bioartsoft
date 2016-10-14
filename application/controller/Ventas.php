@@ -239,7 +239,7 @@ class Ventas extends controller
 
 
   public function listarVentas(){
-    $Ventas=$this->mdlVentas->listarVentas();
+    $Ventas = $this->mdlVentas->listarVentas();
     $cliente = $this->mdlCliente->listar();
     $producto = $this->mdlProducto->listar();
     require APP . 'view/_templates/header.php';
@@ -348,16 +348,15 @@ private function validarAbonos($idVenta){
 
 
     public function listarVentasCredito(){
-    // $modeloconfiguracion = $this->loadModel("mdlConfiguracionPago");
-    // $configuracion = $modeloconfiguracion->listarConfiguracion();
+
 
     if (isset($_POST["btnmodificarCredito"])) {
+      $this->mdlVentas->validarFechaCredito();
+      $this->mdlVentas->__SET("dias_credito",$_POST["txtfechalimeteCredito"]);
+      $this->mdlVentas->__SET("codigo_venta",$_POST["txthiddenCredito"]);
+      $this->mdlVentas->modificarCredito();
 
-    $this->mdlVentas->__SET("dias_credito",$_POST["txtfechalimeteCredito"]);
-    $this->mdlVentas->__SET("codigo_venta",$_POST["txthiddenCredito"]);
-    $this->mdlVentas->modificarCredito();
-
-    if ($this->mdlVentas->modificarCredito()) {
+      if ($this->mdlVentas->modificarCredito()) {
           $_SESSION['alerta'] = ' swal({
               title: "Modificación exitosa!",
               type: "success",

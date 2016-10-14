@@ -64,7 +64,6 @@ class mdlCompras
 }
 
 
-
   public function insertarCompra(){
     try{
     $sql = "CALL 	SP_insertarCompra(?, ?, ?)";

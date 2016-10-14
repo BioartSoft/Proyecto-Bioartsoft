@@ -530,7 +530,7 @@ use Dompdf\Dompdf;
     }
 
 
-    public function listarPersonasEmpleados($id= "",$tipo=0){
+    public function listarPersonasEmpleados($id = "",$tipo = 0){
 
       $persona = null;
       $validarUsu = true;
@@ -548,6 +548,7 @@ use Dompdf\Dompdf;
         $ValidarNomUsu = $this->modeloUsuario->validarModUsuario($id);
         $ConsultarUsuarios = $this->modeloUsuario->consultarUsuarios();
         $usuario = $this->modeloUsuario->ModNombreUsu($id);
+
 
         $ValidarEmail = $this->modeloUsuario->ValidarModEmail($id);
         $ConsultarEmails = $this->modeloUsuario->ConsultarEmail();
