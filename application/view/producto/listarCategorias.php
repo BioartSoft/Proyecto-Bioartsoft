@@ -70,7 +70,7 @@
                  </div>
                  <div class="col-md-6">
                    <label for="form-control" style="color: #3CB371">Nombre *</label><br>
-                    <input  id="txtnombreca" name="txtnombreca" type="text" class="form-control" data-parsley-type="alphanum" minlength="3" maxlength="10" data-parsley-required="true">
+                    <input  id="txtnombreca" name="txtnombreca" type="text" class="form-control" data-parsley-type="alphanum" minlength="3" maxlength="30" data-parsley-required="true">
                 </div>
          </div>
          </div>

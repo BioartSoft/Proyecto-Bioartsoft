@@ -45,7 +45,7 @@
 
           <div class="col-md-4">
               <label for="" style="color: #3CB371">Seleccionar tipo de documento *</label>
-              <select name="txtTipoDocumento"class="form-control" id="documento" style="width: 100%" data-parsley-required="true">
+              <select name="txtTipoDocumento"class="form-control" id="documento" style="width: 100%" data-parsley-required="true" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9!@#\$%\-\.\?_~\\ \\()\/$]+">
                   <option value="">Seleccionar tipo de documento</option>
                   <option value="Cedula">Cédula</option>
                   <option value="Cédula_Extranjera">Documento de  Extranjería</option>
@@ -54,7 +54,7 @@
             </div>
              <div class="col-md-4">
                 <label for="" style="color: #3CB371">Número de documento *</label>
-                <input type="text" name="txtIdPersona"  minlength="8" maxlength="12" style="width: 100%"class="form-control" id="campoId" placeholder="Número Documento" data-parsley-required="true">
+                <input type="text" name="txtIdPersona"  minlength="8" maxlength="10" style="width: 100%"class="form-control" id="campoId" placeholder="Número Documento" data-parsley-required="true">
             </div>
           </div>
           <br><br>
@@ -78,8 +78,8 @@
 
        <div class="row">
          <div class="col-md-4">
-             <label for="" style="color: #3CB371">Número de celular</label>
-             <input type="text"  name="txtCelular" maxlength="12" minlength="10" data-parsley-type="number" class="form-control" id="campoCelular" placeholder="Numero Celular" data-parsley-required="false">
+             <label for="" style="color: #3CB371">Número de Celular *</label>
+             <input type="text"  name="txtCelular" maxlength="12" minlength="10" data-parsley-type="number" class="form-control" id="campoCelular" placeholder="Numero Celular" data-parsley-required="true">
          </div>
           <div class="col-xs-12 col-md-4">
               <div class="form-group">
@@ -114,9 +114,9 @@
                 </div>
               </div>
               <div class="col-md-4" id="conTipoRol" style="display: none">
-                  <label for="" style="color: #3CB371">Seleccione Rol *</label>
+                  <label for="" style="color: #3CB371">Seleccionar Rol *</label>
                 <select name="txtRol" id="campoTipoRol" class="form-control"  style="width: 100%" data-parsley-required="true">
-                     <option value="" >Seleccione Rol</option>
+                     <option value="" >Seleccionar Rol</option>
                      <?php foreach ($Roles as $valor): ?>
                        <option value="<?= $valor['id_rol'] ?>"><?= $valor['nombre_rol'] ?></option>
                       <?php endforeach; ?>

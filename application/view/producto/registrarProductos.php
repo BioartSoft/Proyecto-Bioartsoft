@@ -141,7 +141,7 @@ $("#btn-guardar-producto").click(function(){
     var categoria = $(this).val();
     if(categoria != 1){
 
-      //$("#talla").slideDown();
+      $("#txttamano").slideDown();
       $("#talla").slideUp();
       //$("#tamano").slideUp();
       $("#tamano").slideDown();
@@ -151,8 +151,9 @@ $("#btn-guardar-producto").click(function(){
     }else{
       //$("#tamano").slideDown();
       $("#tamano").slideUp();
-      //$("#talla").slideUp();
+      $("#txttamano").slideUp();
       $("#talla").slideDown();
+
       // $("#tamano").removeAttr("required");
       // $("#tamano").attr("required", 'true');
 

@@ -6,6 +6,8 @@ class Menu{
     $options = array(PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC, PDO::ATTR_ERRMODE => PDO::ERRMODE_WARNING);
     $this->db = new PDO(DB_TYPE . ':host=' . DB_HOST . ';dbname=' . DB_NAME . ';charset=' . DB_CHARSET, DB_USER, DB_PASS, $options);
   }
+
+
   public function getMenu(){
     $sql = "SELECT
             	*
@@ -22,18 +24,13 @@ class Menu{
     return  $stm->fetchAll(PDO::FETCH_ASSOC);
   }
 
+
+
   public function getPermisos($url){
     if(!isset($_SESSION['ROL'])){
       return false;
     }
     $rol = $_SESSION['ROL'];
-
-    // $sql = "SELECT
-    //         	p.url
-    //         FROM
-    //         	tbl_pagina_rol t
-    //         JOIN tbl_paginas p ON p.codigo_paginas = t.Tbl_Paginas_codigo_paginas
-    //         WHERE Tbl_rol_id_rol = ? AND p.url = ? AND t.estado = 1";
 
    $sql = "CALL SP_Paginas(?, ?)";
     $stm = $this->db->prepare($sql);
@@ -42,8 +39,7 @@ class Menu{
     $stm->execute();
     $resultados =  $stm->fetchAll(PDO::FETCH_ASSOC);
     return count($resultados) > 0;
-  }
-
+    }
 
 }
 

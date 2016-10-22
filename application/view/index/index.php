@@ -7,18 +7,22 @@
       </center>
     </div>
       <div class="row">
-        <div class="col-lg-6 col-md-6">
+        <div class="col-lg-6 col-md-12">
             <div class="panel panel-primary">
                 <div class="panel-heading">
                     <div class="row">
                         <div class="col-xs-3">
-                            <i class="fa fa-usd fa-4x">&nbsp;500.000</i>
-                            <p>Ventas Día</p>
+                          <?php foreach ($ventasDia AS $valor): ?>
+                              <i class="fa fa-usd fa-4x">&nbsp;<span class="ventas"><?= $valor ?></span></i>
+                              <p>Ventas Día</p>
+                          <?php endforeach; ?>
                         </div>
                         <div class="col-xs-9 text-right">
-                            <div class="huge"></div>
-                            <p>Ventas del Mes:</p>
-                            1.200.000
+                          <?php foreach ($ventasMes as $ventasMes): ?>
+                              <div class="huge"></div>
+                              <p>Ventas Mes:</p>
+                              <span class="ventas"><?= $ventasMes ?></span>
+                          <?php endforeach; ?>
                         </div>
                     </div>
                 </div>
@@ -31,18 +35,23 @@
                 </a>
             </div>
         </div>
-        <div class="col-lg-6 col-md-6">
+        <div class="col-lg-6 col-md-12">
             <div class="panel panel-green">
                 <div class="panel-heading">
                     <div class="row">
                         <div class="col-xs-3">
-                            <i class="fa fa-credit-card fa-4x">&nbsp;5</i>
+                          <?php foreach ($creditos as $value): ?>
+
+                            <i class="fa fa-credit-card fa-4x">&nbsp;<?= $value?></i>
                             <p>&nbsp;</p>
+                          <?php endforeach; ?>
                         </div>
                         <div class="col-xs-9 text-right">
                             <div class="huge"></div>
                             <p>Créditos</p>
-                              5
+                              <?php foreach ($creditos as $value): ?>
+                                <?= $value?>
+                              <?php endforeach; ?>
                         </div>
                     </div>
                 </div>
@@ -58,19 +67,23 @@
       </div>
 
       <div class="row">
-        <div class="col-lg-6 col-md-6">
+        <div class="col-lg-6 col-md-12">
             <div class="panel panel-green">
                 <div class="panel-heading">
                     <div class="row">
-                        <div class="col-xs-3">
-                            <i class="fa fa-shopping-cart fa-4x">&nbsp;600.000</i>
-                            <p>Compras Día</p>
-                        </div>
-                        <div class="col-xs-9 text-right">
-                            <div class="huge"></div>
-                            <p>Compras del Mes:</p>
-                            2.000.000
-                        </div>
+                          <div class="col-xs-3">
+                            <?php foreach ($comprasDia as $compras): ?>
+                                <i class="fa fa-shopping-cart fa-4x">&nbsp;<span class="compras"><?= $compras ?></span></i>
+                                <p>Compras Día</p>
+                              <?php endforeach; ?>
+                          </div>
+                          <div class="col-xs-9 text-right">
+                            <?php foreach ($comprasMes as $CompraMes): ?>
+                                <div class="huge"></div>
+                                <p>Compras Mes:</p>
+                                <span class="compras"><?= $CompraMes ?></span>
+                            <?php endforeach; ?>
+                          </div>
                     </div>
                 </div>
                 <a href="#">
@@ -82,18 +95,22 @@
                 </a>
             </div>
         </div>
-        <div class="col-lg-6 col-md-6">
+        <div class="col-lg-6 col-md-12">
             <div class="panel panel-primary">
                 <div class="panel-heading">
                     <div class="row">
                         <div class="col-xs-3">
-                            <i class="fa fa-money fa-4x">&nbsp;4</i>
-                            <p>&nbsp;</p>
+                          <?php foreach ($prestamos as $val): ?>
+                              <i class="fa fa-money fa-4x">&nbsp;<?= $val?></i>
+                              <p>&nbsp;</p>
+                            <?php endforeach; ?>
                         </div>
                         <div class="col-xs-9 text-right">
                             <div class="huge"></div>
                             <p>Préstamos</p>
-                            4
+                            <?php foreach ($prestamos as $val): ?>
+                              <?= $val?>
+                            <?php endforeach; ?>
                         </div>
                     </div>
                 </div>
@@ -108,3 +125,10 @@
         </div>
     </div>
   </div>
+
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $(".ventas").priceFormat({centsLimit: 3, clearPrefix: true});
+      $(".compras").priceFormat({centsLimit: 3, clearPrefix: true});
+    });
+  </script>

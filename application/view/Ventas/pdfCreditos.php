@@ -19,7 +19,8 @@
         <th>Nombres Cliente</th>
         <th>Tipo Cliente</th>
         <th>Valor Crédito</th>
-        <th>Valor Abonado</th>
+        <!-- <th>Valor Abonado</th>
+        <th>Saldo Pendiente</th> -->
       </tr>
     </thead>
     <tbody>
@@ -29,7 +30,8 @@
           <td><?= $valor['cliente'] ?></td>
           <td class="price"><?= $valor['Tbl_nombre_tipo_persona'] ?></td>
           <td class="price"><?= $valor['total_venta'] ?></td>
-          <td class="price"><?= $valor['abonado'] ?></td>
+          <!-- <td class="price"><?= $valor['abonado'] ?></td>
+          <td class="price"><?= $valor['pendiente'] ?></td> -->
       </tr>
     <?php endforeach; ?>
     </tbody>

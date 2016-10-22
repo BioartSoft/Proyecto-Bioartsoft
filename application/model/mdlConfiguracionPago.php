@@ -48,7 +48,7 @@
 			if(count($resultado) > 0){
 				$notificaciones[] = [
 					'icono' => 'fa fa-credit-card',
-					'url' => "#",
+					'url' => URL . 'Ventas/listarVentasCredito',
 					'texto' => 'Hay créditos a punto de vencer ',
 				];
 			}
@@ -67,7 +67,7 @@
 				if(count($resultados) > 0){
 					$notificaciones[] = [
 						'icono' => 'fa fa-cubes',
-						'url' => 'view/producto/listarstockminimo',
+						'url' => URL . 'producto/listarStock',
 						'texto' => 'Hay productos por debajo del stock mínimo',
 					];
 				}

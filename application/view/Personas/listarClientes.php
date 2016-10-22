@@ -157,7 +157,7 @@
                             <option value="<?= $tipo['idTbl_tipo_persona'] ?>" <?= $clientes['idTbl_tipo_persona'] == $tipo['idTbl_tipo_persona'] ? 'selected="selected"' : '' ?>>
                               <?= $tipo['Tbl_nombre_tipo_persona']?>
                             </option>
-                          <?php endforeach ?>
+                          <?php endforeach; ?>
                         </select>
                       </div>
                     </div>
@@ -307,3 +307,20 @@ function(isConfirm){
   });
 }
 </script>
+
+
+<?php if (isset($correo) && $correo == false): ?>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      swal({
+            title: "Correo ya existe, no se puede modificar!",
+            type: "error",
+            confirmButton: "#3CB371",
+            confirmButtonText: "Aceptar",
+            // confirmButtonText: "Cancelar",
+            closeOnConfirm: false,
+            closeOnCancel: false
+          });
+    });
+  </script>
+<?php endif; ?>

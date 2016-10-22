@@ -11,16 +11,9 @@
 
     <title>Login</title>
 
-    <!-- Bootstrap Core CSS -->
     <link href="<?= URL ?>css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- MetisMenu CSS -->
     <link href="<?= URL ?>css/metisMenu.min.css" rel="stylesheet">
-
-    <!-- Custom CSS -->
     <link href="<?= URL ?>css/sb-admin-2.css" rel="stylesheet">
-
-    <!-- Custom Fonts -->
     <link href="<?= URL ?>css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
 </head>
@@ -33,7 +26,7 @@
                   <div class="login-panel panel panel-default">
                       <div class="panel-heading">
                          <center>
-                          <img alt="Brand" src="<?= URL ?>img/LOGOv2.png" style="height:100px; width: 300px">
+                          <img alt="Brand" src="<?= URL ?>img/LOGOv2.png" style="height:100px">
                           <h3 class="panel-title"></h3>
                         </center>
                       </div>
@@ -69,12 +62,8 @@
                                   </div><br>
                                     <button type="submit" name="btnIniciar" class="btn btn-lg btn-success btn-block">Iniciar sesión</button>
                                   <div class="checkbox">
-                                      <label>
-                                        <center>
-                                          <input name="remember" type="checkbox" value="Remember Me">Recordarme
+                                          <!-- <input name="remember" type="checkbox" value="Remember Me">Recordarme -->
                                           <a href="<?= URL ?>login/recuperarContras" style="margin-left: 80px;color: blue; text-decoration: underline">Recuperar contraseña</a>
-                                        </center>
-                                      </label>
                                   </div>
                               </fieldset>
                           </form>

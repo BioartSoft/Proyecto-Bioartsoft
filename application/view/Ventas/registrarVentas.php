@@ -77,7 +77,7 @@
                 </select>
               </div>
             <div style="display: none" id="div-plazo">
-              <label for="form-control">Plazo crédito</label>
+              <label for="form-control">Días Plazo Crédito</label>
               <input type="number" id="txtplazo" min="1" maxlength="2" max="30" name="txtplazo" class="form-control" data-parsley-type="number" data-parsley-required="true">
             </div>
               <br>
@@ -415,6 +415,7 @@
 
        calcularTotal();
        sumarSubtotal();
+       $("#txtcantidad").val(0);
 
        $("#total").priceFormat(
          {
@@ -607,6 +608,7 @@ function validarCantidad(){
 
       if($("#select-pago").val() == "1"){
       $("#div-plazo").css("display", "block");
+      $("#txtplazo").val(30);
     }else{
       $("#div-plazo").css("display", "none");
       $("#txtplazo").removeAttr("data-parsley-required");

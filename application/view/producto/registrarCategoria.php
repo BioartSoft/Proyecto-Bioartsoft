@@ -13,7 +13,7 @@
 
                <div class="col-md-4">
                   <label for="form-control" class="control-label" style="color: #3CB371">Nombre Categoría *</label>
-                  <input type="text" name="txtnombrec" minlength="4" maxlength="20" data-parsley-type="alphanum" id="txtnombrec"class="form-control" data-parsley-required="true">
+                  <input type="text" name="txtnombrec" minlength="4" maxlength="30" data-parsley-type="alphanum" id="txtnombrec"class="form-control" data-parsley-required="true">
               </div>
             </div>
           </div>

@@ -2,7 +2,7 @@
 
 class Login extends Controller
 {
-private $modelo;
+  private $modelo;
   private $modeloP;
 
   function __construct()
@@ -65,9 +65,12 @@ private $modelo;
 
       public function index()
       {
-        $modelo = $this->loadModel("mdlConfiguracionPago");
-        $configuracion = $modelo->listarConfiguracion();
-
+        $creditos = $this->modelo->creditos();
+        $prestamos = $this->modelo->Prestamos();
+        $ventasDia = $this->modelo->VentasDia();
+        $comprasDia = $this->modelo->ComprasDia();
+        $comprasMes = $this->modelo->ComprasMes();
+        $ventasMes = $this->modelo->VentasMes();
         require APP . 'view/_templates/header.php';
         require APP . 'view/index/index.php';
         require APP . 'view/_templates/footer.php';
@@ -95,7 +98,8 @@ private $modelo;
         $html .='</head>';
         $html .='<body>';
         $html .='<div style="width: 100%" >';
-        $html .='<img src="'.URL.'"img/BioartesV2.png">';
+        // $html .='<img src="'.URL.'img/BioartesV2.png" alt="No encontrada">';
+        $html .='<img src="https://s12.postimg.org/ismdhzhu5/Bioartes_V2.png" alt="No encontrada">';
         $html .='<h3>BIOARTES</h3>';
         $html .='<h4>Solicitud para recuperación de contraseña</h4>';
         $html .='<strong>Su contraseña es: </strong>';
@@ -123,16 +127,18 @@ private $modelo;
 
               // Create the Mailer using your created Transport
               $mailer = Swift_Mailer::newInstance($transport);
-
               $contrasenia = decrypt($usuario['clave']);
+              $html .= $contrasenia;
+              //$html .= '<img src="http://i1-news.softpedia-static.com/images/news2/ubuntu-16-04-lts-xenial-xerus-final-beta-screenshot-tour-502161-7.jpg">';
+              $html .='</div>';
+              $html .='</body>';
+
               // Create a message
               $message = Swift_Message::newInstance('Recuperación Contraseña')
                 ->setFrom(array('jhoanlt19@gmail.com' => 'BIOARTES'))
                 ->setTo(array($correo => 'A name'))
-                ->setBody($html.$contrasenia, 'text/html');
+                ->setBody($html, 'text/html');
 
-                $html .='</div>';
-                $html .='</body>';
               // Send the message
               $result = $mailer->send($message);
 

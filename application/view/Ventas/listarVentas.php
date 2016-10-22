@@ -42,14 +42,12 @@
 
          <?php
                 $fechaActual = date('Y-m-d');
-                $nuevaFecha = strtotime ( '-1 day' , strtotime ( $fechaActual ) ) ;
-                $nuevaFecha = date ( 'Y-m-d' , $nuevaFecha );
          ?>
 
          <!-- <button type="button" class="btn btn-primary btn-circle btn-md" data-toggle="modal" data-target="#myForm2" onclick="traerDetallesVenta(<?= $value['id_ventas'] ?>)" title="Detalles venta"><i class="fa fa-eye" aria-hidden="true" title="Detalles venta"></i></button></a> -->
         <button type="button" class="btn btn-primary btn-circle btn-md" data-toggle="modal" data-target="#myForm2" onclick="traerDetallesVenta(<?= $value['id_ventas'] ?>)" title="Detalles venta"><i class="fa fa-eye" aria-hidden="true" title="Detalles venta"></i></button></a>
 
-        <?php if($value['fecha_venta'] == $nuevaFecha): ?>
+        <?php if($value['fecha_venta'] == $fechaActual): ?>
          <?php if(($value['estado'] == 1) && ($_SESSION['ROL'] == 1 || $_SESSION['ROL'] == 3)) { ?>
              <button type="button" class="btn btn-danger btn-circle btn-md" onclick="cambiarEstado(<?= $value['id_ventas']?>, 0)" title="Anular venta"><i class="fa fa-remove" aria-hidden="true" title="Anular venta"></i></button>
            <?php }else {?>
@@ -129,11 +127,13 @@
     <div class="col-md-9">
       <button type="button" class="btn btn-secondary btn-md active pull-right"  data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"> Cerrar</span></button>
     </div>
+<?php if($_SESSION['ROL'] == 1 || $_SESSION['ROL'] == 3): ?>
     <div class="col-md-2">
       <a href="<?= URL ?>Ventas/generarpdfDetallesVentas" target="_blank" id="pdfDeta">
         <button class="btn btn-primary" name="btnComprasD"><i class="fa fa-file-pdf-o" aria-hidden="true">   Pdf Detalles Ventas</i></button>
       </a>
     </div>
+<?php endif; ?>
   </div>
 </div>
       <br>

@@ -76,14 +76,14 @@
                             </div>
                               <br>
                               <div class="row">
-                              <div class="col-xs-12 col-md-4" id="divValorDiatemporal" style="display: none">
-                                <label for="">Valor Día</label>
-                                <input type="number" step="1000" min="1000" id="valorDiatemporal" name="txtValorDia" class="form-control" data-parsley-type="integer" data-parsley-required="true">
-                              </div>
-                              <div class="col-xs-12 col-md-4" id="divDiasLaborados" style="display: none">
-                                <label id="labelDias">Días Laborados</label>
-                                <input type="number" min="1" id="dias_laborados" name="txtdiasLaborados" class="form-control" data-parsley-type="number" data-parsley-required="true">
-                              </div>
+                                <div class="col-xs-12 col-md-4" id="divValorDiatemporal" style="display: none">
+                                  <label for="">Valor Día</label>
+                                  <input type="number" step="1000" min="1000" id="valorDiatemporal" name="txtValorDia" class="form-control" data-parsley-type="integer" data-parsley-required="true">
+                                </div>
+                                <div class="col-xs-12 col-md-4" id="divDiasLaborados" style="display: none">
+                                  <label id="labelDias">Días Laborados</label>
+                                  <input type="number" min="1" id="dias_laborados" name="txtdiasLaborados" class="form-control" data-parsley-type="number" data-parsley-required="true">
+                                </div>
                               </div>
 
                               <div class="row">
@@ -99,7 +99,7 @@
                                       <i class="fa fa-calendar"></i>
                                     </div>
                                     <input type="text" disabled="" class="form-control pull-right" name="txtfechacontrato" id="fecha_Contrato" style="border-radius:5px;"  value="">
-                                    <input type="hidden" name="" id="idfeter" format="yyyy-mm-dd">
+                                    <input type="text" id="idfeter" format="yyyy-mm-dd">
                                   </div>
                                 </div>
                               </div>
@@ -190,7 +190,7 @@
                                     <div class="input-group-addon" style="border-radius:5px;">
                                       <i class="fa fa-calendar"></i>
                                     </div>
-                                    <input type="text" class="form-control pull-right" name="txtfechainicial" id="idfechainicial" style="border-radius:5px;" step="1" readonly="">
+                                    <input type="text" class="form-control pull-right" name="txtfechainicial" id="idfechainicial" style="border-radius:5px;" step="1">
 
                                     <input type="hidden" id="fecha_final" name="txtfecha_final">
                                   </div>
@@ -515,11 +515,7 @@
               var mes = elem[1];
               var dia = elem[2];
 
-              if (mes >= 1 && mes <=6) {
-
-              var PagototalPrima = salario * diffDayss / 360;
-              }
-
+              //Fecha cuando hay primas pagadas
               var fechaContrato2 = $("#idfeter").val();
               // var fechaContrato = $("#fecha_Contrato").val(fechaContrato2);
               var fechapagos = $("#fecha_pagoprima").val();
@@ -537,9 +533,14 @@
               var f1 = new Date(fechaContrato);
               var f2 = new Date(fechaContrato2);
 
-              if(mess>6 && mess <= 12){
+              if (mes >= 1 && mes <=6) {
+                var PagototalPrima = salario * diffDayss / 360;
+              }else if(mes > 6 && mes <= 12 && fechaContrato2 == ""){
+                var PagototalPrima = salario * diffDayss / 360;
+              }
 
-              var PagototalPrima = salario * diffDayssjhoan / 360;
+              if(mess > 6 && mess <= 12){
+                var PagototalPrima = salario * diffDayssjhoan / 360;
               }
               //Valor total liquidación
               var totalliquidaciones = valvacaciones + valortotalcesantias + asociarPago + asociarPrima - pendientePrestamo;
@@ -1171,6 +1172,7 @@
                 }else{
                   return true;
                 }
+
 
               }else if(tipoPago == 2 && tipoEmpleado == "Empleado-fijo"){
                 $("#valorDiatemporal").removeAttr("data-parsley-required");

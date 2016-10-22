@@ -45,13 +45,15 @@
   </table>
 </div>
 <?php if($_SESSION['ROL'] == 1 || $_SESSION['ROL'] == 3): ?>
-<div class="col-sm-12">
-    <center>
-    <a href="<?= URL ?>producto/informestock" target="_blank">
-      <button class="btn btn-primary"><i class="fa fa-file-pdf-o" aria-hidden="true">   Reporte PDF de Stock Mínimo</i></button>
-    </a>
-  </center>
-  </div>
+<?php if(count($stock) > 0): ?>
+  <div class="col-sm-12">
+      <center>
+      <a href="<?= URL ?>producto/informestock" target="_blank">
+        <button class="btn btn-primary"><i class="fa fa-file-pdf-o" aria-hidden="true">   Reporte PDF de Stock Mínimo</i></button>
+      </a>
+    </center>
+    </div>
+<?php endif; ?>
 <?php endif; ?>
 </form>
 </div>

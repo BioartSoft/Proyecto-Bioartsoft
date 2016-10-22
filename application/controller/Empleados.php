@@ -416,9 +416,14 @@ use Dompdf\Dompdf;
                   $html .= '<td>';
                   // '<button type="button" class="btn btn-success btn-circle btn-md" data-toggle="modal" data-target="#myModal" title="Generar Recibo"><i class="fa fa-file-pdf-o" aria-hidden="true"></i>
                   // </button>';
+                $fechaActual = date("Y-m-d");
+                if($value['fecha_pago'] == $fechaActual){
                 if($value["estado"] == 1){
                     $html .= ' <button  title="Anular" type="button" class="btn btn-success btn-circle btn-md" data-toggle="modal" onclick="cambiarestado('.$value["id_pago"].', 0)"><i class="fa fa-check" aria-hidden="true"></i></button>';
                 }
+              }else{
+
+              }
                 if ($value["estado"]==0) {
                   $html .= ' <button  disabled="" title="Anular" type="button" class="btn btn-danger btn-circle btn-md" data-toggle="modal"><i class="fa fa-remove" aria-hidden="true"></i></button>';
                 }
@@ -457,85 +462,85 @@ use Dompdf\Dompdf;
       }
 
       public function ajaxDetallePrestamos()
-      {
-        $modelo = $this->loadModel("mdlConfiguracionPago");
-        $configuracion = $modelo->listarConfiguracion();
-        $modelo = $this->loadModel("mdlEmpleados");
-        $detalle = $modelo->getDetallePrestamos($_POST["idPersona"]);
+        {
+          $modelo = $this->loadModel("mdlConfiguracionPago");
+          $configuracion = $modelo->listarConfiguracion();
+          $modelo = $this->loadModel("mdlEmpleados");
+          $detalle = $modelo->getDetallePrestamos($_POST["idPersona"]);
 
 
-          $fijo = false;
-          $html = "";
-              foreach ($detalle as $val) {
-                $idPre = $val['id_prestamos'];
-                $detalleAbono = $modelo->traerValorAbonoPorPrestamo($idPre);
+            $fijo = false;
+            $html = "";
+                foreach ($detalle as $val) {
+                  $idPre = $val['id_prestamos'];
+                  $detalleAbono = $modelo->traerValorAbonoPorPrestamo($idPre);
 
-                 $abonoAnulado = $detalleAbono['TotalAbono'];
-                 $estadoAbono = $detalleAbono['estado_abono'];
+                   $abonoAnulado = $detalleAbono['TotalAbono'];
+                   $estadoAbono = $detalleAbono['estado_abono'];
 
-                 if ($abonoAnulado != null) {
-                    $abono = $val['Total'] - $abonoAnulado;
-                 }
-                 else
-                 {
-                  $abono = $val['Total'];
-                 }
-                  $empleado = $val['empleado'];
-                  $valorpres = $val['valor_prestamo'];
-                $valorPen = $valorpres - $abono;
-                $html .= '<tr>';
-                $html .= '<td>'.$val['id_persona'].'</td>';
-                $html .= '<td>'.$val['fecha_prestamo'].'</td>';
+                   if ($abonoAnulado != null) {
+                      $abono = $val['Total'] - $abonoAnulado;
+                   }
+                   else
+                   {
+                    $abono = $val['Total'];
+                   }
+                    $empleado = $val['empleado'];
+                    $valorpres = $val['valor_prestamo'];
+                  $valorPen = $valorpres - $abono;
+                  $html .= '<tr>';
+                  $html .= '<td>'.$val['id_persona'].'</td>';
+                  $html .= '<td>'.$val['fecha_prestamo'].'</td>';
 
-                  $html .= '<td>'.$val['fecha_limite'].'</td>';
-                  $html .= '<td class="price">'.$val['valor_prestamo'].'</td>';
-                  $v= $val['Total']==null?0:$abono;
-                  $html .= '<td class="price">'.$v.'</td>';
-                  $html .= '<td class="price">'.$valorPen.'</td>';
-                  $html .= '<td>'.$val['descripcion'].'</td>';
+                    $html .= '<td>'.$val['fecha_limite'].'</td>';
+                    $html .= '<td class="price">'.$val['valor_prestamo'].'</td>';
+                    $v= $val['Total']==null?0:$abono;
+                    $html .= '<td class="price">'.$v.'</td>';
+                    $html .= '<td class="price">'.$valorPen.'</td>';
+                    $html .= '<td>'.$val['descripcion'].'</td>';
 
-                  $estado = $val["estado_prestamo"] == 0?"Pagado":"Pendiente";
-                  $estado1 = $val["estado_prestamo"] == 1?"Pendiente":"Pagado";
-                  $estado3 = $val["estado_prestamo"] == 3?"Anulado":"Pendiente";
+                    $estado = $val["estado_prestamo"] == 0?"Pagado":"Pendiente";
+                    $estado1 = $val["estado_prestamo"] == 1?"Pendiente":"Pagado";
+                    $estado3 = $val["estado_prestamo"] == 3?"Anulado":"Pendiente";
 
 
-                  // $html .= '<td>'.$value['valorTotal'].'</td>';
-                  if ($val["estado_prestamo"] == 0) {
-                  $html .= '<td>'.$estado.'</td>';
-                  }
-                  if ($val["estado_prestamo"] == 1) {
-                  $html .= '<td>'.$estado1.'</td>';
-                  }
-                  if ($val["estado_prestamo"] == 3) {
-                  $html .= '<td>'.$estado3.'</td>';
-                  }
-                  // $html .= '<td>'.$estado.'</td>';
-                  $html .= '<td>';
-                  if ($val["estado_prestamo"] == 1) {
-                  $html.='<button type="button" class="btn btn-warning btn-circle btn-md" onclick="abono('.$val['valor_prestamo'].','.$val['id_prestamos'].','.$valorPen.')"  title="Abonar"><i class="fa fa-money" aria-hidden="true"></i></button>';
-                  $html .= ' <button  title="Modificar Préstamo" type="button" class="btn btn-success btn-circle btn-md" data-toggle="modal" onclick="Modificarprestamo('.$val['id_prestamos'].')"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>';
-                  $html .= ' <button  title="Cambiar Estado" type="button" class="btn btn-danger btn-circle btn-md" data-toggle="modal" id="btnbotoncheck" onclick="cambiarestadoprestamo('.$val['id_prestamos'].',3 )"><i class="fa fa-refresh" aria-hidden="true"></i></button>';
-                  }
-                  $html .= ' <button type="button" onclick="traerDetalleAbonos('.$val["id_prestamos"].')" class="btn btn-primary btn-circle btn-md"   title="Ver Abonos"><i class="fa fa-eye" aria-hidden="true" ></i></button>';
-                  $html .= '</td></tr>';
-              }
-                  $cabecera = '<tr>';
-                  $cabecera .= '<th>'.'Identidad'.'</th>';
-                  $cabecera .= '<th>'.'Fecha Préstamo'.'</th>';
-                  $cabecera .= '<th>'.'Fecha Límite'.'</th>';
-                  $cabecera .= '<th>'.'Valor del Préstamo'.'</th>';
-                  $cabecera .= '<th>'.'Total Abono'.'</th>';
-                  $cabecera .= '<th>'.'Valor Pendiente'.'</th>';
-                  $cabecera .= '<th>'.'Descripción'.'</th>';
-                  $cabecera .= '<th>'.'Estado Préstamo'.'</th>';
-                  $cabecera .= '<th>'.'Opciones'.'</th>';
-                  $cabecera .= '</tr>';
+                    // $html .= '<td>'.$value['valorTotal'].'</td>';
+                    if ($val["estado_prestamo"] == 0) {
+                    $html .= '<td>'.$estado.'</td>';
+                    }
+                    if ($val["estado_prestamo"] == 1) {
+                    $html .= '<td>'.$estado1.'</td>';
+                    }
+                    if ($val["estado_prestamo"] == 3) {
+                    $html .= '<td>'.$estado3.'</td>';
+                    }
+                    // $html .= '<td>'.$estado.'</td>';
+                    $html .= '<td>';
+                    if ($val["estado_prestamo"] == 1) {
+                    $html.='<button type="button" class="btn btn-warning btn-circle btn-md" onclick="abono('.$val['valor_prestamo'].','.$val['id_prestamos'].','.$valorPen.')"  title="Abonar"><i class="fa fa-money" aria-hidden="true"></i></button>';
+                    $html .= ' <button  title="Modificar Préstamo" type="button" class="btn btn-success btn-circle btn-md" data-toggle="modal" onclick="Modificarprestamo('.$val['id_prestamos'].')"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>';
+                    $html .= ' <button  title="Cambiar Estado" type="button" class="btn btn-danger btn-circle btn-md" data-toggle="modal" id="btnbotoncheck" onclick="cambiarestadoprestamo('.$val['id_prestamos'].',3 )"><i class="fa fa-refresh" aria-hidden="true"></i></button>';
+                    }
+                    $html .= ' <button type="button" onclick="traerDetalleAbonos('.$val["id_prestamos"].')" class="btn btn-primary btn-circle btn-md"   title="Ver Abonos"><i class="fa fa-eye" aria-hidden="true" ></i></button>';
+                    $html .= '</td></tr>';
+                }
+                    $cabecera = '<tr>';
+                    $cabecera .= '<th>'.'Identidad'.'</th>';
+                    $cabecera .= '<th>'.'Fecha Préstamo'.'</th>';
+                    $cabecera .= '<th>'.'Fecha Límite'.'</th>';
+                    $cabecera .= '<th>'.'Valor del Préstamo'.'</th>';
+                    $cabecera .= '<th>'.'Total Abono'.'</th>';
+                    $cabecera .= '<th>'.'Valor Pendiente'.'</th>';
+                    $cabecera .= '<th>'.'Descripción'.'</th>';
+                    $cabecera .= '<th>'.'Estado Préstamo'.'</th>';
+                    $cabecera .= '<th>'.'Opciones'.'</th>';
+                    $cabecera .= '</tr>';
 
-                  echo json_encode([
-                  'html' => $html,'cabecera'=>$cabecera
-                  ]);
+                    echo json_encode([
+                    'html' => $html,'cabecera'=>$cabecera
+                    ]);
 
-      }
+        }
 
       public function ajaxDetalleAbonos()
       {
@@ -558,10 +563,15 @@ use Dompdf\Dompdf;
                   $html .= '<td>';
                   // '<button type="button" class="btn btn-success btn-circle btn-md" onclick="abono('.$val['valor_prestamo'].','.$val['id_prestamos'].')"  title="Abonar"><i class="fa fa-money" aria-hidden="true"></i></button>';
                   // $html .= ' <button type="button" class="btn btn-primary btn-circle btn-md" onclick="traerDetalleAbonos('.$val['id_prestamos'].')"  title="Abonar"><i class="fa fa-eye" aria-hidden="true"></i></button>';
+                  $fechaActual = date("Y-m-d");
+                  if($val['fecha_abono'] == $fechaActual){
                   if ($val["estado_abono"] == 1) {
 
                   $html .= ' <button  title="Anular" type="button" class="btn btn-success btn-circle btn-md" data-toggle="modal" id="btnbotoncheck" onclick="cambiarestadoabono('.$val["idTbl_Abono_Prestamo"].',0); devolverAbono('.$val['valor'].','.$id_prestam.');"><i class="fa fa-check" aria-hidden="true"></i></button>';
                   }
+                }else{
+                  
+                }
 
                   if ($val["estado_abono"] == 0) {
                   $html .= ' <button title="Anulado" disabled="" id="btnanulado" type="button" class="btn btn-danger btn-circle btn-md" data-toggle="modal"><i class="fa fa-remove" aria-hidden="true"></i></button>';
@@ -636,7 +646,7 @@ use Dompdf\Dompdf;
         $modelo = $this->loadModel("mdlEmpleados");
         $modelo->__SET("id_persona", $_POST["Idp"]);
         $modelo->__SET("fecha_inicial",date("Y-m-d",strtotime($_POST["fech"])));
-        $modelo->__SET("fecha_final", date("Y-m-d",strtotime($_POST["fecha"])));
+        $modelo->__SET("fecha_final", date("Y-m-d"));
         $tot = $modelo->totalVentasEmpleado();
         $sumtotal = implode('', $tot);
 

@@ -98,7 +98,7 @@
              <span aria-hidden="true">&times;</span>
                </button>
                  <center>
-                   <h4 class="modal-title"  style="color: #3CB371" id="myModalLabel">Modificar Usuarios/Empleados</h4>
+                   <h4 class="modal-title"  style="color: #3CB371" id="myModalLabel">Modificar Usuarios/Empleados (obligatorios *)</h4>
                  </center>
                </div>
                <form method="POST"  id="form-2" role="form" action="<?= URL ?>Personas/listarPersonasEmpleados/<?= $persona['id_usuarios'] ?>" data-parsley-validate="">
@@ -107,13 +107,13 @@
 
         <div class="row">
                 <div class="col-md-6" class="form-group">
-                    <label>Nombres</label><br>
+                    <label>Nombres *</label><br>
                     <input type="text" class="form-control" name="txtnombre" id="ejemplo_password_2"
                     value="<?= $persona['nombres'] ?>" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ@\-\.\\ \/$]+" minlength="3" maxlength="30" data-parsley-required="true">
                   </div>
 
                     <div class="col-md-6">
-                      <label>Apellidos</label><br>
+                      <label>Apellidos *</label><br>
                         <input type="text" class="form-control" id="fecha"
                            value="<?= $persona['apellidos'] ?>" name="txtapell" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ@\-\.\\ \/$]+" minlength="3" maxlength="30" onchange="(this)" data-parsley-required="true">
                     </div>
@@ -124,32 +124,35 @@
           <br>
           <div class="row">
                        <div class="col-md-6">
-                         <label>Nombre Usuario</label><br>
+                         <label>Nombre Usuario *</label><br>
                          <input type="text" class="form-control" id="txtusuario"
                                 value="<?= $persona['nombre_usuario'] ?>" name="txtnombreusuario" maxlength="30" minlength="3" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9@#\-\_\\.\\ \/$]+" data-parsley-required="true">
                       </div>
                         <div class="col-md-6">
-                          <label>Rol Usuario</label><br>
-                          <select class="form-control" name="txtrol" data-parsley-required="true">
-                              <!-- <option>Seleccione un rol</option> -->
+                          <?php if ($persona['id_usuarios'] != '1234567890'): ?>
+                          <label>Rol Usuario *</label><br>
+
+                          <select class="form-control" id="selectRol" name="txtrol" data-parsley-required="true">
                             <?php foreach($roles AS $rol): ?>
                               <option value="<?= $rol['id_rol'] ?>" <?= $persona['rol'] == $rol['id_rol'] ? 'selected="selected"' : '' ?>>
                                 <?= $rol['nombre_rol']?>
                               </option>
                             <?php endforeach ?>
                           </select>
+
+                        <?php endif; ?>
                         </div>
           </div>
           <br>
           <div class="row">
                             <div class="col-md-6">
-                              <label>Celular</label><br>
+                              <label>Celular *</label><br>
                               <input type="text" class="form-control" id="ejemplo_password_2"
-                                     value="<?= $persona['celular'] ?>" name="txtcel" maxlength="12" minlength="10" data-parsley-type="number" data-parsley-required="false">
+                                     value="<?= $persona['celular'] ?>" name="txtcel" maxlength="12" minlength="10" data-parsley-type="number" data-parsley-required="true">
                              </div>
 
                            <div class="col-md-6">
-                             <label>Email</label><br>
+                             <label>Email *</label><br>
                              <input type="email" class="form-control" id="ejemplo_password_2"
                              value="<?= $persona['email'] ?>" name="txtcorreo" ata-parsley-type="email" data-parsley-required="true">
                            </div>
@@ -170,7 +173,7 @@
           <br>
           <div class="row">
                        <div class="col-md-6">
-                         <label>Género</label>
+                         <label>Género *</label>
                          <select class="form-control" name="txtgenero" pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+" data-parsley-required="true">
                          <option value="Masculino" <?= $persona['genero'] == 'Masculino'? 'selected="selected"' : '' ?> >Masculino</option>
                          <option value="Femenino" <?= $persona['genero'] == 'Femenino'? 'selected="selected"' : '' ?>>Femenino</option>
@@ -178,7 +181,7 @@
                         </div>
 
                         <div class="col-md-6">
-                          <label>Tipo Empleado</label><br>
+                          <label>Tipo Empleado *</label><br>
                           <select class="form-control" name="txtTipoEmpleado" id="Select-Empleado" data-parsley-type="alphanum" data-parsley-required="true">
                               <!-- <option>Seleccione un rol</option> -->
                             <?php foreach($TipoEmpleado AS $tipo): ?>
@@ -193,7 +196,7 @@
                           <?php if ($persona['Tbl_TipoPersona_idTbl_TipoPersona'] == 1): ?>
                         <div class="row">
                         <div id="conFechaContrato" style="" class="col-md-6">
-                            <label for="form-control">Fecha Contrato</label>
+                            <label for="form-control">Fecha Contrato *</label>
                             <div class="input-group date" data-provide="datepicker" id="dataPicker">
                             <input type="text" class="form-control" value="<?= $persona['fecha_Contrato'] ?>" name="txtfechac" readonly="true" id="campoFechaContrato" placeholder="Fecha Contrato" data-parsley-required="false">
                             <div class="input-group-addon">
@@ -233,6 +236,8 @@
                   </div>
 </div>
   <?php endif; ?>
+
+
 <script type="text/javascript">
  $(document).ready(function(){
    $("#modal-actualizar").modal("show");
@@ -316,13 +321,15 @@
 </div>
 </div>
 </div>
+<?php endif; ?>
 
-  <?php endif; ?>
+
     <script type="text/javascript">
       $(document).ready(function(){
       $("#modal-detalles").modal("show");
     });
     </script>
+
 
   <?php if ($id != "" && $tipo == 2): ?>
   <form method="POST" id="form-3" role="form" data-parsley-validate="">
@@ -367,7 +374,6 @@
   <script type="text/javascript">
     $(document).ready(function(){
     $("#modal-cambiar-contras").modal("show");
-
   });
   </script>
 

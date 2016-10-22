@@ -90,6 +90,7 @@ $(document).ready(function(){
     if(e.which == 13){
       $("#cmb_producto").val($("#txtProductoS").val()).trigger("change");
       $("#txtProductoS").val("");
+      $("#txt_cantidad").val("");
     } else {
       var c = String.fromCharCode(e.keyCode);
       var input = $("#txtProductoS");
@@ -163,6 +164,7 @@ $(document).ready(function(){
       var bandera =  true;
       var romper = false;
       $(".datos").each(function(key,value){
+
         var v=$(value).find("input[id='txtproducto']").val();
          if(v == producto){
             var cantAnt = parseInt($(value).find("td.cantidad2").text());
@@ -171,7 +173,16 @@ $(document).ready(function(){
 
             if((cantAnt + cantAct) > cTotal){
 
-              swal("Cantidad actual: "+cTotal+ " unidades. Cantidad agregada " + cantAnt + " unidades.");
+              swal({
+                    title: "Cantidad actual: "+cTotal+ " unidades. Cantidad agregada " + cantAnt + " unidades.",
+                    type: "error",
+                    confirmButton: "#3CB371",
+                    confirmButtonText: "Aceptar",
+                    // confirmButtonText: "Cancelar",
+                    closeOnConfirm: false,
+                    closeOnCancel: false
+                  });
+
                romper = true;
             }else{
 
@@ -201,10 +212,13 @@ $(document).ready(function(){
                 '</td>' +
               '</tr>';
         $("#tabla-detalles").append(html);
+
           }
         }
      }
   }
+
+  $("#txt_cantidad").val(0);
 
 }
 

@@ -9,9 +9,9 @@
 </head>
 <body>
   <img src="<?php echo URL ?>img/BioartesV2.png" height="100" width="200">
-  <br>
-  <center><legend>INFORME DETALLES VENTAS</legend></center>
   <br><br>
+  <center><legend>INFORME DETALLES VENTA NÚMERO: <strong><?= $val['id_ventas'] ?></strong></legend></center>
+  <br>
   <table border="1">
     <thead>
       <tr>
@@ -20,6 +20,7 @@
         <th>Subtotal venta</th>
         <th>Descuento</th>
         <th>Total Venta</th>
+        <th>Tipo Pago</th>
       </tr>
     </thead>
     <tbody>

@@ -41,6 +41,7 @@ class Ventas extends controller
     $dompdf->loadHtml($html);
     // $dompdf->load_html_file($urlImagen);
     $dompdf->setPaper('A4', 'landscape');
+    //$dompdf->setPaper([0,0,200,841], 'portrait');
     $dompdf->render();
     $dompdf->stream("Informe Créditos.pdf", array("Attachment" => false, 'isRemoteEnabled' => true));
   }
@@ -49,7 +50,6 @@ class Ventas extends controller
   public function generarpdfDetallesVentas()
   {
     $id = $_GET['id'];
-
 
     $info = $this->mdlVentas->pdfDetallesVenta($id);
 
@@ -63,6 +63,11 @@ class Ventas extends controller
       $tabla2 .= '<td>' . $val['subtotal_venta'] . '</td>';
       $tabla2 .= '<td>' . $val['descuento'] . '</td>';
       $tabla2 .= '<td>' . $val['total_venta'] . '</td>';
+      if($val['tipo_de_pago'] == 1){
+        $tabla2 .= '<td>Crédito</td>';
+      }else{
+        $tabla2 .= '<td>Contado</td>';
+      }
       $tabla2 .= '</tr>';
     }
 
@@ -95,7 +100,8 @@ class Ventas extends controller
     $dompdf = new Dompdf();
     $dompdf->loadHtml($html);
     // $dompdf->load_html_file($urlImagen);
-    $dompdf->setPaper('A4', 'landscape');
+    // $dompdf->setPaper('A4', 'landscape');
+    $dompdf->setPaper([0,0,350,841], 'portrait');
     $dompdf->render();
     $dompdf->stream("Informe Ventas.pdf", array("Attachment" => false, 'isRemoteEnabled' => true));
   }
@@ -351,12 +357,15 @@ private function validarAbonos($idVenta){
 
 
     if (isset($_POST["btnmodificarCredito"])) {
-      $this->mdlVentas->validarFechaCredito();
-      $this->mdlVentas->__SET("dias_credito",$_POST["txtfechalimeteCredito"]);
+      //$this->mdlVentas->validarFechaCredito();
+      $this->mdlVentas->__SET("dias_credito",$_POST["txtdiaslimiteCredito"]);
       $this->mdlVentas->__SET("codigo_venta",$_POST["txthiddenCredito"]);
-      $this->mdlVentas->modificarCredito();
+      $modFecha = $this->mdlVentas->modificarCredito();
+      // echo "<pre/>";
+      // var_dump($_POST);
+      // exit();
 
-      if ($this->mdlVentas->modificarCredito()) {
+      if ($modFecha == true) {
           $_SESSION['alerta'] = ' swal({
               title: "Modificación exitosa!",
               type: "success",
@@ -382,7 +391,6 @@ private function validarAbonos($idVenta){
     }
 
     $clientesCredito = $this->mdlVentas->listarClientesCreditoV();
-
     require APP . 'view/_templates/header.php';
     require APP . 'view/Ventas/listarCreditosVentas.php';
     require APP . 'view/_templates/footer.php';
@@ -417,13 +425,13 @@ private function validarAbonos($idVenta){
 
               $html .= '<td>'.$estado.'</td>';
               $html .= '<td>';
+              if($_SESSION['ROL'] == 1 || $_SESSION['ROL'] == 3){
               if($val['estado_credito'] == 1){
                 $html .= '<button type="button" id="idAbonoCreditV_btn" class="btn btn-warning btn-circle btn-md" onclick="abonosV('.$val['total_venta'].','.$val['id_ventas'].','.$pendienteCredit.')" title="Abonar"><i class="fa fa-money" aria-hidden="true"></i></button>';
-                if($_SESSION['ROL'] == 1 || $_SESSION['ROL'] == 3){
                 $html .= ' <button  title="Modificar Préstamo" type="button" class="btn btn-success btn-circle btn-md" data-toggle="modal" onclick="ModificarCreditos('.$val['id_ventas'].')"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>';
               }
+              $html .= ' <button type="button" onclick="traerDetalleAbonosCreditosV('.$val["id_ventas"].')" class="btn btn-primary btn-circle btn-md" title="Ver Abonos"><i class="fa fa-eye" aria-hidden="true" ></i></button>';
             }
-              $html .= ' <button type="button" onclick="traerDetalleAbonosCreditosV('.$val["id_ventas"].')" class="btn btn-primary btn-circle btn-md"   title="Ver Abonos CreditosV"><i class="fa fa-eye" aria-hidden="true" ></i></button>';
               if($val['estado_credito'] != 0){
                   if($_SESSION['ROL'] == 1 || $_SESSION['ROL'] == 3){
                 $html .= ' <button  title="Cambiar Estado" type="button" class="btn btn-danger btn-circle btn-md" data-toggle="modal" onclick="cambiarestado2('.$val["id_ventas"].', 2)"><i class="fa fa-refresh" aria-hidden="true"></i></button>';
@@ -515,10 +523,16 @@ private function validarAbonos($idVenta){
             $html .= '<td>';
             // '<button type="button" class="btn btn-success btn-circle btn-md" onclick="abono('.$val['valor_prestamo'].','.$val['id_prestamos'].')"  title="Abonar"><i class="fa fa-money" aria-hidden="true"></i></button>';
             // $html .= ' <button type="button" class="btn btn-primary btn-circle btn-md" onclick="traerDetalleAbonos('.$val['id_prestamos'].')"  title="Abonar"><i class="fa fa-eye" aria-hidden="true"></i></button>';
+            $fechaActual = date("Y-m-d");
             if ($val["estado_abono"] == 1) {
+              if($val['fechaAbono'] == $fechaActual){
 
             $html .= ' <button  title="Anular" type="button" class="btn btn-success btn-circle btn-md" data-toggle="modal" id="btnbotoncheck" onclick="cambiarestado('.$val["idabono"].',0)"><i class="fa fa-check" aria-hidden="true"></i></button>';
-            }
+          }else{
+              
+          }
+
+          }
 
             if ($val["estado_abono"] == 0) {
             $html .= ' <button title="Anulado" disabled="" id="btnanulado" type="button" class="btn btn-danger btn-circle btn-md" data-toggle="modal"><i class="fa fa-remove" aria-hidden="true"></i></button>';

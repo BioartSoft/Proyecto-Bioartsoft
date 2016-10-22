@@ -40,6 +40,8 @@
         </table>
       </div>
 
+
+        <?php if($_SESSION['ROL'] == 1 || $_SESSION['ROL'] == 3): ?>
             <div class="row">
              <div class="col-sm-12">
                <center>
@@ -49,6 +51,7 @@
              </center>
              </div>
            </div>
+       <?php endif; ?>
 
             <div class="modal fade" id="mdListarCreditos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard ="false" data-backdrop = "static">
               <div class="modal-dialog" role="document" style="width: 96% !important">
@@ -190,27 +193,28 @@
                 <div class="row">
                   <div class="col-md-12">
                     <div class="panel-body">
+                      <input type="hidden" name="txthiddenCredito" id="idCredito">
                       <div class="row">
                         <div class="col-xs-12 col-md-6" id="divFechalimite">
-                          <label for="txtfechalimeteCredito">Fecha Límite:</label>
-                              <div class="input-group date" data-provide="datepicker">
-                                <input type="text" class="form-control" name="txtfechalimeteCredito" data-parsley-required="true" step="1" format="yyyy-mm-dd" id="fechalim" readonly="true">
-                                <div class="input-group-addon">
-                                <span class="glyphicon glyphicon-th"></span>
+                          <label for="txtfechalimeteCredito">Fecha Límite</label>
+                                <input type="text" class="form-control" name="txtfechalimeteCredito" data-parsley-required="true" format="yyyy-mm-dd" id="fechalim" readonly="true">
                               </div>
-                            </div>
+
+                              <div class="col-xs-12 col-md-6">
+                                <label for="txtdiaslimiteCredito">Días Plazo</label>
+                                <input type="number" class="form-control" name="txtdiaslimiteCredito" data-parsley-required="true" id="diasPlazo" max="30" min="1">
+                              </div>
                         </div>
 
                         <div class="col-md-3">
                         </div>
-
-                        <input type="hidden" name="txthiddenCredito" id="idCredito">
                       </div>
                     </div>
                   </div>
                 </div>
+
+                <div class="modal-footer">
                   <div class="row">
-                        <div class="modal-footer">
                           <div class="col-md-3">
                           </div>
 
@@ -219,7 +223,7 @@
                         </div>
 
                         <div class="col-xs-12 col-md-3">
-                          <button type="submit" name="btnmodificarCredito" class="btn btn-success btn-active" id="btnmodificarCredito" style="float: left; margin-left: 70px"><i class="fa fa-floppy-o" aria-hidden="true">   Guardar</i></button>
+                          <button type="submit" name="btnmodificarCredito" class="btn btn-success btn-active" onclick="return validarFecha()" id="btnmodificarCredito" style="float: left; margin-left: 70px"><i class="fa fa-floppy-o" aria-hidden="true">   Guardar</i></button>
                         </div>
                       </div>
                     </div>
@@ -444,7 +448,7 @@ $("#btn-Guardar-Abono").click(function(){
 <script type="text/javascript">
   function cambiarestado(cod, est){
   swal({
-    title: "¿Realmente desea cambiar el estado del abono?",
+    title: "¿Realmente desea anular el abono?",
     type: "warning",
     confirmButton: "#3CB371",
     //confirmButtonText: "btn-danger",
@@ -458,7 +462,7 @@ $("#btn-Guardar-Abono").click(function(){
   function(isConfirm){
       if (isConfirm) {
         swal({
-          title: "Estado cambiado.!",
+          title: "Abono Anulado.!",
           type: "success",
           confirmButton: "#3CB371",
           confirmButtonText: "Aceptar",
@@ -508,4 +512,19 @@ function ModificarCreditos(id_ventas){
 },
   });
 }
+
+$("#idabono").keydown(function(e){
+  if(e.which === 189 || e.which === 69){
+    e.preventDefault();
+    //return false;
+  }
+});
+
+
+$("#diasPlazo").keydown(function(e){
+  if(e.which === 189 || e.which === 69){
+    e.preventDefault();
+    //return false;
+  }
+});
 </script>

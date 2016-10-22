@@ -131,7 +131,7 @@ use Dompdf\Dompdf;
           }else if($ValidarNomUsu != false) {
             $errorUsuario = false;
 
-          }else if($ValidarEmail != false){
+          }else if($ValidarEmail != false && $ValidarEmail['email'] != ""){
             $errorEmail = false;
           }else{
                   if ($_POST['txtTipoPersona'] == 1) {
@@ -370,8 +370,25 @@ use Dompdf\Dompdf;
 
     public function listarProveedores($id=0, $tipo=0){
 
-
+      $correo = true;
      if (isset($_POST['btn-modificar-prov'])) {
+
+       $this->modeloUsuario->__SET("correo", $_POST['txtcorreo']);
+
+        $email = $this->modeloUsuario->consultarEmail($id);
+        // var_dump($email);
+        // exit();
+
+        if($email['email'] != 0){
+             // Si ya existe no dejar guardar
+             $correo = false;
+              // var_dump("No guardado, ya existe nombre de usuario o correo");
+              // exit();
+           } else {
+             // Si no existe dejar guardar
+            //  var_dump("Guardado");
+            //    exit();
+
        $this->modeloP->__SET('idPersona', $_POST['txtidPersona']);
        $consultaProv = $this->modeloP->consultarProveedorJ() ;
 
@@ -489,6 +506,7 @@ use Dompdf\Dompdf;
           }
         }
      }
+  }
       if($id!= ""){
         $proveedor = $this->modeloP->ListarProveedorID($id);
         if ($proveedor['Tbl_TipoPersona_idTbl_TipoPersona'] == 4) {
@@ -534,71 +552,23 @@ use Dompdf\Dompdf;
 
       $persona = null;
       $validarUsu = true;
-      $existe = false;
-      $existe2 = false;
-      $noExiste = false;
-      $existeEmail = false;
-      $existeEmail2 = false;
-      $noExisteEmail = false;
+
       if(isset($_POST['btn-modificar'])){
 
         $this->modeloUsuario->__SET("nombreUsuario", $_POST['txtnombreusuario']);
         $this->modeloUsuario->__SET("correo", $_POST['txtcorreo']);
 
-        $ValidarNomUsu = $this->modeloUsuario->validarModUsuario($id);
-        $ConsultarUsuarios = $this->modeloUsuario->consultarUsuarios();
-        $usuario = $this->modeloUsuario->ModNombreUsu($id);
-
-
-        $ValidarEmail = $this->modeloUsuario->ValidarModEmail($id);
-        $ConsultarEmails = $this->modeloUsuario->ConsultarEmail();
-        $email = $this->modeloUsuario->ModEmailusuario($id);
-
-        foreach ($ConsultarUsuarios as $value) {
-          if ($value['nombre_usuario'] == $ValidarNomUsu['nombre_usuario']) {
-            $existe = true;#dejar guardar
-            break;
-          }
-        }
-
-        foreach ($usuario as $val) {
-          if($val['nombre_usuario'] == $_POST['txtnombreusuario']){
-            $existe2 = true;# NO dejar guardar
-            break;
-          }
-        }
-
-        foreach ($ConsultarUsuarios as $valor) {
-          if ($valor['nombre_usuario'] != $_POST['txtnombreusuario']) {
-            $noExiste = true;# dejar guardar
-          }
-        }
-
-        foreach ($ConsultarEmails as $va) {
-          if ($va['email'] == $ValidarEmail['email']) {
-            $existeEmail = true;#dejar guardar
-            break;
-          }
-        }
-
-        foreach ($email as $valores) {
-          if($valores['email'] == $_POST['txtcorreo']){
-            $existeEmail2 = true;# NO dejar guardar
-            break;
-          }
-        }
-
-        foreach ($ConsultarEmails as $valor2) {
-          if ($valor2['email'] != $_POST['txtcorreo']) {
-            $noExisteEmail = true;# dejar guardar
-          }
-        }
-
-        if(($existe === false && $existe2 === true) || $noExiste === false || ($existeEmail === false && $existeEmail2 === true) || $noExisteEmail === false){
+        $total = $this->modeloUsuario->ValidarModEmail($id);
+        $total2 = $this->modeloUsuario->validarNombreUsu($id);
+        // var_dump($total, $total2);
+        // exit();
+        if($total['total'] != 0 || $total2['total'] != 0){
+          // Si ya existe no dejar guardar
           $validarUsu = false;
-          // var_dump("no guardado");
+          // var_dump("No guardado, ya existe nombre de usuario o correo");
           // exit();
-        }else if(($existe === true && $existe2 === false) || $noExiste === true || ($existeEmail === true && $existeEmail2 === false) || $noExisteEmail === true){
+        } else {
+          // Si no existe dejar guardar
           // var_dump("Guardado");
           // exit();
 
@@ -710,6 +680,7 @@ use Dompdf\Dompdf;
       $listarU = $this->modeloUsuario->ListarUsuarios();
       $listarE = $this->modeloP->ListarPersEmpleadoFijo();
       $roles = $this->modeloP->listarRoles();
+      $Roles = $this->modeloUsuario->listarRol();
 
       require APP . 'view/_templates/header.php';
       require APP . 'view/Personas/listarPersonas.php';
@@ -782,54 +753,72 @@ use Dompdf\Dompdf;
 
         public function listarPersonasClientes($id=0, $tipo=0){
 
+            $correo = true;
           if(isset($_POST['btn-modificar-cliente'])){
-            $this->modeloP->__SET('idPersona', $_POST['idPersona']);
-            $this->modeloP->__SET('nombres', $_POST['txtnombre']);
-            $this->modeloP->__SET('apellidos', $_POST['txtapell']);
-            $this->modeloP->__SET('celular', $_POST['txtcel']);
-            $this->modeloP->__SET('email', $_POST['txtcorreo']);
-            $this->modeloP->__SET('telefono', $_POST['txttel']);
-            $this->modeloP->__SET('direccion', $_POST['txtdirecc']);
-            $this->modeloP->__SET('fechaContrato', null);
-            $this->modeloP->__SET('genero', $_POST['txtgener']);
-            $this->modeloP->__SET('tipoPersona', $_POST['txtTipoCliente']);
-            $this->modeloP->modificarPersona();
 
-            if($this->modeloP->modificarPersona() == true){
+            $this->modeloUsuario->__SET("correo", $_POST['txtcorreo']);
 
-              $_SESSION['alerta'] = ' swal({
-                title: "Modificación exitosa!",
-                type: "success",
-                confirmButton: "#3CB371",
-                confirmButtonText: "Aceptar",
-                closeOnConfirm: false,
-                closeOnCancel: false
-              })';
+            $email = $this->modeloUsuario->consultarEmail($id);
 
-            }else{
+            if($email['email'] != 0){
+              // Si ya existe no dejar guardar
+              $correo = false;
+              // var_dump("No guardado, ya existe nombre de usuario o correo");
+              // exit();
+            } else {
+              // Si no existe dejar guardar
+              // var_dump("Guardado");
+              //  exit();
 
-              $_SESSION['alerta'] = ' swal({
-                title: "Error en la modificación!",
-                type: "success",
-                confirmButton: "#3CB371",
-                confirmButtonText: "Aceptar",
-                closeOnConfirm: false,
-                closeOnCancel: false
-              })';
+              $this->modeloP->__SET('idPersona', $_POST['idPersona']);
+              $this->modeloP->__SET('nombres', $_POST['txtnombre']);
+              $this->modeloP->__SET('apellidos', $_POST['txtapell']);
+              $this->modeloP->__SET('celular', $_POST['txtcel']);
+              $this->modeloP->__SET('email', $_POST['txtcorreo']);
+              $this->modeloP->__SET('telefono', $_POST['txttel']);
+              $this->modeloP->__SET('direccion', $_POST['txtdirecc']);
+              $this->modeloP->__SET('fechaContrato', null);
+              $this->modeloP->__SET('genero', $_POST['txtgener']);
+              $this->modeloP->__SET('tipoPersona', $_POST['txtTipoCliente']);
+              $this->modeloP->modificarPersona();
+
+              if($this->modeloP->modificarPersona() == true){
+
+                $_SESSION['alerta'] = ' swal({
+                  title: "Modificación exitosa!",
+                  type: "success",
+                  confirmButton: "#3CB371",
+                  confirmButtonText: "Aceptar",
+                  closeOnConfirm: false,
+                  closeOnCancel: false
+                })';
+
+              }else{
+
+                $_SESSION['alerta'] = ' swal({
+                  title: "Error en la modificación!",
+                  type: "success",
+                  confirmButton: "#3CB371",
+                  confirmButtonText: "Aceptar",
+                  closeOnConfirm: false,
+                  closeOnCancel: false
+                })';
+              }
+
+            }
+        }
+
+            if($id!= ""){
+              $clientes = $this->modeloP->ListarPersonasClientesID($id);
             }
 
-          }
-
-          if($id!= ""){
-            $clientes = $this->modeloP->ListarPersonasClientesID($id);
-          }
-
-          $TipoCliente = $this->modeloP->tipoPersonaCliente();
-          $listarClientes = $this->modeloP->ListarPersClientes();
-          require APP . 'view/_templates/header.php';
-          require APP . 'view/Personas/listarClientes.php';
-          require APP . 'view/_templates/footer.php';
+            $TipoCliente = $this->modeloP->tipoPersonaCliente();
+            $listarClientes = $this->modeloP->ListarPersClientes();
+            require APP . 'view/_templates/header.php';
+            require APP . 'view/Personas/listarClientes.php';
+            require APP . 'view/_templates/footer.php';
         }
+
 
 
 

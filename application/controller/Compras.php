@@ -93,8 +93,6 @@
             foreach ($detalles2 as $val) {
               $tabla2 .= '<tr>';
               $tabla2 .= '<td>' . $val['fecha_compra'] . '</td>';
-              // var_dump($tabla);
-              // exit();
               $tabla2 .= '<td>' . $val['proveedor'] . '</td>';
               $tabla2 .= '<td>' . $val['valor_total'] . '</td>';
               $tabla2 .= '</tr>';

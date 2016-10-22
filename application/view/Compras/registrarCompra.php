@@ -254,6 +254,7 @@
       }
 
        calcularTotal();
+       $("#txtcantidad").val(0);
 
        $(".subtotal").priceFormat(
          {

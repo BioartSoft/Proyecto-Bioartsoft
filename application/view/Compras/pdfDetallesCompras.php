@@ -10,7 +10,7 @@
 <body>
   <img src="<?php echo URL ?>img/BioartesV2.png" height="100" width="200">
   <br>
-  <center><legend>INFORME DETALLES ENTRADAS</legend></center>
+  <center><legend>INFORME DETALLES ENTRADA NÚMERO: <strong><?= $val['id_compras'] ?></strong></legend></center>
   <br><br>
   <table border="1">
     <thead>

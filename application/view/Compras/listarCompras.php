@@ -37,12 +37,10 @@
          <button type="button" class="btn btn-primary btn-circle btn-md" data-toggle="modal" data-target="#myForm2" onclick="traerDetallesCompra(<?= $value['id_compras'] ?>)" title="Ver Detalles"><i class="fa fa-eye" aria-hidden="true" title="Ver Detalles"></i></button></a>
 
          <?php
-                $fechaActual = date('Y-m-d');
-                $nuevaFecha = strtotime ( '-1 day' , strtotime ( $fechaActual ) ) ;
-                $nuevaFecha = date ( 'Y-m-d' , $nuevaFecha );
+                $fechaActual = date("Y-m-d");
          ?>
 
-         <?php if($value['fecha_compra'] == $nuevaFecha): ?>
+         <?php if($value['fecha_compra'] == $fechaActual): ?>
          <?php if(($value['estado'] == 1) && ($_SESSION['ROL'] == 1 || $_SESSION['ROL'] == 3)) { ?>
              <button type="button" class="btn btn-danger btn-circle btn-md" onclick="cambiarEstado(<?= $value['id_compras']?>, 0)" title="Anular"><i class="fa fa-remove" aria-hidden="true" title="Anular"></i></button>
            <?php }else {?>
@@ -66,7 +64,7 @@
                     <span aria-hidden="true">&times;</span>
                  </button>
                <center>
-                    <h4 class="modal-title" id="myModalLabel" style="text-align:center; color: #3CB371">Detalles de Compra Número: <span id="codigoC"></span></h4>
+                    <h4 class="modal-title" id="myModalLabel" style="text-align:center; color: #3CB371">Detalles de Entrada Número: <span id="codigoC"></span></h4>
                </center>
              </div>
 
@@ -119,12 +117,13 @@
 
     <div class="col-md-0.5">
     </div>
-
+    <?php if($_SESSION['ROL'] == 1 || $_SESSION['ROL'] == 3): ?>
     <div class="col-md-2">
       <a href="<?= URL ?>Compras/generarpdfDetallesCompras" target="_blank" id="pdfDeta">
         <button class="btn btn-primary" name="btnComprasD"><i class="fa fa-file-pdf-o" aria-hidden="true">   Pdf Detalles Entradas</i></button>
       </a>
     </div>
+  <?php endif; ?>
   </div>
   <br>
 </div>

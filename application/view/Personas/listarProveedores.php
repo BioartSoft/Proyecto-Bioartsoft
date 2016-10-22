@@ -453,3 +453,20 @@ $("#select-proveedor").change(function(){
   })
 </script>
 <?php endif; ?>
+
+
+<?php if (isset($correo) && $correo == false): ?>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      swal({
+            title: "Correo ya existe, no se puede modificar!",
+            type: "error",
+            confirmButton: "#3CB371",
+            confirmButtonText: "Aceptar",
+            // confirmButtonText: "Cancelar",
+            closeOnConfirm: false,
+            closeOnCancel: false
+          });
+    });
+  </script>
+<?php endif; ?>

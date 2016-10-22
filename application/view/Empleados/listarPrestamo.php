@@ -493,7 +493,7 @@
         function cambiarestadoprestamo(cod, est){
           validarSiTieneAbono(cod);
     swal({
-      title: "¿Desea Anular el Prestamo?",
+      title: "¿Realmente desea cambiar el estado del Préstamo?",
       type: "warning",
       confirmButton: "#3CB371",
       confirmButtonText: "btn-danger",
@@ -507,7 +507,7 @@
     function(isConfirm){
         if (isConfirm) {
           swal({
-            title: "Préstamo Anulado.!",
+            title: "Estado Cambiado.!",
             type: "error",
             confirmButton: "#3CB371",
             confirmButtonText: "Aceptar",
