@@ -96,7 +96,7 @@
                 <h4 class="modal-title" id="myModalLabel" style="text-align:center; color: #3CB371"> Modificar Préstamo<span id=""></span></h4>
               </div>
               <div class="modal-body">
-                <form action="<?php echo URL?>Empleados/ListarPrest" method="POST" id="formModPrest" accept-charset="utf-8" data-parsley-validate="" onsubmit="return validarAbono()">
+                <form action="<?php echo URL?>Empleados/ListarPrest" method="POST" id="formModPrest" accept-charset="utf-8" data-parsley-validate="" onsubmit="return validarFechaLim()">
                 <div class="row">
                   <div class="col-md-12">
                     <div class="panel-body">
@@ -107,9 +107,10 @@
                               <div class="input-group-addon" style="border-radius:5px;">
                                 <i class="fa fa-calendar"></i>
                               </div>
-                              <input type="text" class="form-control pull-right" name="txtfechalimetepre" data-parsley-required="true" style="border-radius:5px;" step="1" format="yyyy-mm-dd" id="fechalim">
+                              <input type="text" class="form-control pull-right" name="txtfechalimetepre" data-parsley-required="true" style="border-radius:5px;" step="1" format="yyyy-mm-dd" id="fechalim" readonly="" onchange="validarFechaLim()">
                             </div>
                         </div>
+                        <input type="hidden" id="limitemod">
                         <div class="col-xs-12 col-md-6" id="divvalorpres">
                           <label>Valor Préstamo:</label>
                           <input type="hidden" name="txthideidprestamo" id="idprest">
@@ -188,7 +189,7 @@
                         <input type="hidden" name="" id="totalsumaabono">
                         <div class="col-xs-12 col-md-6">
                           <label >Valor Abono</label><br>
-                          <input type="number" class="form-control" placeholder="Valor Abono" id="idabono" min="1000" name="txtvalorabono" data-parsley-type="integer" step="1000" data-parsley-required="true">
+                          <input type="number" class="form-control" placeholder="Valor Abono" id="idabono" min="1" name="txtvalorabono" data-parsley-type="integer" data-parsley-required="true">
                       </div>
                       <div class="col-xs-12 col-md-6">
                           <label >Valor Préstamo</label><br>
@@ -230,8 +231,9 @@
             $(document).ready(function(){
 
               $("#btnmodificarprestamo").click(function(){
-
-                $("#formModPrest").parsley().validate();
+                validarFechaLim();
+                  $("#formModPrest").parsley().validate();
+                }
               })
             })
           </script>
@@ -401,10 +403,11 @@
   success:function(respuesta){
 
     $("#fechalim").val(respuesta.fecha_limite);
-        $("#valorprestamos").val(respuesta.valor_prestamo);
-        $("#idprest").val(respuesta.id_prestamos);
-        $("#mymodificarprestamo").modal("show");
-        $("#myJhoan").modal("hide");
+    $("#limitemod").val(respuesta.fecha_limite);
+    $("#valorprestamos").val(respuesta.valor_prestamo);
+    $("#idprest").val(respuesta.id_prestamos);
+    $("#mymodificarprestamo").modal("show");
+    $("#myJhoan").modal("hide");
 
   },
     });
@@ -491,7 +494,7 @@
   });
 
         function cambiarestadoprestamo(cod, est){
-          validarSiTieneAbono(cod);
+          // validarSiTieneAbono(cod);
     swal({
       title: "¿Realmente desea cambiar el estado del Préstamo?",
       type: "warning",
@@ -549,7 +552,7 @@
           else
           {
             swal({
-              title: "Préstamo con abonos registrados,no se puede anular!",
+              title: "Préstamo con abonos registrados,no se puede cambiar el estado!",
               type: "error",
               confirmButton: "#3CB371",
               confirmButtonText: "Aceptar",
@@ -560,5 +563,24 @@
           }
       });
 
+    }
+
+    function validarFechaLim() {
+      var Limite = $("#fechalim").val();
+      var fechte = $("#limitemod").val();
+
+      if (Limite < fechte) {
+        swal({
+          title: "La fecha modificada no puede ser menor a la fecha límite!",
+          type: "error",
+          confirmButton: "#3CB371",
+          confirmButtonText: "Aceptar",
+          closeOnConfirm: false,
+          closeOnCancel: false
+        });
+        return false;
+      }else{
+         return true;
+      }
     }
   </script>

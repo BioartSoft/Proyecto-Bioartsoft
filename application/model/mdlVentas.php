@@ -56,6 +56,23 @@ class mdlVentas
  }
 
 
+     public function listarganancias()
+    {
+      $sql="CALL SP_Reporte_Ganancias(?,?)";
+      try {
+       $ca = $this->db->prepare($sql);
+       $ca->bindParam(1,$this->fechainicial);
+       $ca->bindParam(2,$this->fechafinal);
+      $ca->execute();
+       return $ca->fetch(PDO::FETCH_ASSOC);
+      } catch (Exception $e) {
+
+      }
+
+    }
+
+
+
  public function validarFechaventa()
 {
   $sql="CALL  SP_Validar_Fecha_Venta(?)";
@@ -69,6 +86,21 @@ class mdlVentas
   }
 
 }
+
+
+    public function validarFechaGananacia()
+    {
+     $sql="CALL  SP_Validar_Fecha_Ganancia(?)";
+     try {
+      $ca = $this->db->prepare($sql);
+      $ca->bindParam(1,$this->fechainicial);
+      $ca->execute();
+      return $ca->fetch(PDO::FETCH_ASSOC);
+     } catch (Exception $e) {
+
+     }
+
+    }
 
 
   public function insertarVenta(){
@@ -121,6 +153,7 @@ class mdlVentas
     $stm->bindParam(2, $this->codigo_venta);
     $stm->bindParam(3, $cant);
     $stm->bindParam(4, $precioProducto);
+    // $stm->bindParam(5, $precioUnitario);
     return $stm->execute();
   }
 
@@ -213,7 +246,15 @@ class mdlVentas
     $stm->bindParam(1, $idVenta);
     $stm->execute();
     return $stm->fetchAll(2);
+  }
 
+
+  public function pdfDetallesAbono($id){
+    $sql = "CALL SP_Pdf_Detalles_Abono(?)";
+    $stm = $this->db->prepare($sql);
+    $stm->bindParam(1, $id);
+    $stm->execute();
+    return $stm->fetchAll(2);
   }
 
 
@@ -383,6 +424,13 @@ class mdlVentas
     $stm->execute();
     return $stm->fetch(2);
   }
+
+    public function listarNotificacionesCredito(){
+      $sql = "CALL SP_Notificacion_Creditos()";
+      $stm = $this->db->prepare($sql);
+      $stm->execute();
+      return $stm->fetchAll(PDO::FETCH_ASSOC);
+    }
 
 }
 

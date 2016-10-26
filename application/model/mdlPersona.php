@@ -62,6 +62,16 @@ class mdlPersona
   }
 
 
+  public function listarPagosPorEmp()
+  {
+    $sql = "CALL SP_Informe_Pagos2(?)";
+          $stm = $this->db->prepare($sql);
+          $stm->bindParam(1, $this->idPersona);
+          $stm->execute();
+          return $stm->fetchAll(PDO::FETCH_ASSOC);
+  }
+
+
   public function listarInformePrestamos()
   {
     $sql = "CALL SP_Informe_Prestamos()";
@@ -317,10 +327,19 @@ public function tipoPersonaProveedores(){
     $stm->bindParam(1, $this->idPersona);
     $stm->execute();
     return $stm->fetch(PDO::FETCH_ASSOC);
-}
+  }
 
   public function ValidarEmail(){
-    $sql = "CALL 	SP_Validar_Email(?)";
+    $sql = "CALL 	SP_Validar_Email(?,?)";
+    $stm = $this->db->prepare($sql);
+    $stm->bindParam(1, $this->email);
+    $stm->bindParam(2, $this->idPersona);
+    $stm->execute();
+    return $stm->fetch(PDO::FETCH_ASSOC);
+  }
+
+  public function ValidarEmail2(){
+    $sql = "CALL SP_validar_email2(?)";
     $stm = $this->db->prepare($sql);
     $stm->bindParam(1, $this->email);
     $stm->execute();

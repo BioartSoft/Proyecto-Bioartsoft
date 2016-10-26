@@ -13,7 +13,6 @@ use Dompdf\Dompdf;
       function __construct(){
         $this->modeloP = $this->loadModel("mdlPersona");
         $this->mdlTipoPersona = $this->loadModel("mdlTipoPersona");
-        $this->modeloUsuario = $this->loadModel("mdlUsuario");
       }
 
 
@@ -59,6 +58,45 @@ use Dompdf\Dompdf;
       }
 
 
+      public function generarpdfPagos($id)
+      {
+        //$id = $_GET['id'];
+        $this->modeloP->__SET("idPersona", $id);
+
+        $listarPagos = $this->modeloP->listarPagosPorEmp();
+        // var_dump($listarPagos);
+        // exit();
+
+        $tabla = "";
+        foreach ($listarPagos as $val) {
+          $tabla .= '<tr>';
+          $tabla .= '<td>' . $val['id_persona'] . '</td>';
+          $tabla .= '<td>' . $val['empleado'] . '</td>';
+          $tabla .= '<td>' . $val['Tbl_nombre_tipo_persona'] . '</td>';
+          $tabla .= '<td>' . $val['fecha_pago'] . '</td>';
+          $tabla .= '<td>' . $val['cantidad_dias'] . '</td>';
+          $tabla .= '<td>' . $val['valor_dia'] . '</td>';
+          $tabla .= '<td>' . $val['valorComision'] . '</td>';
+          $tabla .= '<td>' . $val['total_pago'] . '</td>';
+          $tabla .= '<td>' . $val['tipo_pago'] . '</td>';
+          $tabla .= '</tr>';
+        }
+
+        require_once APP . 'libs/dompdf/autoload.inc.php';
+        ob_start();
+        require APP . 'view/Empleados/pdfDetallesPagos.php';
+
+        $html = ob_get_clean();
+        $dompdf = new Dompdf();
+        $dompdf->loadHtml($html);
+        // $dompdf->load_html_file($urlImagen);
+        $dompdf->setPaper('A4', 'landscape');
+        $dompdf->render();
+        $dompdf->stream("Informe Pagos.pdf", array("Attachment" => false, 'isRemoteEnabled' => true));
+      }
+
+
+
       public function ListarPrest(){
 
         $modelo2 = $this->loadModel("mdlConfiguracionPago");
@@ -94,6 +132,16 @@ use Dompdf\Dompdf;
                 closeOnCancel: false
               })';
 
+            }else{
+              $_SESSION['jhoan'] = ' swal({
+               title: "Error en el registro!",
+               type: "error",
+               confirmButton: "#3CB371",
+               confirmButtonText: "Aceptar",
+               // confirmButtonText: "Cancelar",
+               closeOnConfirm: false,
+               closeOnCancel: false
+             })';
             }
 
         }
@@ -133,11 +181,9 @@ use Dompdf\Dompdf;
         require APP . 'view/_templates/footer.php';
       }
 
+
+
       public function registrarPrestamo(){
-
-        // $modelo = $this->loadModel("mdlConfiguracionPago");
-        // $configuracion = $modelo->listarConfiguracion();
-
         $modelo = $this->loadModel("mdlEmpleados");
         $listarEmpleadoFijo = $this->modeloP->ListarPersEmpleado();
 
@@ -161,6 +207,20 @@ use Dompdf\Dompdf;
                 closeOnConfirm: false,
                 closeOnCancel: false
               })';
+
+              header("Location: ".URL."Empleados/registrarPrestamo");
+              exit();
+
+          }else{
+            $_SESSION['jhoan'] = ' swal({
+                title: "Error en el registro!",
+                type: "error",
+                confirmButton: "#3CB371",
+                confirmButtonText: "Aceptar",
+                // confirmButtonText: "Cancelar",
+                closeOnConfirm: false,
+                closeOnCancel: false
+              })';
           }
         }
 
@@ -178,10 +238,12 @@ use Dompdf\Dompdf;
         require APP . 'view/_templates/footer.php';
       }
 
+
       public function registrarPagos(){
 
         $modelo = $this->loadModel("mdlEmpleados");
         $modelo2 = $this->loadModel("mdlConfiguracionPago");
+        $modelo3 = $this->loadModel("mdlUsuario");
         $configuracion = $modelo2->listarConfiguracion();
         $configuracion2 = $modelo2->listarConfiguracionPagos();
         $listarE = $this->modeloP->ListarPersEmpleadoFijo();
@@ -218,6 +280,7 @@ use Dompdf\Dompdf;
                 $modelo->__SET("idTbl_Configuracion", $_POST["tipoPago"]);
                 $modelo->__SET("valorTotal", $_POST["txttotalliquidacion"]);
                 $modelo->registrarDetallepagoconfi();
+                $modelo3->ModificarEstadoUsuDesdeLiquidacion($_POST["txtIdentificacion"]);
                 }
                 if ($_POST["tipoPago"] == 3) {
                 $modelo->__SET("id_pago", implode("", $idpa));
@@ -235,8 +298,19 @@ use Dompdf\Dompdf;
                   closeOnCancel: false
                 })';
 
+                header("Location: ".URL."Empleados/registrarPagos");
+                exit();
+            }else{
+              $_SESSION['jhoan'] = ' swal({
+            title: "Error en el registro!",
+            type: "error",
+            confirmButton: "#3CB371",
+            confirmButtonText: "Aceptar",
+            // confirmButtonText: "Cancelar",
+            closeOnConfirm: false,
+            closeOnCancel: false
+          })';
             }
-
 
           }
 
@@ -265,6 +339,19 @@ use Dompdf\Dompdf;
                   closeOnCancel: false
                 })';
 
+                header("Location: ".URL."Empleados/registrarPagos");
+                exit();
+
+            }else{
+              $_SESSION['jhoan'] = ' swal({
+                  title: "Error en el registro!",
+                  type: "error",
+                  confirmButton: "#3CB371",
+                  confirmButtonText: "Aceptar",
+                  // confirmButtonText: "Cancelar",
+                  closeOnConfirm: false,
+                  closeOnCancel: false
+                })';
             }
 
           }
@@ -292,8 +379,6 @@ use Dompdf\Dompdf;
         $configuracion = $modelo->listarConfiguracion();
         $confi2 = $modelo->listarConfiguracion2();
 
-          // $modelo->__SET("idTbl_Configuracion",$_POST["txtid"]);
-          // $modelo->__SET("tipo_pago",$_POST["txttiPago"]);
           $modelo->__SET("tiempo_pago",$_POST["txttiemPago"]);
           $modelo->__SET("Valor_dia",$_POST["txtvalordia"]);
           $modelo->__SET("porcentaje_comision",$_POST["txtporComision"]);
@@ -304,7 +389,7 @@ use Dompdf\Dompdf;
             $modelo->modificarValorBase();
 
             $_SESSION['alerta'] = ' swal({
-              title: "Modificación exitosa",
+              title: "Guardado exitoso",
               type: "success",
               confirmButton: "#3CB371",
               confirmButtonText: "Aceptar",
@@ -313,11 +398,14 @@ use Dompdf\Dompdf;
               closeOnCancel: false
             })';
 
+            header("Location: ". URL . "otro/index");
+            exit();
+
           }
           else
           {
             $_SESSION['alerta'] = ' swal({
-              title: "Error en la actualización!",
+              title: "Error en el registro!",
               type: "error",
               confirmButton: "#3CB371",
               confirmButtonText: "Aceptar",
@@ -358,10 +446,26 @@ use Dompdf\Dompdf;
           $modelo->__SET("valor_prestamo",$_POST["txtresta"]);
 
           if ($modelo->actualizarAbono()) {
-            echo "se modifico";
+            $_SESSION['alerta'] = ' swal({
+              title: "Guardado exitoso",
+              type: "success",
+              confirmButton: "#3CB371",
+              confirmButtonText: "Aceptar",
+              // confirmButtonText: "Cancelar",
+              closeOnConfirm: false,
+              closeOnCancel: false
+            })';
           }
           else
-            echo "error";
+          $_SESSION['alerta'] = ' swal({
+            title: "Error en el registro",
+            type: "error",
+            confirmButton: "#3CB371",
+            confirmButtonText: "Aceptar",
+            // confirmButtonText: "Cancelar",
+            closeOnConfirm: false,
+            closeOnCancel: false
+          })';
         }
 
         require APP . 'view/_templates/header.php';
@@ -425,7 +529,7 @@ use Dompdf\Dompdf;
 
               }
                 if ($value["estado"]==0) {
-                  $html .= ' <button  disabled="" title="Anular" type="button" class="btn btn-danger btn-circle btn-md" data-toggle="modal"><i class="fa fa-remove" aria-hidden="true"></i></button>';
+                  $html .= ' <button  disabled="" title="Cambiar Estado" type="button" class="btn btn-danger btn-circle btn-md" data-toggle="modal"><i class="fa fa-remove" aria-hidden="true"></i></button>';
                 }
                   $html .= '</td></tr>';
               }
@@ -501,7 +605,7 @@ use Dompdf\Dompdf;
 
                     $estado = $val["estado_prestamo"] == 0?"Pagado":"Pendiente";
                     $estado1 = $val["estado_prestamo"] == 1?"Pendiente":"Pagado";
-                    $estado3 = $val["estado_prestamo"] == 3?"Anulado":"Pendiente";
+                    $estado3 = $val["estado_prestamo"] == 3?"Condonado":"Pendiente";
 
 
                     // $html .= '<td>'.$value['valorTotal'].'</td>';
@@ -520,10 +624,15 @@ use Dompdf\Dompdf;
                     $html.='<button type="button" class="btn btn-warning btn-circle btn-md" onclick="abono('.$val['valor_prestamo'].','.$val['id_prestamos'].','.$valorPen.')"  title="Abonar"><i class="fa fa-money" aria-hidden="true"></i></button>';
                     $html .= ' <button  title="Modificar Préstamo" type="button" class="btn btn-success btn-circle btn-md" data-toggle="modal" onclick="Modificarprestamo('.$val['id_prestamos'].')"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>';
                     $html .= ' <button  title="Cambiar Estado" type="button" class="btn btn-danger btn-circle btn-md" data-toggle="modal" id="btnbotoncheck" onclick="cambiarestadoprestamo('.$val['id_prestamos'].',3 )"><i class="fa fa-refresh" aria-hidden="true"></i></button>';
-                    }
                     $html .= ' <button type="button" onclick="traerDetalleAbonos('.$val["id_prestamos"].')" class="btn btn-primary btn-circle btn-md"   title="Ver Abonos"><i class="fa fa-eye" aria-hidden="true" ></i></button>';
+                    }
+
+                    if($val['estado_prestamo'] == 3){
+                    $html .= ' <button type="button" onclick="traerDetalleAbonos('.$val["id_prestamos"].')" class="btn btn-primary btn-circle btn-md"   title="Ver Abonos"><i class="fa fa-eye" aria-hidden="true" ></i></button>';
+                    $html .= ' <button  title="Cambiar Estado" type="button" class="btn btn-danger btn-circle btn-md" data-toggle="modal" id="btnbotoncheck" onclick="cambiarestadoprestamo('.$val['id_prestamos'].',3 )"><i class="fa fa-refresh" aria-hidden="true"></i></button>';
                     $html .= '</td></tr>';
-                }
+                  }
+              }
                     $cabecera = '<tr>';
                     $cabecera .= '<th>'.'Identidad'.'</th>';
                     $cabecera .= '<th>'.'Fecha Préstamo'.'</th>';
@@ -570,7 +679,7 @@ use Dompdf\Dompdf;
                   $html .= ' <button  title="Anular" type="button" class="btn btn-success btn-circle btn-md" data-toggle="modal" id="btnbotoncheck" onclick="cambiarestadoabono('.$val["idTbl_Abono_Prestamo"].',0); devolverAbono('.$val['valor'].','.$id_prestam.');"><i class="fa fa-check" aria-hidden="true"></i></button>';
                   }
                 }else{
-                  
+
                 }
 
                   if ($val["estado_abono"] == 0) {
@@ -702,7 +811,6 @@ use Dompdf\Dompdf;
         echo json_encode($informacionprestamo);
       }
 
-
       public function modificarestadoAbonos()
       {
 
@@ -732,6 +840,7 @@ use Dompdf\Dompdf;
           echo json_encode(["v"=>3]);
         }
       }
+
 
       public function ValidarAnularPrestamo()
       {

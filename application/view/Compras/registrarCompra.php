@@ -64,7 +64,7 @@
   <div class="col-md-7">
     <div class="panel panel-default detComp">
       <div class="panel-heading">
-        <h3 class="panel-title"><strong>Detalles Compra</strong></h3>
+        <h3 class="panel-title"><strong>Detalles Entrada</strong></h3>
       </div>
       <div class="panel-body" id="detalle">
         <strong>Seleccione para agregar</strong>
@@ -254,7 +254,7 @@
       }
 
        calcularTotal();
-       $("#txtcantidad").val(0);
+       $("#txtcantidad").val(1);
 
        $(".subtotal").priceFormat(
          {
@@ -304,18 +304,4 @@
      $(".subtotal").val(subtotal);
 
    }//Fin método sumar Subtotal
-
-
-  //  function sumarCantidad(){
-  //    var cantidad = $("#txtcantidad").val();
-  //    $("[data-cantidad2]").each(function(key, value){
-  //       cantidad += parseInt($(value).attr("data-cantidad2"));
-   //
-  //    });
-  //   //  $(".subtotal").html(cantidad);
-  //   $("#cant").val(attr("data-cantidad"));
-   //
-  //  }
-
-
  </script>

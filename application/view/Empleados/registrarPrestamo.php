@@ -34,7 +34,7 @@
                               <?php else:  ?>
                                 Inhabilitado
                           <?php endif ?></td>
-                          <td><button type="button" class="btn btn-primary btn-circle btn-md" data-tipo = "<?= $empleado['Tbl_nombre_tipo_persona']?>" data-identi = "<?= $empleado['id_persona'] ?>" onclick="prestamosEmp('<?= $empleado['id_persona'] ?>',this)"><i class="fa fa-pencil" aria-hidden="true"></i></button></td>
+                          <td><button type="button" class="btn btn-primary btn-circle btn-md" data-tipo = "<?= $empleado['Tbl_nombre_tipo_persona']?>" data-estadoE = "<?= $empleado['estado'] ?>" data-identi = "<?= $empleado['id_persona'] ?>" onclick="prestamosEmp('<?= $empleado['id_persona'] ?>',this)"><i class="fa fa-pencil" aria-hidden="true"></i></button></td>
                         </tr>
                       <?php endforeach; ?>
                     </tbody>
@@ -55,9 +55,10 @@
               <h4 class="modal-title" id="myModalLabel" style="text-align:center; color: #3CB371">Registrar Préstamo</h4>
           </div>
           <div class="modal-body" style="margin: 0 auto">
-                <form class="" action="<?php echo URL?>Empleados/registrarPrestamo" method="post" id="myFor" data-parsley-validate="">
+                <form class="" action="<?php echo URL?>Empleados/registrarPrestamo" method="post" id="myFor" onsubmit="return validarfe()" data-parsley-validate="">
                   <input type="hidden" name="tipoEmpl" id="tipoEmpl" value="">
                 <div class="row">
+                <input type="hidden"  id="estadoempleado">
                   <div class="col-xs-12 col-md-6">
                       <label id="labelIdentificacion">Identificación</label><br>
                       <input type="text" class="form-control" name="txtIdentifica" placeholder="Identificacion" value="" id="iden" readonly="">
@@ -72,14 +73,14 @@
                 <div class="col-xs-12 col-md-6" id="divFechapago">
                   <label id="labelFechaPago">Fecha de Préstamo:</label>
                   <div class="">
-                    <div class="input-group date" data-provide = "datepicker">
-                      <div class="input-group-addon" style="border-radius:5px;">
-                        <i class="fa fa-calendar"></i>
+                    <div class="input-group date">
+                      <!-- <div style="border-radius:5px;">
+                         <i class="fa fa-calendar"></i> -->
                       </div>
-                      <input type="text" class="form-control pull-right" name="txtfechaPrestamo" required="" style="border-radius:5px;" step="1"  value="<?php echo date("Y-m-d");?>" format="yyyy-mm-dd" readonly="">
+                      <input type="text" class="form-control" name="txtfechaPrestamo" step="1"  value="<?php echo date("Y-m-d");?>" format="yyyy-mm-dd" readonly="">
                     </div>
                   </div>
-                </div>
+
                 <div class="col-xs-12 col-md-6" id="divFechapagolimite">
                   <label id="labelFechaLimite">Fecha Límite:</label>
                   <div class="">
@@ -91,11 +92,17 @@
                             $nuevafecha = strtotime ('+30 day' , strtotime($hoy)) ;
                             $nuevafecha = date ('Y-m-d', $nuevafecha);
                         ?>
-                      <input type="text" class="form-control pull-right" name="txtfechalimite"  required="" style="border-radius:5px;" step="1"  value="<?php echo $nuevafecha ?>" format="yyyy-mm-dd">
+                        <?php $hoy2 = date("Y-m-d");
+                            $nuevafecha2 = strtotime ('+30 day' , strtotime($hoy2)) ;
+                            $nuevafecha2 = date ('Y-m-d', $nuevafecha2);
+                        ?>
+                      <input type="text" class="form-control pull-right" name="txtfechalimite" onchange="validarfe()" required="" id="Flimite" style="border-radius:5px;" step="1"  value="<?php echo $nuevafecha ?>" format="yyyy-mm-dd" readonly="">
                     </div>
+                      <input type="hidden" value="<?php echo $nuevafecha2 ?>" format="yyyy-mm-dd" id="limite">
                   </div>
                 </div>
-                </div>
+              </div>
+
                 <div class="row">
                 <div class="col-xs-12 col-md-6" id="divvalorprestamo">
                   <br>
@@ -126,6 +133,7 @@
                   <button type="button" class="btn btn-danger btn-md active" onclick="cancelarprestamo()" style="float: right; margin-right: 55%" id="btncancelar"><i class="fa fa-times" aria-hidden="true">   Cancelar</i></button>
                 </div>
               </div>
+              </div>
             </form>
         </div>
       </div>
@@ -136,7 +144,7 @@
             $(document).ready(function(){
 
               $("#btnguardarPrestamo").click(function(){
-
+                validarfe();
                 $("#myFor").parsley().validate();
               })
             })
@@ -186,7 +194,7 @@
 $(function(){
 
   $("#btnguardarPrestamo").click(function(){
-
+    validarfe();
     var campoId = $("#iden").val();
 
     $.ajax({
@@ -221,4 +229,23 @@ $("#valorpres").keydown(function(e){
   }
 
 });
+
+function validarfe() {
+  var felimite = $("#Flimite").val();
+  var feli = $("#limite").val();
+  if (felimite < feli) {
+    swal({
+      title: "La fecha modificada no puede ser menor a la fecha límite!",
+      type: "error",
+      confirmButton: "#3CB371",
+      confirmButtonText: "Aceptar",
+      // confirmButtonText: "Cancelar",
+      closeOnConfirm: false,
+      closeOnCancel: false
+    });
+    return false;
+  }else{
+    return true;
+  }
+}
 </script>

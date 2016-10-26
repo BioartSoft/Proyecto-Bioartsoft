@@ -62,7 +62,7 @@
                         </div>
                         <div class="col-xs-9 text-right">
                             <div class="huge"></div>
-                            <div>Compras</div>
+                            <div>Entradas</div>
                         </div>
                     </div>
                 </div>

@@ -107,6 +107,42 @@ class Ventas extends controller
   }
 
 
+  public function generarpdfDetalleAbonos()
+  {
+    $id = $_GET['id'];
+
+    $info = $this->mdlVentas->pdfDetallesAbono($id);
+
+    $tabla2 = "";
+    foreach ($info as $val) {
+      $tabla2 .= '<tr>';
+      // $tabla2 .= '<td>' . $val['id_persona'] . '</td>';
+      // $tabla2 .= '<td>' . $val['cliente'] . '</td>';
+      $tabla2 .= '<td style="text-align: center">' . $val['total_venta'] . '</td>';
+      $tabla2 .= '<td style="text-align: center">' . $val['valor_abono'] . '</td>';
+      $tabla2 .= '<td style="text-align: center">' . $val['total_abonado'] . '</td>';
+      $tabla2 .= '<td style="text-align: center">' . $val['pendiente'] . '</td>';
+      $tabla2 .= '</tr>';
+      // echo "<pre>";
+      // var_dump($tabla2);
+      // exit();
+    }
+
+    require_once APP . 'libs/dompdf/autoload.inc.php';
+    ob_start();
+    require APP . 'view/Ventas/pdfDetallesAbonos.php';
+    $html = ob_get_clean();
+    $dompdf = new Dompdf();
+    $dompdf->loadHtml($html);
+    // $dompdf->load_html_file($urlImagen);
+    // $dompdf->setPaper('A4', 'landscape');
+    $dompdf->setPaper([0,0,300,700], 'portrait');
+    $dompdf->render();
+    $dompdf->stream("Informe Ventas.pdf", array("Attachment" => false, 'isRemoteEnabled' => true));
+  }
+
+
+
 
   public function informeVentas()
      {
@@ -114,6 +150,14 @@ class Ventas extends controller
        require APP. 'view/Ventas/reporteVentas.php';
        require APP . 'view/_templates/footer.php';
      }
+
+
+     public function informeGanancias()
+        {
+          require APP . 'view/_templates/header.php';
+          require APP. 'view/Ventas/pdfinformeGanancias.php';
+          require APP . 'view/_templates/footer.php';
+        }
 
 
      public function pdfVentas()
@@ -163,6 +207,53 @@ class Ventas extends controller
         }
 
 
+        public function reporteGanancias()
+           {
+             if(isset($_POST['btnconsultarganancia'])){
+               $this->mdlVentas->__SET('fechainicial',date("Y-m-d",strtotime($_POST['txtfechainicial'])));
+               $fecha = $this->mdlVentas->validarFechaGananacia();
+
+
+               $this->mdlVentas->__SET('fechafinal',date("Y-m-d",strtotime($_POST['txtfechafinal'])));
+               $fecha2 = $this->mdlVentas->validarFechaGananacia();
+
+               if($fecha == true && $fecha2 == true){
+
+                   $this->mdlVentas->__SET('fechainicial',date("Y-m-d",strtotime($_POST['txtfechainicial'])));
+                   $this->mdlVentas->__SET('fechafinal',date("Y-m-d",strtotime($_POST['txtfechafinal'])));
+                   $ver = $this->mdlVentas->listarganancias();
+
+               }else{
+
+                 $_SESSION['alerta'] = ' swal({
+                   title: "No existen registros en ese rango de fecha!",
+                   type: "error",
+                   confirmButton: "#3CB371",
+                   confirmButtonText: "Aceptar",
+                   // confirmButtonText: "Cancelar",
+                   closeOnConfirm: false,
+                   closeOnCancel: false
+                 })';
+               header("Location:".URL.'Ventas/informeGanancias');
+               exit();
+               }
+             }
+            //  require_once APP . 'libs/dompdf/autoload.inc.php';
+            //  // $urlImagen = URL . 'producto/generarcodigo?id=';
+            //  // $productos = $this->mdlproducto->listar();
+            //  ob_start();
+            //  require APP . 'view/Ventas/pdfinformeGanancias.php';
+            //  $html = ob_get_clean();
+            //  $dompdf = new Dompdf();
+            //  $dompdf->loadHtml($html);
+            //  // $dompdf->load_html_file($urlImagen);
+            //  $dompdf->setPaper('A4', 'landscape');
+            //  $dompdf->render();
+            //  $dompdf->stream("Informe Ganancias.pdf", array("Attachment" => false, 'isRemoteEnabled' => true));
+
+           }
+
+
     public function index(){
       $listarConfiguracionVentas = $this->mdlVentas->listarConfiguracionVentas();
       $configuracion = $this->mdlVentas->listarConfiguracionVentas();
@@ -182,6 +273,9 @@ class Ventas extends controller
             closeOnConfirm: false,
             closeOnCancel: false
           })';
+
+          header("Location: ". URL . "otro/index");
+          exit();
       }
 
     }
@@ -357,13 +451,11 @@ private function validarAbonos($idVenta){
 
 
     if (isset($_POST["btnmodificarCredito"])) {
-      //$this->mdlVentas->validarFechaCredito();
+
       $this->mdlVentas->__SET("dias_credito",$_POST["txtdiaslimiteCredito"]);
       $this->mdlVentas->__SET("codigo_venta",$_POST["txthiddenCredito"]);
       $modFecha = $this->mdlVentas->modificarCredito();
-      // echo "<pre/>";
-      // var_dump($_POST);
-      // exit();
+
 
       if ($modFecha == true) {
           $_SESSION['alerta'] = ' swal({
@@ -391,6 +483,7 @@ private function validarAbonos($idVenta){
     }
 
     $clientesCredito = $this->mdlVentas->listarClientesCreditoV();
+    $notificacionCredito = $this->mdlVentas->listarNotificacionesCredito();
     require APP . 'view/_templates/header.php';
     require APP . 'view/Ventas/listarCreditosVentas.php';
     require APP . 'view/_templates/footer.php';
@@ -432,6 +525,13 @@ private function validarAbonos($idVenta){
               }
               $html .= ' <button type="button" onclick="traerDetalleAbonosCreditosV('.$val["id_ventas"].')" class="btn btn-primary btn-circle btn-md" title="Ver Abonos"><i class="fa fa-eye" aria-hidden="true" ></i></button>';
             }
+            if($_SESSION['ROL'] == 2){
+            if($val['estado_credito'] == 1){
+              $html .= '<button type="button" id="idAbonoCreditV_btn" class="btn btn-warning btn-circle btn-md" onclick="abonosV('.$val['total_venta'].','.$val['id_ventas'].','.$pendienteCredit.')" title="Abonar"><i class="fa fa-money" aria-hidden="true"></i></button>';
+              //$html .= ' <button  title="Modificar Préstamo" type="button" class="btn btn-success btn-circle btn-md" data-toggle="modal" onclick="ModificarCreditos('.$val['id_ventas'].')"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>';
+            }
+            $html .= ' <button type="button" onclick="traerDetalleAbonosCreditosV('.$val["id_ventas"].')" class="btn btn-primary btn-circle btn-md" title="Ver Abonos"><i class="fa fa-eye" aria-hidden="true" ></i></button>';
+          }
               if($val['estado_credito'] != 0){
                   if($_SESSION['ROL'] == 1 || $_SESSION['ROL'] == 3){
                 $html .= ' <button  title="Cambiar Estado" type="button" class="btn btn-danger btn-circle btn-md" data-toggle="modal" onclick="cambiarestado2('.$val["id_ventas"].', 2)"><i class="fa fa-refresh" aria-hidden="true"></i></button>';
@@ -440,14 +540,14 @@ private function validarAbonos($idVenta){
               $html .= '</td></tr>';         //traerDetalleAbonosCreditosV()
           }
               $cabecera = '<tr>';
-              $cabecera .= '<th>'.'Identidad'.'</th>';
+              $cabecera .= '<th>'.'Identificación Cliente'.'</th>';
               $cabecera .= '<th>'.'Código Venta'.'</th>';
               $cabecera .= '<th>'.'Fecha Venta'.'</th>';
               $cabecera .= '<th>'.'Fecha Límite'.'</th>';
               $cabecera .= '<th>'.'Total Venta'.'</th>';
               $cabecera .= '<th>'.'Total Abonado'.'</th>';
               $cabecera .= '<th>'.'Crédito Pendiente'.'</th>';
-              $cabecera .= '<th>'.'Estado Venta'.'</th>';
+              $cabecera .= '<th>'.'Estado Crédito'.'</th>';
               $cabecera .= '<th>'.'Opciones'.'</th>';
               $cabecera .= '</tr>';
 
@@ -459,8 +559,7 @@ private function validarAbonos($idVenta){
 
 
   public function registrarAbonoCreditoVen(){
-    // $modeloconfiguracion = $this->loadModel("mdlConfiguracionPago");
-    // $configuracion = $modeloconfiguracion->listarConfiguracion();
+
     if (isset($_POST["txtva"])== 'true') {
 
       if(isset($_POST['btnRegistrarAbono'])){
@@ -501,6 +600,7 @@ private function validarAbonos($idVenta){
 
   }
 
+    $notificacionCredito = $this->mdlVentas->listarNotificacionesCredito();
     $clientesCredito = $this->mdlVentas->listarClientesCreditoV();
     require APP . 'view/_templates/header.php';
     require APP . 'view/Ventas/listarCreditosVentas.php';
@@ -529,7 +629,7 @@ private function validarAbonos($idVenta){
 
             $html .= ' <button  title="Anular" type="button" class="btn btn-success btn-circle btn-md" data-toggle="modal" id="btnbotoncheck" onclick="cambiarestado('.$val["idabono"].',0)"><i class="fa fa-check" aria-hidden="true"></i></button>';
           }else{
-              
+
           }
 
           }

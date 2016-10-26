@@ -6,13 +6,12 @@ class producto extends Controller{
 
 
   private $mdlproducto;
-   private $mdlexistencias;
+  private $mdlexistencias;
 
   public function __construct(){
 
     $this->mdlproducto = $this->loadModel("mdlProducto");
     $this->mdlexistencias = $this->loadModel("mdlExistencias");
-
   }
 
 
@@ -186,11 +185,11 @@ class producto extends Controller{
 
 
   public function registrarBajas(){
-    // $modeloconfiguracion = $this->loadModel("mdlConfiguracionPago");
-    // $configuracion = $modeloconfiguracion->listarConfiguracion();
-
     if(isset($_POST['btn-agregar'])){
       $this->mdlexistencias->tipo_baja = $_POST['tipo_baja'];
+      $this->mdlexistencias->__SET("id_bajas", $_POST['empleadoId']);
+      $this->mdlexistencias->__SET("id_bajas", $_POST['empleadoId']);
+
       $error = $this->mdlexistencias->insertarBaja();
       $id_baja = $this->mdlexistencias->ultimaBaja();
 
@@ -244,6 +243,7 @@ class producto extends Controller{
     $errorCodigo = true;
     $errorNombre = true;
     if(isset($_POST["btnguardarpro"])){
+      if($_POST["txtpreciocompra"] <  $_POST["txtprecioventa"] && $_POST["txtpreciocompra"] < $_POST["txtprecioalpormayor"] && $_POST["txtprecioventa"] > $_POST["txtprecioalpormayor"]){
       $this->mdlproducto->__SET("id_producto", $_POST['txtcodigo']);
       $ValidarCod = $this->mdlproducto->validarCodigo();
       $this->mdlproducto->__SET("nombre_producto", $_POST['txtnombreproducto']);
@@ -281,7 +281,19 @@ class producto extends Controller{
         echo  $ex->getMessage();
       }
 
+    }else{
+      $_SESSION["alerta"] = 'swal({
+        title: "Precios no válidos!",
+        type: "error",
+        confirmButton: "#3CB371",
+        confirmButtonText: "Aceptar",
+        // confirmButtonText: "Cancelar",
+        closeOnConfirm: false,
+        closeOnCancel: false
+      })';
     }
+
+  }
 
     if($guardado == true){
         $_SESSION["alerta"] = 'swal({
@@ -625,7 +637,7 @@ class producto extends Controller{
     }
 
     $this->mdlproducto-> ModificarCategoria();
-    console.log($this->mdlproducto-> ModificarCategoria());
+    // console.log($this->mdlproducto-> ModificarCategoria());
   }
 
 
@@ -677,6 +689,27 @@ class producto extends Controller{
       ]);
 
     }
+
+
+    public function ajaxDetallesBajas(){
+      $detalles = $this->mdlproducto->getDetallesBajas($_POST['idbaja']);
+      $info = $this->mdlproducto->getInfoBaja($_POST['idbaja']);
+
+        $html = "";
+        foreach ($detalles as $key => $value) {
+          $html .= '<tr>';
+          $html .= '<td>' . $value['fecha_salida'] . '</td>';
+          $html .= '<td>' . $value['tipo_baja'] . '</td>';
+          $html .= '<td>' . $value['cantidad'] . '</td>';
+          $html .= '</tr>';
+        }
+        echo json_encode([
+          'empleado' => $info['empleado'],
+          'baja'=>$value['id_bajas'],
+          'html' => $html,
+        ]);
+
+      }
 
 
     public function validacionCategoria(){

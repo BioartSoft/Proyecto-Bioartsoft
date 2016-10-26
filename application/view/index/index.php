@@ -28,9 +28,9 @@
                 </div>
                 <a href="#">
                     <div class="panel-footer">
-                        <span class="pull-left">Ver detalles</span>
+                        <!-- <span class="pull-left">Ver detalles</span>
                         <a href="<?= URL ?>Ventas/listarVentas"><span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span></a>
-                        <div class="clearfix"></div>
+                        <div class="clearfix"></div> -->
                     </div>
                 </a>
             </div>
@@ -57,9 +57,9 @@
                 </div>
                 <a href="#">
                     <div class="panel-footer">
-                        <span class="pull-left">Ver detalles</span>
+                        <!-- <span class="pull-left">Ver detalles</span>
                         <a href="<?php echo URL ?>Ventas/listarVentasCredito"><span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span></a>
-                        <div class="clearfix"></div>
+                        <div class="clearfix"></div> -->
                     </div>
                 </a>
             </div>
@@ -74,13 +74,13 @@
                           <div class="col-xs-3">
                             <?php foreach ($comprasDia as $compras): ?>
                                 <i class="fa fa-shopping-cart fa-4x">&nbsp;<span class="compras"><?= $compras ?></span></i>
-                                <p>Compras Día</p>
+                                <p>Entradas Día</p>
                               <?php endforeach; ?>
                           </div>
                           <div class="col-xs-9 text-right">
                             <?php foreach ($comprasMes as $CompraMes): ?>
                                 <div class="huge"></div>
-                                <p>Compras Mes:</p>
+                                <p>Entradas Mes:</p>
                                 <span class="compras"><?= $CompraMes ?></span>
                             <?php endforeach; ?>
                           </div>
@@ -88,9 +88,9 @@
                 </div>
                 <a href="#">
                     <div class="panel-footer">
-                        <span class="pull-left">Ver detalles</span>
+                        <!-- <span class="pull-left">Ver detalles</span>
                         <a href="<?= URL ?>Compras/listarCompras"><span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span></a>
-                        <div class="clearfix"></div>
+                        <div class="clearfix"></div> -->
                     </div>
                 </a>
             </div>
@@ -116,9 +116,9 @@
                 </div>
                 <a href="#">
                     <div class="panel-footer">
-                        <span class="pull-left">Ver detalles</span>
+                        <!-- <span class="pull-left">Ver detalles</span>
                         <a href="<?= URL ?>Empleados/ListarPrest"<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span></a>
-                        <div class="clearfix"></div>
+                        <div class="clearfix"></div> -->
                     </div>
                 </a>
             </div>

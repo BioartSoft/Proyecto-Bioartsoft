@@ -314,7 +314,7 @@
 			$sql ="CALL SP_anularAbonoPrestamos(?,?)";
 
 			//$this->db->beginTransaction();
-			
+
 			$stm = $this->db->prepare($sql);
 			$stm->bindParam(1, $codigo);
 			$stm->bindParam(2, $estado);
@@ -335,7 +335,7 @@
 			$sql ="CALL SP_AnularPrestamo(?,?)";
 			$stm = $this->db->prepare($sql);
 			$stm->bindParam(1, $codigo);
-			$stm->bindParam(2, $estado);	
+			$stm->bindParam(2, $estado);
 			return $stm->execute();
 		}
 

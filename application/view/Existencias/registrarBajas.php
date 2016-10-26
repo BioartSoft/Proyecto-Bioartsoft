@@ -40,6 +40,7 @@
             <label for="">Cantidad</label>
             <input id="txt_cantidad" type="text" class="form-control" min="1" maxlength="4" data-parsley-type="number" data-parsley-required="true">
             <input type="hidden" value="" id="unidades-actuales">
+              <input type="hidden" value="<?= $_SESSION['USUARIO_ID'] ?>" id="id-empleado" name="empleadoId">
           </div>
           <div class="form-group">
             <button  type="button" class="btn btn-primary pull-right" id="btn-agregar"><i class="fa fa-plus plus"></i>   Agregar</button>
@@ -218,7 +219,7 @@ $(document).ready(function(){
      }
   }
 
-  $("#txt_cantidad").val(0);
+  $("#txt_cantidad").val(1);
 
 }
 

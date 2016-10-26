@@ -48,8 +48,16 @@ use Dompdf\Dompdf;
 
         }
         # redireccion a lista bajas
-        echo "Guardado exitoso!";
-        exit();
+        $_SESSION['alerta']=  'swal({
+          title: "Guardado exitoso!",
+          type: "success",
+          confirmButton: "#3CB371",
+          confirmButtonText: "Aceptar",
+          // confirmButtonText: "Cancelar",
+          closeOnConfirm: false,
+          closeOnCancel: false
+        })';
+        // exit();
         // header("Location: ");
       }
 

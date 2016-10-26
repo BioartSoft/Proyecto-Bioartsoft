@@ -27,7 +27,7 @@
             </tr>
           </thead>
           <tbody>
-            <?php foreach ($clientesCredito as $cliente): ?>
+              <?php foreach ($clientesCredito as $cliente): ?>
               <tr>
                 <td><?=  $cliente['id_persona'] ?></td>
                 <td><?=  $cliente['nombres'] ?></td>
@@ -35,7 +35,7 @@
                 <td><?=  $cliente['Tbl_nombre_tipo_persona'] ?></td>
                 <td><button type="button" class="btn btn-primary btn-circle btn-md" data-toggle="modal" data-target="#myJhoan" data-tipop = "<?=  $cliente['Tbl_nombre_tipo_persona'] ?>" title="Listar Créditos" onclick="traerDetalleCreditoV('<?=  $cliente['id_persona'] ?>')"><i class="fa fa-eye" aria-hidden="true"></i></button>
               </tr>
-            <?php endforeach; ?>
+          <?php endforeach; ?>
           </tbody>
         </table>
       </div>
@@ -112,12 +112,23 @@
                           </div>
                     </div>
                    </div>
-                            <div class="col-xs-12 col-md-12">
-                        <button type="button" class="btn btn-secondary btn-active"  data-dismiss="modal" style="margin-left:80%" onclick="abrirmodal()"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
-                      </div>
                   </div>
                 </div>
               </div>
+
+              <div class="row">
+                <div class="col-xs-12 col-md-8">
+                <button type="button" class="btn btn-secondary btn-active"  data-dismiss="modal" style="margin-left:80%" onclick="abrirmodal()"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
+              </div>
+            <?php if($_SESSION['ROL'] == 1 || $_SESSION['ROL'] == 3): ?>
+                <div class="col-md-2">
+                  <a href="<?= URL ?>Ventas/generarpdfDetalleAbonos" target="_blank" id="pdfDeta">
+                    <button class="btn btn-primary" name="btnComprasD"><i class="fa fa-file-pdf-o" aria-hidden="true">   Recibo de Abono</i></button>
+                  </a>
+                </div>
+            <?php endif; ?>
+              </div>
+              <br><br>
           </div>
         </div>
       </div>
@@ -249,6 +260,10 @@ function abonosV(valor,id_ventas, valorCreditoPendienteV){
 
 
   function traerDetalleCreditoV(id) {
+    var enlace = $("#pdfDeta");
+    var nUrl = '<?= URL ?>Ventas/generarpdfDetalleAbonos?id=' + id;
+    enlace.attr("href", nUrl);
+
     traerNombreCliente(id);
 
     $.ajax({

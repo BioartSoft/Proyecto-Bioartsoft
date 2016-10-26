@@ -72,26 +72,65 @@ $(document).ready(function(){
         $('#tipoEmpleado').val(campos.find("td").eq(3).text());
         $('#fecha_Contrato').val(campos.find("td").eq(4).text());
         $('#idfechafin').val(campos.find("td").eq(5).text());
+        $('#fechaliquidacion2').val(campos.find("td").eq(5).text());
         $('#idfeter').val(campos.find("td").eq(6).text());
         $('#idfechainicial').val(campos.find("td").eq(7).text());
+        $('#estadoem').val(campos.find("td").eq(9).text());
 
         $('#myjhoanlopez').modal("show");
+
            setTimeout(function(){
             var tipo = $(listarE).attr("data-tipo");
             var identidad = $(listarE).attr("data-identi");
             var fechafin = $(listarE).attr("data-fechafin");
+            var fechafinContrato = $(listarE).attr("data-fechafin");
             var nombre = $(listarE).attr("data-nombre");
             var fechacontrato = $(listarE).attr("data-fechacontrato");
             var fechafinprima = $(listarE).attr("data-fechaultimaprima");
-            var fechainicial = $(listarE).attr("data-fechaultipago");
+            var fechainicial2 = $(listarE).attr("data-fechaultipago");
+            var estaemple = $(listarE).attr("data-estadoemp");
             var emp = $('#tipoEmpleado').val(tipo);
             var identidad = $('#identi').val(identidad);
             var fechafin = $('#idfechafin').val(fechafin);
+            var fechafincontrato = $('#idfechafin').val(fechafinContrato);
             var nombre = $('#nombre').val(nombre);
             var fechacontrato = $("#fecha_Contrato").val(fechacontrato);
             var fechafinprima = $("#idfeter").val(fechafinprima);
-            var fechainicial = $("#idfechainicial").val(fechainicial);
+            var fechainicial = $("#idfechainicial").val(fechainicial2);
+            var estadoemple = $("#estadoem").val(estaemple);
+            var fechaactual = new Date().toJSON().slice(0,10);
 
+                if (estaemple == 0) {
+                  swal({
+                  title: "El empleado se encuentra inhabilitado, para registrar pagos cambie el estado del empleado.!",
+                  type: "warning",
+                  confirmButton: "#3CB371",
+                  confirmButtonText: "btn-danger",
+                  // cancelButtonText: "Cancelar",
+                  // showCancelButton: true,
+                  confirmButtonClass: "btn-danger",
+                  confirmButtonText: "Aceptar",
+                  closeOnConfirm: false,
+                }),
+                  setTimeout(function(){
+                  $('#myjhoanlopez').modal("hide");
+                },900);
+                }
+                else if(fechainicial2 == fechaactual)
+                {
+                  swal({
+                  title: "El empleado ya tiene pagos registrados en la fecha actual.!",
+                  type: "warning",
+                  confirmButton: "#3CB371",
+                  confirmButtonText: "btn-danger",
+                  confirmButtonClass: "btn-danger",
+                  confirmButtonText: "Aceptar",
+                  closeOnConfirm: false,
+                  }),
+                    setTimeout(function(){
+                    $('#myjhoanlopez').modal("hide");
+                  },900);
+                }
 
                     if (tipo == "Empleado-fijo"){
 
@@ -128,6 +167,7 @@ $(document).ready(function(){
                       $("#divvalorprimaservicios").hide();
 
                     }
+
 
                     if (tipo == "Empleado-temporal") {
 
@@ -200,6 +240,7 @@ $(document).ready(function(){
         $('#iden').val(campos.find("td").eq(0).text());
         $('#nombre').val(campos.find("td").eq(1).text());
         $('#tipoEmplea').val(campos.find("td").eq(3).text());
+        $('#estadoempleado').val(campos.find("td").eq(9).text());
         cantiprestamos();
         $('#myjh').modal("show");
            setTimeout(function(){
@@ -208,9 +249,29 @@ $(document).ready(function(){
 
             var tipo = $(listarE).attr("data-tipo");
             var identidad = $(listarE).attr("data-identi");
+            var Estado = $(listarE).attr("data-estadoE");
 
                     var emp = $('#tipoEmpleado').val(tipo);
                     var identidad = $('#identi').val(identidad);
+                    var Estadoemp = $("#estadoempleado").val(Estado);
+
+
+                      if (Estado == 0) {
+                        swal({
+                        title: "El empleado se encuentra inhabilitado, para registrar préstamos cambie el estado del empleado.",
+                        type: "warning",
+                        confirmButton: "#3CB371",
+                        confirmButtonText: "btn-danger",
+                        // cancelButtonText: "Cancelar",
+                        // showCancelButton: true,
+                        confirmButtonClass: "btn-danger",
+                        confirmButtonText: "Aceptar",
+                        closeOnConfirm: false,
+                      }),
+                        setTimeout(function(){
+                        $('#myjh').modal("hide");
+                      },900);
+                      };
 
                     if (tipo == "Empleado-fijo"){
 

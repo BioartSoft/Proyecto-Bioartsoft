@@ -5,7 +5,7 @@
     width: 100%;
   }
 </style>
-  <title>Reporte</title>
+  <title>Reporte Entradas</title>
 </head>
 <body>
   <img src="<?php echo URL ?>img/BioartesV2.png" height="100" width="200">
@@ -15,9 +15,9 @@
   <table border="1">
     <thead>
       <tr>
-        <th>Fecha Compra</th>
+        <th>Fecha Entrada</th>
         <th>Nombre Proveedor</th>
-        <th>Total Compra</th>
+        <th>Total Entrada</th>
       </tr>
     </thead>
     <tbody>

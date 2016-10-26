@@ -327,6 +327,8 @@
      var cliente = $("#ddlcliente").val();
      var cant = $("#txtcantidad").val();
      var prod = $('#ddlproducto').val();
+    //  var valor = $("#ddlproducto").val();
+    //  var precio3 = $("#ddlproducto").attr("Precio3");
      if(cliente != " ")
      {
      if(cant <= 0){
@@ -402,6 +404,7 @@
        html += '    </div>';
        html += '<input type="hidden" id="txtProducto" name="producto[]" value="'+productoCd+'">';
        html += '<input type="hidden" name="precioProducto[]" value="' + precioGuardar +  '" />';
+       //html += '<input type="text" name="precioUnitario[]" value="' + precio3 +  '" />';
        html += '<input type="hidden" name="cantidad[]" id="cantidad-prod-'+productoCd+'" value="'+cantidad+'">';
        html += ' </div>';
        html += '  <div class="col-md-3 cta-button">';
@@ -415,7 +418,7 @@
 
        calcularTotal();
        sumarSubtotal();
-       $("#txtcantidad").val(0);
+       $("#txtcantidad").val(1);
 
        $("#total").priceFormat(
          {

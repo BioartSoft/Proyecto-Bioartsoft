@@ -29,6 +29,9 @@
                   <td><?=  $empleado['apellidos'] ?></td>
                   <td><?=  $empleado['Tbl_nombre_tipo_persona'] ?></td>
                   <td><button type="button" class="btn btn-primary btn-circle btn-md" data-toggle="modal" data-target="#myJhoan" data-tipop = "<?=  $empleado['Tbl_nombre_tipo_persona'] ?>" title="Generar Recibo" onclick="traerDetallePagos('<?=  $empleado['id_persona'] ?>')"><i class="fa fa-eye" aria-hidden="true"></i></button>
+                  <a href="<?= URL ?>Empleados/generarpdfPagos/<?= $empleado['id_persona'] ?>" target="_blank" id="pdfDetalPagos">
+                      <button class="btn btn-success btn-circle btn-md" name="btnPdfPagos" title="Generar Pdf"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></button>
+                  </a>
               <?php endforeach; ?>
               <div class="modal fade" id="myJhoan" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard ="false" data-backdrop = "static">
                 <div class="modal-dialog modal-lg" role="document">
@@ -60,7 +63,7 @@
                   </div>
                     <button type="button" class="btn btn-secondary btn-active pull-rigth"  data-dismiss="modal" style="margin-left:80%"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
                 </div>
-  </td>
+              </td>
        </tr>
    </tbody>
     </table>
@@ -76,7 +79,7 @@
   </form>
   </div>
   </center>
-              <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard ="false" data-backdrop = "static">
+              <!-- <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard ="false" data-backdrop = "static">
                 <div class="modal-dialog" role="document" >
                   <div class="modal-content">
                     <div class="modal-header">
@@ -91,11 +94,16 @@
                       </div>
                     </div>
                   </div>
-                </div>
+                </div> -->
               </div>
   <script type="text/javascript">
     function traerDetallePagos(id) {
+      var enlace = $("#pdfDetalPagos");
+      var nUrl = '<?= URL ?>Empleados/generarpdfPagos?id=' + id;
+      enlace.attr("href", nUrl);
+
       traerNombreEmpleado(id);
+
 
       $.ajax({
         url: url+'Empleados/ajaxDetallePagos',
@@ -114,7 +122,8 @@
                                 '';
         $("#cont-table").html(html);
         $('#detalles_pagos').append(respuesta.html);
-        $('#titulos').append(respuesta.cabecera);
+        $('#titulos').append(respuesta.cabecera);idempleado
+
         $(".price").priceFormat({centsLimit: 3, clearPrefix: true});
 
       var tabla = $('#listarDetalle').DataTable({

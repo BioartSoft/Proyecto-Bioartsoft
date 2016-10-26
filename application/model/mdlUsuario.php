@@ -105,6 +105,17 @@ class mdlUsuario
      }
     }
 
+    public function ModificarEstadoUsuDesdeLiquidacion($id){
+     $sql="CALL SP_Cambiar_estado_Usuario(?) ";
+     try {
+       $ca = $this->db->prepare($sql);
+       $ca->bindParam(1,$id);
+        return $ca->execute();
+     } catch (Exception $e) {
+
+     }
+    }
+
 
 
     public function modificarContrasenia(){
@@ -118,11 +129,20 @@ class mdlUsuario
 
 
 
-    public function validarNombreUsu($id){
+    public function validarNombreUsu(){
       $sql = "CALL SP_Validar_nombre_Usu(?, ?)";
       $stm = $this->db->prepare($sql);
       $stm->bindParam(1, $this->nombreUsuario);
-      $stm->bindParam(2, $id);
+      $stm->bindParam(2, $this->idUsuario);
+      $stm->execute();
+      return $stm->fetch(PDO::FETCH_ASSOC);
+    }
+
+
+    public function validarNombreUsu2(){
+      $sql = "CALL SP_Validar_Usuario2(?)";
+      $stm = $this->db->prepare($sql);
+      $stm->bindParam(1, $this->nombreUsuario);
       $stm->execute();
       return $stm->fetch(PDO::FETCH_ASSOC);
     }
@@ -158,6 +178,16 @@ class mdlUsuario
 
     public function consultarEmail($id){
       $sql = "CALL SP_Consultar_Emails(?, ?)";
+      $stm = $this->db->prepare($sql);
+      $stm->bindParam(1, $id);
+      $stm->bindParam(2, $this->correo);
+      $stm->execute();
+      return $stm->fetch(PDO::FETCH_ASSOC);
+    }
+
+
+    public function consultarEmailProveedor($id){
+      $sql = "CALL SP_Consultar_Email_Proveedor(?, ?)";
       $stm = $this->db->prepare($sql);
       $stm->bindParam(1, $id);
       $stm->bindParam(2, $this->correo);

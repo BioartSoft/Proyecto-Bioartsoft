@@ -50,11 +50,12 @@ class mdlExistencias
 
 
   public function insertarBaja(){
-    $sql = "CALL SP_InsertarBaja(?)";
+    $sql = "CALL SP_InsertarBaja(?, ?)";
     try {
 
     $stm = $this->db->prepare($sql);
-    $stm->bindParam(1, $this->tipo_baja);
+		$stm->bindParam(1, $this->tipo_baja);
+    $stm->bindParam(2, $this->id_bajas);
     return $stm->execute();
 
     } catch (Exception $e) {
@@ -103,7 +104,6 @@ class mdlExistencias
 		} catch (Exception $e) {
 		}
 	}
-
 
 	public function pdfBajas()
 	{

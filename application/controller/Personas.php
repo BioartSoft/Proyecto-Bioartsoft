@@ -90,7 +90,7 @@ use Dompdf\Dompdf;
 
     public function validacionEmail(){
         $this->modeloP->__SET("email", $_POST['campoEmail']);
-        $ValidarEmail = $this->modeloP->ValidarEmail();
+        $ValidarEmail = $this->modeloP->ValidarEmail2();
 
         if ($ValidarEmail != false)
           echo "1";
@@ -110,6 +110,16 @@ use Dompdf\Dompdf;
           echo "0";
     }
 
+    public function validacionUsuario2(){
+        $this->modeloP->__SET("nombreUsuario", $_POST['campoNombreUsuario']);
+        $Validarusuario = $this->modeloP->validarNombreUsu2();
+
+        if ($Validarusuario != false)
+          echo "1";
+        else
+          echo "0";
+    }
+
 
 
     public function registrarPersonas(){
@@ -121,9 +131,9 @@ use Dompdf\Dompdf;
           $this->modeloP->__SET("idPersona", $_POST['txtIdPersona']);
           $ValidarId = $this->modeloP->validarIdPersona();
           $this->modeloUsuario->__SET("nombreUsuario", $_POST['txtUsuario']);
-          $ValidarNomUsu = $this->modeloUsuario->validarNombreUsu();
+          $ValidarNomUsu = $this->modeloUsuario->validarNombreUsu2();
           $this->modeloP->__SET("email", $_POST['txtEmail']);
-          $ValidarEmail = $this->modeloP->ValidarEmail();
+          $ValidarEmail = $this->modeloP->ValidarEmail2();
 
           if ($ValidarId != false) {
             $errorId = false;
@@ -131,7 +141,7 @@ use Dompdf\Dompdf;
           }else if($ValidarNomUsu != false) {
             $errorUsuario = false;
 
-          }else if($ValidarEmail != false && $ValidarEmail['email'] != ""){
+          }else if($ValidarEmail != false){
             $errorEmail = false;
           }else{
                   if ($_POST['txtTipoPersona'] == 1) {
@@ -368,23 +378,21 @@ use Dompdf\Dompdf;
 
 
 
-    public function listarProveedores($id=0, $tipo=0){
+    public function listarProveedores($id = "", $tipo=0){
 
       $correo = true;
-     if (isset($_POST['btn-modificar-prov'])) {
+    if(isset($_POST['btn-modificar-prov'])){
 
-       $this->modeloUsuario->__SET("correo", $_POST['txtcorreo']);
+      $this->modeloUsuario->__SET("correo", $_POST['txtcorreo']);
 
-        $email = $this->modeloUsuario->consultarEmail($id);
-        // var_dump($email);
+      $email = $this->modeloUsuario->consultarEmail($id);
+
+      if($email['email'] != 0){
+        // Si ya existe no dejar guardar
+        $correo = false;
+        // var_dump("No guardado, ya existe nombre de usuario o correo");
         // exit();
-
-        if($email['email'] != 0){
-             // Si ya existe no dejar guardar
-             $correo = false;
-              // var_dump("No guardado, ya existe nombre de usuario o correo");
-              // exit();
-           } else {
+      } else {
              // Si no existe dejar guardar
             //  var_dump("Guardado");
             //    exit();
@@ -560,7 +568,7 @@ use Dompdf\Dompdf;
 
         $total = $this->modeloUsuario->ValidarModEmail($id);
         $total2 = $this->modeloUsuario->validarNombreUsu($id);
-        // var_dump($total, $total2);
+        // var_dump($total2);
         // exit();
         if($total['total'] != 0 || $total2['total'] != 0){
           // Si ya existe no dejar guardar

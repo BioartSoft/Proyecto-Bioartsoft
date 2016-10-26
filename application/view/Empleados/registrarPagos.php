@@ -39,7 +39,7 @@
                               <?php else:  ?>
                                 Inhabilitado
                           <?php endif ?></td>
-                          <td><button type="button" class="btn btn-primary btn-circle btn-md" data-tipo = "<?= $empleado['Tbl_nombre_tipo_persona']  ?>" data-identi = "<?= $empleado['id_persona'] ?>" data-fechafin = "<?=  $empleado['fecha_Terminacion_Contrato'] ?>" data-fechacontrato = "<?=  $empleado['fecha_Contrato'] ?>" data-fechaultipago ="<?= $empleado['Fechaulti'] ?>" data-fechaultimaprima = "<?= $empleado['FechaTer'] ?>" data-nombre = "<?=  $empleado['nombres']. " ".$empleado['apellidos'] ?>" onclick="editar('<?= $empleado['id_persona'] ?>',this)"><i class="fa fa-pencil" aria-hidden="true"></i></button></td>
+                          <td><button type="button" class="btn btn-primary btn-circle btn-md" data-tipo = "<?= $empleado['Tbl_nombre_tipo_persona']  ?>" data-identi = "<?= $empleado['id_persona'] ?>" data-fechafin = "<?=  $empleado['fecha_Terminacion_Contrato'] ?>" data-fechacontrato = "<?=  $empleado['fecha_Contrato'] ?>" data-fechaultipago ="<?= $empleado['Fechaulti'] ?>" data-fechaultimaprima = "<?= $empleado['FechaTer'] ?>" data-estadoemp = "<?= $empleado['estado'] ?>"  data-nombre = "<?=  $empleado['nombres']. " ".$empleado['apellidos'] ?>" onclick="editar('<?= $empleado['id_persona'] ?>',this)"><i class="fa fa-pencil" aria-hidden="true"></i></button></td>
                         </tr>
                       <?php endforeach; ?>
                     </tbody>
@@ -61,6 +61,7 @@
                         <div class="modal-body" style="margin: 0 auto">
                           <form class="" action="<?php echo URL?>Empleados/registrarPagos" method="post" id="myForm" data-parsley-validate="">
                           <div class="row">
+                          <input type="hidden"  id="estadoem">
                               <div class="col-xs-12 col-md-4" id="divIdentificacion">
                                 <label id="labelIdentificacion">Identificación</label><br>
                                 <input type="text" class="form-control" name="txtIdentificacion" placeholder="Identificacion" value="" id="identi" readonly="">
@@ -117,6 +118,7 @@
                                   </div>
                                 </div>
                               </div>
+                              <input type="hidden" name="" id="fechaliquidacion2">
                               <input type="hidden" name="" id="idcantidaddedias">
                               <div class="col-xs-12 col-md-4" id="divFechapagoliquidacion" style="display: none">
                                 <label id="labelFechaPago">Fecha de Liquidación:</label>
@@ -125,7 +127,7 @@
                                     <div class="input-group-addon" style="border-radius:5px;">
                                       <i class="fa fa-calendar"></i>
                                     </div>
-                                    <input type="text" class="form-control pull-right" onblur="vali()" name="txtfechaPagoliquidacion" id="idfechafin" style="border-radius:5px;" data-parsley-required="true">
+                                    <input type="text" class="form-control pull-right" onchange="vali()" name="txtfechaPagoliquidacion" id="idfechafin" style="border-radius:5px;" data-parsley-required="true" readonly="">
                                   </div>
                                 </div>
                               </div>
@@ -190,7 +192,7 @@
                                     <div class="input-group-addon" style="border-radius:5px;">
                                       <i class="fa fa-calendar"></i>
                                     </div>
-                                    <input type="text" class="form-control pull-right" name="txtfechainicial" id="idfechainicial" style="border-radius:5px;" step="1">
+                                    <input type="text" class="form-control pull-right" name="txtfechainicial" id="idfechainicial" style="border-radius:5px;" step="1" readonly="">
 
                                     <input type="hidden" id="fecha_final" name="txtfecha_final">
                                   </div>
@@ -198,7 +200,7 @@
                               </div>
                               <div class="col-xs-12 col-md-4" id="divdias">
                                 <label>Días a Pagar</label><br>
-                                <input type="number" class="form-control" name="txtdiaspagar" placeholder="Cantidad de Días" value="15"  min="1" max="15" id="idDia" size="2" maxlength="2" onkeyup="checkday(this)" data-parsley-required="true">
+                                <input type="number" class="form-control" name="txtdiaspagar" placeholder="Cantidad de Días" value="15"  min="1" max="15" id="idDia" size="2" maxlength="2" onkeyup="checkday(this)" onchange="valid()" data-parsley-required="true">
                               </div>
                             </div>
                             <br>
@@ -208,7 +210,7 @@
                                 <label id="labelValorVentas">Valor Ventas</label>
 
 							    <div class="input-group">
-							      <input type="text" class="form-control" placeholder="Valor Ventas" name="txtValorVentas" id="valor_Ventas" data-parsley-type="integer">
+							      <input type="text" class="form-control" placeholder="Valor Ventas" name="txtValorVentas" id="valor_Ventas" data-parsley-type="integer" readonly="">
 							      <span class="input-group-btn">
 							        <button class="btn btn-default" type="button" id="idbotonventas" onclick="traervalorVentas()" style="background-color: #E0F8E0"> <b>Consultar</b></button>
 							      </span>
@@ -437,15 +439,24 @@
 
         //Validaciones de fechas en liquidación
         function vali() {
+          $("#valorvacacionestot").val("");
+          $("#totalvacaciones").html(0);
+          $("#valorcesantias").val("");
+          $("#idtotalcesantias").html(0);
+          $("#valortotliquidacion").val("");
+          $("#totalliquidaciones").html(0);
           var fechaContrato = $("#fecha_Contrato").val();
+
               var fechafinal = $("#idfechafin").val();
+              var fincontrato2 = $("#fechaliquidacion2").val();
 
               var f1 = new Date(fechaContrato);
               var f2 = new Date(fechafinal);
+              var f3 = new Date(fincontrato2);
 
-                if(f1 > f2){
+                if(f1 >= f2){
                   swal({
-                        title: "La fecha de liquidación no puede ser menor a la fecha de contrato!",
+                        title: "La fecha de liquidación no puede ser menor o igual a la fecha de contrato",
                         type: "error",
                         confirmButton: "#3CB371",
                         confirmButtonText: "Aceptar",
@@ -455,10 +466,30 @@
                       });
                     return false;
                 }
-                else
+                else if(f2 > f3)
                 {
-                    return true;
+                    swal({
+                        title: "Fecha Invalida.!",
+                        type: "error",
+                        confirmButton: "#3CB371",
+                        confirmButtonText: "Aceptar",
+                        // confirmButtonText: "Cancelar",
+                        closeOnConfirm: false,
+                        closeOnCancel: false
+                      });
+                    return false;
+                }else{
+                  return true;
                 }
+        }
+
+        function valid() {
+          $("#neto").val("");
+          $("#total").html(0);
+          $("#valorcomision").val("");
+          $("#totalco").html(0);
+          $("#totalpago").val("");
+          $("#totalpagos").html(0);
         }
 
         </script>
@@ -1130,6 +1161,8 @@
               var tipoEmpleado = $("#tipoEmpleado").val();
 
               if(diasTemporal == "" || diasLaborados == "" && tipoEmpleado == "Empleado-temporal"){
+                $("#valortotaltempo").val("");
+                $("#idfechafin").removeAttr("data-parsley-required");
                 swal({
                       title: "No se han ingresado un número válido!",
                       type: "error",
@@ -1139,8 +1172,6 @@
                       closeOnConfirm: false,
                       closeOnCancel: false
                     });
-                    $("#valortotaltempo").val("");
-                    $("#idfechafin").removeAttr("data-parsley-required");
               }
             });
 
@@ -1215,6 +1246,7 @@
                 }
 
               }else if(tipoEmpleado == "Empleado-temporal"){
+                $("#idfechafin").removeAttr("data-parsley-required");
 
                   var totalTemp = $("#valortotaltempo").val();
 

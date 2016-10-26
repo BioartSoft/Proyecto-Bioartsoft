@@ -292,12 +292,30 @@ public function validarCantidad(){
   }
 
 
+  public function getDetallesBajas($idBaja){
+    $sql = "CALL SP_Detalles_Bajas(?)";
+    $stm = $this->db->prepare($sql);
+    $stm->bindParam(1, $idBaja);
+    $stm->execute();
+    return $stm->fetchAll(2);
+  }
+
+
   public function getInfoProducto($idproducto){
     $sql = "CALL SP_Info_Producto(?)";
     $stm = $this->db->prepare($sql);
     $stm->bindParam(1, $idproducto);
     $stm->execute();
     return $stm->fetch();
+  }
+
+
+  public function getInfoBaja($codigo){
+    $sql = "CALL SP_Info_Baja(?)";
+    $stm = $this->db->prepare($sql);
+    $stm->bindParam(1, $codigo);
+    $stm->execute();
+    return $stm->fetch(2);
   }
 
 

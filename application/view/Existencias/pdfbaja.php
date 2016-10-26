@@ -18,7 +18,7 @@
     <thead>
       <tr>
       <th>Código Producto</th>
-      <th>Nombre</th>
+      <th>Nombre Producto</th>
       <th>Categoría</th>
       <th>Fecha Registro Baja</th>
       <th>Cantidad</th>

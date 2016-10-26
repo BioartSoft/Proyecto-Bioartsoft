@@ -15,9 +15,9 @@
   <table border="1">
     <thead>
       <tr>
-        <th>Código Compra</th>
-        <th>Fecha Compra</th>
-        <th>Valor Total Compra</th>
+        <th>Código Entrada</th>
+        <th>Fecha Entrada</th>
+        <th>Valor Total Entrada</th>
         <th>Proveedor</th>
       </tr>
     </thead>

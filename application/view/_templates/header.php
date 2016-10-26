@@ -64,7 +64,7 @@ $notificaciones = mdlConfiguracionPago::getNotificaciones();
     <div id="wrapper">
 
         <!-- Navigation -->
-        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0;">
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0; background-color: rgba(0,0,0,0.7);">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="sr-only">Toggle navigation</span>
@@ -81,7 +81,7 @@ $notificaciones = mdlConfiguracionPago::getNotificaciones();
              <?php if($_SESSION['ROL'] == 1 || $_SESSION['ROL'] == 3): ?>
                  <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="fa fa-cog"></i>  <i class="fa fa-caret-down"></i>
+                        <i class="fa fa-cog" style="color: #fff"></i>  <i class="fa fa-caret-down" style="color: #fff"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-alerts">
                         <li>
@@ -105,7 +105,7 @@ $notificaciones = mdlConfiguracionPago::getNotificaciones();
                <?php if($_SESSION['ROL'] == 1 || $_SESSION['ROL'] == 2 || $_SESSION['ROL'] == 3): ?>
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-bell fa-fw"></i>
+                        <i class="fa fa-bell fa-fw" style="color: #fff"></i>
                           <?php if(count($notificaciones) > 0): ?>
                             <span class="badge badge-danger" style="background-color: red;font-size: 8px;position: absolute;left: 0px;top: 12px;"><?= count($notificaciones) ?></span>
                           <?php endif ?>
@@ -130,7 +130,7 @@ $notificaciones = mdlConfiguracionPago::getNotificaciones();
                 <!-- /.dropdown -->
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                        <i class="fa fa-user fa-fw" style="color: #fff"></i>  <i class="fa fa-caret-down" style="color: #fff"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
                         <li><i class="fa fa-user fa-fw"></i><?= $_SESSION['NOMBRE_ROL'] ?></li>
@@ -187,7 +187,7 @@ $notificaciones = mdlConfiguracionPago::getNotificaciones();
                             <div class="modal-header">
                               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span></button>
-                                <h4 class="modal-title" id="myModalLabel" style="color: #3CB371">Configuración</h4>
+                                <h4 class="modal-title" id="myModalLabel" style="color: #3CB371; text-align: center">Configuración Pagos</h4>
                             </div>
                             <div class="modal-body">
                               <form class="" action="<?php echo URL?>Empleados/ListarConfiguraciones" method="post" id="myFormu" data-parsley-validate="">
@@ -198,11 +198,11 @@ $notificaciones = mdlConfiguracionPago::getNotificaciones();
 
                                   <div class="col-xs-12 col-md-6" id="divValorBa">
                                     <label id="labelValorBase">Valor Base Liquidación</label><br>
-                                    <input type="text" class="form-control" name="txtvBase" placeholder="Valor Base" value="<?= $valor["valor_base"] ?>" readonly="" id="valorBase" data-parsley-type="integer" min="0" maxlength="7" data-parsley-required="true">
+                                    <input type="number" class="form-control" name="txtvBase" placeholder="Valor Base" value="<?= $valor["valor_base"] ?>" readonly="" id="valorBase" data-parsley-type="integer" min="0" maxlength="7" data-parsley-required="true">
                                   </div>
                                   <div class="col-xs-12 col-md-6" id="divTiempoP">
                                   <label id="labelTiempoPago">Período de Pago</label>
-                                    <select class="form-control" disabled="" id="selectperiodo" name="txttiemPago" data-parsley-required="true">
+                                    <select class="form-control" disabled="" id="selectperiodo" name="txttiemPago" data-parsley-required="true" data-parsley-type="alphanum">
                                     <?php
                                       $tiempo = $valor["tiempo_pago"];
                                      ?>
@@ -336,7 +336,7 @@ $notificaciones = mdlConfiguracionPago::getNotificaciones();
                                   </div>
                                   <div class="col-xs-12 col-md-6" id="divValorBa">
                                     <label id="labelValorBase">Valor Día</label><br>
-                                    <input type="text" class="form-control" name="txtvalordia" placeholder="Valor Día" value="<?= $valor["Valor_dia"] ?>" readonly="" id="valordia" data-parsley-type="integer" min="0" maxlength="7" data-parsley-required="true">
+                                    <input type="number" class="form-control" name="txtvalordia" placeholder="Valor Día" value="<?= $valor["Valor_dia"] ?>" readonly="" id="valordia" data-parsley-type="integer" min="0" maxlength="7" data-parsley-required="true">
                                   </div>
                                 </div>
                                 <br>
@@ -375,22 +375,22 @@ $notificaciones = mdlConfiguracionPago::getNotificaciones();
                   <div class="row">
                     <div class="col-xs-12 col-md-6">
                       <label>Valor Mínimo Subtotal</label><br>
-                      <input type="text" class="form-control" id="valorMinimoSub" name="txtvalorminimo" readonly="" value="<?= $lisven["Valor_Subtotal_Minimo"] ?>" min="1" data-parsley-type="integer" data-parsley-required="true">
+                      <input type="number" class="form-control" id="valorMinimoSub" name="txtvalorminimo" readonly="" value="<?= $lisven["Valor_Subtotal_Minimo"] ?>" min="1" data-parsley-type="integer" data-parsley-required="true">
                     </div>
                     <div class="col-xs-12 col-md-6">
                       <label>Porcentaje Mínimo Descuento</label><br>
-                      <input type="text" class="form-control" id="porcentajeMinimoDesc" name="txtporcentajeminimo"  readonly="" value="<?= $lisven["Porcentaje_Minimo_Dcto"]?>" min="0" data-parsley-type="number" data-parsley-required="true">
+                      <input type="number" class="form-control" id="porcentajeMinimoDesc" name="txtporcentajeminimo"  readonly="" value="<?= $lisven["Porcentaje_Minimo_Dcto"]?>" min="0" data-parsley-type="number" data-parsley-required="true">
                     </div>
                   </div>
                   <br>
                   <div class="row">
                     <div class="col-xs-12 col-md-6">
                       <label>Valor Máximo Subtotal</label><br>
-                      <input type="text" class="form-control" id="valorMaximoSub" name="txtvalormaximo" readonly="" value="<?= $lisven["Valor_Subtotal_Maximo"]?>" min="1" data-parsley-type="integer" data-parsley-required="true">
+                      <input type="number" class="form-control" id="valorMaximoSub" name="txtvalormaximo" readonly="" value="<?= $lisven["Valor_Subtotal_Maximo"]?>" min="1" data-parsley-type="integer" data-parsley-required="true">
                     </div>
                     <div class="col-xs-12 col-md-6">
                       <label>Porcentaje Máximo Descuento</label><br>
-                      <input type="text" class="form-control" id="porcentajeMaximoDesc" name="txtporcentajemaximo"  readonly="" value="<?= $lisven["Porcentaje_Maximo_Dcto"]?>" min="0" data-parsley-type="number" data-parsley-required="true">
+                      <input type="number" class="form-control" id="porcentajeMaximoDesc" name="txtporcentajemaximo"  readonly="" value="<?= $lisven["Porcentaje_Maximo_Dcto"]?>" min="0" data-parsley-type="number" data-parsley-required="true">
                     </div>
                   </div>
                 <?php endforeach; ?>
@@ -489,6 +489,51 @@ $notificaciones = mdlConfiguracionPago::getNotificaciones();
                 }
               ?>
               });
+</script>
+
+<script type="text/javascript">
+    $("#valorBase").keydown(function(e){
+      if(e.which === 189 || e.which === 69){
+        e.preventDefault();
+      }
+  });
+
+  $("#valordia").keydown(function(e){
+    if(e.which === 189 || e.which === 69){
+      e.preventDefault();
+    }
+
+});
+</script>
+
+<script type="text/javascript">
+    $("#valorMinimoSub").keydown(function(e){
+      if(e.which === 189 || e.which === 69){
+        e.preventDefault();
+      }
+  });
+
+  $("#porcentajeMinimoDesc").keydown(function(e){
+    if(e.which === 189 || e.which === 69){
+      e.preventDefault();
+    }
+
+});
+
+
+$("#valorMaximoSub").keydown(function(e){
+  if(e.which === 189 || e.which === 69){
+    e.preventDefault();
+  }
+
+});
+
+$("#porcentajeMaximoDesc").keydown(function(e){
+  if(e.which === 189 || e.which === 69){
+    e.preventDefault();
+  }
+
+});
 </script>
 
 <div id="page-wrapper">

@@ -14,9 +14,9 @@
           <table class="table table-striped table-bordered table-hover" id="dataTables-example">
           <thead>
      <tr>
-       <th>Código Compra</th>
+       <th>Código Entrada</th>
        <th>Valor Total</th>
-       <th>Fecha Registro Compra</th>
+       <th>Fecha Registro Entrada</th>
        <th>Identificación Proveedor</th>
        <th>Nombre Proveedor</th>
        <th>Estado</th>
@@ -72,15 +72,15 @@
   <div class="col-lg-12">
     <div class="panel panel-default">
       <div class="panel-body">
-        <h5><strong>Compra realizada por: <span id="empleado"></span></strong></h5>
+        <h5><strong>Entrada realizada por: <span id="empleado"></span></strong></h5>
         <div class="dataTable_wrapper">
           <div class="table-responsive">
             <table class="table table-striped table-bordered">
               <thead>
                 <tr>
-                  <th>Fecha Compra</th>
+                  <th>Fecha Entrada</th>
                   <th>Nombre Proveedor</th>
-                  <th>Total Compra</th>
+                  <th>Total Entrada</th>
                 </tr>
               </thead>
               <tbody>
@@ -165,7 +165,7 @@ function traerDetallesCompra(id){
 function cambiarEstado(cod, est){
     var bandera = true;
     swal({
-      title: "¿Realmente desea anular esta compra?",
+      title: "¿Realmente desea anular esta entrada?",
       type: "warning",
       confirmButton: "#3CB371",
       confirmButtonText: "btn-danger",

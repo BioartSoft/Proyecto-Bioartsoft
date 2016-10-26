@@ -99,7 +99,7 @@ class Login extends Controller
         $html .='<body>';
         $html .='<div style="width: 100%" >';
         // $html .='<img src="'.URL.'img/BioartesV2.png" alt="No encontrada">';
-        $html .='<img src="https://s12.postimg.org/ismdhzhu5/Bioartes_V2.png" alt="No encontrada">';
+        $html .='<img src="https://s12.postimg.org/ismdhzhu5/Bioartes_V2.png" alt="No encontrada" height="100">';
         $html .='<h3>BIOARTES</h3>';
         $html .='<h4>Solicitud para recuperación de contraseña</h4>';
         $html .='<strong>Su contraseña es: </strong>';
