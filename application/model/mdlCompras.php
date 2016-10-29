@@ -49,6 +49,22 @@ class mdlCompras
  }
 
 
+ public function totalPorFecha()
+{
+  $sql="CALL  SP_Total_Compras_Fecha(?,?)";
+  try {
+   $ca = $this->db->prepare($sql);
+   $ca->bindParam(1,$this->fechainicial);
+   $ca->bindParam(2,$this->fechafinal);
+  $ca->execute();
+   return $ca->fetchAll(PDO::FETCH_ASSOC);
+  } catch (Exception $e) {
+
+  }
+
+}
+
+
  public function validarFechaCompra()
 {
   $sql="CALL  SP_Validar_Fecha(?)";

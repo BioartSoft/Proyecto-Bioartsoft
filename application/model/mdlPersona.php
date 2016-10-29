@@ -62,6 +62,17 @@ class mdlPersona
   }
 
 
+
+    public function listarPrestamosEmp()
+    {
+      $sql = "CALL SP_Informe_Prestamos_Por_Empleado(?)";
+            $stm = $this->db->prepare($sql);
+            $stm->bindParam(1, $this->idPersona);
+            $stm->execute();
+            return $stm->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
   public function listarPagosPorEmp()
   {
     $sql = "CALL SP_Informe_Pagos2(?)";

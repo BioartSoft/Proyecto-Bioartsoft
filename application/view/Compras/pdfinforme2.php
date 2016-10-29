@@ -10,8 +10,12 @@
 <body>
   <img src="<?php echo URL ?>img/BioartesV2.png" height="100" width="200">
   <br>
-  <center><legend>INFORME DE ENTRADAS</legend></center>
-  <br><br>
+  <center><legend><h2>INFORME DE ENTRADAS</h2></legend></center>
+  <?php foreach($ver as $valor2): ?>
+      <h4>Informe del mes de: <?= ucfirst($valor2['mes']); ?></h4>
+  <?php break; ?>
+  <?php  endforeach; ?>
+  <br>
   <table border="1">
     <thead>
       <tr>
@@ -26,11 +30,14 @@
       <tr>
           <td><?= $valor['id_compras'] ?></td>
           <td><?= $valor['fecha_compra'] ?></td>
-          <td class="price"><?= $valor['valor_total'] ?></td>
+          <td><?= $valor['valor_total'] ?></td>
           <td><?= $valor['proveedor'] ?></td>
       </tr>
     <?php endforeach; ?>
     </tbody>
   </table>
+<?php foreach ($totalCompraFecha as $val): ?>
+    <p style="text-align: right"><strong>Total: <?= $val['total']; ?></strong></p>
+<?php endforeach; ?>
 </body>
 </html>

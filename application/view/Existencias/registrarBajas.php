@@ -2,7 +2,6 @@
 <form id="frmBajas" method="post"  action="<?= URL ?>producto/registrarBajas" data-parsley-validate="">
    <div class="row">
 
-
     <h3 class="page-header" style="text-align:center; color: #3CB371; margin-top: 10px; margin-bottom: 10px">Registrar Bajas</h3><br>
     <div id="frmB" method="post" data-parsley-validate="">
 

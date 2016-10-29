@@ -138,7 +138,7 @@ class Ventas extends controller
     // $dompdf->setPaper('A4', 'landscape');
     $dompdf->setPaper([0,0,300,700], 'portrait');
     $dompdf->render();
-    $dompdf->stream("Informe Ventas.pdf", array("Attachment" => false, 'isRemoteEnabled' => true));
+    $dompdf->stream("Recibo Abono Créditos.pdf", array("Attachment" => false, 'isRemoteEnabled' => true));
   }
 
 
@@ -175,6 +175,7 @@ class Ventas extends controller
                 $this->mdlVentas->__SET('fechainicial',date("Y-m-d",strtotime($_POST['txtfechainicial'])));
                 $this->mdlVentas->__SET('fechafinal',date("Y-m-d",strtotime($_POST['txtfechafinal'])));
                 $ver = $this->mdlVentas->listarpdf();
+                $totalVentasPorFecha = $this->mdlVentas->listarTotalFecha();
 
             }else{
 
@@ -209,49 +210,53 @@ class Ventas extends controller
 
         public function reporteGanancias()
            {
-             if(isset($_POST['btnconsultarganancia'])){
-               $this->mdlVentas->__SET('fechainicial',date("Y-m-d",strtotime($_POST['txtfechainicial'])));
-               $fecha = $this->mdlVentas->validarFechaGananacia();
+
+                 $this->mdlVentas->__SET('fechainicial',date("Y-m-d",strtotime($_POST['fecha1'])));
+                 $fecha = $this->mdlVentas->validarFechaGananacia();
+
+                 $this->mdlVentas->__SET('fechafinal',date("Y-m-d",strtotime($_POST['fecha2'])));
+                 $fecha2 = $this->mdlVentas->validarFechaGananacia();
+
+                if($fecha == true && $fecha2 == true){
+
+                     $detalles = $this->mdlVentas->listarganancias();
+
+                     $cabecera = "";
+                     $cabecera .= '<th>'.'El promedio de ganancias en el rango de fecha ingresado es de:&nbsp; ';
+                     $cabecera .= '<td class="price"><strong>'.$detalles["ganancias"].'</strong></td>';
+                     $cabecera .= '</th>';
+
+                 echo json_encode([
+                   'html' => $detalles, 'cabecera' => $cabecera
+                 ]);
 
 
-               $this->mdlVentas->__SET('fechafinal',date("Y-m-d",strtotime($_POST['txtfechafinal'])));
-               $fecha2 = $this->mdlVentas->validarFechaGananacia();
+            //    $this->mdlVentas->__SET('fechainicial',date("Y-m-d",strtotime($_POST['fecha1'])));
+            //    $fecha = $this->mdlVentas->validarFechaGananacia();
+             //
+            //    $this->mdlVentas->__SET('fechafinal',date("Y-m-d",strtotime($_POST['fecha2'])));
+            //    $fecha2 = $this->mdlVentas->validarFechaGananacia();
+             //
+            //    if($fecha == true && $fecha2 == true){
+             //
+            //        $this->mdlVentas->__SET('fechainicial',date("Y-m-d",strtotime($_POST['fecha1'])));
+            //        $this->mdlVentas->__SET('fechafinal',date("Y-m-d",strtotime($_POST['fecha2'])));
+            //        $ver = $this->mdlVentas->listarganancias();
+             //
+            //  }
+          }else{
 
-               if($fecha == true && $fecha2 == true){
+                      $cabecera = "";
+                      $cabecera .= '<th>'.'No se encontrarón registros en ese rango de fecha';
+                      // $cabecera .= '<td class="price"><strong>'.$detalles["ganancias"].'</strong></td>';
+                      $cabecera .= '</th>';
 
-                   $this->mdlVentas->__SET('fechainicial',date("Y-m-d",strtotime($_POST['txtfechainicial'])));
-                   $this->mdlVentas->__SET('fechafinal',date("Y-m-d",strtotime($_POST['txtfechafinal'])));
-                   $ver = $this->mdlVentas->listarganancias();
+                  echo json_encode([
+                    'cabecera' => $cabecera
+                  ]);
 
-               }else{
-
-                 $_SESSION['alerta'] = ' swal({
-                   title: "No existen registros en ese rango de fecha!",
-                   type: "error",
-                   confirmButton: "#3CB371",
-                   confirmButtonText: "Aceptar",
-                   // confirmButtonText: "Cancelar",
-                   closeOnConfirm: false,
-                   closeOnCancel: false
-                 })';
-               header("Location:".URL.'Ventas/informeGanancias');
-               exit();
-               }
              }
-            //  require_once APP . 'libs/dompdf/autoload.inc.php';
-            //  // $urlImagen = URL . 'producto/generarcodigo?id=';
-            //  // $productos = $this->mdlproducto->listar();
-            //  ob_start();
-            //  require APP . 'view/Ventas/pdfinformeGanancias.php';
-            //  $html = ob_get_clean();
-            //  $dompdf = new Dompdf();
-            //  $dompdf->loadHtml($html);
-            //  // $dompdf->load_html_file($urlImagen);
-            //  $dompdf->setPaper('A4', 'landscape');
-            //  $dompdf->render();
-            //  $dompdf->stream("Informe Ganancias.pdf", array("Attachment" => false, 'isRemoteEnabled' => true));
-
-           }
+     }
 
 
     public function index(){

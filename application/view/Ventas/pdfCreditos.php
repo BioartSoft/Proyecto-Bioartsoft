@@ -10,7 +10,7 @@
 <body>
   <img src="<?php echo URL ?>img/BioartesV2.png" height="100" width="200">
   <br>
-  <center><legend>INFORME DE CRÉDITOS</legend></center>
+  <center><legend><h2>INFORME GENERAL DE CRÉDITOS</h2></legend></center>
   <br><br>
   <table border="1">
     <thead>
@@ -19,8 +19,6 @@
         <th>Nombres Cliente</th>
         <th>Tipo Cliente</th>
         <th>Valor Crédito</th>
-        <!-- <th>Valor Abonado</th>
-        <th>Saldo Pendiente</th> -->
       </tr>
     </thead>
     <tbody>
@@ -30,8 +28,6 @@
           <td><?= $valor['cliente'] ?></td>
           <td class="price"><?= $valor['Tbl_nombre_tipo_persona'] ?></td>
           <td class="price"><?= $valor['total_venta'] ?></td>
-          <!-- <td class="price"><?= $valor['abonado'] ?></td>
-          <td class="price"><?= $valor['pendiente'] ?></td> -->
       </tr>
     <?php endforeach; ?>
     </tbody>

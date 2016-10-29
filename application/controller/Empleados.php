@@ -8,7 +8,6 @@ use Dompdf\Dompdf;
       private $modeloP;
       private $mdlTipoPersona;
       private $modeloUsuario;
-      private $modelo;
 
       function __construct(){
         $this->modeloP = $this->loadModel("mdlPersona");
@@ -35,6 +34,44 @@ use Dompdf\Dompdf;
         $dompdf->render();
         $dompdf->stream("Informe Pagos.pdf", array("Attachment" => false, 'isRemoteEnabled' => true));
       }
+
+
+      public function generarpdfDetalleAbonos()
+      {
+        $id = $_GET['id'];
+
+        $modelo = $this->loadModel("mdlEmpleados");
+        $listarPrestamos = $modelo->pdfDetallesAbono($id);
+        // var_dump($listarPrestamos);
+        // exit();
+
+        $tabla2 = "";
+        foreach ($listarPrestamos as $val) {
+          $tabla2 .= '<tr>';
+          // $tabla2 .= '<td>' . $val['id_persona'] . '</td>';
+          // $tabla2 .= '<td>' . $val['cliente'] . '</td>';
+          $tabla2 .= '<td style="text-align: center">' . $val['valor_prestamo'] . '</td>';
+          $tabla2 .= '<td style="text-align: center">' . $val['valor'] . '</td>';
+          $tabla2 .= '<td style="text-align: center">' . $val['abonado'] . '</td>';
+          $tabla2 .= '<td style="text-align: center">' . $val['pendiente'] . '</td>';
+          $tabla2 .= '</tr>';
+          // echo "<pre>";
+          // var_dump($tabla2);
+          // exit();
+        }
+
+        require_once APP . 'libs/dompdf/autoload.inc.php';
+        ob_start();
+        require APP . 'view/Empleados/pdfDetallesAbonosPrestamos.php';
+        $html = ob_get_clean();
+        $dompdf = new Dompdf();
+        $dompdf->loadHtml($html);
+        // $dompdf->load_html_file($urlImagen);
+        // $dompdf->setPaper('A4', 'landscape');
+        $dompdf->setPaper([0,0,300,700], 'portrait');
+        $dompdf->render();
+        $dompdf->stream("Recibo Abono Préstamos.pdf", array("Attachment" => false, 'isRemoteEnabled' => true));
+    }
 
 
       public function informePrestamos()
@@ -70,15 +107,15 @@ use Dompdf\Dompdf;
         $tabla = "";
         foreach ($listarPagos as $val) {
           $tabla .= '<tr>';
-          $tabla .= '<td>' . $val['id_persona'] . '</td>';
-          $tabla .= '<td>' . $val['empleado'] . '</td>';
-          $tabla .= '<td>' . $val['Tbl_nombre_tipo_persona'] . '</td>';
-          $tabla .= '<td>' . $val['fecha_pago'] . '</td>';
-          $tabla .= '<td>' . $val['cantidad_dias'] . '</td>';
-          $tabla .= '<td>' . $val['valor_dia'] . '</td>';
+          $tabla .= '<td style="width: 10%">' . $val['id_persona'] . '</td>';
+          $tabla .= '<td style="width: 10%">' . $val['empleado'] . '</td>';
+          $tabla .= '<td style="width: 15%">' . $val['Tbl_nombre_tipo_persona'] . '</td>';
+          $tabla .= '<td style="width: 15%">' . $val['fecha_pago'] . '</td>';
+          $tabla .= '<td>' . $val['tipo_pago'] . '</td>';
+          $tabla .= '<td style="width: 10%">' . $val['cantidad_dias'] . '</td>';
+          $tabla .= '<td style="width: 10%">' . $val['valor_dia'] . '</td>';
           $tabla .= '<td>' . $val['valorComision'] . '</td>';
           $tabla .= '<td>' . $val['total_pago'] . '</td>';
-          $tabla .= '<td>' . $val['tipo_pago'] . '</td>';
           $tabla .= '</tr>';
         }
 
@@ -95,6 +132,41 @@ use Dompdf\Dompdf;
         $dompdf->stream("Informe Pagos.pdf", array("Attachment" => false, 'isRemoteEnabled' => true));
       }
 
+
+      public function generarpdfPrestamos($id)
+      {
+        //$id = $_GET['id'];
+        $this->modeloP->__SET("idPersona", $id);
+
+        $listarPrestamos = $this->modeloP->listarPrestamosEmp();
+        // var_dump($listarPrestamos);
+        // exit();
+
+        $tabla = "";
+        foreach ($listarPrestamos as $val) {
+          $tabla .= '<tr>';
+          $tabla .= '<td>' . $val['id_persona'] . '</td>';
+          $tabla .= '<td>' . $val['empleado'] . '</td>';
+          $tabla .= '<td>' . $val['Tbl_nombre_tipo_persona'] . '</td>';
+          $tabla .= '<td>' . $val['fecha_prestamo'] . '</td>';
+          $tabla .= '<td class="price">' . $val['valor_prestamo'] . '</td>';
+          $tabla .= '<td>' . $val['descripcion'] . '</td>';
+          $tabla .= '<td>' . $val['fecha_limite'] . '</td>';
+          $tabla .= '</tr>';
+        }
+
+        require_once APP . 'libs/dompdf/autoload.inc.php';
+        ob_start();
+        require APP . 'view/Empleados/pdfDetallesPrestamos.php';
+
+        $html = ob_get_clean();
+        $dompdf = new Dompdf();
+        $dompdf->loadHtml($html);
+        // $dompdf->load_html_file($urlImagen);
+        $dompdf->setPaper('A4', 'landscape');
+        $dompdf->render();
+        $dompdf->stream("Informe Pagos.pdf", array("Attachment" => false, 'isRemoteEnabled' => true));
+      }
 
 
       public function ListarPrest(){
@@ -524,6 +596,8 @@ use Dompdf\Dompdf;
                 if($value['fecha_pago'] == $fechaActual){
                 if($value["estado"] == 1){
                     $html .= ' <button  title="Anular" type="button" class="btn btn-success btn-circle btn-md" data-toggle="modal" onclick="cambiarestado('.$value["id_pago"].', 0)"><i class="fa fa-check" aria-hidden="true"></i></button>';
+                }else{
+                  $html .= ' <button  title="Anular" type="button" class="btn btn-success btn-circle btn-md" data-toggle="modal" onclick="cambiarestado('.$value["id_pago"].', 0)"><i class="fa fa-check" aria-hidden="true"></i></button>';
                 }
               }else{
 
@@ -612,13 +686,14 @@ use Dompdf\Dompdf;
                     if ($val["estado_prestamo"] == 0) {
                     $html .= '<td>'.$estado.'</td>';
                     }
-                    if ($val["estado_prestamo"] == 1) {
+                    else if ($val["estado_prestamo"] == 1) {
                     $html .= '<td>'.$estado1.'</td>';
                     }
-                    if ($val["estado_prestamo"] == 3) {
+                    else if ($val["estado_prestamo"] == 3) {
                     $html .= '<td>'.$estado3.'</td>';
-                    }
+                  }else{
                     // $html .= '<td>'.$estado.'</td>';
+                  }
                     $html .= '<td>';
                     if ($val["estado_prestamo"] == 1) {
                     $html.='<button type="button" class="btn btn-warning btn-circle btn-md" onclick="abono('.$val['valor_prestamo'].','.$val['id_prestamos'].','.$valorPen.')"  title="Abonar"><i class="fa fa-money" aria-hidden="true"></i></button>';
@@ -627,10 +702,12 @@ use Dompdf\Dompdf;
                     $html .= ' <button type="button" onclick="traerDetalleAbonos('.$val["id_prestamos"].')" class="btn btn-primary btn-circle btn-md"   title="Ver Abonos"><i class="fa fa-eye" aria-hidden="true" ></i></button>';
                     }
 
-                    if($val['estado_prestamo'] == 3){
+                    else if($val['estado_prestamo'] == 3){
                     $html .= ' <button type="button" onclick="traerDetalleAbonos('.$val["id_prestamos"].')" class="btn btn-primary btn-circle btn-md"   title="Ver Abonos"><i class="fa fa-eye" aria-hidden="true" ></i></button>';
                     $html .= ' <button  title="Cambiar Estado" type="button" class="btn btn-danger btn-circle btn-md" data-toggle="modal" id="btnbotoncheck" onclick="cambiarestadoprestamo('.$val['id_prestamos'].',3 )"><i class="fa fa-refresh" aria-hidden="true"></i></button>';
                     $html .= '</td></tr>';
+                  }else{
+                    
                   }
               }
                     $cabecera = '<tr>';

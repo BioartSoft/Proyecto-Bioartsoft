@@ -79,6 +79,7 @@
 
 		}
 
+
 		public function registrarPagoEmpleadoTemporal()
 		{
 		 	$sql = "CALL SP_registrarPagoEmpleadoTemporal(?,?,?,?)";
@@ -90,6 +91,16 @@
 			$stm->bindParam(4, $this->estado);
 			return $stm->execute();
 		}
+
+
+		public function pdfDetallesAbono($id){
+	    $sql = "CALL SP_Pdf_Detalles_Abono_Prestamo(?)";
+	    $stm = $this->db->prepare($sql);
+	    $stm->bindParam(1, $id);
+	    $stm->execute();
+	    return $stm->fetchAll(2);
+	  }
+
 
 		public function listarPagosEmp()
 		{

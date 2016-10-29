@@ -44,58 +44,53 @@
                     </div>
                     <div class="modal-body">
                       <form class="" action="" method="post">
-                    <div class="row">
-                      <div class="col-md-12">
-                        <div class="panel panel-green" >
-                          <div class="panel-heading">
-                          </div>
-                          <div class="panel-body">
-                            <div class="dataTable_wrapper">
-                              <div class="table-responsive">
-                                <div id="cont-table">
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div class="panel panel-green" >
+                              <div class="panel-heading">
+                              </div>
+                              <div class="panel-body">
+                                <div class="dataTable_wrapper">
+                                  <div class="table-responsive">
+                                    <div id="cont-table">
 
+                                    </div>
+                                  </div>
                                 </div>
                               </div>
                             </div>
+                          </div>
+                        </div>
+                          <button type="button" class="btn btn-secondary btn-active pull-rigth"  data-dismiss="modal" style="margin-left:80%"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
                       </div>
-                     </div>
-                    </div>
-                  </div>
-                    <button type="button" class="btn btn-secondary btn-active pull-rigth"  data-dismiss="modal" style="margin-left:80%"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
-                </div>
-              </td>
-       </tr>
-   </tbody>
-    </table>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
+</div>
+</div>
+</div>
 
-  <div class="col-sm-12">
+      <div class="row">
+      <div class="col-sm-12">
     <center>
     <a href="<?= URL ?>Empleados/informePagos" target="_blank">
       <button class="btn btn-primary"><i class="fa fa-file-pdf-o" aria-hidden="true">   Reporte PDF Pagos</i></button>
     </a>
   </center>
   </div>
+</div>
   </form>
-  </div>
+
   </center>
-              <!-- <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard ="false" data-backdrop = "static">
-                <div class="modal-dialog" role="document" >
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                      <h4 class="modal-title" id="myModalLabel">¿Generar Recibo de pago?</h4>
-                    </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary btn-xs active"  data-dismiss="modal">No</button>
-                        <a href="<?= URL ?>Empleados/reciboPago"><button type="button" class="btn btn-primary btn-xs active">Si</button></a>
-                      </div>
-                    </div>
-                  </div>
-                </div> -->
-              </div>
+
+
   <script type="text/javascript">
     function traerDetallePagos(id) {
       var enlace = $("#pdfDetalPagos");
@@ -103,7 +98,6 @@
       enlace.attr("href", nUrl);
 
       traerNombreEmpleado(id);
-
 
       $.ajax({
         url: url+'Empleados/ajaxDetallePagos',

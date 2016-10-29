@@ -56,6 +56,22 @@ class mdlVentas
  }
 
 
+ public function listarTotalFecha()
+{
+  $sql="CALL SP_Total_Ventas_Por_Fecha(?,?)";
+  try {
+   $ca = $this->db->prepare($sql);
+   $ca->bindParam(1,$this->fechainicial);
+   $ca->bindParam(2,$this->fechafinal);
+  $ca->execute();
+   return $ca->fetchAll(PDO::FETCH_ASSOC);
+  } catch (Exception $e) {
+
+  }
+
+}
+
+
      public function listarganancias()
     {
       $sql="CALL SP_Reporte_Ganancias(?,?)";

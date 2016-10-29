@@ -8,15 +8,15 @@
   </style>
 </head>
 <body>
-<center><legend>INFORME STOCK MINIMO</legend></center>
+<center><legend><2>INFORME STOCK MÍNIMO</h2></legend></center>
   <br><br>
   <table border="1">
     <thead>
       <tr>
-         <th>codigo</th>
+         <th>Código Producto</th>
          <th>Nombre Producto</th>
-         <th>categoria</th>
-         <th>Cantidad </th>
+         <th>Categoría</th>
+         <th>Cantidad Disponible</th>
          <th>Stock</th>
          <th>Precio Detal</th>
          <th>Precio Por Mayor</th>

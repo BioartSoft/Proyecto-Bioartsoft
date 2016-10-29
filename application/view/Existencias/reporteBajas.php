@@ -10,7 +10,9 @@
 <body>
   <img src="<?php echo URL ?>img/BioartesV2.png" height="100" width="200">
   <br>
-<center><legend>INFORME DE BAJAS</legend></center>
+<center><legend><h2>INFORME DE BAJAS</h2></legend></center>
+<?php foreach ($ver as $value): ?>
+<h3>Reporte del mes de: <?= ucfirst($value['fecha']); ?></h3>
   <br><br>
   <table border="1">
     <thead>
@@ -24,7 +26,6 @@
       </tr>
     </thead>
     <tbody>
-       <?php foreach ($ver as $value): ?>
                            <tr>
                              <td><?= $value['id_producto'] ?></td>
                              <td><?= $value['nombre_producto'] ?></td>

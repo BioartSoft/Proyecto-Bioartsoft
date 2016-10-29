@@ -51,6 +51,7 @@
                 $this->mdlCompras->__SET('fechainicial',date("Y-m-d",strtotime($_POST['txtfechainicial'])));
                 $this->mdlCompras->__SET('fechafinal',date("Y-m-d",strtotime($_POST['txtfechafinal'])));
                 $ver = $this->mdlCompras->listarpdf();
+                $totalCompraFecha = $this->mdlCompras->totalPorFecha();
 
                 }else{
                   $_SESSION['alerta'] = ' swal({

@@ -10,7 +10,7 @@
 <body>
 <img src="<?php echo URL ?>img/BioartesV2.png" height="100" width="200">
 <br>
-<center><legend>INFORME DE PRODUTOS</legend></center>
+<center><legend><h2>INFORME GENERAL DE PRODUTOS</h2></legend></center>
   <br><br>
   <table border="1">
     <thead>
@@ -27,7 +27,7 @@
     <tbody>
      <?php foreach ($ver2 as $val) :  ?>
      <tr>
-       <td><?= $val["id_producto"]  ?></td>
+       <td class="price"><?= $val["id_producto"]  ?></td>
        <td><?= $val["nombre_producto"]?></td>
        <td><?= $val["nombre"] ?></td>
        <td><?= $val["cantidad"] ?></td>
@@ -40,3 +40,7 @@
   </table>
 </body>
 </html>
+
+<script type="text/javascript">
+  $(".price").priceFormat({centsLimit: 3, clearPrefix: true});
+</script>

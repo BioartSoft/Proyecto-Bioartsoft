@@ -33,8 +33,12 @@
                   <td><?=  $prestamos['nombres'] ?></td>
                   <td><?=  $prestamos['apellidos'] ?></td>
                   <td><?=  $prestamos['Tbl_nombre_tipo_persona'] ?></td>
-                  <td><button type="button" class="btn btn-primary btn-circle btn-md" data-toggle="modal" data-target="#myJhoan" data-tipop = "<?=  $prestamos['Tbl_nombre_tipo_persona'] ?>" title="Generar Recibo" onclick="traerDetallePrestamos('<?=  $prestamos['id_persona'] ?>')"><i class="fa fa-eye" aria-hidden="true"></i></button></td>
+                  <td><button type="button" class="btn btn-primary btn-circle btn-md" data-toggle="modal" data-target="#myJhoan" data-tipop = "<?=  $prestamos['Tbl_nombre_tipo_persona'] ?>" title="Detalles Préstamo" onclick="traerDetallePrestamos('<?=  $prestamos['id_persona'] ?>')"><i class="fa fa-eye" aria-hidden="true"></i></button>
+                  <a href="<?= URL ?>Empleados/generarpdfPrestamos/<?= $prestamos['id_persona'] ?>" target="_blank" id="pdfDetalPagos">
+                      <button class="btn btn-success btn-circle btn-md" name="btnPdfPagos" title="Generar Pdf"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></button>
+                  </a>
                 </tr>
+              </td>
             </tbody>
               <?php endforeach; ?>
             </table>
@@ -163,12 +167,25 @@
                             </div>
                       </div>
                      </div>
-                              <div class="col-xs-12 col-md-12">
-                          <button type="button" class="btn btn-secondary btn-active"  data-dismiss="modal" style="margin-left:80%" onclick="abrirmodal()"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
-                        </div>
                     </div>
                   </div>
                 </div>
+
+                <div class="row">
+                  <div class="col-xs-12 col-md-8">
+                  <button type="button" class="btn btn-secondary btn-active"  data-dismiss="modal" style="margin-left:80%" onclick="abrirmodal()"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
+                </div>
+              <?php if($_SESSION['ROL'] == 1 || $_SESSION['ROL'] == 3): ?>
+                  <div class="col-md-2">
+                    <a href="<?= URL ?>Empleados/generarpdfDetalleAbonos" target="_blank" id="pdfDetaPrestamos">
+                      <button class="btn btn-primary" name="btnComprasD"><i class="fa fa-file-pdf-o" aria-hidden="true">   Recibo de Abono</i></button>
+                    </a>
+                  </div>
+              <?php else: ?>
+
+              <?php endif; ?>
+                </div>
+                <br>
             </div>
           </div>
         </div>
@@ -187,22 +204,22 @@
                     <div class="row">
                         <input type="hidden" name="txtidprestamo" id="idprestamos">
                         <input type="hidden" name="" id="totalsumaabono">
-                        <div class="col-xs-12 col-md-6">
-                          <label >Valor Abono</label><br>
-                          <input type="number" class="form-control" placeholder="Valor Abono" id="idabono" min="1" name="txtvalorabono" data-parsley-type="integer" data-parsley-required="true">
-                      </div>
                       <div class="col-xs-12 col-md-6">
                           <label >Valor Préstamo</label><br>
                           <input type="text" class="form-control" name="txtresta" placeholder="" id="idvalorPrestamo" readonly="">
                           <input type="hidden" name="txtva" id="idtruefalse" value="true">
                       </div>
+                      <div class="col-xs-12 col-md-6" style="float: right">
+                        <label >Valor Pendiente</label><br>
+                        <input type="text" class="form-control" name="txtpendiente" placeholder="" id="idvalorPendiente" readonly="">
+                      </div>
                       </div>
                       <br>
                       <div class="row">
-                        <div class="col-xs-12 col-md-6" style="float: right">
-                          <label >Valor Pendiente</label><br>
-                          <input type="text" class="form-control" name="txtpendiente" placeholder="" id="idvalorPendiente" readonly="">
-                        </div>
+                        <div class="col-xs-12 col-md-6">
+                          <label >Valor Abono</label><br>
+                          <input type="number" class="form-control" placeholder="Valor Abono" id="idabono" min="1" name="txtvalorabono" data-parsley-type="integer" data-parsley-required="true">
+                      </div>
                       </div>
                     <br><br>
                       <div class="row">
@@ -261,6 +278,9 @@
 
 
     function traerDetallePrestamos(id) {
+      var enlace = $("#pdfDetaPrestamos");
+      var nUrl = '<?= URL ?>Empleados/generarpdfDetalleAbonos?id=' + id;
+      enlace.attr("href", nUrl);
       traerNombreEmpleado(id);
 
       $.ajax({

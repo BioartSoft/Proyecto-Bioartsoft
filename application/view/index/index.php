@@ -36,21 +36,21 @@
             </div>
         </div>
         <div class="col-lg-6 col-md-12">
-            <div class="panel panel-green">
+            <div class="panel panel" style="background-color: #3CB371">
                 <div class="panel-heading">
                     <div class="row">
                         <div class="col-xs-3">
                           <?php foreach ($creditos as $value): ?>
 
-                            <i class="fa fa-credit-card fa-4x">&nbsp;<?= $value?></i>
+                            <i class="fa fa-credit-card fa-4x" style="color: #fff">&nbsp;<?= $value?></i>
                             <p>&nbsp;</p>
                           <?php endforeach; ?>
                         </div>
                         <div class="col-xs-9 text-right">
                             <div class="huge"></div>
-                            <p>Créditos</p>
+                            <p style="color: #fff">Créditos</p>
                               <?php foreach ($creditos as $value): ?>
-                                <?= $value?>
+                                <span style="color: #fff"><?= $value?></span>
                               <?php endforeach; ?>
                         </div>
                     </div>
@@ -68,20 +68,20 @@
 
       <div class="row">
         <div class="col-lg-6 col-md-12">
-            <div class="panel panel-green">
+            <div class="panel panel" style="background-color: #3CB371">
                 <div class="panel-heading">
                     <div class="row">
                           <div class="col-xs-3">
                             <?php foreach ($comprasDia as $compras): ?>
-                                <i class="fa fa-shopping-cart fa-4x">&nbsp;<span class="compras"><?= $compras ?></span></i>
-                                <p>Entradas Día</p>
+                                <i class="fa fa-shopping-cart fa-4x" style="color: #fff">&nbsp;<span class="compras"><?= $compras ?></span></i>
+                                <p style="color: #fff">Entradas Día</p>
                               <?php endforeach; ?>
                           </div>
                           <div class="col-xs-9 text-right">
                             <?php foreach ($comprasMes as $CompraMes): ?>
                                 <div class="huge"></div>
-                                <p>Entradas Mes:</p>
-                                <span class="compras"><?= $CompraMes ?></span>
+                                <p style="color: #fff">Entradas Mes:</p>
+                                <span class="compras" style="color: #fff"><?= $CompraMes ?></span>
                             <?php endforeach; ?>
                           </div>
                     </div>

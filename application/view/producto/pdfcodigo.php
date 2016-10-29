@@ -6,8 +6,8 @@
 		.img{
 			margin: 15px;
 		}
-		@page{ 
-			size: 21.59cm 4.6cm; 
+		@page{
+			size: 21.59cm 4.6cm;
 			margin: 0.1cm;
 		}
 		body{

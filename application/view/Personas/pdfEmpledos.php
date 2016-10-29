@@ -10,7 +10,7 @@
 <body>
 <img src="<?php echo URL ?>img/BioartesV2.png" height="100" width="200">
 <br>
-<center><legend>INFORME  USUARIOS/EMPLEADOS</legend></center>
+<center><legend><h2>INFORME  GENERAL DE USUARIOS/EMPLEADOS</h2></legend></center>
   <br><br>
   <table border="1">
     <thead>
@@ -33,13 +33,13 @@
                                 <td style="width: 10%"><?= $valor['id_persona'] ?></td>
                                 <td><?=  $valor['nombres'] ?></td>
                                 <td><?=  $valor['apellidos'] ?></td>
-                                <td style="width: 14%"><?=  $valor['Tbl_nombre_tipo_persona'] ?></td>
+                                <td style="width: 12%"><?=  $valor['Tbl_nombre_tipo_persona'] ?></td>
                                 <td style="width: 10%"><?=  $valor['nombre_rol'] ?></td>
                                 <td style="width: 8%"><?=  $valor['email'] ?></td>
                                 <td><?=  $valor['celular'] ?></td>
                                 <td><?=  $valor['telefono'] ?></td>
-                                <td><?=  $valor['fecha_Contrato'] ?></td>
-                                <td><?=  $valor['fecha_Terminacion_Contrato'] ?></td>
+                                <td style="width: 10%"><?=  $valor['fecha_Contrato'] ?></td>
+                                <td ><?=  $valor['fecha_Terminacion_Contrato'] ?></td>
                               </tr>
                                 <?php endforeach; ?>
     </tbody>

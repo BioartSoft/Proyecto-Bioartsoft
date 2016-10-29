@@ -10,20 +10,16 @@
 <body>
 <img src="<?php echo URL ?>img/BioartesV2.png" height="100" width="200">
 <br>
-<center><legend>INFORME STOCK MÍNIMO</legend></center>
+<center><legend><h2>INFORME GENERAL  DE STOCK MÍNIMO</h2></legend></center>
   <br><br>
   <table border="1">
     <thead>
       <tr>
-         <th>Código</th>
+         <th>Código Producto</th>
          <th>Nombre Producto</th>
          <th>Categoría</th>
-         <th>Cantidad </th>
+         <th>Cantidad Disponible</th>
          <th>Stock Mínimo</th>
-         <!-- <th>Precio Detal</th>
-         <th>Precio Por Mayor</th>
-         <th>Precio Unitario</th>
-         <th>Estado</th> -->
       </tr>
     </thead>
     <tbody>
@@ -34,16 +30,6 @@
        <td><?= $val["nombre"] ?></td>
        <td><?= $val["cantidad"] ?></td>
        <td><?= $val["stock_minimo"] ?></td>
-       <!-- <td class="precio1"><?= $val["precio_detal"] ?></td>
-       <td class="precio2"><?= $val["precio_por_mayor"] ?></td>
-       <td class="precio3"><?= $val["precio_unitario"] ?></td>
-       <td>
-         <?php if($val['estado'] == 1): ?>
-          Habilitado
-         <?php else:  ?>
-          Inhabilitado
-         <?php endif ?>
-       </td> -->
  </tr>
 
   <?php endforeach ?>

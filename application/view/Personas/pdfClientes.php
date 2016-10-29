@@ -10,7 +10,7 @@
 <body>
 <img src="<?php echo URL ?>img/BioartesV2.png" height="100" width="200">
 <br>
-<center><legend>INFORME  CLIENTES</legend></center>
+<center><legend><h2>INFORME GENERAL DE CLIENTES</h2></legend></center>
   <br><br>
   <table border="1">
     <thead>

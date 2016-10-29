@@ -126,6 +126,8 @@
                     <button class="btn btn-primary" name="btnComprasD"><i class="fa fa-file-pdf-o" aria-hidden="true">   Recibo de Abono</i></button>
                   </a>
                 </div>
+            <?php else: ?>
+
             <?php endif; ?>
               </div>
               <br><br>
