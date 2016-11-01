@@ -210,6 +210,7 @@ class Ventas extends controller
 
         public function reporteGanancias()
            {
+             $error = false;
 
                  $this->mdlVentas->__SET('fechainicial',date("Y-m-d",strtotime($_POST['fecha1'])));
                  $fecha = $this->mdlVentas->validarFechaGananacia();
@@ -244,7 +245,7 @@ class Ventas extends controller
             //        $ver = $this->mdlVentas->listarganancias();
              //
             //  }
-          }else{
+                }else{
 
                       $cabecera = "";
                       $cabecera .= '<th>'.'No se encontrarón registros en ese rango de fecha';
@@ -254,7 +255,6 @@ class Ventas extends controller
                   echo json_encode([
                     'cabecera' => $cabecera
                   ]);
-
              }
      }
 
@@ -570,6 +570,7 @@ private function validarAbonos($idVenta){
       if(isset($_POST['btnRegistrarAbono'])){
         $this->mdlVentas->__SET("valorAbonarCreditoV",$_POST['txtvalorabono']);
         $this->mdlVentas->__SET("codigo_venta", $_POST['txtidprestamoCredV']);
+        $this->mdlVentas->__SET("codigoEmpleado", $_POST['empleadoAbonoVenta']);
         $consultaAbono = $this->mdlVentas->totalAbono($_POST['txtvalorabono']);
         if($consultaAbono['total'] !== null && $consultaAbono['total'] == 0){
           //$this->mdlVentas->__SET("codigo_venta", $_POST['txtidprestamoCredV']);
@@ -625,6 +626,7 @@ private function validarAbonos($idVenta){
             $html .= '<td>'.$val['fechaAbono'].'</td>';
             $html .= '<td class="price">'.$val['valor_abono'].'</td>';
             $html .= '<td class="price">'.$val['saldo_abono'].'</td>';
+            $html .= '<td>'.$val['empleado'].'</td>';
             $html .= '<td>';
             // '<button type="button" class="btn btn-success btn-circle btn-md" onclick="abono('.$val['valor_prestamo'].','.$val['id_prestamos'].')"  title="Abonar"><i class="fa fa-money" aria-hidden="true"></i></button>';
             // $html .= ' <button type="button" class="btn btn-primary btn-circle btn-md" onclick="traerDetalleAbonos('.$val['id_prestamos'].')"  title="Abonar"><i class="fa fa-eye" aria-hidden="true"></i></button>';
@@ -649,6 +651,7 @@ private function validarAbonos($idVenta){
               $cabecera .= '<th>'.'Fecha del Abono'.'</th>';
               $cabecera .= '<th>'.'Valor Abono'.'</th>';
               $cabecera .= '<th>'.'Total Abonado'.'</th>';
+              $cabecera .= '<th>'.'Responsable Abono'.'</th>';
               $cabecera .= '<th>'.'Estado Abono'.'</th>';
               $cabecera .= '</tr>';
 

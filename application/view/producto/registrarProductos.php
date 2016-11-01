@@ -8,10 +8,6 @@
 
 
     <div class="row">
-    <div class="col-md-4">
-        <label for="form-control" class="control-label" style="color: #3CB371">Código *</label>
-        <input name="txtcodigo" id="campoCodigo" type="text" data-parsley-type="number" maxlength="6" min="1" class="form-control"  placeholder="Código" data-parsley-required="true">
-    </div>
 
     <div class="col-md-4">
         <label for="inputTwitter" class="control-label" style="color: #3CB371">Nombre Producto *</label>
@@ -27,15 +23,17 @@
         <?php endforeach ?>
       </select>
     </div>
-  </div>
-  <br><br>
-
-  <div class="row">
 
     <div class="col-md-4">
         <label for="inputTwitter" class="control-label" style="color: #3CB371">Precio Unitario *</label>
         <input name="txtpreciocompra" id="txtpreciocompra" type="number" data-parsley-type="integer" min="0" max="100000" step="10" class="form-control" placeholder="Precio Unitario" data-parsley-required="true">
     </div>
+
+  </div>
+  <br><br>
+
+  <div class="row">
+
     <div class="col-md-4">
         <label for="inputTwitter" class="control-label" style="color: #3CB371">Precio al Detal *</label>
         <input name="txtprecioventa" type="number" id="txtprecioventa" type="text"  data-parsley-type="integer" min="0" step="10" max="100000" class="form-control" placeholder="Precio Detal" data-parsley-required="true">
@@ -45,10 +43,6 @@
         <input id="txtprecioalpormayor" type="number" name="txtprecioalpormayor" data-parsley-type="integer" min="0" step="10" max="100000" class="form-control"  placeholder="Precio por Mayor" data-parsley-required="true">
     </div>
 
-  </div>
-  <br><br>
-
-  <div class="row">
     <div class="col-md-4" id="talla"  style="display: none;" >
       <label for="form-control" style="color: #3CB371">Talla</label>
       <select id="txttalla" name="txttalla" class="form-control" data-parsley-type="alphanum" maxlength="15">
@@ -60,10 +54,16 @@
         <option value="XM">XXL</option>
       </select>
     </div>
+
     <div class="col-md-4" id="tamano" style="display:block" >
       <label for="form-control" style="color: #3CB371">Tamaño</label>
       <input id="txttamano"  name="txttamano" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ@\-\.\\ \/$]+" maxlength="20" placeholder="Tamaño" class="form-control">
     </div>
+
+  </div>
+  <br><br>
+
+  <div class="row">
 
     <div class="col-md-4">
       <label for="inputTwitter" class="control-label" style="color: #3CB371">Stock Mínimo *</label>

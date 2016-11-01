@@ -165,6 +165,7 @@
                          <br>
                          <label >Ingresar Abono</label><br>
                          <input type="number" class="form-control" placeholder="Valor Abono" id="idabono" onblur="validarAbonoCreditoV()" name="txtvalorabono" data-parsley-type="number" data-parsley-required="true">
+                         <input type="text" name="empleadoAbonoVenta" value="<?= $_SESSION['USUARIO_ID']; ?>">
                      </div>
                   </div>
                   <br>

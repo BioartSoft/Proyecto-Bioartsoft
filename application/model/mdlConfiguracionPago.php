@@ -31,6 +31,7 @@
 
 			self::consultaStock($notificaciones, $db);
 			self::consultaCreditos($notificaciones, $db);
+			self::consultaPrestamos($notificaciones, $db);
 
 			return $notificaciones;
 		}
@@ -39,7 +40,6 @@
 
 		public static function consultaCreditos(&$notificaciones, $db){
 			#Consultar créditos de clientes que se cumplen en 5 días
-			//$sql = "SELECT CURDATE() AS fecha_actual, fecha_limite_credito FROM tbl_ventas WHERE DATE_SUB(fecha_limite_credito,INTERVAL 5 DAY) = CURDATE()";
 			$sql = "CALL SP_Notificacion_Creditos()";
 			$stm = $db->prepare($sql);
 			$stm->execute();
@@ -53,6 +53,23 @@
 				];
 			}
 	}
+
+
+	public static function consultaPrestamos(&$notificaciones, $db){
+		#Consultar préstamos de empleados que se cumplen en 5 días
+		$sql = "CALL SP_Notificacion_Prestamos()";
+		$stm = $db->prepare($sql);
+		$stm->execute();
+		$resultado = $stm ->fetchAll(PDO::FETCH_ASSOC);
+
+		if(count($resultado) > 0){
+			$notificaciones[] = [
+				'icono' => 'fa fa-money',
+				'url' => URL . 'Ventas/listarVentasCredito',
+				'texto' => 'Hay Préstamos a punto de vencer ',
+			];
+		}
+}
 
 
 

@@ -131,3 +131,18 @@ function consultarGanancia() {
                   }
 
 </script>
+
+
+<?php if(isset($error) && $error == true): ?>
+<script type="text/javascript">
+swal({
+  title: "No existen registros en ese rango de fecha!",
+  type: "error",
+  confirmButton: "#3CB371",
+  confirmButtonText: "Aceptar",
+  // confirmButtonText: "Cancelar",
+  closeOnConfirm: false,
+  closeOnCancel: false
+});
+</script>
+<?php endif; ?>

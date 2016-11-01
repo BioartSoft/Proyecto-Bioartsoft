@@ -66,18 +66,40 @@ $notificaciones = mdlConfiguracionPago::getNotificaciones();
         <!-- Navigation -->
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0; background-color: #3CB371;">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
              <center>
-                <a class="navbar-brand" href="#"><img src="<?php echo URL ?>img/Logov2.png" alt="" style="width: 150px; height: 35px; margin-left:42px"/></a>
+               <!-- <i class="fa fa-bars" aria-hidden="true"></i> -->
+              <img src="<?php echo URL ?>img/Logov2.png" alt="" style="width: 150px; height: 35px; margin-left:42px; margin-top: 8px"/>
             </center>
             </div>
 
             <ul class="nav navbar-top-links navbar-right">
+
+              <li class="dropdown">
+                  <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                      <i class="fa fa-globe" style="color: #fff"></i>  <i class="fa fa-caret-down" style="color: #fff"></i>
+                  </a>
+                  <ul class="dropdown-menu dropdown-user">
+                      <li class="dropdown">
+                          <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                              <i class="fa fa-users"></i>&nbsp;Administrar Personas&nbsp;<i class="fa fa-caret-down"></i>
+                          </a>
+                          <ul class="nav nav-tabs">
+
+                            <li class="dropdown">
+                              <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                Menú desplegable <span class="caret"></span>
+                              </a>
+                              <ul class="dropdown-menu">
+                                <li>Hola</li>
+                              </ul>
+                            </li>
+                          </ul>
+                        </li>
+                      </li>
+
+                  </ul>
+
+
              <?php if($_SESSION['ROL'] == 1 || $_SESSION['ROL'] == 3): ?>
                  <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown">
@@ -85,21 +107,16 @@ $notificaciones = mdlConfiguracionPago::getNotificaciones();
                     </a>
                     <ul class="dropdown-menu dropdown-alerts">
                         <li>
-
                           <button type="button" style="width: 100%;" class="btn-link" data-toggle="modal" id="configurarVenta" data-target="#myjohnatan" aria-hidden="true" onclick="inhabilitarboton()">Configurar Ventas</button>
                         <form action="<?php echo URL?>Empleados/ListarConfiguraciones" method="POST">
                         <!-- <button type="button" style="width: 100%;" class="btn-link" data-toggle="modal" data-target="#mylopez" aria-hidden="true" name="btnMostrar">Ver Configuración Ventas</button> -->
-
                           <?php if($_SESSION['ROL'] == 3): ?>
                             <form action="<?php echo URL?>Empleados/ListarConfiguraciones" method="POST">
                             <button type="button" style="width: 100%;" class="btn-link" data-toggle="modal" data-target="#my" aria-hidden="true" name="btnMostrar">Configuración de Pago</button>
                             </form>
                           <?php endif; ?>
-
                         </li>
-
                     </ul>
-
                 </li>
               <?php endif; ?>
                <?php if($_SESSION['ROL'] == 1 || $_SESSION['ROL'] == 2 || $_SESSION['ROL'] == 3): ?>

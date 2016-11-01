@@ -180,13 +180,13 @@ use Dompdf\Dompdf;
     private function guardarEmpleadoFijo(){
 
       $this->modeloP->__SET("idPersona", $_POST['txtIdPersona']);
-      $this->modeloP->__SET("nombres", $_POST['txtNombres']);
-      $this->modeloP->__SET("apellidos", $_POST['txtApellidos']);
+      $this->modeloP->__SET("nombres", ucfirst($_POST['txtNombres']));
+      $this->modeloP->__SET("apellidos", ucfirst($_POST['txtApellidos']));
       $this->modeloP->__SET("telefono", $_POST['txtTelefono']);
       $this->modeloP->__SET("celular", $_POST['txtCelular']);
       $this->modeloP->__SET("email", $_POST['txtEmail']);
       $this->modeloP->__SET("tipoPersona", $_POST['txtTipoPersona']);
-      $this->modeloP->__SET("direccion", $_POST['txtDireccion']);
+      $this->modeloP->__SET("direccion", ucfirst($_POST['txtDireccion']));
       $this->modeloP->__SET("genero", $_POST['txtGenero']);
       $this->modeloP->__SET("tipoDocumento", $_POST['txtTipoDocumento']);
       $this->modeloP->__SET("fechaContrato", date("Y-m-d",strtotime($_POST['txtFechaContrato'])));
@@ -234,13 +234,13 @@ use Dompdf\Dompdf;
 
     private function guardarEmpleadoTemp(){
       $this->modeloP->__SET("idPersona", $_POST['txtIdPersona']);
-      $this->modeloP->__SET("nombres", $_POST['txtNombres']);
-      $this->modeloP->__SET("apellidos", $_POST['txtApellidos']);
+      $this->modeloP->__SET("nombres", ucfirst($_POST['txtNombres']));
+      $this->modeloP->__SET("apellidos", ucfirst($_POST['txtApellidos']));
       $this->modeloP->__SET("telefono", $_POST['txtTelefono']);
       $this->modeloP->__SET("celular", $_POST['txtCelular']);
       $this->modeloP->__SET("email", $_POST['txtEmail']);
       $this->modeloP->__SET("tipoPersona", $_POST['txtTipoPersona']);
-      $this->modeloP->__SET("direccion", $_POST['txtDireccion']);
+      $this->modeloP->__SET("direccion", ucfirst($_POST['txtDireccion']));
       $this->modeloP->__SET("genero", $_POST['txtGenero']);
       $this->modeloP->__SET("tipoDocumento", $_POST['txtTipoDocumento']);
       $this->modeloP->__SET("fechaContrato", null);
@@ -286,13 +286,13 @@ use Dompdf\Dompdf;
     private function guardarProveedorNatural(){
 
       $this->modeloP->__SET("idPersona", $_POST['txtIdPersona']);
-      $this->modeloP->__SET("nombres", $_POST['txtNombres']);
-      $this->modeloP->__SET("apellidos", $_POST['txtApellidos']);
+      $this->modeloP->__SET("nombres", ucfirst($_POST['txtNombres']));
+      $this->modeloP->__SET("apellidos", ucfirst($_POST['txtApellidos']));
       $this->modeloP->__SET("telefono", $_POST['txtTelefono']);
       $this->modeloP->__SET("celular", $_POST['txtCelular']);
       $this->modeloP->__SET("email", $_POST['txtEmail']);
       $this->modeloP->__SET("tipoPersona", $_POST['txtTipoPersona']);
-      $this->modeloP->__SET("direccion", $_POST['txtDireccion']);
+      $this->modeloP->__SET("direccion", ucfirst($_POST['txtDireccion']));
       $this->modeloP->__SET("genero", $_POST['txtGenero']);
       $this->modeloP->__SET("tipoDocumento", $_POST['txtTipoDocumento']);
       $this->modeloP->__SET("fechaContrato", null);
@@ -330,21 +330,21 @@ use Dompdf\Dompdf;
     private function guardarProveedorJuridico(){
 
       $this->modeloP->__SET("idPersona", $_POST['txtIdPersona']);
-      $this->modeloP->__SET("nombres", $_POST['txtNombres']);
-      $this->modeloP->__SET("apellidos", $_POST['txtApellidos']);
+      $this->modeloP->__SET("nombres", ucfirst($_POST['txtNombres']));
+      $this->modeloP->__SET("apellidos", ucfirst($_POST['txtApellidos']));
       $this->modeloP->__SET("telefono", $_POST['txtTelefono']);
       $this->modeloP->__SET("celular", $_POST['txtCelular']);
       $this->modeloP->__SET("email", $_POST['txtEmail']);
       $this->modeloP->__SET("tipoPersona", $_POST['txtTipoPersona']);
-      $this->modeloP->__SET("direccion", $_POST['txtDireccion']);
+      $this->modeloP->__SET("direccion", ucfirst($_POST['txtDireccion']));
       $this->modeloP->__SET("genero", $_POST['txtGenero']);
       $this->modeloP->__SET("tipoDocumento", $_POST['txtTipoDocumento']);
       $this->modeloP->__SET("fechaContrato", null);
       $persona = $this->modeloP->guardarPersona();
 
       $this->modeloP->__SET("nitEmpresa", $_POST['txtnit']);
-      $this->modeloP->__SET("nombreEmpresa", $_POST['txtnombreEmpresa']);
-      $this->modeloP->__SET("telefonoEmpresa", $_POST['txtDireccionEmpresa']);
+      $this->modeloP->__SET("nombreEmpresa", ucfirst($_POST['txtnombreEmpresa']));
+      $this->modeloP->__SET("telefonoEmpresa", ucfirst($_POST['txtDireccionEmpresa']));
       $this->modeloP->__SET("idPersona", $_POST['txtIdPersona']);
       $provJur = $this->modeloP->registrarProveedorJuridico();
 
@@ -389,13 +389,13 @@ use Dompdf\Dompdf;
 
       if($email['email'] != 0){
         // Si ya existe no dejar guardar
-        $correo = false;
-        // var_dump("No guardado, ya existe nombre de usuario o correo");
-        // exit();
+        //$correo = false;
+        var_dump("No guardado, ya existe correo");
+        exit();
       } else {
              // Si no existe dejar guardar
-            //  var_dump("Guardado");
-            //    exit();
+             var_dump("Guardado");
+               exit();
 
        $this->modeloP->__SET('idPersona', $_POST['txtidPersona']);
        $consultaProv = $this->modeloP->consultarProveedorJ() ;
@@ -405,12 +405,12 @@ use Dompdf\Dompdf;
             $this->modeloP->__SET('idPersona', $_POST['txtidPersona']);
             $borrar = $this->modeloP->borrarProveedor();
             $this->modeloP->__SET('idPersona', $_POST['txtidPersona']);
-            $this->modeloP->__SET('nombres', $_POST['txtnombre']);
-            $this->modeloP->__SET('apellidos', $_POST['txtapell']);
+            $this->modeloP->__SET('nombres', ucfirst($_POST['txtnombre']));
+            $this->modeloP->__SET('apellidos', ucfirst($_POST['txtapell']));
             $this->modeloP->__SET('celular', $_POST['txtcel']);
             $this->modeloP->__SET('email', $_POST['txtcorreo']);
             $this->modeloP->__SET('telefono', $_POST['txttel']);
-            $this->modeloP->__SET('direccion', $_POST['txtdirecc']);
+            $this->modeloP->__SET('direccion', ucfirst($_POST['txtdirecc']));
             $this->modeloP->__SET('fechaContrato', null);
             $this->modeloP->__SET('genero', null);
             $this->modeloP->__SET('tipoPersona', $_POST['txtTipoEmpleado']);
@@ -429,12 +429,12 @@ use Dompdf\Dompdf;
           }else{
 
             $this->modeloP->__SET('idPersona', $_POST['txtidPersona']);
-             $this->modeloP->__SET('nombres', $_POST['txtnombre']);
-             $this->modeloP->__SET('apellidos', $_POST['txtapell']);
+             $this->modeloP->__SET('nombres', ucfirst($_POST['txtnombre']));
+             $this->modeloP->__SET('apellidos', ucfirst($_POST['txtapell']));
              $this->modeloP->__SET('celular', $_POST['txtcel']);
              $this->modeloP->__SET('email', $_POST['txtcorreo']);
              $this->modeloP->__SET('telefono', $_POST['txttel']);
-             $this->modeloP->__SET('direccion', $_POST['txtdirecc']);
+             $this->modeloP->__SET('direccion', ucfirst($_POST['txtdirecc']));
              $this->modeloP->__SET('fechaContrato', null);
              $this->modeloP->__SET('genero', null);
              $this->modeloP->__SET('tipoPersona', $_POST['txtTipoEmpleado']);
@@ -457,18 +457,18 @@ use Dompdf\Dompdf;
 
           if ($consultaProv != true) {
               $this->modeloP->__SET("nitEmpresa", $_POST['txtNitEmp']);
-              $this->modeloP->__SET("nombreEmpresa", $_POST['txtNombreE']);
+              $this->modeloP->__SET("nombreEmpresa", ucfirst($_POST['txtNombreE']));
               $this->modeloP->__SET("telefonoEmpresa", $_POST['txtTeleEmp']);
               $this->modeloP->__SET("idPersona", $_POST['txtidPersona']);
               $regProvJur = $this->modeloP->registrarProveedorJuridico();
 
               $this->modeloP->__SET('idPersona', $_POST['txtidPersona']);
-              $this->modeloP->__SET('nombres', $_POST['txtnombre']);
-              $this->modeloP->__SET('apellidos', $_POST['txtapell']);
+              $this->modeloP->__SET('nombres', ucfirst($_POST['txtnombre']));
+              $this->modeloP->__SET('apellidos', ucfirst($_POST['txtapell']));
               $this->modeloP->__SET('celular', $_POST['txtcel']);
               $this->modeloP->__SET('email', $_POST['txtcorreo']);
               $this->modeloP->__SET('telefono', $_POST['txttel']);
-              $this->modeloP->__SET('direccion', $_POST['txtdirecc']);
+              $this->modeloP->__SET('direccion', ucfirst($_POST['txtdirecc']));
               $this->modeloP->__SET('fechaContrato', null);
               $this->modeloP->__SET('genero', null);
               $this->modeloP->__SET('tipoPersona', $_POST['txtTipoEmpleado']);
@@ -487,17 +487,17 @@ use Dompdf\Dompdf;
           }else{
 
             $this->modeloP->__SET('nitEmpresa', $_POST['txtNit']);
-            $this->modeloP->__SET('nombreEmpresa', $_POST['txtEmpresa']);
+            $this->modeloP->__SET('nombreEmpresa', ucfirst($_POST['txtEmpresa']));
             $this->modeloP->__SET('telefonoEmpresa', $_POST['txtTele']);
             $modProv = $this->modeloP->modificarProveedor($id);
 
             $this->modeloP->__SET('idPersona', $_POST['txtidPersona']);
-             $this->modeloP->__SET('nombres', $_POST['txtnombre']);
-             $this->modeloP->__SET('apellidos', $_POST['txtapell']);
+             $this->modeloP->__SET('nombres', ucfirst($_POST['txtnombre']));
+             $this->modeloP->__SET('apellidos', ucfirst($_POST['txtapell']));
              $this->modeloP->__SET('celular', $_POST['txtcel']);
              $this->modeloP->__SET('email', $_POST['txtcorreo']);
              $this->modeloP->__SET('telefono', $_POST['txttel']);
-             $this->modeloP->__SET('direccion', $_POST['txtdirecc']);
+             $this->modeloP->__SET('direccion', ucfirst($_POST['txtdirecc']));
              $this->modeloP->__SET('fechaContrato', null);
              $this->modeloP->__SET('genero', null);
              $this->modeloP->__SET('tipoPersona', $_POST['txtTipoEmpleado']);
@@ -572,7 +572,7 @@ use Dompdf\Dompdf;
         // exit();
         if($total['total'] != 0 || $total2['total'] != 0){
           // Si ya existe no dejar guardar
-          $validarUsu = false;
+           $validarUsu = false;
           // var_dump("No guardado, ya existe nombre de usuario o correo");
           // exit();
         } else {
@@ -583,16 +583,20 @@ use Dompdf\Dompdf;
           if($_POST['txtTipoEmpleado'] == 1){
           $this->modeloUsuario->__SET('idUsuario',$id);
           $this->modeloUsuario->__SET('nombreUsuario', $_POST['txtnombreusuario']);
-          $this->modeloUsuario->__SET('rolId', $_POST['txtrol']);
+          if($_POST['idPersona'] == '1234567890'){
+              $this->modeloUsuario->__SET('rolId', 3);
+          }else {
+            $this->modeloUsuario->__SET('rolId', $_POST['txtrol']);
+          }
           $modUsu = $this->modeloUsuario->modificarUsuario();
 
           $this->modeloP->__SET('idPersona', $_POST['idPersona']);
-          $this->modeloP->__SET('nombres', $_POST['txtnombre']);
-          $this->modeloP->__SET('apellidos', $_POST['txtapell']);
+          $this->modeloP->__SET('nombres', ucfirst($_POST['txtnombre']));
+          $this->modeloP->__SET('apellidos', ucfirst($_POST['txtapell']));
           $this->modeloP->__SET('celular', $_POST['txtcel']);
           $this->modeloP->__SET('email', $_POST['txtcorreo']);
           $this->modeloP->__SET('telefono', $_POST['txttel']);
-          $this->modeloP->__SET('direccion', $_POST['txtdirecc']);
+          $this->modeloP->__SET('direccion', ucfirst($_POST['txtdirecc']));
           $this->modeloP->__SET("fechaContrato", date("Y-m-d",strtotime($_POST['txtfechac'])));
           $fecha = $_POST['txtfechac'];
           $this->modeloP->__SET("fechaTerminacion",date("Y-m-d", strtotime($fecha)));
@@ -635,12 +639,12 @@ use Dompdf\Dompdf;
           $modUsu = $this->modeloUsuario->modificarUsuario();
 
           $this->modeloP->__SET('idPersona', $_POST['idPersona']);
-          $this->modeloP->__SET('nombres', $_POST['txtnombre']);
-          $this->modeloP->__SET('apellidos', $_POST['txtapell']);
+          $this->modeloP->__SET('nombres', ucfirst($_POST['txtnombre']));
+          $this->modeloP->__SET('apellidos', ucfirst($_POST['txtapell']));
           $this->modeloP->__SET('celular', $_POST['txtcel']);
           $this->modeloP->__SET('email', $_POST['txtcorreo']);
           $this->modeloP->__SET('telefono', $_POST['txttel']);
-          $this->modeloP->__SET('direccion', $_POST['txtdirecc']);
+          $this->modeloP->__SET('direccion', ucfirst($_POST['txtdirecc']));
           $this->modeloP->__SET("fechaContrato", null);
           $this->modeloP->__SET("fechaTerminacion", null);
           $this->modeloP->__SET('genero', $_POST['txtgenero']);
@@ -699,13 +703,13 @@ use Dompdf\Dompdf;
 
     public function guardarClientes(){
       $this->modeloP->__SET("idPersona", $_POST['txtIdPersona']);
-      $this->modeloP->__SET("nombres", $_POST['txtNombres']);
-      $this->modeloP->__SET("apellidos", $_POST['txtApellidos']);
+      $this->modeloP->__SET("nombres", ucfirst($_POST['txtNombres']));
+      $this->modeloP->__SET("apellidos", ucfirst($_POST['txtApellidos']));
       $this->modeloP->__SET("telefono", $_POST['txtTelefono']);
       $this->modeloP->__SET("celular", $_POST['txtCelular']);
       $this->modeloP->__SET("email", $_POST['txtEmail']);
       $this->modeloP->__SET("tipoPersona", $_POST['txtTipoPersona']);
-      $this->modeloP->__SET("direccion", $_POST['txtDireccion']);
+      $this->modeloP->__SET("direccion", ucfirst($_POST['txtDireccion']));
       $this->modeloP->__SET("genero", $_POST['txtGenero']);
       $this->modeloP->__SET("tipoDocumento", $_POST['txtTipoDocumento']);
       $this->modeloP->__SET("fechaContrato", null);
@@ -771,7 +775,7 @@ use Dompdf\Dompdf;
             if($email['email'] != 0){
               // Si ya existe no dejar guardar
               $correo = false;
-              // var_dump("No guardado, ya existe nombre de usuario o correo");
+              // var_dump("No guardado, ya existe correo");
               // exit();
             } else {
               // Si no existe dejar guardar
@@ -779,12 +783,12 @@ use Dompdf\Dompdf;
               //  exit();
 
               $this->modeloP->__SET('idPersona', $_POST['idPersona']);
-              $this->modeloP->__SET('nombres', $_POST['txtnombre']);
-              $this->modeloP->__SET('apellidos', $_POST['txtapell']);
+              $this->modeloP->__SET('nombres', ucfirst($_POST['txtnombre']));
+              $this->modeloP->__SET('apellidos', ucfirst($_POST['txtapell']));
               $this->modeloP->__SET('celular', $_POST['txtcel']);
               $this->modeloP->__SET('email', $_POST['txtcorreo']);
               $this->modeloP->__SET('telefono', $_POST['txttel']);
-              $this->modeloP->__SET('direccion', $_POST['txtdirecc']);
+              $this->modeloP->__SET('direccion', ucfirst($_POST['txtdirecc']));
               $this->modeloP->__SET('fechaContrato', null);
               $this->modeloP->__SET('genero', $_POST['txtgener']);
               $this->modeloP->__SET('tipoPersona', $_POST['txtTipoCliente']);

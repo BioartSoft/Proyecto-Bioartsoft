@@ -402,10 +402,11 @@ class mdlVentas
 
 
   public function insertarAbonoCreditoVen(){
-    $sql = "CALL SP_Insertar_Abono_CreditoVen	(?,?)";
+    $sql = "CALL SP_Insertar_Abono_CreditoVen	(?,?,?)";
     $stm = $this->db->prepare($sql);
     $stm->bindParam(1, $this->valorAbonarCreditoV);
     $stm->bindParam(2, $this->codigo_venta);
+    $stm->bindParam(3, $this->codigoEmpleado);
     $resultado = $stm->execute();
     return $resultado;
   }

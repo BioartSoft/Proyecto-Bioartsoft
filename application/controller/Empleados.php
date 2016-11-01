@@ -707,7 +707,7 @@ use Dompdf\Dompdf;
                     $html .= ' <button  title="Cambiar Estado" type="button" class="btn btn-danger btn-circle btn-md" data-toggle="modal" id="btnbotoncheck" onclick="cambiarestadoprestamo('.$val['id_prestamos'].',3 )"><i class="fa fa-refresh" aria-hidden="true"></i></button>';
                     $html .= '</td></tr>';
                   }else{
-                    
+
                   }
               }
                     $cabecera = '<tr>';

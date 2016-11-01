@@ -244,12 +244,12 @@ class producto extends Controller{
     $errorNombre = true;
     if(isset($_POST["btnguardarpro"])){
       if($_POST["txtpreciocompra"] <  $_POST["txtprecioventa"] && $_POST["txtpreciocompra"] < $_POST["txtprecioalpormayor"] && $_POST["txtprecioventa"] > $_POST["txtprecioalpormayor"]){
-      $this->mdlproducto->__SET("id_producto", $_POST['txtcodigo']);
-      $ValidarCod = $this->mdlproducto->validarCodigo();
+      // $this->mdlproducto->__SET("id_producto", $_POST['txtcodigo']);
+      // $ValidarCod = $this->mdlproducto->validarCodigo();
       $this->mdlproducto->__SET("nombre_producto", $_POST['txtnombreproducto']);
       $validarNombre = $this->mdlproducto->validarNombre();
-      $this->mdlproducto->__SET("id_producto",$_POST["txtcodigo"]);
-      $this->mdlproducto->__SET("nombre_producto",$_POST["txtnombreproducto"]);
+      // $this->mdlproducto->__SET("id_producto",$_POST["txtcodigo"]);
+      $this->mdlproducto->__SET("nombre_producto",ucfirst($_POST["txtnombreproducto"]));
       $this->mdlproducto->__SET("precio_detal",$_POST["txtprecioventa"]);
       $this->mdlproducto->__SET("precio_por_mayor",$_POST["txtprecioalpormayor"]);
       $this->mdlproducto->__SET("precio_unitario",$_POST["txtpreciocompra"]);
@@ -260,10 +260,6 @@ class producto extends Controller{
 
 
       try{
-
-        if($ValidarCod != false){
-          $errorCodigo = false;
-        }else{
 
           if($validarNombre != false){
             $errorNombre = false;
@@ -276,7 +272,6 @@ class producto extends Controller{
               $error = true;
             }
           }
-      }
     }catch (PDOException $ex) {
         echo  $ex->getMessage();
       }
@@ -319,7 +314,7 @@ class producto extends Controller{
     }
 
 
-    $categorias=$this->mdlproducto->listarca();
+    $categorias = $this->mdlproducto->listarca();
     require APP . 'view/_templates/header.php';
     require APP . 'view/producto/registrarProductos.php';
     require APP . 'view/_templates/footer.php';
@@ -327,48 +322,55 @@ class producto extends Controller{
 
 
   public function registrarCategoria(){
-    // $modeloconfiguracion = $this->loadModel("mdlConfiguracionPago");
-    // $configuracion = $modeloconfiguracion->listarConfiguracion();
-
     $guarda = false;
     $eror = false;
+    $categ = true;
 
     if(isset($_POST['btn-ca'])){
 
-      $this->mdlproducto->__SET("nombre",$_POST["txtnombrec"]);
-      $categoria = $this->mdlproducto->validarNombreCategoria();
+      $this->mdlproducto->__SET("nombre", $_POST["txtnombrec"]);
+      $categoria = $this->mdlproducto->validarNombreCategoria2();
+      // var_dump($categoria);
+      // exit();
 
-      if($this->mdlproducto->Guardarca()){
-        $guarda = true;
+      if($categoria['total'] != 0){
+        $categ = false;
       }else{
-        $eror = true;
+        if($this->mdlproducto->Guardarca()){
+          $guarda = true;
+        }else{
+          $eror = true;
+        }
+
+      if($guarda == true){
+        $_SESSION["alerta"] = 'swal({
+          title: "Guardado exitoso!",
+          type: "success",
+          confirmButton: "#3CB371",
+          confirmButtonText: "Aceptar",
+          // confirmButtonText: "Cancelar",
+          closeOnConfirm: false,
+          closeOnCancel: false
+        })';
       }
 
-    if($guarda == true){
-      $_SESSION["alerta"] = 'swal({
-        title: "Guardado exitoso!",
-        type: "success",
-        confirmButton: "#3CB371",
-        confirmButtonText: "Aceptar",
-        // confirmButtonText: "Cancelar",
-        closeOnConfirm: false,
-        closeOnCancel: false
-      })';
-    }
+      if( $eror == true){
+        $_SESSION["alerta"] =  'swal({
+          title: "Error en el registro!",
+          type: "success",
+          confirmButton: "#3CB371",
+          confirmButtonText: "Aceptar",
+          // confirmButtonText: "Cancelar",
+          closeOnConfirm: false,
+          closeOnCancel: false
+        })';
+      }
 
-    if( $eror == true){
-      $_SESSION["alerta"] =  'swal({
-        title: "Error en el registro!",
-        type: "success",
-        confirmButton: "#3CB371",
-        confirmButtonText: "Aceptar",
-        // confirmButtonText: "Cancelar",
-        closeOnConfirm: false,
-        closeOnCancel: false
-      })';
     }
 
 }
+
+
 
     require APP . 'view/_templates/header.php';
     require APP . 'view/producto/registrarCategoria.php';
@@ -404,7 +406,7 @@ class producto extends Controller{
 
     if(isset($_POST['txtcodigo'])){
 
-      $this->mdlproducto->__SET('nombre', $_POST['txtnombreca']);
+      $this->mdlproducto->__SET('nombre', ucfirst($_POST['txtnombreca']));
       $this->mdlproducto->__SET('id_categoria', $_POST['txtcodigo']);
 
       $validarNombreC = $this->mdlproducto->validarModCategoria();
@@ -515,7 +517,7 @@ class producto extends Controller{
     $noExiste = false;
 
     $this->mdlproducto->id_producto = $_POST["txtcodigo"];
-    $this->mdlproducto->nombre_producto = $_POST["txtnombreproducto"];
+    $this->mdlproducto->nombre_producto = ucfirst($_POST["txtnombreproducto"]);
 
     $validarNombre = $this->mdlproducto->validarModNombre();
     $consultarNombres = $this->mdlproducto->consultarProductos();
@@ -608,7 +610,7 @@ class producto extends Controller{
     $noExisteCategoria = false;
 
     $this->mdlproducto->__SET('id_categoria', $_POST['txtcodigo']);
-    $this->mdlproducto->__SET('nombre',$_POST['txtnombreca']);
+    $this->mdlproducto->__SET('nombre', ucfirst($_POST['txtnombreca']));
 
     $validarNombreC = $this->mdlproducto->validarModCategoria();
     var_dump($validarNombreC);

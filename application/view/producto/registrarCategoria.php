@@ -151,10 +151,11 @@ function cancelar() {
 </script>
 
 
-<!-- <?php if (isset($errorNombreCateg) && $errorNombreCateg == false): ?>
+<?php if (isset($categ) && $categ == false): ?>
   <script type="text/javascript">
+    $(document).ready(function(){
       swal({
-            title: "Nombre categoría ya existe, no se puede registrar!",
+            title: "Nombre ya existe, no se puede registrar!",
             type: "error",
             confirmButton: "#3CB371",
             confirmButtonText: "Aceptar",
@@ -162,5 +163,6 @@ function cancelar() {
             closeOnConfirm: false,
             closeOnCancel: false
           });
+    });
   </script>
-<?php endif; ?> -->
+<?php endif; ?>

@@ -129,11 +129,11 @@ class mdlUsuario
 
 
 
-    public function validarNombreUsu(){
+    public function validarNombreUsu($id){
       $sql = "CALL SP_Validar_nombre_Usu(?, ?)";
       $stm = $this->db->prepare($sql);
       $stm->bindParam(1, $this->nombreUsuario);
-      $stm->bindParam(2, $this->idUsuario);
+      $stm->bindParam(2, $id);
       $stm->execute();
       return $stm->fetch(PDO::FETCH_ASSOC);
     }
@@ -179,8 +179,8 @@ class mdlUsuario
     public function consultarEmail($id){
       $sql = "CALL SP_Consultar_Emails(?, ?)";
       $stm = $this->db->prepare($sql);
-      $stm->bindParam(1, $id);
-      $stm->bindParam(2, $this->correo);
+      $stm->bindParam(1, $this->correo);
+      $stm->bindParam(2, $id);
       $stm->execute();
       return $stm->fetch(PDO::FETCH_ASSOC);
     }
