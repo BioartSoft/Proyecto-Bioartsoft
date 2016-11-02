@@ -5,14 +5,15 @@
     width: 100%;
   }
 </style>
+  <link href="<?php echo URL?>css/Estilos.css" rel="stylesheet">
   <title>Recibo de abono</title>
 </head>
 <body>
   <h2 style="text-align: center">BIOARTES</h2>
-  <div style="text-align: center">
+  <div id="reciboAbonoCredito">
     <p>Nit: </p>
     <p>Centro Comercial Cisneros</p>
-    <p>Teléfono: </p>
+    <p>Teléfono: 513-10-12</p>
     <p>Cra. 51 N° 44 – 69, Local 144 B - Medellín</p>
   </div>
   Recibo de abono número: <strong><?= $val['idabono'] ?></strong><br>
@@ -33,7 +34,6 @@
         <th>Valor Abono</th>
         <th>Total Abonado</th>
         <th>Pendiente</th>
-
       </tr>
     </thead>
     <tbody>

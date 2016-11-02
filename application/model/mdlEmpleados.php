@@ -79,7 +79,6 @@
 
 		}
 
-
 		public function registrarPagoEmpleadoTemporal()
 		{
 		 	$sql = "CALL SP_registrarPagoEmpleadoTemporal(?,?,?,?)";
@@ -312,11 +311,11 @@
 
 		public function modificarprestamos()
 		{
-			$sql = "CALL SP_modificarPrestamo(?,?,?)";
+			$sql = "CALL SP_modificarPrestamo(?,?)";
 			$stm = $this->db->prepare($sql);
 			$stm->bindParam(1, $this->fecha_limite);
-			$stm->bindParam(2, $this->valor_prestamo);
-			$stm->bindParam(3, $this->id_prestamos);
+			// $stm->bindParam(2, $this->valor_prestamo);
+			$stm->bindParam(2, $this->id_prestamos);
 			return $stm->execute();
 		}
 
@@ -357,24 +356,6 @@
 			$stm->bindParam(1, $this->id_prestamos);
 			$stm->execute();
 			return $stm->fetch(PDO::FETCH_ASSOC);
-		}
-
-		public function asociarPago()
-		{
-			$sql = "CALL SP_AsociarPagoaLiquidacion(?)";
-			$stm = $this->db->prepare($sql);
-			$stm->bindParam(1, $this->id_persona);
-			$stm->execute();
-			return $stm->fetch(2);
-		}
-
-		public function asociarPagoPrima()
-		{
-			$sql = "CALL SP_AsociarPrimaLiquidacion(?)";
-			$stm = $this->db->prepare($sql);
-			$stm->bindParam(1, $this->id_persona);
-			$stm->execute();
-			return $stm->fetch(2);
 		}
 
 	}

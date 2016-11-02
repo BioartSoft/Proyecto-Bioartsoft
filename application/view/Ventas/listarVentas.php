@@ -130,7 +130,7 @@
 <?php if($_SESSION['ROL'] == 1 || $_SESSION['ROL'] == 3): ?>
     <div class="col-md-2">
       <a href="<?= URL ?>Ventas/generarpdfDetallesVentas" target="_blank" id="pdfDeta">
-        <button class="btn btn-primary" name="btnComprasD"><i class="fa fa-file-pdf-o" aria-hidden="true">   Pdf Detalles Ventas</i></button>
+        <button class="btn btn-primary" name="btnComprasD"><i class="fa fa-file-pdf-o" aria-hidden="true">   Recibo de Caja</i></button>
       </a>
     </div>
 <?php endif; ?>

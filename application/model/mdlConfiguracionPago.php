@@ -48,7 +48,7 @@
 			if(count($resultado) > 0){
 				$notificaciones[] = [
 					'icono' => 'fa fa-credit-card',
-					'url' => URL . 'Ventas/listarVentasCredito',
+					'url' => URL . 'Ventas/listarClientesCredito',
 					'texto' => 'Hay créditos a punto de vencer ',
 				];
 			}

@@ -27,8 +27,9 @@
             </tr>
           </thead>
           <tbody>
-              <?php foreach ($clientesCredito as $cliente): ?>
-              <tr>
+
+          <?php foreach($notificacionCredito as $cliente): ?>
+              <tr style="color: red">
                 <td><?=  $cliente['id_persona'] ?></td>
                 <td><?=  $cliente['nombres'] ?></td>
                 <td><?=  $cliente['apellidos'] ?></td>
@@ -36,12 +37,12 @@
                 <td><button type="button" class="btn btn-primary btn-circle btn-md" data-toggle="modal" data-target="#myJhoan" data-tipop = "<?=  $cliente['Tbl_nombre_tipo_persona'] ?>" title="Listar Créditos" onclick="traerDetalleCreditoV('<?=  $cliente['id_persona'] ?>')"><i class="fa fa-eye" aria-hidden="true"></i></button>
               </tr>
           <?php endforeach; ?>
+
           </tbody>
         </table>
       </div>
 
-
-        <?php if($_SESSION['ROL'] == 1 || $_SESSION['ROL'] == 3): ?>
+        <!-- <?php if($_SESSION['ROL'] == 1 || $_SESSION['ROL'] == 3): ?>
             <div class="row">
              <div class="col-sm-12">
                <center>
@@ -51,7 +52,7 @@
              </center>
              </div>
            </div>
-       <?php endif; ?>
+       <?php endif; ?> -->
 
             <div class="modal fade" id="mdListarCreditos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard ="false" data-backdrop = "static">
               <div class="modal-dialog" role="document" style="width: 96% !important">
@@ -120,7 +121,8 @@
                 <div class="col-xs-12 col-md-8">
                 <button type="button" class="btn btn-secondary btn-active"  data-dismiss="modal" style="margin-left:80%" onclick="abrirmodal()"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
               </div>
-            <?php if($_SESSION['ROL'] == 1 || $_SESSION['ROL'] == 3): ?>
+              <?php foreach($info as $va): ?>
+            <?php if(($_SESSION['ROL'] == 1 && $va['estado_abono'] == 1) || ($_SESSION['ROL'] == 3 &&  $va['estado_abono'] == 1)): ?>
                 <div class="col-md-2">
                   <a href="<?= URL ?>Ventas/generarpdfDetalleAbonos" target="_blank" id="pdfDeta">
                     <button class="btn btn-primary" name="btnComprasD"><i class="fa fa-file-pdf-o" aria-hidden="true">   Recibo de Abono</i></button>
@@ -129,6 +131,7 @@
             <?php else: ?>
 
             <?php endif; ?>
+          <?php endforeach; ?>
               </div>
               <br><br>
           </div>

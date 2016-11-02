@@ -21,14 +21,26 @@ class Login extends Controller
     }
     $errorVacios = false;
     $error = false;
+    $error2 = false;
     $estado = false;
     if (isset($_POST['btnIniciar'])) {
 
       if ($_POST['txtContras'] != null && $_POST['txtPersona'] != null) {
         $this->modelo-> __SET('nombre_usuario', $_POST['txtPersona']);
+        $usuario = $this->modelo->buscarUsuario2();
+
+        if($usuario['total'] == 0){
+
+          $error2 = true;
+          // var_dump($error2);
+          // exit();
+
+        }else{
+
         $persona = $this->modelo->buscarUsuario();
         $contrasenia = trim(decrypt($persona['clave']));
-        // var_dump($contrasenia, $_POST['txtContras']);
+        // echo "<pre>";
+        // var_dump($persona);
         // exit();
 
           if ($persona['nombre_usuario'] == $_POST['txtPersona'] && $contrasenia == $_POST['txtContras']) {
@@ -44,19 +56,20 @@ class Login extends Controller
 
             }else{
               $estado = true;
-            }
-          }else{
-
-              $error = true;
-
           }
+
         }else{
 
-             $errorVacios = true;
+              $error = true;
         }
+    }
 
-      }
+  }else{
 
+             $errorVacios = true;
+}
+
+}
         require APP.'view/Login/Login.php';
 
       }

@@ -15,6 +15,7 @@
     <link href="<?= URL ?>css/metisMenu.min.css" rel="stylesheet">
     <link href="<?= URL ?>css/sb-admin-2.css" rel="stylesheet">
     <link href="<?= URL ?>css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="<?php echo URL ?>css/sweetalert.css">
 
 </head>
 
@@ -39,21 +40,28 @@
                                         Usuario inhabilitado, no puede ingresar
                                       </p>
                                   </div>
-                                <?php endif ?>
+                                <?php endif; ?>
                                 <?php if ($error == true): ?>
                                   <div class="alert alert-danger ">
                                       <p>
                                         Usuario o contraseña incorrecta
                                       </p>
                                   </div>
-                                <?php endif ?>
+                                <?php endif; ?>
                                 <?php if ($errorVacios==true): ?>
                                   <div class="alert alert-danger ">
                                       <p>
-                                        Por favor ingrese usuario y contraseña
+                                        Por favor ingresar usuario y contraseña
                                       </p>
                                   </div>
-                                <?php endif ?>
+                                <?php endif; ?>
+                                <?php if ($error2 == true): ?>
+                                  <div class="alert alert-danger ">
+                                      <p>
+                                        No existe usuario o contraseña
+                                      </p>
+                                  </div>
+                                <?php endif; ?>
                                   <div class="form-group">
                                       <input class="form-control" placeholder="Nombre de usuario" name="txtPersona" type="text" >
                                   </div>
@@ -76,6 +84,8 @@
     <!-- jQuery -->
     <script src="<?= URL ?>js/jquery.min.js"></script>
 
+    <script type="text/javascript" src="<?php echo URL ?>js/sweetAlert.min.js"></script>
+
     <!-- Bootstrap Core JavaScript -->
     <script src="<?= URL ?>js/bootstrap.min.js"></script>
 
@@ -84,6 +94,20 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="js/sb-admin-2.js"></script>
+
+    <!-- <?php if(isset($error2) && $error2 == true): ?>
+      <script type="text/javascript">
+      swal({
+        title: "No existe nombre de usuario o contraseña!",
+        type: "error",
+        confirmButton: "#3CB371",
+        confirmButtonText: "Aceptar",
+        // confirmButtonText: "Cancelar",
+        closeOnConfirm: false,
+        closeOnCancel: false
+      });
+      </script>
+    <?php endif; ?> -->
 
 </body>
 

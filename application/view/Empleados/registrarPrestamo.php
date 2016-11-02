@@ -235,15 +235,18 @@ function validarfe() {
   var feli = $("#limite").val();
   if (felimite < feli) {
     swal({
-      title: "La fecha modificada no puede ser menor a la fecha límite!",
-      type: "error",
+      title: "La fecha no puede ser menor a la fecha límite!",
+      type: "warning",
       confirmButton: "#3CB371",
+      confirmButtonText: "btn-danger",
+      confirmButtonClass: "btn-danger",
       confirmButtonText: "Aceptar",
-      // confirmButtonText: "Cancelar",
-      closeOnConfirm: false,
-      closeOnCancel: false
-    });
-    return false;
+      closeOnConfirm: true,
+      },
+      function(isConfir){
+        $("#Flimite").val(feli);
+        });
+      return false;
   }else{
     return true;
   }

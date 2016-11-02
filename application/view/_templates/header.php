@@ -25,9 +25,6 @@ $notificaciones = mdlConfiguracionPago::getNotificaciones();
     <!-- MetisMenu CSS -->
     <link href="<?php echo URL?>css/metisMenu.min.css" rel="stylesheet">
 
-    <!-- Timeline CSS -->
-    <!-- <link href="<?php echo URL?>css/timeline.css" rel="stylesheet"> -->
-
     <!-- Custom CSS -->
     <link href="<?php echo URL?>css/sb-admin-2.css" rel="stylesheet">
 
@@ -42,7 +39,6 @@ $notificaciones = mdlConfiguracionPago::getNotificaciones();
 
     <link rel="stylesheet" href="<?php echo URL ?>css/bootstrap-datepicker.css">
 
-    <!-- <link rel="stylesheet" href="<?php echo URL ?>css/bootstrap-datepicker.css"> -->
 
     <link rel="stylesheet" href="<?php echo URL ?>css/jquery.datepick.css">
     <style type="text/css">
@@ -60,11 +56,11 @@ $notificaciones = mdlConfiguracionPago::getNotificaciones();
     <script src="<?= URL ?>js/i18n/es.js"></script>
 </head>
 
-<body>
+<body style="background-color: #FFF">
     <div id="wrapper">
 
         <!-- Navigation -->
-        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0; background-color: #3CB371;">
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0; background-color: #337AB7;">
             <div class="navbar-header">
              <center>
                <!-- <i class="fa fa-bars" aria-hidden="true"></i> -->
@@ -159,7 +155,7 @@ $notificaciones = mdlConfiguracionPago::getNotificaciones();
                 </li>
             </ul>
 
-            <div class="navbar-default sidebar" role="navigation">
+            <div class="navbar sidebar" role="navigation" style="background-color: #FFF">
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
                       <?php
@@ -173,7 +169,7 @@ $notificaciones = mdlConfiguracionPago::getNotificaciones();
                          <?php if($opcion['padre_id'] == ""): ?>
                            <?php if($hijos != ""): ?>
                              <li>
-                                 <a href="<?php echo URL . $opcion['url_menu'] ?>"><i class="fa fa-<?= $opcion['icono_menu'] ?>"></i> <?= $opcion['texto_menu'] ?> <span class="fa arrow"></span></a>
+                                 <a href="<?php echo URL . $opcion['url_menu'] ?>"><i class="fa fa-<?= $opcion['icono_menu'] ?>" style="color: #000"></i> <?= $opcion['texto_menu'] ?> <span class="fa arrow" style="color: #000"></span></a>
                                  <ul class="nav nav-second-level">
                                    <?= $hijos ?>
                                    <?php $hijos = ""; ?>
@@ -553,4 +549,4 @@ $("#porcentajeMaximoDesc").keydown(function(e){
 });
 </script>
 
-<div id="page-wrapper">
+<div id="page-wrapper" style="background: #F5F5F5">

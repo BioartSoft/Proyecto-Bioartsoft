@@ -8,6 +8,7 @@ use Dompdf\Dompdf;
       private $modeloP;
       private $mdlTipoPersona;
       private $modeloUsuario;
+      private $modelo;
 
       function __construct(){
         $this->modeloP = $this->loadModel("mdlPersona");
@@ -220,7 +221,7 @@ use Dompdf\Dompdf;
 
         if (isset($_POST["btnmodificarprestamo"])) {
         $modelo->__SET("fecha_limite",$_POST["txtfechalimetepre"]);
-        $modelo->__SET("valor_prestamo",$_POST["txtvalorprestamos"]);
+        // $modelo->__SET("valor_prestamo",$_POST["txtvalorprestamos"]);
         $modelo->__SET("id_prestamos",$_POST["txthideidprestamo"]);
 
         if ($modelo->modificarprestamos()) {
@@ -310,7 +311,6 @@ use Dompdf\Dompdf;
         require APP . 'view/_templates/footer.php';
       }
 
-
       public function registrarPagos(){
 
         $modelo = $this->loadModel("mdlEmpleados");
@@ -328,7 +328,7 @@ use Dompdf\Dompdf;
             $modelo->__SET("valorVentas", $_POST["txtValorVentas"]);
             $modelo->__SET("valorComision", $_POST["txtvalorcomi"]);
             $modelo->__SET("cantidad_dias", $_POST["txtdiaspagar"]);
-            $modelo->__SET("valor_prima", $_POST["txtvalorprima"]);
+            $modelo->__SET("valor_prima", $_POST["txtValorprimaServicios"]);
             $modelo->__SET("valor_cesantias", $_POST["txtvalorcesantias"]);
             $modelo->__SET("valor_vacaciones", $_POST["txtvalorvacaciones"]);
             $modelo->__SET("estado", 1);
@@ -354,12 +354,12 @@ use Dompdf\Dompdf;
                 $modelo->registrarDetallepagoconfi();
                 $modelo3->ModificarEstadoUsuDesdeLiquidacion($_POST["txtIdentificacion"]);
                 }
-                if ($_POST["tipoPago"] == 3) {
-                $modelo->__SET("id_pago", implode("", $idpa));
-                $modelo->__SET("idTbl_Configuracion", $_POST["tipoPago"]);
-                $modelo->__SET("valorTotal", $_POST["txtvalorprima"]);
-                $modelo->registrarDetallepagoconfi();
-                }
+                // if ($_POST["tipoPago"] == 3) {
+                // $modelo->__SET("id_pago", implode("", $idpa));
+                // $modelo->__SET("idTbl_Configuracion", $_POST["tipoPago"]);
+                // $modelo->__SET("valorTotal", $_POST["txtvalorprima"]);
+                // $modelo->registrarDetallepagoconfi();
+                // }
                     $_SESSION['jhoan'] = ' swal({
                   title: "Guardado exitoso!",
                   type: "success",
@@ -595,9 +595,9 @@ use Dompdf\Dompdf;
                 $fechaActual = date("Y-m-d");
                 if($value['fecha_pago'] == $fechaActual){
                 if($value["estado"] == 1){
-                    $html .= ' <button  title="Anular" type="button" class="btn btn-success btn-circle btn-md" data-toggle="modal" onclick="cambiarestado('.$value["id_pago"].', 0)"><i class="fa fa-check" aria-hidden="true"></i></button>';
+                    $html .= ' <button  title="Anular" type="button" class="btn btn-success btn-circle btn-md" data-toggle="modal" onclick="cambiarestado('.$value["id_pago"].', 0, '.$value['Tbl_Persona_id_persona'].' , \''.$value['tipo_pago'].'\' )"><i class="fa fa-check" aria-hidden="true"></i></button>';
                 }else{
-                  $html .= ' <button  title="Anular" type="button" class="btn btn-success btn-circle btn-md" data-toggle="modal" onclick="cambiarestado('.$value["id_pago"].', 0)"><i class="fa fa-check" aria-hidden="true"></i></button>';
+                  $html .= ' <button  title="Anular" type="button" class="btn btn-success btn-circle btn-md" data-toggle="modal" onclick="cambiarestado('.$value["id_pago"].', 0, '.$value['Tbl_Persona_id_persona'].' , \''.$value['tipo_pago'].'\' )"><i class="fa fa-check" aria-hidden="true"></i></button>';
                 }
               }else{
 
@@ -679,7 +679,7 @@ use Dompdf\Dompdf;
 
                     $estado = $val["estado_prestamo"] == 0?"Pagado":"Pendiente";
                     $estado1 = $val["estado_prestamo"] == 1?"Pendiente":"Pagado";
-                    $estado3 = $val["estado_prestamo"] == 3?"Condonado":"Pendiente";
+                    $estado3 = $val["estado_prestamo"] == 3?"Anulado":"Pendiente";
 
 
                     // $html .= '<td>'.$value['valorTotal'].'</td>';
@@ -918,7 +918,6 @@ use Dompdf\Dompdf;
         }
       }
 
-
       public function ValidarAnularPrestamo()
       {
         $modelo = $this->loadModel("mdlEmpleados");
@@ -932,40 +931,6 @@ use Dompdf\Dompdf;
         {
           echo json_encode(["v"=>null]);
         }
-      }
-
-      public function AsociarPagoLiquidacion()
-      {
-        $modelo = $this->loadModel("mdlEmpleados");
-        $modelo->__SET("id_persona",$_POST["identidad"]);
-        $valorPago = $modelo->asociarPago();
-        $resultadovalorpago = implode('', $valorPago);
-
-        if ($resultadovalorpago) {
-          echo json_encode(["v"=>$resultadovalorpago]);
-        }
-        else
-        {
-          echo json_encode(["v"=>null]);
-        }
-
-      }
-
-      public function AsociarPagoPrima()
-      {
-        $modelo = $this->loadModel("mdlEmpleados");
-        $modelo->__SET("id_persona",$_POST["identidad"]);
-        $valorPagoPrima = $modelo->asociarPagoPrima();
-        $resultadovalorpagoPrima = implode('', $valorPagoPrima);
-
-        if ($resultadovalorpagoPrima) {
-          echo json_encode(["v"=>$resultadovalorpagoPrima]);
-        }
-        else
-        {
-          echo json_encode(["v"=>null]);
-        }
-
       }
 
 	public function retornarAbono()

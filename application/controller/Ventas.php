@@ -51,43 +51,16 @@ class Ventas extends controller
   {
     $id = $_GET['id'];
 
-    $info = $this->mdlVentas->pdfDetallesVenta($id);
-
-    $tabla2 = "";
-    foreach ($info as $val) {
-      $tabla2 .= '<tr>';
-      $tabla2 .= '<td>' . $val['fecha_venta'] . '</td>';
-      // var_dump($tabla);
-      // exit();
-      $tabla2 .= '<td>' . $val['cliente'] . '</td>';
-      $tabla2 .= '<td>' . $val['subtotal_venta'] . '</td>';
-      $tabla2 .= '<td>' . $val['descuento'] . '</td>';
-      $tabla2 .= '<td>' . $val['total_venta'] . '</td>';
-      if($val['tipo_de_pago'] == 1){
-        $tabla2 .= '<td>Crédito</td>';
-      }else{
-        $tabla2 .= '<td>Contado</td>';
-      }
-      $tabla2 .= '</tr>';
-    }
-
     $detalles = $this->mdlVentas->getDetallesVenta($id);
     $info = $this->mdlVentas->getInfoVenta($id);
     $tabla = "";
     foreach ($detalles as $value) {
       $tabla .= '<tr>';
-      $tabla .= '<td>' . $value['nombre_producto'] . '</td>';
-        if($info['Tbl_TipoPersona_idTbl_TipoPersona'] == 6){
-      $tabla .= '<td class="price">' . $value['precio_detal'] . '</td>';
-    }else{
-      $tabla .= '<td class="price">' . $value['precio_por_mayor'] . '</td>';
-    }
-      $tabla .= '<td>' . $value['cantidad'] . ' unidades</td>';
-      if($info['Tbl_TipoPersona_idTbl_TipoPersona'] == 6){
-      $tabla .= '<td class="price">' . $value['cantidad'] * $value['precio_detal'] . '</td>';
-    }else{
-      $tabla .= '<td class="price">' . $value['cantidad'] * $value['precio_por_mayor'] . '</td>';
-    }
+      $tabla .= '<td class="center">' . $value['id_producto'] . '</td>';
+      $tabla .= '<td class="center">' . $value['nombre_producto'] . '</td>';
+      $tabla .= '<td class="center">' . $value['cantidad'] . ' unidades</td>';
+      $tabla .= '<td class="center">' . $value['precio_venta'] . '</td>';
+      $tabla .= '<td class="price center">' . $value['cantidad'] * $value['precio_venta'] . '</td>';
       $tabla .= '</tr>';
     }
 
@@ -115,6 +88,8 @@ class Ventas extends controller
 
     $tabla2 = "";
     foreach ($info as $val) {
+      // var_dump($val);
+      // exit();
       $tabla2 .= '<tr>';
       // $tabla2 .= '<td>' . $val['id_persona'] . '</td>';
       // $tabla2 .= '<td>' . $val['cliente'] . '</td>';
@@ -231,20 +206,6 @@ class Ventas extends controller
                    'html' => $detalles, 'cabecera' => $cabecera
                  ]);
 
-
-            //    $this->mdlVentas->__SET('fechainicial',date("Y-m-d",strtotime($_POST['fecha1'])));
-            //    $fecha = $this->mdlVentas->validarFechaGananacia();
-             //
-            //    $this->mdlVentas->__SET('fechafinal',date("Y-m-d",strtotime($_POST['fecha2'])));
-            //    $fecha2 = $this->mdlVentas->validarFechaGananacia();
-             //
-            //    if($fecha == true && $fecha2 == true){
-             //
-            //        $this->mdlVentas->__SET('fechainicial',date("Y-m-d",strtotime($_POST['fecha1'])));
-            //        $this->mdlVentas->__SET('fechafinal',date("Y-m-d",strtotime($_POST['fecha2'])));
-            //        $ver = $this->mdlVentas->listarganancias();
-             //
-            //  }
                 }else{
 
                       $cabecera = "";
@@ -496,6 +457,17 @@ private function validarAbonos($idVenta){
 
 
 
+  public function listarClientesCredito(){
+
+  $clientesCredito = $this->mdlVentas->listarClientesCreditoV();
+  $notificacionCredito = $this->mdlVentas->listarNotificacionesCredito();
+  require APP . 'view/_templates/header.php';
+  require APP . 'view/Ventas/listarClientesCredito.php';
+  require APP . 'view/_templates/footer.php';
+}
+
+
+
   public function ajaxDetalleCreditosV()
   {
     $detalle = $this->mdlVentas->getDetalleCreditosV($_POST['idPersona']);
@@ -526,14 +498,14 @@ private function validarAbonos($idVenta){
               if($_SESSION['ROL'] == 1 || $_SESSION['ROL'] == 3){
               if($val['estado_credito'] == 1){
                 $html .= '<button type="button" id="idAbonoCreditV_btn" class="btn btn-warning btn-circle btn-md" onclick="abonosV('.$val['total_venta'].','.$val['id_ventas'].','.$pendienteCredit.')" title="Abonar"><i class="fa fa-money" aria-hidden="true"></i></button>';
-                $html .= ' <button  title="Modificar Préstamo" type="button" class="btn btn-success btn-circle btn-md" data-toggle="modal" onclick="ModificarCreditos('.$val['id_ventas'].')"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>';
+                $html .= ' <button  title="Modificar Fecha Crédito" type="button" class="btn btn-success btn-circle btn-md" data-toggle="modal" onclick="ModificarCreditos('.$val['id_ventas'].')"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>';
               }
               $html .= ' <button type="button" onclick="traerDetalleAbonosCreditosV('.$val["id_ventas"].')" class="btn btn-primary btn-circle btn-md" title="Ver Abonos"><i class="fa fa-eye" aria-hidden="true" ></i></button>';
             }
             if($_SESSION['ROL'] == 2){
             if($val['estado_credito'] == 1){
               $html .= '<button type="button" id="idAbonoCreditV_btn" class="btn btn-warning btn-circle btn-md" onclick="abonosV('.$val['total_venta'].','.$val['id_ventas'].','.$pendienteCredit.')" title="Abonar"><i class="fa fa-money" aria-hidden="true"></i></button>';
-              //$html .= ' <button  title="Modificar Préstamo" type="button" class="btn btn-success btn-circle btn-md" data-toggle="modal" onclick="ModificarCreditos('.$val['id_ventas'].')"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>';
+              //$html .= ' <button  title="Modificar Fecha Crédito" type="button" class="btn btn-success btn-circle btn-md" data-toggle="modal" onclick="ModificarCreditos('.$val['id_ventas'].')"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>';
             }
             $html .= ' <button type="button" onclick="traerDetalleAbonosCreditosV('.$val["id_ventas"].')" class="btn btn-primary btn-circle btn-md" title="Ver Abonos"><i class="fa fa-eye" aria-hidden="true" ></i></button>';
           }
@@ -608,6 +580,7 @@ private function validarAbonos($idVenta){
 
     $notificacionCredito = $this->mdlVentas->listarNotificacionesCredito();
     $clientesCredito = $this->mdlVentas->listarClientesCreditoV();
+    //$info = $this->mdlVentas->pdfDetallesAbono($id);
     require APP . 'view/_templates/header.php';
     require APP . 'view/Ventas/listarCreditosVentas.php';
     require APP . 'view/_templates/footer.php';

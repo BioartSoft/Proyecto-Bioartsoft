@@ -73,7 +73,7 @@ $(document).ready(function(){
         $('#fecha_Contrato').val(campos.find("td").eq(4).text());
         $('#idfechafin').val(campos.find("td").eq(5).text());
         $('#fechaliquidacion2').val(campos.find("td").eq(5).text());
-        $('#idfeter').val(campos.find("td").eq(6).text());
+        $('#idfechaPagoPJunio').val(campos.find("td").eq(6).text());
         $('#idfechainicial').val(campos.find("td").eq(7).text());
         $('#estadoem').val(campos.find("td").eq(9).text());
 
@@ -86,16 +86,16 @@ $(document).ready(function(){
             var fechafinContrato = $(listarE).attr("data-fechafin");
             var nombre = $(listarE).attr("data-nombre");
             var fechacontrato = $(listarE).attr("data-fechacontrato");
-            var fechafinprima = $(listarE).attr("data-fechaultimaprima");
+            var PagoPrimaJunio = $(listarE).attr("data-fechaPagoPJunio");
             var fechainicial2 = $(listarE).attr("data-fechaultipago");
             var estaemple = $(listarE).attr("data-estadoemp");
             var emp = $('#tipoEmpleado').val(tipo);
             var identidad = $('#identi').val(identidad);
             var fechafin = $('#idfechafin').val(fechafin);
-            var fechafincontrato = $('#idfechafin').val(fechafinContrato);
+            var fechafincontrato = $('#fechaliquidacion2').val(fechafinContrato);
             var nombre = $('#nombre').val(nombre);
             var fechacontrato = $("#fecha_Contrato").val(fechacontrato);
-            var fechafinprima = $("#idfeter").val(fechafinprima);
+            var PagoPrimaJunio = $("#idfechaPagoPJunio").val(PagoPrimaJunio);
             var fechainicial = $("#idfechainicial").val(fechainicial2);
             var estadoemple = $("#estadoem").val(estaemple);
             var fechaactual = new Date().toJSON().slice(0,10);
@@ -106,8 +106,6 @@ $(document).ready(function(){
                   type: "warning",
                   confirmButton: "#3CB371",
                   confirmButtonText: "btn-danger",
-                  // cancelButtonText: "Cancelar",
-                  // showCancelButton: true,
                   confirmButtonClass: "btn-danger",
                   confirmButtonText: "Aceptar",
                   closeOnConfirm: false,
@@ -134,6 +132,8 @@ $(document).ready(function(){
 
                     if (tipo == "Empleado-fijo"){
 
+                      var fechaactual2 = new Date().toJSON().slice(0,10);
+                      $("#divvalorpenditeprestamo").hide();
                       $("#divDiasLaborados").hide();
                       $("#divPagoTotalPrimates").hide();
                       $("#divValorDiatemporal").hide();
@@ -162,15 +162,27 @@ $(document).ready(function(){
                       $("#btnGuardarliqui").hide();
                       $("#btnGuardarPrima").hide();
                       $("#btnGuardartempo").hide();
-                      $("#divvalorpenditeprestamo").hide();
+                      // $("#divvalorpenditeprestamo").hide();
                       $("#divvalorultipago").hide();
-                      $("#divvalorprimaservicios").hide();
+                      // $("#divvalorprimaservicios").hide();
+                      var datee = fechaactual2;
+                      var elemm = datee.split('-');
+                      var yearr = elemm[0];
+                      var mess = elemm[1];
+                      var diaa = elemm[2];
 
+                      if (mess == 6 && diaa >= 15 && diaa <=30 ) {
+                          $("#divvalorprimaservicios").show();
+                      };
+
+                      if (mess == 12 && diaa >= 15 && diaa <=30 ) {
+                          $("#divvalorprimaservicios").show();
+                      };
                     }
 
 
                     if (tipo == "Empleado-temporal") {
-
+                      $("#divvalorpenditeprestamo").show();
                       $("#divDiasLaborados").show();
                       $("#divValorDia").show();
                       $("#divPagoTotalPrimates").hide();
@@ -201,7 +213,7 @@ $(document).ready(function(){
                       $("#divPagoTotalTemporales").show();
                       $("#divFechacontrato").hide();
                       $("#divFechapagoliquidacion").hide();
-                      $("#divvalorpenditeprestamo").hide();
+                      // $("#divvalorpenditeprestamo").hide();
                       $("#divvalorventas").hide();
                       $("#divvalorultipago").hide();
                       $("#divvalorprimaservicios").hide();

@@ -9,17 +9,9 @@ class Menu{
 
 
   public function getMenu(){
-    $sql = "SELECT
-            	*
-            FROM
-            	tbl_menu t
-            	LEFT JOIN tbl_rol_menu t2 ON t2.id_menu = t.id_menu
-            WHERE t2.id_rol = '" . $_SESSION['ROL'] . "'
-            ORDER BY
-            	COALESCE (t.padre_id, t.id_menu),
-            	t.padre_id IS NULL";
-              // $sql = "CALL SP_Menu";
+    $sql = "CALL SP_Menu(?)";
     $stm = $this->db->prepare($sql);
+    $stm->bindParam(1, $_SESSION['ROL']);
     $stm->execute();
     return  $stm->fetchAll(PDO::FETCH_ASSOC);
   }

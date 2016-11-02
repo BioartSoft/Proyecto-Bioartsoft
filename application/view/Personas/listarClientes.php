@@ -1,14 +1,15 @@
 <div class="row">
   <center>
     <div class="col-lg-12">
-        <h3 class="page-header" style="color: #3CB371; margin-top: 10px; margin-bottom: 10px">Listar Clientes</h3>
+      <br><br>
     </div>
   </center>
 </div>
 <div class="row">
     <div class="col-lg-12">
-        <div class="panel panel-green" >
+        <div class="panel panel-primary">
             <div class="panel-heading" stlyle="height: 70px; width: 100px">
+              <center><span style="color: #fff; margin-top: 10px; margin-bottom: 10px; font-size: 20px">Listar Clientes</span></center>
             </div>
               <div class="panel-body">
                 <div class="dataTable_wrapper">

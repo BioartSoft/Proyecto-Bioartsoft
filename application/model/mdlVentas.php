@@ -352,6 +352,13 @@ class mdlVentas
   }
 
 
+    public function estadoAbono(){
+      $sql= "CALL SP_Consultar_Estado_Abono()";
+      $stm = $this->db->prepare($sql);
+      $stm->execute();
+      return $stm->fetchAll(2);
+    }
+
 
   public function getDetalleCreditosV($idPersona)
   {

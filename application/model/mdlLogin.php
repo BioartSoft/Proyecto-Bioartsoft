@@ -42,6 +42,16 @@ public function buscarUsuario()
 }
 
 
+public function buscarUsuario2()
+{
+  $sql = "CALL	SP_Buscar_Usuario2(?)";
+  $stm = $this->db->prepare($sql);
+  $stm->bindParam(1, $this->nombre_usuario);
+  $stm->execute();
+  return $stm->fetch(PDO::FETCH_ASSOC);
+}
+
+
   public function Creditos()
   {
     $sql = "CALL	SP_Listar_Creditos()";

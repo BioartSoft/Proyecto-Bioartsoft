@@ -91,13 +91,13 @@
         </div>
 
         <div class="modal fade" id="mymodificarprestamo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard ="false" data-backdrop = "static">
-          <div class="modal-dialog modal-md" role="document">
+          <div class="modal-dialog modal-xs" role="document">
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="abrirmodal()">
                   <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title" id="myModalLabel" style="text-align:center; color: #3CB371"> Modificar Préstamo<span id=""></span></h4>
+                <h4 class="modal-title" id="myModalLabel" style="text-align:center; color: #3CB371"> Modificar Fecha Límite<span id=""></span></h4>
               </div>
               <div class="modal-body">
                 <form action="<?php echo URL?>Empleados/ListarPrest" method="POST" id="formModPrest" accept-charset="utf-8" data-parsley-validate="" onsubmit="return validarFechaLim()">
@@ -105,7 +105,7 @@
                   <div class="col-md-12">
                     <div class="panel-body">
                       <div class="row">
-                        <div class="col-xs-12 col-md-6" id="divFechalimite">
+                        <div class="col-xs-12 col-md-6" id="divFechalimite" style="margin-left: 25%">
                           <label>Fecha Límite:</label>
                             <div class="input-group date" data-provide = "datepicker">
                               <div class="input-group-addon" style="border-radius:5px;">
@@ -115,11 +115,11 @@
                             </div>
                         </div>
                         <input type="hidden" id="limitemod">
-                        <div class="col-xs-12 col-md-6" id="divvalorpres">
+                        <!-- <div class="col-xs-12 col-md-6" id="divvalorpres">
                           <label>Valor Préstamo:</label>
-                          <input type="hidden" name="txthideidprestamo" id="idprest">
                           <input type="number" min ="1000" id="valorprestamos" name="txtvalorprestamos" step="1000" class="form-control" data-parsley-required="true">
-                        </div>
+                        </div> -->
+                          <input type="hidden" name="txthideidprestamo" id="idprest">
                       </div>
                     </div>
                   </div>
@@ -249,7 +249,7 @@
 
               $("#btnmodificarprestamo").click(function(){
                 validarFechaLim();
-                  $("#formModPrest").parsley().validate();
+                  $("#formModPrest").parsley().validate();  
                 }
               })
             })
@@ -591,14 +591,18 @@
 
       if (Limite < fechte) {
         swal({
-          title: "La fecha modificada no puede ser menor a la fecha límite!",
-          type: "error",
+          title: "La fecha no puede ser menor a la fecha límite!",
+          type: "warning",
           confirmButton: "#3CB371",
+          confirmButtonText: "btn-danger",
+          confirmButtonClass: "btn-danger",
           confirmButtonText: "Aceptar",
-          closeOnConfirm: false,
-          closeOnCancel: false
-        });
-        return false;
+          closeOnConfirm: true,
+          },
+          function(isConfir){
+            $("#fechalim").val(fechte);
+            });
+          return false;
       }else{
          return true;
       }

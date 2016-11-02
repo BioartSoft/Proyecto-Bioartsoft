@@ -132,19 +132,22 @@
     }
   </script>
   <script type="text/javascript">
-    function cambiarestado(cod, est){
-    swal({
-      title: "¿Realmente Desea Anular el Pago?",
-      type: "warning",
-      confirmButton: "#3CB371",
-      confirmButtonText: "btn-danger",
-      cancelButtonText: "Cancelar",
-      showCancelButton: true,
-      confirmButtonClass: "btn-danger",
-      confirmButtonText: "Aceptar",
-      closeOnConfirm: false,
+    function cambiarestado(cod, est, iden, tipo){
+      if (tipo == "Pago Final") {
+        cambiarEstadoAlAnularLiquidacion(iden);
+      };
+      swal({
+        title: "¿Realmente Desea Anular el Pago?",
+        type: "warning",
+        confirmButton: "#3CB371",
+        confirmButtonText: "btn-danger", 
+        cancelButtonText: "Cancelar",
+        showCancelButton: true,
+        confirmButtonClass: "btn-danger",
+        confirmButtonText: "Aceptar",
+        closeOnConfirm: false,
 
-    },
+      },
     function(isConfirm){
         if (isConfirm) {
           swal({
@@ -192,5 +195,18 @@
       $("#empleado").text(respuesta.html);
 
     });
+  }
+
+  function cambiarEstadoAlAnularLiquidacion(id) {
+    $.ajax({
+      url: url+'Personas/cambiarEstado',
+      type: 'POST',
+      dataType: 'JSON',
+      data: {id: id},
+    })
+    .done(function() {
+    
+    });
+    
   }
   </script>
