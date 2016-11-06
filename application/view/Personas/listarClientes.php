@@ -1,8 +1,6 @@
 <div class="row">
   <center>
-    <div class="col-lg-12">
       <br><br>
-    </div>
   </center>
 </div>
 <div class="row">

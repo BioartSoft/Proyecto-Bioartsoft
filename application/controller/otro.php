@@ -28,6 +28,12 @@ class Otro extends Controller{
         require APP . 'view/_templates/footer.php';
       }
 
+      public function index2(){
+        require APP . 'view/_templates/header.php';
+        require APP . 'view/index/mapa.php';
+        require APP . 'view/_templates/footer.php';
+      }
+
 }
 
 ?>

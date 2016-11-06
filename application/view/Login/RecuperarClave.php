@@ -42,7 +42,7 @@
       <div class="container">
             <div class="row">
                 <div class="col-md-4 col-md-offset-4">
-                    <div class="login-panel panel panel-green">
+                    <div class="login-panel panel panel-primary">
                         <div class="panel-heading">
                            <center>
                             <!-- <img alt="Brand" src="<?= URL ?>img/LOGOv2.png" style="height:100px; width: 300px"> -->
@@ -84,7 +84,7 @@
                                     <div class="form-group">
                                         <input class="form-control" placeholder="E-mail" id="email" name="txtEmailUsu" type="text" data-parsley-type="email">
                                     </div><br>
-                                      <button type="submit" name="btnEnviar-Correo" id="#enviar" class="btn btn-lg btn-success btn-block">Enviar</button>
+                                      <button type="submit" name="btnEnviar-Correo" id="#enviar" class="btn btn-lg btn-primary btn-block">Enviar</button>
 
                                       <a href="<?= URL ?>login/iniciar" class="btn btn-lg btn-default btn-block">Salir</a>
                                     </div>

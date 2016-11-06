@@ -52,24 +52,30 @@
         <?php if($val['estado'] == 1): ?>
 
         <?php if($_SESSION['ROL'] == 1 || $_SESSION['ROL'] == 3): ?>
-          <button type="button" class="btn btn-primary btn-circle btn-md" data-toggle="modal" data-target="#myForm2" onclick="traerDetallesProducto(<?= $val['id_producto'] ?>)" title="Ver Detalles"><i class="fa fa-eye" aria-hidden="true" title="Ver Detalles"></i></button>
+          <button type="button" class="btn btn-primary btn-circle btn-md" data-toggle="modal" data-target="#myForm2"
+          onclick="traerDetallesProducto(<?= $val['id_producto'] ?>)" title="Ver Detalles"><i class="fa fa-eye" aria-hidden="true"
+          title="Ver Detalles"></i></button>
 
-          <button type="button" onclick="Traerdatosdelproducto('<?= $val['id_producto'] ?>')" class="btn btn-success btn-circle btn-md" data-toggle="modal" data-target="#actualizar-producto" title="Modificar"><i class="fa fa-pencil-square-o" aria-hidden="true" title="Modificar"></i></button>
+          <button type="button" onclick="Traerdatosdelproducto('<?= $val['id_producto'] ?>')"
+            class="btn btn-success btn-circle btn-md" data-toggle="modal" data-target="#actualizar-producto" title="Modificar">
+            <i class="fa fa-pencil-square-o" aria-hidden="true" title="Modificar"></i>
+          </button>
+
              <a href="<?= URL ?>producto/generarPdfCodigo?id=<?= $val['id_producto'] ?>" target="_blank">
-           <button class="btn btn-warning btn-circle btn-md" title="Generar Código de Barras">
-             <i class="fa fa-barcode" title="Generar Código de Barras"></i>
-           </button>
-         </a>
+               <button class="btn btn-warning btn-circle btn-md" title="Generar Código de Barras">
+                 <i class="fa fa-barcode" title="Generar Código de Barras"></i>
+               </button>
+             </a>
 
          <button type="button" class="btn btn-danger btn-circle btn-md" onclick="cambiarestado('<?= $val['id_producto']?>')" title="Cambiar Estado"><span class="glyphicon glyphicon-refresh" aria-hidden="true" title="Cambiar Estado"></span></button>
            <?php else : ?>
              <button type="button" class="btn btn-primary btn-circle btn-md" data-toggle="modal" data-target="#myForm2" onclick="traerDetallesProducto(<?= $val['id_producto'] ?>)" title="Ver Detalles"><i class="fa fa-eye" aria-hidden="true" title="Ver Detalles"></i></button>
 
-                <a href="<?= URL ?>producto/generarPdfCodigo?id=<?= $val['id_producto'] ?>" target="_blank">
-              <button class="btn btn-warning btn-circle btn-md" title="Generar Código de Barras">
-                <i class="fa fa-barcode" title="Generar Código de Barras"></i>
-              </button>
-            </a>
+             <a href="<?= URL ?>producto/generarPdfCodigo?id=<?= $val['id_producto'] ?>" target="_blank">
+               <button class="btn btn-warning btn-circle btn-md" title="Generar Código de Barras">
+                 <i class="fa fa-barcode" title="Generar Código de Barras"></i>
+               </button>
+             </a>
 
         <?php endif; ?>
         <?php else:  ?>

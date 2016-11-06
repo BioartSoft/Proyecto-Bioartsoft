@@ -1,12 +1,15 @@
 
 <form id="detallesC" action="<?= URL ?>Compras/registrarCompra" method="post" name="formC" data-parsley-validate="">
+  <div class="panel panel-default">
    <div class="row">
+     <br>
 
-    <h3 class="page-header" style="text-align:center; color: #3CB371; margin-top: 10px; margin-bottom: 10px">Registrar Entradas</h3><br>
-    <div id="frmC" method="post" data-parsley-validate="">
-
+     <div class="panel-heading" stlyle="height: 70px; width: 100px">
+       <center><span style="color: #337AB7; margin-top: 10px; margin-bottom: 10px; font-size: 25px">Registrar Entradas</span></center>
+     </div>
+     <div class="panel-body">
        <div class="col-md-5">
-        <div class="panel panel-default">
+        <div class="panel panel-primary">
           <div class="panel-heading">
             <input type="hidden" name="hdempleado" value="<?= $_SESSION['USUARIO_ID'] ?>">
             <h3 class="panel-title"><strong>Proveedor</strong></h3>
@@ -29,14 +32,8 @@
         <h3 class="panel-title"><strong>Producto</strong></h3>
       </div>
       <div class="panel-body">
-          <!-- <div id="buscar-por-codigo">
-            <div class="input-group">
-              <input id="input-codigo" type="text" class="form-control" disabled="true">
-              <div id="detector-pistola" class="input-group-addon" tabindex="10"><i class="fa fa-barcode"></i></div>
-            </div>
-          </div> -->
           <div class="form-group">
-            <select class="form-control" id="ddlproducto" name="ddlproducto" onchange="ponerPrecio(this)" data-parsley-type="alphanum"  data-parsley-required="true">
+            <select class="form-control" id="ddlproducto" name="ddlproducto" onchange="ponerPrecio(this)" data-parsley-type="alphanum"  data-parsley-required="true" style="width: 85%">
               <option value="">Seleccionar</option>
               <?php foreach ($producto as $value): ?>
                 <?php if($value['estado'] == 1): ?>
@@ -46,6 +43,7 @@
                 <?php endif; ?>
             <?php endforeach; ?>
             </select>
+            <button type="button" class="btn btn-primary pull-right btn-sm" title="Registrar producto" data-toggle="modal" data-target="#modal-registroProducto"><i class="fa fa-plus plus" title="Registrar producto"></i></button>
           </div>
 
           <div class="form-group">
@@ -62,7 +60,7 @@
 </div>
 
   <div class="col-md-7">
-    <div class="panel panel-default detComp">
+    <div class="panel panel-primary detComp">
       <div class="panel-heading">
         <h3 class="panel-title"><strong>Detalles Entrada</strong></h3>
       </div>
@@ -78,8 +76,81 @@
     </div>
   </div>
 </div>
+</div>
 </form>
 <input type="hidden" id="txtProductoS" focus="true" autocomplete="off" >
+
+<div class="modal fade" id="modal-registroProducto" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static">
+   <div class="modal-dialog" role="document">
+     <div class="modal-content">
+       <div class="modal-header">
+         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+           <span aria-hidden="true">&times;</span>
+             </button>
+               <center>
+                 <h4 class="modal-title"  style="color: #337AB7" id="myModalLabel">Registrar Producto (obligatorios *)</h4>
+               </center>
+             </div>
+              <div class="modal-body">
+                <div class="row">
+                  <div class="col-md-4">
+                    <label for="txtnombreProd">Nombre Producto *</label>
+                    <input type="text" name="txtnombreProd" style="width: 100%"class="form-control" id="nombreProd" placeholder="Nombre Producto">
+                  </div>
+                  <div class="col-md-4">
+                      <label for="txtCategoria">Categoría *</label>
+                          <select name="txtCategoria"class="form-control" id="categoria" style="width: 100%" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9!@#\$%\-\.\?_~\\ \\()\/$]+">
+                              <option value="">Seleccionar Categoría</option>
+                              <?php foreach($categoria as $categ): ?>
+                                <option value="<?= $categ['id_categoria'] ?>"><?= $categ['nombre'] ?></option>
+                            <?php endforeach; ?>
+                          </select>
+                    </div>
+                     <div class="col-md-4">
+                        <label for="txtPrecioUnitario">Precio Unitario *</label>
+                        <input type="text" name="txtPrecioUnitario" style="width: 100%"class="form-control" id="precioUnitario" placeholder="Precio Unitario">
+                    </div>
+                  </div>
+                  <br><br>
+
+                  <div class="row">
+                    <div class="col-md-4">
+                        <label for="txtPrecioDetal">Precio Detal *</label>
+                         <input type="text"  name="txtPrecioDetal" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ@\-\.\\ \/$]+" class="form-control" style="width: 100%" id="precioDetal" placeholder="Precio Detal">
+                   </div>
+
+                    <div class="col-md-4">
+                        <label for="txtPorMayor">Precio Por Mayor *</label>
+                          <input type="text"  name="txtPorMayor" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ@\-\.\\ \/$]+" class="form-control" id="precioMayor" placeholder="Precio al Por Mayor">
+                      </div>
+                      <div class="col-md-4">
+                          <label for="txtStock">Stock Mínimo *</label>
+                          <input type="text"  name="txtStock" class="form-control" id="stock" placeholder="Stock Mínimo">
+                      </div>
+                  </div>
+                  <br><br>
+                   <hr>
+                  </div>
+                      <div class="row">
+                      <div class="col-md-3">
+                      </div>
+                         <div class="col-md-3">
+                             <button type="button" name="btnGuardarPersona" id="btn-guardar" class="btn btn-success active" onclick="registrarProducto()"><i class="fa fa-floppy-o" aria-hidden="true">  Guardar</i></button>
+                         </div>
+                           <div class="col-md-1">
+                           </div>
+                         <div class="col-md-3">
+                           <button type="reset" class="btn btn-secondary active" data-dismiss="modal"><i class="fa fa-remove" aria-hidden="true">  Cerrar</i></button>
+                        </div>
+                     <div class="col-md-2">
+                  </div>
+                </div>
+                <br>
+              </div>
+             </div>
+           </div>
+         </div>
+
 <style media="screen">
   #txtProductoS{
     border: 0 !important;
@@ -304,4 +375,83 @@
      $(".subtotal").val(subtotal);
 
    }//Fin método sumar Subtotal
+ </script>
+
+
+ <script type="text/javascript">
+   function registrarProducto(){
+
+     var nombreProd = $("#nombreProd").val();
+     var categ = $("#categoria").val();
+     var precioUnit = $("#precioUnitario").val();
+     var precioDet = $("#precioDetal").val();
+     var precioMay = $("#precioMayor").val();
+     var stockMin = $("#stock").val();
+
+     if(nombreProd == "" || categ == "" || precioUnit == "" || precioDet == "" || precioMay == "" || stockMin == ""){
+       swal({
+         title: "Hay campos vacíos, no se puede guardar!",
+         type: "error",
+         confirmButton: "#3CB371",
+         confirmButtonText: "Aceptar",
+         closeOnConfirm: false,
+         closeOnCancel: false
+       });
+     }else {
+
+     $.ajax({
+       type: 'post',
+       url: '<?= URL ?>/Compras/registrarProducto',
+       data: {
+         nombreProd: nombreProd,
+         categ: categ,
+         precioUnit: precioUnit,
+         precioDet: precioDet,
+         precioMay: precioMay,
+         stockMin: stockMin
+       }
+     }).done(function(data){
+       if(data.error == true){
+         swal({
+           title: "Ocurrio un error!",
+           type: "error",
+           confirmButton: "#3CB371",
+           confirmButtonText: "Aceptar",
+           // confirmButtonText: "Cancelar",
+           closeOnConfirm: false,
+           closeOnCancel: false
+         });
+       } else if(data.error == false){
+         var select = $("#ddlproducto");
+         var option = $("<option/>").html(data.nombre);
+         select.select2("destroy");
+         select.prepend(option);
+         select.select2({
+           width: "100%",
+         });
+         $("#modal-registroProducto").modal("hide");
+         select.select2('open');
+         swal({
+           title: "Guardado exitoso!",
+           type: "success",
+           confirmButton: "#3CB371",
+           confirmButtonText: "Aceptar",
+           // confirmButtonText: "Cancelar",
+           closeOnConfirm: false,
+           closeOnCancel: false
+         },
+         function(isConfir){
+             if (isConfir) {
+                 window.location.reload();
+               }else {
+                  window.location.reload();
+               }
+               });
+       } else {
+
+       }
+
+       });
+     }
+ }
  </script>

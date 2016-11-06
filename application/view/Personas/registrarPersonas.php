@@ -90,7 +90,7 @@
           <div class="col-md-4">
             <label for="" style="color: #3CB371">Género *</label>
             <select id="genero" name="txtGenero" class="form-control" style="width: 100%" pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+" data-parsley-required="true">
-                <option value="">Género</option>
+                <option value="">Seleccionar</option>
                  <option value="Masculino">Masculino</option>
                  <option value="Femenino">Femenino</option>
             </select>

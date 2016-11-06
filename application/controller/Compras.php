@@ -21,6 +21,7 @@
       $proveedor = $this->mdlProveedor->listar();
       $proveedorJ = $this->mdlProveedor->listarJuridico();
       $producto = $this->mdlProducto->listar();
+      $categoria = $this->mdlProducto->listarca();
 
       require APP . 'view/_templates/header.php';
       require APP . 'view/Compras/registrarCompra.php';
@@ -289,6 +290,24 @@
         'proveedor' => $info['proveedor'],
         'total' => $info['total'],
         'html' => $html,
+      ]);
+    }
+
+
+    public function registrarProducto(){
+      $this->mdlProducto->__SET("nombre_producto", ucfirst($_POST['nombreProd']));
+      $this->mdlProducto->__SET("Tbl_Categoria_idcategoria", ($_POST['categ']));
+      $this->mdlProducto->__SET("precio_unitario", $_POST['precioUnit']);
+      $this->mdlProducto->__SET("precio_detal", $_POST['precioDet']);
+      $this->mdlProducto->__SET("precio_por_mayor", $_POST['precioMay']);
+      $this->mdlProducto->__SET("stock", $_POST['stockMin']);
+      $producto = $this->mdlProducto->guardar();
+      header("Content-Type: application/json");
+      echo json_encode([
+        'error' => $producto? false : true,
+        'id' => $this->mdlProducto->ultimoId(),
+        'nombre' => $this->mdlProducto->nombre_producto,
+        'codigo'=>$this->mdlProducto->codigo
       ]);
     }
 

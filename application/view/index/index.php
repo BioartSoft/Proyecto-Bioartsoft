@@ -2,7 +2,7 @@
   <div class="row">
       <center>
         <div class="col-lg-12">
-            <h1 class="page-header" style="font-family: fantasy; text-align:center; color: #3CB371">BIOARTSOFT</h1>
+            <h1 class="page-header" style="font-family: fantasy; text-align:center; color: #337BA7">BIOARTSOFT</h1>
         </div>
       </center>
     </div>

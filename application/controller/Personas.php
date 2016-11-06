@@ -386,6 +386,8 @@ use Dompdf\Dompdf;
       $this->modeloUsuario->__SET("correo", $_POST['txtcorreo']);
 
       $email = $this->modeloUsuario->consultarEmail($id);
+      // var_dump($id);
+      // exit();
 
       if($email['email'] != 0){
         // Si ya existe no dejar guardar
@@ -524,6 +526,9 @@ use Dompdf\Dompdf;
       $TipoProveedor = $this->modeloP->tipoPersonaProveedores();
       $tipoProveedores = $this->modeloP->tipoPersonaProveedor();
       $listarP= $this->modeloP->ListarProveedor();
+      // echo "<pre>";
+      // var_dump($id);
+      // exit();
       //$ListarPID = $this->modeloP->ListarProveedorID($Id);
       require APP . 'view/_templates/header.php';
       require APP . 'view/Personas/listarProveedores.php';

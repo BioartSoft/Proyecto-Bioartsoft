@@ -1,5 +1,6 @@
 <?php
 
+
 class Login extends Controller
 {
   private $modelo;
@@ -32,16 +33,11 @@ class Login extends Controller
         if($usuario['total'] == 0){
 
           $error2 = true;
-          // var_dump($error2);
-          // exit();
 
         }else{
 
         $persona = $this->modelo->buscarUsuario();
         $contrasenia = trim(decrypt($persona['clave']));
-        // echo "<pre>";
-        // var_dump($persona);
-        // exit();
 
           if ($persona['nombre_usuario'] == $_POST['txtPersona'] && $contrasenia == $_POST['txtContras']) {
             $_SESSION['SESION INICIADA'] = true;
@@ -67,9 +63,9 @@ class Login extends Controller
   }else{
 
              $errorVacios = true;
-}
+       }
 
-}
+  }
         require APP.'view/Login/Login.php';
 
       }

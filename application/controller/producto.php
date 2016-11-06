@@ -5,10 +5,10 @@ use Dompdf\Dompdf;
 class producto extends Controller{
 
 
-  private $mdlproducto;
-  private $mdlexistencias;
+    private $mdlproducto;
+    private $mdlexistencias;
 
-  public function __construct(){
+    public function __construct(){
 
     $this->mdlproducto = $this->loadModel("mdlProducto");
     $this->mdlexistencias = $this->loadModel("mdlExistencias");
@@ -18,9 +18,6 @@ class producto extends Controller{
     public function informestock()
     {
     require_once APP . 'libs/dompdf/autoload.inc.php';
-      // $urlImagen = URL . 'producto/generarcodigo?id=';
-      // $productos = $this->mdlproducto->listar();
-
      $stock=$this->mdlproducto->listarstock();
       ob_start();
       require APP . 'view/producto/pdfstock.php';
@@ -34,36 +31,38 @@ class producto extends Controller{
     }
 
 
-  public function generarPdfCodigo(){
-    $id = $_GET['id'];
-    require_once APP . 'libs/dompdf/autoload.inc.php';
-    $urlImagen = URL . 'producto/generarcodigo?id=' . $id;
-    ob_start();
-    require APP . 'view/producto/pdfcodigo.php';
-    $html = ob_get_clean();
+    public function generarPdfCodigo(){
+      $id = $_GET['id'];
+      require_once APP . 'libs/dompdf/autoload.inc.php';
+      $urlImagen = URL . 'producto/generarcodigo?id=' . $id;
+      ob_start();
+      require APP . 'view/producto/pdfcodigo.php';
+      $html = ob_get_clean();
 
-    $dompdf = new Dompdf();
-    $dompdf->loadHtml($html);
-    // $dompdf->load_html_file($urlImagen);
-    $dompdf->setPaper('A4', 'landscape');
-    $dompdf->render();
-    $dompdf->stream("Codigos.pdf", array("Attachment" => false, 'isRemoteEnabled' => true));
-  }
+      $dompdf = new Dompdf();
+      $dompdf->loadHtml($html);
+      // $dompdf->load_html_file($urlImagen);
+      $dompdf->setPaper('A4', 'landscape');
+      $dompdf->render();
+      $dompdf->stream("Codigos.pdf", array("Attachment" => false, 'isRemoteEnabled' => true));
+    }
 
-  public function generarPdfCodigoProductos(){
-    require_once APP . 'libs/dompdf/autoload.inc.php';
-    $urlImagen = URL . 'producto/generarcodigo?id=';
-    $productos = $this->mdlproducto->listar();
-    ob_start();
-    require APP . 'view/producto/pdfCodigoProductos.php';
-    $html = ob_get_clean();
-    $dompdf = new Dompdf();
-    $dompdf->loadHtml($html);
-    // $dompdf->load_html_file($urlImagen);
-    $dompdf->setPaper('A4', 'landscape');
-    $dompdf->render();
-    $dompdf->stream("Codigos.pdf", array("Attachment" => false, 'isRemoteEnabled' => true));
-  }
+
+    public function generarPdfCodigoProductos(){
+      require_once APP . 'libs/dompdf/autoload.inc.php';
+      $urlImagen = URL . 'producto/generarcodigo?id=';
+      $productos = $this->mdlproducto->listar();
+      ob_start();
+      require APP . 'view/producto/pdfCodigoProductos.php';
+      $html = ob_get_clean();
+      $dompdf = new Dompdf();
+      $dompdf->loadHtml($html);
+      // $dompdf->load_html_file($urlImagen);
+      $dompdf->setPaper('A4', 'landscape');
+      $dompdf->render();
+      $dompdf->stream("Codigos.pdf", array("Attachment" => false, 'isRemoteEnabled' => true));
+    }
+
 
   public function validacion(){
       $this->mdlproducto->__SET("id_producto", $_POST['campoCodigo']);
@@ -86,6 +85,7 @@ class producto extends Controller{
         echo "0";
   }
 
+
    public function guardarImagenCodigo($url, $nombre){
     $ruta = APP . "imagenes/$nombre.png";
     $content = file_get_contents($url);
@@ -100,13 +100,12 @@ class producto extends Controller{
     return realpath($ruta);
   }
 
+
     public function informefproducto()
     {
      $ver2= $this->mdlproducto->listarpdfp();
-    require_once APP . 'libs/dompdf/autoload.inc.php';
-      // $urlImagen = URL . 'producto/generarcodigo?id=';
-      // $productos = $this->mdlproducto->listar();
-        $ver2 = $this->mdlproducto->listarpdfp();
+      require_once APP . 'libs/dompdf/autoload.inc.php';
+      $ver2 = $this->mdlproducto->listarpdfp();
       ob_start();
       require APP . 'view/producto/pdfinformepf.php';
       $html = ob_get_clean();
@@ -142,7 +141,6 @@ class producto extends Controller{
        if(isset($_POST['btnconsultar'])){
          $this->mdlexistencias->__SET('fechainicial',date("Y-m-d",strtotime($_POST['txtfechainicial'])));
          $fecha = $this->mdlexistencias->validarFechaBaja();
-
          $this->mdlexistencias->__SET('fechafinal',date("Y-m-d",strtotime($_POST['txtfechafinal'])));
          $fecha2 = $this->mdlexistencias->validarFechaBaja();
 
@@ -180,8 +178,6 @@ class producto extends Controller{
        $dompdf->render();
        $dompdf->stream("Informe Bajas.pdf", array("Attachment" => false, 'isRemoteEnabled' => true));
      }
-
-
 
 
   public function registrarBajas(){
@@ -234,7 +230,6 @@ class producto extends Controller{
     require APP . 'view/Existencias/listarbajas.php';
     require APP . 'view/_templates/footer.php';
   }
-
 
 
   public function registrarProductos(){
@@ -369,19 +364,13 @@ class producto extends Controller{
     }
 
 }
-
-
-
     require APP . 'view/_templates/header.php';
     require APP . 'view/producto/registrarCategoria.php';
     require APP . 'view/_templates/footer.php';
-
   }
 
 
   public function listarProductos($id = 0,$tipo = 0){
-    // $modeloconfiguracion = $this->loadModel("mdlConfiguracionPago");
-    // $configuracion = $modeloconfiguracion->listarConfiguracion();
     $actualizado = false;
     if(isset($_POST['txtcodigo'])){
     $actualizado = $this->modificarProducto();
@@ -395,9 +384,6 @@ class producto extends Controller{
 
 
   public function listarCategorias(){
-    // $modeloconfiguracion = $this->loadModel("mdlConfiguracionPago");
-    // $configuracion = $modeloconfiguracion->listarConfiguracion();
-
     $guardar=false;
     $error=false;
     $existeCategoria = false;
@@ -444,12 +430,7 @@ class producto extends Controller{
                 closeOnCancel: false
               })';
 
-          // var_dump("no guardado");
-          // exit();
-
         }else if(($existeCategoria === true && $existeCategoria2 === false) || $noExisteCategoria === true){
-          // var_dump("guardado");
-          // exit();
 
           $resultado = $this->mdlproducto->ModificarCategoria();
 
@@ -511,7 +492,6 @@ class producto extends Controller{
 
 
   private function modificarProducto(){
-
     $existe = false;
     $existe2 = false;
     $noExiste = false;
@@ -572,8 +552,6 @@ class producto extends Controller{
       $this->mdlproducto->Tamano = $_POST["txttamano"];
       $this->mdlproducto->Talla = "";
     }
-    // $this->mdlproducto->Talla = $_POST["txttalla"];
-    // $this->mdlproducto->Tamano = $_POST["txttamano"];
     $this->mdlproducto->stock = $_POST["txtstock"];
 
     if($this->mdlproducto->actualizarProducto()){
@@ -639,7 +617,6 @@ class producto extends Controller{
     }
 
     $this->mdlproducto-> ModificarCategoria();
-    // console.log($this->mdlproducto-> ModificarCategoria());
   }
 
 
@@ -764,6 +741,5 @@ class producto extends Controller{
    })';
   }
 }
-
 
 }

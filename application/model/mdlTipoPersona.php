@@ -33,6 +33,14 @@
     }
 
 
+    public function listarTipoClientes(){
+      $sql = "CALL SP_Listar_Tipo_Clientes()";
+      $stm = $this->db->prepare($sql);
+      $stm->execute();
+      return $stm->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
 
     public function listarTipoPerVendedor(){
         $sql="CALL SP_Listar_TipoPersona_Vendedor";

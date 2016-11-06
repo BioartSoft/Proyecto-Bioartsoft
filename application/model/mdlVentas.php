@@ -162,14 +162,14 @@ class mdlVentas
   }
 
 
-    public function insertarDetalleVenta($codigoProd, $cant, $precioProducto){
-    $sql = "CALL 	SP_InsertarDetalleVenta(?,?,?,?)";
+    public function insertarDetalleVenta($codigoProd, $cant, $precioProducto, $precioUnitario){
+    $sql = "CALL 	SP_InsertarDetalleVenta(?,?,?,?,?)";
     $stm = $this->db->prepare($sql);
     $stm->bindParam(1, $codigoProd);
     $stm->bindParam(2, $this->codigo_venta);
     $stm->bindParam(3, $cant);
     $stm->bindParam(4, $precioProducto);
-    // $stm->bindParam(5, $precioUnitario);
+    $stm->bindParam(5, $precioUnitario);
     return $stm->execute();
   }
 

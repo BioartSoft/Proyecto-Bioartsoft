@@ -9,6 +9,7 @@ class Ventas extends controller
   private $mdlCliente;
   private $mdlProducto;
   private $mdlTipoPersona;
+  private $modeloP;
 
 
   public function __construct(){
@@ -16,6 +17,7 @@ class Ventas extends controller
     $this->mdlCliente = $this->loadModel("mdlCliente");
     $this->mdlProducto = $this->loadModel("mdlProducto");
     $this->mdlTipoPersona = $this->loadModel("mdlTipoPersona");
+    $this->modeloP = $this->loadModel("mdlPersona");
 
   }
 
@@ -91,16 +93,11 @@ class Ventas extends controller
       // var_dump($val);
       // exit();
       $tabla2 .= '<tr>';
-      // $tabla2 .= '<td>' . $val['id_persona'] . '</td>';
-      // $tabla2 .= '<td>' . $val['cliente'] . '</td>';
       $tabla2 .= '<td style="text-align: center">' . $val['total_venta'] . '</td>';
       $tabla2 .= '<td style="text-align: center">' . $val['valor_abono'] . '</td>';
       $tabla2 .= '<td style="text-align: center">' . $val['total_abonado'] . '</td>';
       $tabla2 .= '<td style="text-align: center">' . $val['pendiente'] . '</td>';
       $tabla2 .= '</tr>';
-      // echo "<pre>";
-      // var_dump($tabla2);
-      // exit();
     }
 
     require_once APP . 'libs/dompdf/autoload.inc.php';
@@ -259,9 +256,18 @@ class Ventas extends controller
             $C = $this->mdlVentas->insertarVentaCredito();
             if($C){
               for ($i=0; $i < count($_POST['producto']); $i++) {
-                $this->mdlVentas-> insertarDetalleVenta($_POST['producto'][$i], $_POST['cantidad'][$i], $_POST['precioProducto'][$i]);
-
+                $this->mdlVentas-> insertarDetalleVenta($_POST['producto'][$i], $_POST['cantidad'][$i], $_POST['precioProducto'][$i], $_POST['precioUnitario'][$i]);
               }
+            }else{
+              $_SESSION['alerta'] = 'swal({
+                title: "Error en el registro!",
+                type: "error",
+                confirmButton: "#3CB371",
+                confirmButtonText: "Aceptar",
+                // confirmButtonText: "Cancelar",
+                closeOnConfirm: false,
+                closeOnCancel: false
+              })';
             }
 
           } else {
@@ -275,9 +281,19 @@ class Ventas extends controller
             $C = $this->mdlVentas->insertarVenta();
             if($C){
               for ($i=0; $i < count($_POST['producto']); $i++) {
-                $this->mdlVentas-> insertarDetalleVenta($_POST['producto'][$i], $_POST['cantidad'][$i], $_POST['precioProducto'][$i]);
+                $this->mdlVentas-> insertarDetalleVenta($_POST['producto'][$i], $_POST['cantidad'][$i], $_POST['precioProducto'][$i], $_POST['precioUnitario'][$i]);
 
               }
+            }else{
+              $_SESSION['alerta'] = 'swal({
+                title: "Error en el registro!",
+                type: "error",
+                confirmButton: "#3CB371",
+                confirmButtonText: "Aceptar",
+                // confirmButtonText: "Cancelar",
+                closeOnConfirm: false,
+                closeOnCancel: false
+              })';
             }
           }
 
@@ -297,6 +313,7 @@ class Ventas extends controller
       $producto = $this->mdlProducto->listar();
       $tipo = $this->mdlTipoPersona->listarTipoPersonas();
       $configuraciones = $this->mdlProducto->consultarConfiguracionVentas();
+      $TipoPersona = $this->mdlTipoPersona->listarTipoClientes();
 
       require APP . 'view/_templates/header.php';
       require APP . 'view/Ventas/registrarVentas.php';
@@ -685,5 +702,25 @@ private function validarAbonos($idVenta){
         }
       }
 
-}
+      public function registrarCliente(){
+        $this->modeloP->__SET("idPersona", $_POST['numeroDoc']);
+        $this->modeloP->__SET("nombres", ucfirst($_POST['nombres']));
+        $this->modeloP->__SET("apellidos", ucfirst($_POST['apellidos']));
+        $this->modeloP->__SET("celular", $_POST['celular']);
+        $this->modeloP->__SET("tipoPersona", $_POST['tipoPersona']);
+        $this->modeloP->__SET("genero", $_POST['genero']);
+        $this->modeloP->__SET("tipoDocumento", $_POST['tipoDoc']);
+        $this->modeloP->__SET("email", "");
+        $this->modeloP->__SET("telefono", "");
+        $this->modeloP->__SET("direccion", "");
+        $persona = $this->modeloP->guardarPersona();
+        header("Content-Type: application/json");
+        echo json_encode([
+          'error' => $persona? false : true,
+          'id' => $this->modeloP->ultimoId(),
+          'nombre' => $this->modeloP->nombres . " " . $this->modeloP->apellidos . " (" . ($this->modeloP->tipoPersona == 5? "Frecuente" : "No frecuente")  . ")",
+        ]);
+      }
+
+  }
  ?>

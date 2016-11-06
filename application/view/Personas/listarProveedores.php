@@ -100,7 +100,7 @@
                  <h4 class="modal-title"  style="color: #3CB371" id="myModalLabel">Modificar Proveedores</h4>
                </center>
              </div>
-             <form method="POST"  id="form-2" role="form" action="<?= URL ?>Personas/listarProveedores/<?=  $valor['id_persona'] ?>" data-parsley-validate="">
+             <form method="POST"  id="form-2" role="form" action="<?= URL ?>Personas/listarProveedores/<?=  $id  ?>" data-parsley-validate="">
               <div class="modal-body">
                 <input type="hidden" name="txtidPersona" value="<?= $proveedor['id_persona'] ?>">
 

@@ -1,10 +1,13 @@
 
 <form id="forventas" method="post" action="<?= URL ?>Ventas/index"  name="fmVentas" data-parsley-validate="">
+  <div class="panel panel-default">
    <div class="row">
-
-    <h3 class="page-header" style="text-align:center; color: #3CB371; margin-top: 10px; margin-bottom: 5px">Registrar Venta</h3>
     <br>
 
+    <div class="panel-heading" stlyle="height: 70px; width: 100px">
+      <center><span style="color: #337AB7; margin-top: 10px; margin-bottom: 10px; font-size: 25px">Registrar Ventas</span></center>
+    </div>
+    <div class="panel-body">
        <div class="col-md-5">
         <div class="panel panel-primary">
           <div class="panel-heading">
@@ -13,7 +16,7 @@
           <div class="panel-body" id="cliente">
               <div class="form-group">
                 <input type="hidden" name="empleado" value="<?= $_SESSION['USUARIO_ID'] ?>">
-                <select class="form-control" id="ddlcliente" maxlength="20" data-parsley-type="alphanum" name="ddlcliente" data-parsley-required="true">
+                <select class="form-control" id="ddlcliente" name="ddlcliente" style="width: 85%" data-parsley-required="true">
                   <option value="">Seleccionar</option>
                   <?php foreach ($cliente as $val): ?>
                     <?php if($val['estado'] == 1): ?>
@@ -23,6 +26,7 @@
                       <<?php endif; ?>
                 <?php endforeach; ?>
                 </select>
+                  <button type="button" class="btn btn-primary pull-right btn-sm" title="Registrar Cliente" data-toggle="modal" data-target="#modal-registroCliente"><i class="fa fa-plus plus" title="Registrar Cliente"></i></button>
                 <input type="hidden" id="tipoP" name="txttipo" value="<?= $val['Tbl_TipoPersona_idTbl_TipoPersona'] ?>">
             </div>
           </div>
@@ -36,7 +40,9 @@
               <option value="">Seleccionar</option>
               <?php foreach ($producto as $value): ?>
                 <?php if($value['estado'] == 1): ?>
-                    <option Precio="<?= $value['precio_detal'] ?>" Precio2="<?= $value['precio_por_mayor'] ?>" data-cantidad="<?= $value['cantidad'] ?>" value="<?= $value['id_producto'] ?>"><?= $value['id_producto']." ".$value['nombre_producto'] ?></option>
+                    <option Precio="<?= $value['precio_detal'] ?>" Precio2="<?= $value['precio_por_mayor'] ?>" data-cantidad="<?= $value['cantidad'] ?>" value="<?= $value['id_producto'] ?>" data-precio-unitario="<?= $value['precio_unitario'] ?>" data-algo="true">
+                      <?= $value['id_producto']." ".$value['nombre_producto'] ?>
+                    </option>
                 <?php else:  ?>
 
                 <?php endif; ?>
@@ -97,7 +103,7 @@
       </div>
 
   <div class="col-md-7">
-    <div class="panel panel-default detVenta">
+    <div class="panel panel-primary detVenta">
       <div class="panel-heading">
         <h3 class="panel-title"><strong>Detalles Venta</strong></h3>
       </div>
@@ -114,11 +120,100 @@
         <h3 class="panel-title"><strong>Total:</strong> <input type="hidden" id="txttotal" name="txttotal" value=""> <span id="total">0</span></h3>
       </div>
     </div>
+    <button type="submit" class="btn btn-success pull-right" name="btn-guardar-venta" id="btnGuardar" onclick="validarCantidad()" title="Guardar Venta"><i class="fa fa-floppy-o" title="Guardar Venta"></i>   Guardar</button><br><br>
   </div>
-     <button type="submit" class="btn btn-success pull-right" name="btn-guardar-venta" id="btnGuardar" onclick="validarCantidad()" title="Guardar Venta"><i class="fa fa-floppy-o" title="Guardar Venta"></i>   Guardar</button>
+  <input type="hidden" id="txtProductoS" focus="true" autocomplete="off" >
    </div>
-</form>
-<input type="hidden" id="txtProductoS" focus="true" autocomplete="off" >
+ </div>
+ </form>
+
+ <div class="modal fade" id="modal-registroCliente" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+              </button>
+                <center>
+                  <h4 class="modal-title"  style="color: #337AB7" id="myModalLabel">Registrar Clientes (obligatorios *)</h4>
+                </center>
+              </div>
+               <div class="modal-body">
+                 <div class="row">
+                   <div class="col-md-4">
+                     <label for="txtTipoPersona">Tipo persona *</label>
+                     <select class="form-control" id="tipoPersona" name="txtTipoPersona" style="width: 100%">
+                       <option value="">Seleccionar tipo persona</option>
+                       <?php foreach ($TipoPersona as $value): ?>
+                         <option value="<?= $value['idTbl_tipo_persona'] ?>"><?= $value['Tbl_nombre_tipo_persona'] ?></option>
+                        <?php endforeach; ?>
+                     </select>
+                   </div>
+                   <div class="col-md-4">
+                       <label for="txtTipoDocumento">Tipo de documento *</label>
+                       <select name="txtTipoDocumento"class="form-control" id="documento" style="width: 100%" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9!@#\$%\-\.\?_~\\ \\()\/$]+">
+                           <option value="">Seleccionar tipo de documento</option>
+                           <option value="Cedula">Cédula</option>
+                           <option value="Cédula_Extranjera">Documento de  Extranjería</option>
+                           <option value="Otro">Otro</option>
+                       </select>
+                     </div>
+                      <div class="col-md-4">
+                         <label for="">Número de documento *</label>
+                         <input type="text" name="txtIdPersona" style="width: 100%" class="form-control" id="campoId" placeholder="Número Documento">
+                     </div>
+                   </div>
+                   <br><br>
+
+                   <div class="row">
+                     <div class="col-md-4">
+                         <label for="txtNombres">Nombres *</label>
+                          <input type="text"  name="txtNombres" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ@\-\.\\ \/$]+" class="form-control" style="width: 100%" id="campoNombre" placeholder="Nombres">
+                    </div>
+
+                     <div class="col-md-4">
+                         <label for="txtApellidos">Apellidos *</label>
+                           <input type="text"  name="txtApellidos" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ@\-\.\\ \/$]+" class="form-control" id="campoApellido" placeholder="Apellidos">
+                       </div>
+                       <div class="col-md-4">
+                           <label for="txtCelular">Número de Celular *</label>
+                           <input type="text"  name="txtCelular" class="form-control" id="campoCelular" placeholder="Numero Celular">
+                       </div>
+                   </div>
+                   <br><br>
+
+                <div class="row">
+                   <div class="col-md-4">
+                     <label for="txtGenero">Género *</label>
+                     <select id="genero" name="txtGenero" class="form-control" style="width: 100%" pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+">
+                         <option value="">Seleccionar</option>
+                          <option value="Masculino">Masculino</option>
+                          <option value="Femenino">Femenino</option>
+                     </select>
+                   </div>
+                     </div>
+                     <br><br>
+                    <hr>
+                   </div>
+                       <div class="row">
+                       <div class="col-md-3">
+                       </div>
+                          <div class="col-md-3">
+                              <button type="button" name="btnGuardarPersona" id="btn-guardar" class="btn btn-success active" onclick="registrarCliente()"><i class="fa fa-floppy-o" aria-hidden="true">  Guardar</i></button>
+                          </div>
+                            <div class="col-md-1">
+                            </div>
+                          <div class="col-md-3">
+                            <button type="reset" class="btn btn-secondary active" data-dismiss="modal"><i class="fa fa-remove" aria-hidden="true">  Cerrar</i></button>
+                         </div>
+                      <div class="col-md-2">
+                   </div>
+                 </div>
+                 <br>
+               </div>
+              </div>
+            </div>
+          </div>
 
 <style media="screen">
   #txtProductoS{
@@ -179,7 +274,6 @@
               type: "error",
               confirmButton: "#3CB371",
               confirmButtonText: "Aceptar",
-              // confirmButtonText: "Cancelar",
               closeOnConfirm: false,
               closeOnCancel: false
             });
@@ -232,11 +326,10 @@
                  type: "error",
                  confirmButton: "#3CB371",
                  confirmButtonText: "Aceptar",
-                 // confirmButtonText: "Cancelar",
                  closeOnConfirm: false,
                  closeOnCancel: false
                });
-           //swal("Descuento mayor al " + (porMin * 100) + "%");
+
            $("#txt-campo-des").val(valMinDes);
          } else if(total > desMax && descuento > valMaxDes){
            swal({
@@ -248,7 +341,6 @@
                  closeOnConfirm: false,
                  closeOnCancel: false
                });
-           //swal("descuento mayor al " + (porMax * 100) + "%");
            $("#txt-campo-des").val(valMaxDes);
          }
 
@@ -321,112 +413,106 @@
    function agregarProducto(){
 
      if(validarC()){
+       if($("#forventas").parsley().validate()){
+      // if(true){
+         var cliente = $("#ddlcliente").val();
+         var cant = $("#txtcantidad").val();
+         var prod = $('#ddlproducto').val();
 
-     if($("#forventas").parsley().validate()){
-
-     var cliente = $("#ddlcliente").val();
-     var cant = $("#txtcantidad").val();
-     var prod = $('#ddlproducto').val();
-    //  var valor = $("#ddlproducto").val();
-    //  var precio3 = $("#ddlproducto").attr("Precio3");
      if(cliente != " ")
      {
-     if(cant <= 0){
-       swal("Ingresar cantidad válida");
-     }else{
+       if(cant <= 0){
+         swal("Ingresar cantidad válida");
+       }else{
+         var productoCd = $("#ddlproducto").val();
+         var productoText = $("#ddlproducto [value='"+productoCd+"']").text();
 
-    //  var prod = $('#ddlproducto').val();
-     var productoCd = $("#ddlproducto").val();
-     var productoText = $("#ddlproducto [value='"+productoCd+"']").text();
+         var opt = $("#ddlcliente option:selected");
+         var tipo = opt.attr("data-tipo");
+         var checkeado = $("#check").is(":checked");
+         var alPorMayor = $("#ctrl-por-mayor-" + productoCd).val();
+         var precioUnitario = $("#ddlproducto option:selected").attr("data-precio-unitario");
 
-     var opt = $("#ddlcliente option:selected");
-     var tipo = opt.attr("data-tipo");
-     var checkeado = $("#check").is(":checked");
-     var alPorMayor = $("#ctrl-por-mayor-" + productoCd).val();
-     if(tipo == '5'){
-       var precio = $("#precioPorMayor").text();
-     } else if(alPorMayor != undefined && alPorMayor == 1) {
-       var precio = $("#precioPorMayor").text();
-     } else if(alPorMayor != undefined && alPorMayor == 0){
-       var precio = $("#precio").text();
-     } else if(tipo == '6' && checkeado === true){
-       var precio = $("#precioPorMayor").text();
-     }else {
-       var precio = $("#precio").text();
-     }
-     var cantidad = $("#txtcantidad").val();
-     precio = precio.replace(".", "");
-     var precioGuardar = precio;
-     var total = $("#total").val();
-     var bandera = true;
-     var romper = false;
-     $(".datos").each(function(key,value){
-       var v = $(value).find("input[id='txtProducto']").val();
-       if(v == productoCd){
-         var cantAnt = parseInt($(value).find("span.cantidad").text());
-         var cantAct = parseInt($("#txtcantidad").val());
-         var cTotal = parseInt($("#unidades-actuales").val());
-         if((cantAnt + cantAct) > cTotal){
-           swal({
-                 title: "Cantidad actual: "+cTotal+ " unidades. Cantidad agregada " + cantAnt + " unidades.",
-                 type: "error",
-                 confirmButton: "#3CB371",
-                 confirmButtonText: "Aceptar",
-                 // confirmButtonText: "Cancelar",
-                 closeOnConfirm: false,
-                 closeOnCancel: false
-               });
-           romper = true;
-         } else {
-           var c = $(value).find("span.cantidad").text(cantAnt + cantAct);
-           $("#cantidad-prod-"+productoCd).val(cantAnt + cantAct);
-           $(value).find("p#cantidad").attr("data-cantidad", cantAnt + cantAct);
-           var subAnt = parseInt($(value).find("span.subtotal").text().replace(".","").replace(",","").replace(",",""));
-           var p = $(value).find("span.subtotal").text(subAnt + parseInt(precio * cantidad));
-           $(value).find("p#subtotal").attr("data-valor", subAnt + parseInt (precio * cantidad));
-
-           bandera = false;
+         if(tipo == '5'){
+           var precio = $("#precioPorMayor").text();
+         } else if(alPorMayor != undefined && alPorMayor == 1) {
+           var precio = $("#precioPorMayor").text();
+         } else if(alPorMayor != undefined && alPorMayor == 0){
+           var precio = $("#precio").text();
+         } else if(tipo == '6' && checkeado === true){
+           var precio = $("#precioPorMayor").text();
+         }else {
+           var precio = $("#precio").text();
          }
-       }
-     });
+         var cantidad = $("#txtcantidad").val();
+         precio = precio.replace(".", "");
+         var precioGuardar = precio;
+         var total = $("#total").val();
+         var bandera = true;
+         var romper = false;
+         $(".datos").each(function(key,value){
+           var v = $(value).find("input[id='txtProducto']").val();
+           if(v == productoCd){
+             var cantAnt = parseInt($(value).find("span.cantidad").text());
+             var cantAct = parseInt($("#txtcantidad").val());
+             var cTotal = parseInt($("#unidades-actuales").val());
+             if((cantAnt + cantAct) > cTotal){
+               swal({
+                     title: "Cantidad actual: "+cTotal+ " unidades. Cantidad agregada " + cantAnt + " unidades.",
+                     type: "error",
+                     confirmButton: "#3CB371",
+                     confirmButtonText: "Aceptar",
+                     closeOnConfirm: false,
+                     closeOnCancel: false
+                   });
+               romper = true;
+             } else {
+               var c = $(value).find("span.cantidad").text(cantAnt + cantAct);
+               $("#cantidad-prod-"+productoCd).val(cantAnt + cantAct);
+               $(value).find("p#cantidad").attr("data-cantidad", cantAnt + cantAct);
+               var subAnt = parseInt($(value).find("span.subtotal").text().replace(".","").replace(",","").replace(",",""));
+               var p = $(value).find("span.subtotal").text(subAnt + parseInt(precio * cantidad));
+               $(value).find("p#subtotal").attr("data-valor", subAnt + parseInt (precio * cantidad));
 
-     if(romper === true){
-       return false;
-     }
-
-     if(bandera == true){
-       var html = '<div class="row datos" data-producto="true"><div class="col-md-9 cta-contents">';
-       html += '<input type="hidden" id="ctrl-por-mayor-' + productoCd + '" value="' + (checkeado === true? '1' : '0') + '">'
-       html += '      <h3 class="cta-title">'+productoText+'</h3>';
-       html += '        <div class="cta-desc">';
-       html += '           <p data-cantidad="'+cantidad+'" id="cantidad">Cantidad: <span class="cantidad" id="cantidad-' + productoCd + '">'+cantidad+'</span></p>';
-       html += '           <p data-valor="'+precio * cantidad+'" id="subtotal">Valor subtotal: <span class="subtotal"> '+precio * cantidad+'</span></p>';
-       html += '    </div>';
-       html += '<input type="hidden" id="txtProducto" name="producto[]" value="'+productoCd+'">';
-       html += '<input type="hidden" name="precioProducto[]" value="' + precioGuardar +  '" />';
-       //html += '<input type="text" name="precioUnitario[]" value="' + precio3 +  '" />';
-       html += '<input type="hidden" name="cantidad[]" id="cantidad-prod-'+productoCd+'" value="'+cantidad+'">';
-       html += ' </div>';
-       html += '  <div class="col-md-3 cta-button">';
-       html += '      <a href="#" onclick="quitar(this)" class="btn btn-md btn-danger" title="remover"><i class="fa fa-trash-o" title="remover"></i></a>';
-       html += '    </div>';
-       html += '  </div>';
-       html += '</div>';
-
-      $("#detalleV").append(html);
-     }
-
-       calcularTotal();
-       sumarSubtotal();
-       $("#txtcantidad").val(1);
-
-       $("#total").priceFormat(
-         {
-           centsLimit:3,
-           clearPrefix: true
+               bandera = false;
+             }
+           }
          });
 
+         if(romper === true){
+           return false;
+         }
 
+         if(bandera == true){
+           var html = '<div class="row datos" data-producto="true"><div class="col-md-9 cta-contents">';
+           html += '<input type="hidden" id="ctrl-por-mayor-' + productoCd + '" value="' + (checkeado === true? '1' : '0') + '">'
+           html += '      <h3 class="cta-title">'+productoText+'</h3>';
+           html += '        <div class="cta-desc">';
+           html += '           <p data-cantidad="'+cantidad+'" id="cantidad">Cantidad: <span class="cantidad" id="cantidad-' + productoCd + '">'+cantidad+'</span></p>';
+           html += '           <p data-valor="'+precio * cantidad+'" id="subtotal">Valor subtotal: <span class="subtotal"> '+precio * cantidad+'</span></p>';
+           html += '    </div>';
+           html += '<input type="hidden" id="txtProducto" name="producto[]" value="'+productoCd+'">';
+           html += '<input type="hidden" name="precioProducto[]" value="' + precioGuardar +  '" />';
+           html += '<input type="hidden" name="precioUnitario[]" value="' + precioUnitario +  '" />';
+           html += '<input type="hidden" name="cantidad[]" id="cantidad-prod-'+productoCd+'" value="'+cantidad+'">';
+           html += ' </div>';
+           html += '  <div class="col-md-3 cta-button">';
+           html += '      <a href="#" onclick="quitar(this)" class="btn btn-md btn-danger" title="remover"><i class="fa fa-trash-o" title="remover"></i></a>';
+           html += '    </div>';
+           html += '  </div>';
+           html += '</div>';
+
+          $("#detalleV").append(html);
+         }
+         calcularTotal();
+         sumarSubtotal();
+         $("#txtcantidad").val("");
+
+         $("#total").priceFormat(
+           {
+             centsLimit:3,
+             clearPrefix: true
+           });
          $(".subtotal").priceFormat(
            {
              centsLimit:3,
@@ -473,12 +559,7 @@
        subtotal += parseInt($(value).attr("data-valor"));
      });
 
-    //  $(".subtotal").html(subtotal);
-    //  $(".subtotal").val(subtotal);
-    //
      $("#txtsubtotal").val(subtotal);
-    //  $("#txtsubtotal").html(subtotal);
-
      $(".subtotal").priceFormat(
        {
          centsLimit: 3,
@@ -636,4 +717,85 @@ function validarCantidad(){
       //return false;
     }
   });
+</script>
+
+
+<script type="text/javascript">
+
+function cancelar() {
+     }
+</script>
+
+<script type="text/javascript">
+  function registrarCliente(){
+
+    var tipoPersona = $("#tipoPersona").val();
+    var tipoDoc = $("#documento").val();
+    var numeroDoc = $("#campoId").val();
+    var nombres = $("#campoNombre").val();
+    var apellidos = $("#campoApellido").val();
+    var celular = $("#campoCelular").val();
+    var genero = $("#genero").val();
+
+    if(tipoPersona == "" || tipoDoc == "" || numeroDoc == "" || nombres == "" || apellidos == "" || celular == "" || genero == ""){
+      swal({
+        title: "Hay campos vacíos, no se puede guardar!",
+        type: "error",
+        confirmButton: "#3CB371",
+        confirmButtonText: "Aceptar",
+        // confirmButtonText: "Cancelar",
+        closeOnConfirm: false,
+        closeOnCancel: false
+      });
+    }else {
+
+    $.ajax({
+      type: 'post',
+      url: '<?= URL ?>/Ventas/registrarCliente',
+      data: {
+        tipoPersona: tipoPersona,
+        tipoDoc: tipoDoc,
+        numeroDoc: numeroDoc,
+        nombres: nombres,
+        apellidos: apellidos,
+        celular: celular,
+        genero: genero,
+      }
+    }).done(function(data){
+      if(data.error == true){
+        swal({
+          title: "Ocurrio un error!",
+          type: "error",
+          confirmButton: "#3CB371",
+          confirmButtonText: "Aceptar",
+          // confirmButtonText: "Cancelar",
+          closeOnConfirm: false,
+          closeOnCancel: false
+        });
+      } else if(data.error == false){
+        var select = $("#ddlcliente");
+        var option = $("<option/>", {value: numeroDoc, 'data-creditos' : 0, 'data-tipo' : tipoPersona}).html(data.nombre);
+        select.select2("destroy");
+        select.prepend(option);
+        select.select2({
+          width: "100%",
+        });
+        $("#modal-registroCliente").modal("hide");
+        select.select2('open');
+        swal({
+          title: "Guardado exitoso!",
+          type: "success",
+          confirmButton: "#3CB371",
+          confirmButtonText: "Aceptar",
+          // confirmButtonText: "Cancelar",
+          closeOnConfirm: false,
+          closeOnCancel: false
+        });
+      } else {
+
+      }
+
+      });
+    }
+}
 </script>

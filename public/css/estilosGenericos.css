@@ -1,0 +1,13 @@
+.padre{
+
+}
+.hijos{
+  margin-left: 50px;
+  margin-top: 10px;
+}
+.hijo{
+
+}
+.hijo:first-child, .hijo:last-child{
+  border-radius: 0px;
+}

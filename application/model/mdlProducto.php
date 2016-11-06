@@ -10,7 +10,6 @@ class mdlProducto
   private $id_producto;
   private $nombre_producto;
   private $Tbl_Categoria_idcategoria;
-  // private $Proveedor;
   private $Talla;
   private $Tamano;
   private $precio_unitario;
@@ -372,14 +371,18 @@ public function validarCantidad(){
   }
 
 
-  public function ModNombreCateg(){
-    $sql = "CALL SP_Validar_Nombres_Categorias(?)";
-    $stm = $this->db->prepare($sql);
-    $stm->bindParam(1, $this->id_categoria);
-    $stm->execute();
-    return $stm->fetchAll(PDO::FETCH_ASSOC);
-  }
+    public function ModNombreCateg(){
+      $sql = "CALL SP_Validar_Nombres_Categorias(?)";
+      $stm = $this->db->prepare($sql);
+      $stm->bindParam(1, $this->id_categoria);
+      $stm->execute();
+      return $stm->fetchAll(PDO::FETCH_ASSOC);
+    }
 
+
+    public function ultimoId(){
+        return $this->db->lastInsertId();
+    }
 
 }
 

@@ -61,6 +61,9 @@ class mdlPersona
           return $stm->fetchAll(PDO::FETCH_ASSOC);
   }
 
+    public function ultimoId(){
+        return $this->db->lastInsertId();
+    }
 
 
     public function listarPrestamosEmp()
@@ -111,11 +114,9 @@ class mdlPersona
     $stm->bindParam(11, $this->fechaContrato);
     $stm->bindParam(12, $this->fechaTerminacion);
     $resultado = $stm->execute();
-    //$sql = "SELECT * FROM tbl_persona";
     $sql = "CALL 	SP_Consultar_Personas";
     $stm = $this->db->prepare($sql);
     $stm->execute();
-
     return $resultado;
   } catch (Exception $e) {
     $e->getMessage();

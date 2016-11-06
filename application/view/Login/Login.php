@@ -68,7 +68,7 @@
                                   <div class="form-group">
                                       <input class="form-control" placeholder="Contraseña" name="txtContras" type="password" value="">
                                   </div><br>
-                                    <button type="submit" name="btnIniciar" class="btn btn-lg btn-success btn-block">Iniciar sesión</button>
+                                    <button type="submit" name="btnIniciar" class="btn btn-lg btn-primary btn-block">Iniciar sesión</button>
                                   <div class="checkbox">
                                           <!-- <input name="remember" type="checkbox" value="Remember Me">Recordarme -->
                                           <a href="<?= URL ?>login/recuperarContras" style="margin-left: 80px;color: blue; text-decoration: underline">Recuperar contraseña</a>
@@ -94,20 +94,6 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="js/sb-admin-2.js"></script>
-
-    <!-- <?php if(isset($error2) && $error2 == true): ?>
-      <script type="text/javascript">
-      swal({
-        title: "No existe nombre de usuario o contraseña!",
-        type: "error",
-        confirmButton: "#3CB371",
-        confirmButtonText: "Aceptar",
-        // confirmButtonText: "Cancelar",
-        closeOnConfirm: false,
-        closeOnCancel: false
-      });
-      </script>
-    <?php endif; ?> -->
 
 </body>
 

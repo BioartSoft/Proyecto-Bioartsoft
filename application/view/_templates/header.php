@@ -54,6 +54,7 @@ $notificaciones = mdlConfiguracionPago::getNotificaciones();
     <script src="<?= URL ?>js/jquery-1.12.3.min.js"></script>
     <script src="<?= URL ?>js/parsley.min.js"></script>
     <script src="<?= URL ?>js/i18n/es.js"></script>
+    <link href="<?php echo URL?>css/estilosGenericos.css" rel="stylesheet">
 </head>
 
 <body style="background-color: #FFF">
@@ -70,30 +71,11 @@ $notificaciones = mdlConfiguracionPago::getNotificaciones();
 
             <ul class="nav navbar-top-links navbar-right">
 
-              <li class="dropdown">
-                  <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+              <li>
+                  <a  href="<?= URL ?>otro/index2">
                       <i class="fa fa-globe" style="color: #fff"></i>  <i class="fa fa-caret-down" style="color: #fff"></i>
                   </a>
-                  <ul class="dropdown-menu dropdown-user">
-                      <li class="dropdown">
-                          <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                              <i class="fa fa-users"></i>&nbsp;Administrar Personas&nbsp;<i class="fa fa-caret-down"></i>
-                          </a>
-                          <ul class="nav nav-tabs">
-
-                            <li class="dropdown">
-                              <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                Menú desplegable <span class="caret"></span>
-                              </a>
-                              <ul class="dropdown-menu">
-                                <li>Hola</li>
-                              </ul>
-                            </li>
-                          </ul>
-                        </li>
-                      </li>
-
-                  </ul>
+                </li>
 
 
              <?php if($_SESSION['ROL'] == 1 || $_SESSION['ROL'] == 3): ?>
@@ -177,7 +159,7 @@ $notificaciones = mdlConfiguracionPago::getNotificaciones();
                              <li>
                            <?php else: ?>
                              <li>
-                                 <a href="<?php echo URL . $opcion['url_menu'] ?>"><i class="fa fa-<?= $opcion['icono_menu'] ?>"></i> <?= $opcion['texto_menu'] ?></a>
+                                 <a href="<?php echo URL . $opcion['url_menu'] ?>"><i class="fa fa-<?= $opcion['icono_menu'] ?>" style="color: #000"></i> <?= $opcion['texto_menu'] ?></a>
                              <li>
                            <?php endif ?>
                          <?php else: ?>
@@ -546,6 +528,13 @@ $("#porcentajeMaximoDesc").keydown(function(e){
     e.preventDefault();
   }
 
+});
+
+$(function(){
+  $(".dropdown-goal").click(function(){
+    var el = $(this);
+    el.find(".dropdown-menu").slideToggle();
+  });
 });
 </script>
 
