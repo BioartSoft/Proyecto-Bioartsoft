@@ -1,14 +1,12 @@
 <div class="row">
-    <div class="col-lg-12">
-       <center> <h3 class="page-header" style="text-align:center; color: #3CB371; margin-top: 10px; margin-bottom: 10px">Listar Ventas</h3></center>
-    </div>
-    <!-- /.col-lg-12 -->
+  <br><br>
 </div>
 <!-- /.row -->
 <div class="row">
     <div class="col-lg-12">
-        <div class="panel panel-default">
-            <div class="panel-heading" style="background-color:#5cb85c; color: white;">
+        <div class="panel panel-primary">
+            <div class="panel-heading" stlyle="height: 70px; width: 100px">
+                <center> <span style="text-align:center; color: #fff; margin-top: 10px; margin-bottom: 10px; font-size: 20px">Listar Ventas</span></center>
             </div>
             <!-- /.panel-heading -->
       <div class="panel-body">
@@ -68,78 +66,73 @@
 <div class="modal fade" id="myForm2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static" style="display:none" action="<?= URL ?>Ventas/index">
    <div class="modal-dialog" role="document">
        <div class="modal-content" style="">
-             <div class="modal-header">
-                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                 </button>
-               <center>
-                    <h4 class="modal-title" id="myModalLabel" style="text-align:center; color: #3CB371">Detalles de Venta Número: <span id="codigo-venta"></span></h4>
-               </center>
-             </div>
+             <div class="modal-body">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading" stlyle="height: 70px; width: 100px">
+                            <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 20px">Detalles de Venta Número: <span id="codigo-venta"></span></center>
+                        </div>
+                      <div class="panel-body">
+                          <h5><strong>Venta realizada por: <span id="empleado"></span></strong></h5>
+                        <div class="dataTable_wrapper">
+                          <div class="table-responsive">
+                            <table class="table table-striped table-bordered">
+                              <thead>
+                                <tr>
+                                  <th>Fecha Venta</th>
+                                  <th>Nombre Cliente</th>
+                                  <th>Subtotal</th>
+                                  <th>Descuento</th>
+                                  <th>Total</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <td id="fecha-venta"></td>
+                                  <td id="cliente-venta"></td>
+                                  <td id="subtotal-venta"></td>
+                                  <td id="descuento-venta"></td>
+                                  <td id="total-venta"></td>
+                                </tr>
+                              </tbody>
+                            </table>
+                            <table class="table table-striped table-bordered table-hover" id="table-detalles-ventas">
+                              <thead>
+                                <tr>
+                                  <th>Producto</th>
+                                  <th>Precio</th>
+                                  <th>Cantidad</th>
+                                  <th>Total</th>
+                                </tr>
+                              </thead>
+                              <h4 style="color: #337AB7">Productos</h4>
+                              <tbody id="detalles-productos-venta">
 
-<div class="row">
-  <div class="col-lg-12">
-    <div class="panel panel-default">
-      <div class="panel-body">
-          <h5><strong>Venta realizada por: <span id="empleado"></span></strong></h5>
-        <div class="dataTable_wrapper">
-          <div class="table-responsive">
-            <table class="table table-striped table-bordered">
-              <thead>
-                <tr>
-                  <th>Fecha Venta</th>
-                  <th>Nombre Cliente</th>
-                  <th>Subtotal</th>
-                  <th>Descuento</th>
-                  <th>Total</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td id="fecha-venta"></td>
-                  <td id="cliente-venta"></td>
-                  <td id="subtotal-venta"></td>
-                  <td id="descuento-venta"></td>
-                  <td id="total-venta"></td>
-                </tr>
-              </tbody>
-            </table>
-            <table class="table table-striped table-bordered table-hover" id="table-detalles-ventas">
-              <thead>
-                <tr>
-                  <th>Producto</th>
-                  <th>Precio</th>
-                  <th>Cantidad</th>
-                  <th>Total</th>
-                </tr>
-              </thead>
-              <h4 style="color: #3CB371">Productos</h4>
-              <tbody id="detalles-productos-venta">
-
-              </tbody>
-            </table>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-9">
+                      <button type="button" class="btn btn-secondary btn-md active pull-right"  data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"> Cerrar</span></button>
+                    </div>
+                <?php if($_SESSION['ROL'] == 1 || $_SESSION['ROL'] == 3): ?>
+                    <div class="col-md-2">
+                      <a href="<?= URL ?>Ventas/generarpdfDetallesVentas" target="_blank" id="pdfDeta">
+                        <button class="btn btn-primary" name="btnComprasD"><i class="fa fa-file-pdf-o" aria-hidden="true">   Recibo de Caja</i></button>
+                      </a>
+                    </div>
+                <?php endif; ?>
+                  </div>
+                </div>
+                <br>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-9">
-      <button type="button" class="btn btn-secondary btn-md active pull-right"  data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"> Cerrar</span></button>
-    </div>
-<?php if($_SESSION['ROL'] == 1 || $_SESSION['ROL'] == 3): ?>
-    <div class="col-md-2">
-      <a href="<?= URL ?>Ventas/generarpdfDetallesVentas" target="_blank" id="pdfDeta">
-        <button class="btn btn-primary" name="btnComprasD"><i class="fa fa-file-pdf-o" aria-hidden="true">   Recibo de Caja</i></button>
-      </a>
-    </div>
-<?php endif; ?>
-  </div>
-</div>
-      <br>
-    </div>
-  </div>
-</div>
 
 
 <script type="text/javascript">

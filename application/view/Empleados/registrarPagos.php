@@ -1,12 +1,11 @@
 <div class="row">
-    <div class="col-lg-12">
-        <h3 class="page-header" style="text-align:center; color: #3CB371; margin-top: 10px; margin-bottom: 10px">Registrar Pagos</h3>
-    </div>
+    <br><br>
 </div>
 <div class="row">
     <div class="col-lg-12">
-        <div class="panel panel-default">
-            <div class="panel-heading" style="background-color:#5cb85c; color: white">
+        <div class="panel panel-primary">
+            <div class="panel-heading" stlyle="height: 70px; width: 100px">
+              <center><span style="text-align:center; color: #fff; margin-top: 10px; margin-bottom: 10px; font-size: 20px">Registrar Pagos</span></center>
             </div>
             <div class="panel-body">
               <div class="dataTable_wrapper">
@@ -58,7 +57,7 @@
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="cerrarpago()">
                   <span aria-hidden="true">&times;</span></button>
-                  <h4 class="modal-title" id="myModalLabel" style="text-align:center; color: #3CB371">Registrar Pago</h4>
+                  <h4 class="modal-title" id="myModalLabel" style="text-align:center; color: #337AB7">Registrar Pago</h4>
               </div>
               <div class="modal-body" style="margin: 0 auto">
                 <form class="" action="<?php echo URL?>Empleados/registrarPagos" method="post" id="myForm" data-parsley-validate="">
@@ -114,7 +113,7 @@
                         <div class="input-group-addon" style="border-radius:5px;">
                           <i class="fa fa-calendar"></i>
                         </div>
-                        <input type="text" class="form-control pull-right" onchange="vali()" name="txtfechaPagoliquidacion" id="idfechafin" style="border-radius:5px;" data-parsley-required="true" readonly="">
+                        <input type="text" class="form-control pull-right" onchange="vali()" name="txtfechaPagoliquidacion" id="idfechafin" style="border-radius:5px;" data-parsley-required="false" readonly="">
                       </div>
                     </div>
                   </div>
@@ -210,7 +209,7 @@
                   <br>
                   <div class="row">
                     <div class="col-xs-12 col-md-12" id="divPagoTotal">
-                      <div class="panel panel-success class">
+                      <div class="panel panel-primary">
                         <div class="panel-heading">
                           <h3 class="panel-title"><strong>Pago Total</strong></h3>
                         </div>
@@ -241,7 +240,7 @@
                   <br>
                   <div class="row">
                     <div class="col-xs-12 col-md-12" style="margin-top: 10px;" id="divPagoTotalliquidacion">
-                      <div class="panel panel-success class">
+                      <div class="panel panel-primary">
                         <div class="panel-heading">
                           <h3 class="panel-title"><strong>Pago Total</strong></h3>
                         </div>
@@ -271,7 +270,7 @@
                   </div>
                   <div class="row">
                     <div class="col-xs-12 col-md-12" style="margin-top: 80px;" id="divPagoTotalTemporales">
-                      <div class="panel panel-success class">
+                      <div class="panel panel-primary">
                         <div class="panel-heading">
                           <h3 class="panel-title"><strong>Pago Total</strong></h3>
                         </div>
@@ -412,14 +411,14 @@
           $("#valorcomision").val("");
           $("#totalco").html(0);
           $("#totalpago").val("");
-          $("#totalpagos").html(0);       
+          $("#totalpagos").html(0);
           $("#valor_pagoLi").val(0);
           $("#valorvacacionestot").val("");
-          $("#totalvacaciones").html(0); 
+          $("#totalvacaciones").html(0);
           $("#valorcesantias").val("");
           $("#idtotalcesantias").html(0);
           $("#valortotliquidacion").val("");
-          $("#totalliquidaciones").html(0);       
+          $("#totalliquidaciones").html(0);
         }
 
         </script>
@@ -773,7 +772,7 @@
                     var years = elemento[0];
                     var meses = elemento[1];
                     var dias = elemento[2];
-                    
+
                     if (meses == 12 && dias >= 15 && dias <=30 ) {
                           $("#divvalorprimaservicios").hide();
                       }
@@ -786,7 +785,7 @@
                     if (meses != 12) {
                           $("#divvalorprimaservicios").hide();
                       }
-                         
+
                     $("#divFechacontrato").removeAttr('style');
                     $("#divFechapagoliquidacion").removeAttr('style');
                     $("#divTipoPago").show();
@@ -990,7 +989,7 @@
 
               if(diasTemporal == "" || diasLaborados == "" && tipoEmpleado == "Empleado-temporal"){
                 swal({
-                      title: "No se han ingresado un número válido!",
+                      title: "No se han ingresado valorores válido!",
                       type: "error",
                       confirmButton: "#3CB371",
                       confirmButtonText: "Aceptar",,
@@ -1162,4 +1161,3 @@
 
             }
           </script>
-

@@ -1,14 +1,11 @@
 <div class="row">
-    <center>
-      <div class="col-lg-12">
-          <h3 class="page-header" style="color: #3CB371; margin-top: 10px; margin-bottom: 10px">Listar Usuarios/Empleados</h3>
-      </div>
-    </center>
+    <br><br>
   </div>
   <div class="row">
       <div class="col-lg-12">
-          <div class="panel panel-green" >
+          <div class="panel panel-primary" >
               <div class="panel-heading" stlyle="height: 70px; width: 100px">
+                  <center><span style="color: #fff; margin-top: 10px; margin-bottom: 10px; font-size: 20px">Listar Usuarios/Empleados</span></center>
               </div>
                 <div class="panel-body">
                   <div class="dataTable_wrapper">
@@ -90,7 +87,7 @@
         </div>
 
   <?php if ($id!= "" && $tipo == 1): ?>
-  <div class="modal fade" id="modal-actualizar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static">
+  <div class="modal fade" id="modal-actualizar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard ="false" data-backdrop = "static">
      <div class="modal-dialog" role="document">
        <div class="modal-content">
          <div class="modal-header">
@@ -98,7 +95,7 @@
              <span aria-hidden="true">&times;</span>
                </button>
                  <center>
-                   <h4 class="modal-title"  style="color: #3CB371" id="myModalLabel">Modificar Usuarios/Empleados (obligatorios *)</h4>
+                   <h4 class="modal-title"  style="color: #337AB7" id="myModalLabel">Modificar Usuarios/Empleados (obligatorios *)</h4>
                  </center>
                </div>
                <form method="POST"  id="form-2" role="form" action="<?= URL ?>Personas/listarPersonasEmpleados/<?= $persona['id_usuarios'] ?>" data-parsley-validate="">
@@ -255,21 +252,14 @@
   <div class="modal fade" id="modal-detalles" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static">
        <div class="modal-dialog" style="width: 80%" role="document">
          <div class="modal-content" style="width: 100%">
-           <div class="modal-header">
-             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-               <span aria-hidden="true">&times;</span>
-                 </button>
-                   <center>
-                     <h4 class="modal-title"  style="color: #3CB371" id="myModalLabel">Detalles de <?php echo $persona['nombres'].' '.$persona['apellidos']?></h4>
-                   </center>
-                 </div>
-                 <form method="POST" action="<?= URL ?>Personas/listarPersonasEmpleados/<?=  $valor['id_usuarios'] ?>">
+                 <!-- <form method="POST" action="<?= URL ?>Personas/listarPersonasEmpleados/<?=  $valor['id_usuarios'] ?>"> -->
                   <div class="modal-body">
                     <input type="hidden" name="idPersona" value="<?= $persona['id_persona'] ?>">
                     <div class="row">
                     <div class="col-md-12">
-                      <div class="panel panel-green" >
+                      <div class="panel panel-primary" >
                           <div class="panel-heading" stlyle="height: 70px; width: 100px">
+                            <center><span style="color: #fff; font-size: 20px" id="myModalLabel">Detalles de <?php echo $persona['nombres'].' '.$persona['apellidos']?></span></center>
                           </div>
                             <div class="panel-body">
                               <div class="dataTable_wrapper">
@@ -308,15 +298,13 @@
                </div>
             </div>
          </div>
-      <hr>
-
      <div class="row">
        <div class="col-md-11">
   <button type="button" class="btn btn-secondary btn-md active pull-right"  data-dismiss="modal" style="float: center"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
 </div>
 </div>
 </div>
-</form>
+<!-- </form> -->
 </div>
 </div>
 </div>
@@ -335,39 +323,43 @@
   <form method="POST" id="form-3" role="form" data-parsley-validate="">
   <div class="modal fade" id="modal-cambiar-contras" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static">
    <div class="modal-dialog" role="document">
-     <div class="modal-content">
-       <div class="modal-header">
-         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-           <span aria-hidden="true">&times;</span>
-             </button>
-               <center>
-                 <h4 class="modal-title"  style="color: #3CB371" id="myModalLabel">Cambiar contraseña de <?= $persona['nombres'].' '.$persona['apellidos']?></h4>
-               </center>
-             </div>
+     <div class="modal-content" style="width: 100%">
 
               <div class="modal-body">
                 <input type="hidden" name="idusuario" value="<?= $persona['id_usuarios'] ?>">
 
-            <div class="row">
-                  <div class="col-xs-12 col-md-6" id="conClave" >
-                        <label for="inputPassword"  class="control-label" style="color: #3CB371">Nueva Contraseña</label>
-                        <input type="password"  maxlength="12" minlength="3" name="txtnueva" class="form-control" id="campoClave" placeholder="Contraseña" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9!@#\$%\-\*\?_~\\.\\()\/$]+" data-parsley-required="true">
-                  </div>
-                  <div class="col-xs-12 col-md-6" id="conConfirmar">
-                        <label for="" style="color: #3CB371">Confirmar Contraseña</label>
-                        <input type="password" maxlength=12 minlength="3" name="txtConfClave" data-parsley-equalto="#campoClave" class="form-control" id="campoConfirmar" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9!@#\$%\-\*\?_~\\.\\()\/$]+" placeholder="Confirmar Contraseña" data-parsley-required="true">
-                  </div>
-
-                  <div class="col-md-3">
-                  </div>
-            </div>
-                       <div class="modal-footer">
-                         <button type="button" class="btn btn-secondary btn-md active"  data-dismiss="modal"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
-                         <button type="submit" name="btn-modificar-clave" class="btn btn-success btn-md active"><i class="fa fa-floppy-o" aria-hidden="true">  Modificar</i></button>
+                <div class="row">
+                    <div class="panel panel-primary" style="margin-left: 2%; margin-right: 2%">
+                      <div class="panel-heading" stlyle="height: 70px; width: 100px">
+                        <center><span style="color: #fff; font-size: 20px" id="myModalLabel">Cambiar contraseña de <?= $persona['nombres'].' '.$persona['apellidos']?></span></center>
                       </div>
 
+                      <div class="panel-body">
+                          <div class="col-xs-12 col-md-6" id="conClave" >
+                              <label for="inputPassword"  class="control-label">Nueva Contraseña *</label>
+                              <input type="password"  maxlength="12" minlength="3" name="txtnueva" class="form-control" id="campoClave" placeholder="Contraseña" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9!@#\$%\-\*\?_~\\.\\()\/$]+" data-parsley-required="true">
+                          </div>
+
+                          <div class="col-xs-12 col-md-6" id="conConfirmar">
+                                <label for="">Confirmar Contraseña *</label>
+                                <input type="password" maxlength=12 minlength="3" name="txtConfClave" data-parsley-equalto="#campoClave" class="form-control" id="campoConfirmar" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9!@#\$%\-\*\?_~\\.\\()\/$]+" placeholder="Confirmar Contraseña" data-parsley-required="true">
+                          </div>
+
+                        <div class="col-md-3">
+                        </div>
                     </div>
                   </div>
+                </div>
+              </div>
+                       <div class="row">
+                         <div class="col-xs-12 col-md-6 col-lg-9">
+                           <button type="button" class="btn btn-secondary btn-md active pull-right"  data-dismiss="modal"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
+                         </div>
+                          <div class="col-xs-12 col-md-6 col-lg-3">
+                            <button type="submit" name="btn-modificar-clave" class="btn btn-success btn-md active"><i class="fa fa-floppy-o" aria-hidden="true">  Modificar</i></button>
+                         </div>
+                      </div>
+                      <br>
                 </div>
               </form>
 

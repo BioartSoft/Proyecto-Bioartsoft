@@ -1,11 +1,18 @@
 
+
+
 <form id="formPdfBajas" action="<?= URL ?>producto/pdfBajas" method="post" data-parsley-validate="" target="_blank">
+<div class="panel panel-primary" style="margin-top: 5px">
 <div class="row">
- <h3 class="page-header" style="text-align:center; color: #3CB371; margin-top: 10px; margin-bottom: 10px">Reporte de Bajas</h3><br>
+  <br>
+    <div class="panel-heading" stlyle="height: 70px; width: 100px">
+      <center><span style="color: #337AB7; margin-top: 10px; margin-bottom: 10px; font-size: 20px">Reporte de Bajas</span></center>
+    </div>
+    <div class="panel-body">
   <div class="row">
     <div class="col-md-1"></div>
     <div   class="col-md-4">
-        <label for="" style="color: #3CB371">Fecha Inicial </label>
+        <label for="">Fecha Inicial </label>
         <div class="input-group date" data-provide="datepicker">
         <input type="text" class="form-control" readonly="true"name="txtfechainicial" id="txtfechainicial" placeholder="Fecha Inicial" data-parsley-required="true">
         <div class="input-group-addon">
@@ -15,7 +22,7 @@
     </div>
     <div class="col-md-1"></div>
     <div   class="col-md-4">
-        <label for="" style="color: #3CB371">Fecha Final </label>
+        <label for="">Fecha Final </label>
         <div class="input-group date" data-provide="datepicker">
         <input type="text" class="form-control" name="txtfechafinal" readonly="true" id="txtfechafinal"  placeholder="Fecha final" data-parsley-required="true">
         <div class="input-group-addon">
@@ -30,6 +37,8 @@
     <div class="col-md-4">
       <button type="submit" class="btn btn-primary active" id="btn-pdf" name="btnconsultar" target="_blank"><i class="fa fa-file-pdf-o" aria-hidden="true"> Generar PDF Bajas</i></button>
     </div>
+</div>
+</div>
 </div>
 </div>
 </form>

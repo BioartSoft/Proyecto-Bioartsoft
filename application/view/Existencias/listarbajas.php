@@ -1,19 +1,14 @@
+
 <div class="row">
-  <center>
-    <div class="col-lg-12">
-        <h3 class="page-header" style="text-align:center; color: #3CB371; margin-top: 10px; margin-bottom: 10px">Listar Bajas</h3>
-    </div>
-  </center>
-    <!-- /.col-lg-12 -->
+    <br><br>
 </div>
-<!-- /.row -->
 
 <div class="row">
     <div class="col-lg-12">
-        <div class="panel panel-default">
-            <div class="panel-heading" style="background-color:#5cb85c; color: white;">
-            </div>
-            <!-- /.panel-heading -->
+        <div class="panel panel-primary">
+          <div class="panel-heading" stlyle="height: 70px; width: 100px">
+            <center><span style="text-align:center; color: #fff; margin-top: 10px; margin-bottom: 10px; font-size: 20px">Listar Bajas</span></center>
+          </div>
             <div class="panel-body">
                 <div class="dataTable_wrapper">
                     <div class="table-responsive">
@@ -23,9 +18,6 @@
                                 <th>Código Producto</th>
                                 <th>Nombre Producto</th>
                                 <th>Categoría</th>
-                                <!-- <th>Fecha Registro Baja</th> -->
-                                <!-- <th>Cantidad</th>
-                                <th>Tipo de Baja</th> -->
                                 <th>Estado</th>
                                 <th>Anular</th>
                             </tr>
@@ -36,9 +28,6 @@
                              <td><?= $value['Tbl_Productos_id_productos'] ?></td>
                              <td><?= $value['nombre_producto'] ?></td>
                              <td><?= $value['nombre'] ?></td>
-                             <!-- <td><?= $value['fecha_salida'] ?></td>
-                             <td><?= $value['Cantidad'] ?></td>
-                             <td><?= $value['tipo_baja'] ?></td> -->
                              <td><?= $value['estado'] == 1? "Activo" : "Eliminado" ?></td>
                              <td>
 
@@ -67,15 +56,16 @@
               </div>
 
             <div class="col-sm-12">
-              <?php if($value['estado'] == 1): ?>
+            <?php foreach ($bajas as $value): ?>
+            <?php if($value['estado'] == 1): ?>
                 <center>
-                <a href="<?= URL ?>Existencias/informbajas" target="_blank">
-                  <button class="btn btn-primary"><i class="fa fa-file-pdf-o" aria-hidden="true">   Reporte PDF Bajas</i></button>
-                </a>
-              </center>
+                  <a href="<?= URL ?>Existencias/informbajas" target="_blank">
+                    <button class="btn btn-primary"><i class="fa fa-file-pdf-o" aria-hidden="true">   Reporte PDF Bajas</i></button>
+                  </a>
+                </center>
             <?php else: ?>
-
-            <?php endif; ?>
+          <?php endif; ?>
+          <?php endforeach; ?>
             </div>
           </div>
             <!-- /.panel-body -->
@@ -87,43 +77,38 @@
 
 <div class="modal fade" id="myForm2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static" style="display:none" style="width: 50px" action="<?= URL ?>producto/listarProductos">
    <div class="modal-dialog" role="document">
-       <div class="modal-content">
-             <div class="modal-header">
-                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                 </button>
-               <center>
-                    <h4 class="modal-title" id="myModalLabel" style="text-align:center; color: #3CB371">Detalles de Baja número: <span id="baja"><span></h4>
-               </center>
-             </div>
+     <div class="modal-content">
+        <div class="modal-body">
 
-<div class="row">
-  <div class="col-lg-12">
-    <div class="panel panel-default">
-      <div class="panel-body">
-        <h5><strong>Baja Registrada por: <span class="empleado"></span></strong></h5>
-        <div class="dataTable_wrapper">
-          <div class="table-responsive">
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="panel panel-primary">
+                  <div class="panel-heading" stlyle="height: 70px; width: 100px">
+                      <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 20px">Detalles de Baja Número: <span id="baja"><span></center>
+                  </div>
+                  <div class="panel-body">
+                    <h5><strong>Baja Registrada por: <span class="empleado"></span></strong></h5>
+                    <div class="dataTable_wrapper">
+                      <div class="table-responsive">
 
-            <table class="table table-striped table-bordered table-hover">
-              <thead>
-                 <tr>
-                  <th>Fecha Registro Baja</th>
-                  <th>Tipo de Baja</th>
-                  <th>Cantidad</th>
-                </tr>
-              </thead>
-              <tbody class="precios" id="detalles-bajas">
-              </tbody>
-            </table>
-            <button type="button" class="btn btn-secondary btn-md active pull-right"  data-dismiss="modal"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
+                        <table class="table table-striped table-bordered table-hover">
+                          <thead>
+                             <tr>
+                              <th>Fecha Registro Baja</th>
+                              <th>Tipo de Baja</th>
+                              <th>Cantidad</th>
+                            </tr>
+                          </thead>
+                          <tbody class="precios" id="detalles-bajas">
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <button type="button" class="btn btn-secondary btn-md active pull-right"  data-dismiss="modal"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
+              </div>
+            </div>
 </div>
 
 <script type="text/javascript">
@@ -150,7 +135,6 @@ function cambiarEstado(cod, est){
             type: "error",
             confirmButton: "#3CB371",
             confirmButtonText: "Aceptar",
-            // confirmButtonText: "Cancelar",
             closeOnConfirm: false,
             closeOnCancel: false
           },
@@ -172,7 +156,6 @@ function cambiarEstado(cod, est){
                   type: "error",
                   confirmButton: "#3CB371",
                   confirmButtonText: "Aceptar",
-                  // confirmButtonText: "Cancelar",
                   closeOnConfirm: false,
                   closeOnCancel: false
                 });
@@ -184,7 +167,6 @@ function cambiarEstado(cod, est){
                   type: "error",
                   confirmButton: "#3CB371",
                   confirmButtonText: "Aceptar",
-                  // confirmButtonText: "Cancelar",
                   closeOnConfirm: false,
                   closeOnCancel: false
                 });
@@ -192,7 +174,7 @@ function cambiarEstado(cod, est){
               }
 
             })
-            // location.href="<?= URL ?>Compras/listarCompras";
+
           });
         }
         });

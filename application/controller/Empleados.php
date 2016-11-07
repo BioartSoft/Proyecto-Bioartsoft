@@ -334,8 +334,6 @@ use Dompdf\Dompdf;
             $modelo->__SET("estado", 1);
             $modelo->__SET("numero_docu", $_POST["txtIdentificacion"]);
             $modelo->__SET("fecha_liquidación",$_POST["txtfechaPagoliquidacion"] );
-            // var_dump($_POST["txtIdentificacion"],date('Y-m-d',$_POST["txtfechaPagoliquidacion"]));
-            // exit();
 
             if ($modelo->registrarPagoEmpleados()) {
                 $modelo->modificarfechaLiquidacion();
@@ -595,9 +593,9 @@ use Dompdf\Dompdf;
                 $fechaActual = date("Y-m-d");
                 if($value['fecha_pago'] == $fechaActual){
                 if($value["estado"] == 1){
-                    $html .= ' <button  title="Anular" type="button" class="btn btn-success btn-circle btn-md" data-toggle="modal" onclick="cambiarestado('.$value["id_pago"].', 0, '.$value['Tbl_Persona_id_persona'].' , \''.$value['tipo_pago'].'\' )"><i class="fa fa-check" aria-hidden="true"></i></button>';
+                    $html .= ' <button  title="Anular" type="button" class="btn btn-danger btn-circle btn-md" data-toggle="modal" onclick="cambiarestado('.$value["id_pago"].', 0, '.$value['Tbl_Persona_id_persona'].' , \''.$value['tipo_pago'].'\' )"><i class="fa fa-remove" aria-hidden="true"></i></button>';
                 }else{
-                  $html .= ' <button  title="Anular" type="button" class="btn btn-success btn-circle btn-md" data-toggle="modal" onclick="cambiarestado('.$value["id_pago"].', 0, '.$value['Tbl_Persona_id_persona'].' , \''.$value['tipo_pago'].'\' )"><i class="fa fa-check" aria-hidden="true"></i></button>';
+                  $html .= ' <button  title="Anular" type="button" class="btn btn-danger btn-circle btn-md" data-toggle="modal" onclick="cambiarestado('.$value["id_pago"].', 0, '.$value['Tbl_Persona_id_persona'].' , \''.$value['tipo_pago'].'\' )"><i class="fa fa-remove" aria-hidden="true"></i></button>';
                 }
               }else{
 

@@ -1,8 +1,13 @@
 
 <form id="formulariocate" action="<?= URL ?>producto/registrarCategoria" method="post" data-parsley-validate="">
+<div class="panel panel-primary" style="margin-top: 5px">
 <div class="row">
+  <br>
 
-    <h3 class="page-header" style="text-align:center; color: #3CB371; margin-top: 10px; margin-bottom:10px">Registrar Categoría</h3><br>
+    <div class="panel-heading" stlyle="height: 70px; width: 100px">
+        <center><span style="text-align:center; color: #337AB7; margin-top: 10px; margin-bottom:10px; font-size: 25px">Registrar Categoría</span></center>
+  </div>
+  <div class="panel-body">
       <div id="frmpro" method="post" data-parsley-validate="">
 
               <div class="col-md-1">
@@ -12,7 +17,7 @@
               </div>
 
                <div class="col-md-4">
-                  <label for="form-control" class="control-label" style="color: #3CB371">Nombre Categoría *</label>
+                  <label for="form-control" class="control-label">Nombre Categoría *</label>
                   <input type="text" name="txtnombrec" minlength="4" maxlength="30" data-parsley-type="alphanum" id="txtnombrec"class="form-control" data-parsley-required="true">
               </div>
             </div>
@@ -30,6 +35,7 @@
                  <button type="reset" class="btn btn-danger" onclick="cancelar()"><i class="fa fa-remove" aria-hidden="true">   Cancelar</i></button>
              </div>
       </div>
+      <br>
 </div>
 </div>
 </form>

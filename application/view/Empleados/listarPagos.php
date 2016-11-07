@@ -1,13 +1,12 @@
 <div class="row">
-  <div class="col-lg-12">
-    <h3 class="page-header" style="text-align:center; color: #3CB371; margin-top: 10px; margin-bottom: 10px">Listar Pagos</h3>
-  </div>
+  <br><br>
 </div>
 <div class="row">
   <div class="col-lg-12">
-    <div class="panel panel-default">
-      <div class="panel-heading" style="background-color:#5cb85c; color: white;">
-      </div>
+    <div class="panel panel-primary">
+    <div class="panel-heading" stlyle="height: 70px; width: 100px">
+        <center><span style="text-align:center; color: #fff; margin-top: 10px; margin-bottom: 10px; font-size: 20px">Listar Pagos</span></center>
+    </div>
       <div class="panel-body">
         <div class="dataTable_wrapper">
           <div class="table-responsive">
@@ -36,18 +35,13 @@
               <div class="modal fade" id="myJhoan" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard ="false" data-backdrop = "static">
                 <div class="modal-dialog modal-lg" role="document">
                   <div class="modal-content">
-                    <div class="modal-header">
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                      <h4 class="modal-title" id="myModalLabel" style="text-align:center; color: #3CB371">Detalles de Pago de: <span id="empleado"></span></h4>
-                    </div>
                     <div class="modal-body">
                       <form class="" action="" method="post">
                         <div class="row">
                           <div class="col-md-12">
-                            <div class="panel panel-green" >
-                              <div class="panel-heading">
+                            <div class="panel panel-primary" >
+                            <div class="panel-heading" stlyle="height: 70px; width: 100px">
+                                  <center><span style="text-align:center; color: #fff; font-size: 20px">Detalles de Pago de: <span id="empleado"></span></span></center>
                               </div>
                               <div class="panel-body">
                                 <div class="dataTable_wrapper">
@@ -117,7 +111,6 @@
         $("#cont-table").html(html);
         $('#detalles_pagos').append(respuesta.html);
         $('#titulos').append(respuesta.cabecera);idempleado
-
         $(".price").priceFormat({centsLimit: 3, clearPrefix: true});
 
       var tabla = $('#listarDetalle').DataTable({
@@ -140,7 +133,7 @@
         title: "¿Realmente Desea Anular el Pago?",
         type: "warning",
         confirmButton: "#3CB371",
-        confirmButtonText: "btn-danger", 
+        confirmButtonText: "btn-danger",
         cancelButtonText: "Cancelar",
         showCancelButton: true,
         confirmButtonClass: "btn-danger",
@@ -205,8 +198,8 @@
       data: {id: id},
     })
     .done(function() {
-    
+
     });
-    
+
   }
   </script>

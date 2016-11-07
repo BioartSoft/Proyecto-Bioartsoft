@@ -1,13 +1,12 @@
 <div class="row">
-    <div class="col-lg-12">
-       <center> <h3 class="page-header" style="text-align:center; color: #3CB371; margin-top: 10px; margin-bottom: 10px">Listar Entradas</h3></center>
-    </div>
+    <br><br>
 </div>
 <div class="row">
     <div class="col-lg-12">
-        <div class="panel panel-default">
-            <div class="panel-heading" style="background-color:#5cb85c; color: white;">
-            </div>
+        <div class="panel panel-primary">
+          <div class="panel-heading" stlyle="height: 70px; width: 100px">
+                <center><span style="text-align:center; color: #fff; margin-top: 10px; margin-bottom: 10px; font-size: 20px">Listar Entradas</span></center>
+          </div>
       <div class="panel-body">
         <div class="dataTable_wrapper">
           <div class="table-responsive">
@@ -59,74 +58,68 @@
 <div class="modal fade" id="myForm2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static" style="display:none" style="width: 50px" action="<?= URL ?>Compras/registrarCompra">
    <div class="modal-dialog" role="document">
        <div class="modal-content" style="width: 900px">
-             <div class="modal-header">
-                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                 </button>
-               <center>
-                    <h4 class="modal-title" id="myModalLabel" style="text-align:center; color: #3CB371">Detalles de Entrada Número: <span id="codigoC"></span></h4>
-               </center>
-             </div>
+         <div class="modal-body">
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="panel panel-primary">
+                  <div class="panel-heading" stlyle="height: 70px; width: 100px">
+                        <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 20px">Detalles de Entrada Número: <span id="codigoC"></span></center>
+                  </div>
+                <div class="panel-body">
+                  <h5><strong>Entrada realizada por: <span id="empleado"></span></strong></h5>
+                  <div class="dataTable_wrapper">
+                    <div class="table-responsive">
+                      <table class="table table-striped table-bordered">
+                        <thead>
+                          <tr>
+                            <th>Fecha Entrada</th>
+                            <th>Nombre Proveedor</th>
+                            <th>Total Entrada</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td id="fecha-compra"></td>
+                            <td id="proveedor-compra"></td>
+                            <td id="total-compra"></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      <table class="table table-striped table-bordered table-hover" id="table-detalles">
+                        <thead>
+                          <tr>
+                            <th>Producto</th>
+                            <th>Cantidad</th>
+                            <th>Precio</th>
+                            <th>Total</th>
+                          </tr>
+                        </thead>
+                        <h4 style="color: #337AB7">Productos</h4>
+                        <tbody id="detalles-productos-compra">
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-9">
+                <button type="button" class="btn btn-secondary btn-md active pull-right"  data-dismiss="modal"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
+              </div>
 
-<div class="row">
-  <div class="col-lg-12">
-    <div class="panel panel-default">
-      <div class="panel-body">
-        <h5><strong>Entrada realizada por: <span id="empleado"></span></strong></h5>
-        <div class="dataTable_wrapper">
-          <div class="table-responsive">
-            <table class="table table-striped table-bordered">
-              <thead>
-                <tr>
-                  <th>Fecha Entrada</th>
-                  <th>Nombre Proveedor</th>
-                  <th>Total Entrada</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td id="fecha-compra"></td>
-                  <td id="proveedor-compra"></td>
-                  <td id="total-compra"></td>
-                </tr>
-              </tbody>
-            </table>
-            <table class="table table-striped table-bordered table-hover" id="table-detalles">
-              <thead>
-                <tr>
-                  <th>Producto</th>
-                  <th>Cantidad</th>
-                  <th>Precio</th>
-                  <th>Total</th>
-                </tr>
-              </thead>
-              <h4 style="color: #3CB371">Productos</h4>
-              <tbody id="detalles-productos-compra">
-
-              </tbody>
-            </table>
+              <div class="col-md-0.5">
+              </div>
+              <?php if($_SESSION['ROL'] == 1 || $_SESSION['ROL'] == 3): ?>
+              <div class="col-md-2">
+                <a href="<?= URL ?>Compras/generarpdfDetallesCompras" target="_blank" id="pdfDeta">
+                  <button class="btn btn-primary" name="btnComprasD"><i class="fa fa-file-pdf-o" aria-hidden="true">   Pdf Detalles Entradas</i></button>
+                </a>
+              </div>
+            <?php endif; ?>
+            </div>
+            <br>
           </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-9">
-      <button type="button" class="btn btn-secondary btn-md active pull-right"  data-dismiss="modal"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
-    </div>
-
-    <div class="col-md-0.5">
-    </div>
-    <?php if($_SESSION['ROL'] == 1 || $_SESSION['ROL'] == 3): ?>
-    <div class="col-md-2">
-      <a href="<?= URL ?>Compras/generarpdfDetallesCompras" target="_blank" id="pdfDeta">
-        <button class="btn btn-primary" name="btnComprasD"><i class="fa fa-file-pdf-o" aria-hidden="true">   Pdf Detalles Entradas</i></button>
-      </a>
-    </div>
-  <?php endif; ?>
-  </div>
-  <br>
-</div>
 
 <script type="text/javascript">
 

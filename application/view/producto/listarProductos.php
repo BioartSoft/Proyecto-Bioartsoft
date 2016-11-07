@@ -1,15 +1,16 @@
 
 <div class="row">
-    <div class="col-lg-12">
-       <center> <h3 class="page-header" style="text-align:center; color: #3CB371; margin-top: 10px; margin-bottom: 10px">Listar Productos</h3></center>
-    </div>
+  <center>
+    <br><br>
+  </center>
     <!-- /.col-lg-12 -->
 </div>
 <!-- /.row -->
 <div class="row">
     <div class="col-lg-12">
-        <div class="panel panel-default">
-            <div class="panel-heading" style="background-color:#5cb85c; color: white;">
+        <div class="panel panel-primary">
+            <div class="panel-heading" stlyle="height: 70px; width: 100px">
+              <center> <span style="color: #fff; margin-top: 10px; margin-bottom: 10px; font-size: 20px">Listar Productos</span></center>
             </div>
             <!-- /.panel-heading -->
       <div class="panel-body">
@@ -123,7 +124,7 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                           <span aria-hidden="true">&times;</span>
                         </button>
-                          <center><h4 class="modal-title" id="myModalLabel" style="color: #3CB371">Modificar Producto</h4></center>
+                          <center><h4 class="modal-title" id="myModalLabel" style="color: #337AB7">Modificar Producto</h4></center>
                       </div>
                    <div class="modal-body">
                        <div class="row">
@@ -211,18 +212,14 @@
 <div class="modal fade" id="myForm2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static" style="display:none" style="width: 50px" action="<?= URL ?>producto/listarProductos">
    <div class="modal-dialog" role="document">
        <div class="modal-content">
-             <div class="modal-header">
-                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                 </button>
-               <center>
-                    <h4 class="modal-title" id="myModalLabel" style="text-align:center; color: #3CB371">Detalles de: <span id="producto"><span></h4>
-               </center>
-             </div>
+         <div class="modal-body">
 
 <div class="row">
   <div class="col-lg-12">
-    <div class="panel panel-default">
+    <div class="panel panel-primary">
+        <div class="panel-heading" stlyle="height: 70px; width: 100px">
+            <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 20px">Detalles de: <span id="producto"><span></center>
+        </div>
       <div class="panel-body">
         <div class="dataTable_wrapper">
           <div class="table-responsive">
@@ -238,11 +235,11 @@
               <tbody class="precios" id="detalles-productos">
               </tbody>
             </table>
-            <button type="button" class="btn btn-secondary btn-md active pull-right"  data-dismiss="modal"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
           </div>
         </div>
       </div>
     </div>
+    <button type="button" class="btn btn-secondary btn-md active pull-right"  data-dismiss="modal"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
   </div>
 </div>
 

@@ -1,16 +1,13 @@
 <div class="row">
-    <div class="col-lg-12">
-       <center> <h3 class="page-header" style="text-align:center; color: #3CB371; margin-top:10px; margin-bottom: 10px">Listar Stock Mínimo</h3></center>
-    </div>
-    <!-- /.col-lg-12 -->
+  <br><br>
 </div>
 <!-- /.row -->
 <div class="row">
     <div class="col-lg-12">
-        <div class="panel panel-default">
-            <div class="panel-heading" style="background-color:#5cb85c; color: white;">
+        <div class="panel panel-primary">
+            <div class="panel-heading" stlyle="height: 70px; width: 100px">
+                <center><span style="text-align:center; color: #fff; margin-top:10px; margin-bottom: 10px; font-size: 20px">Listar Stock Mínimo</span></center>
             </div>
-            <!-- /.panel-heading -->
       <div class="panel-body">
         <div class="dataTable_wrapper">
           <div class="table-responsive">
@@ -56,6 +53,10 @@
 <?php endif; ?>
 <?php endif; ?>
 </form>
+</div>
+</div>
+</div>
+</div>
 </div>
 
 <script type="text/javascript">

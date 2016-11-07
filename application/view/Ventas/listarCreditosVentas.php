@@ -4,15 +4,14 @@
   }
 </style>
 <div class="row">
-<div class="col-lg-12">
-  <h3 class="page-header" style="text-align:center; color: #3CB371; margin-top: 10px; margin-bottom: 10px">Listar Créditos Ventas</h3>
-</div>
+<br><br>
 </div>
 <div class="row">
 <div class="col-lg-12">
-  <div class="panel panel-default">
-    <div class="panel-heading" style="background-color:#5cb85c; color: white;">
-    </div>
+  <div class="panel panel-primary">
+  <div class="panel-heading" stlyle="height: 70px; width: 100px">
+      <center><span style="text-align:center; color: #fff; margin-top: 10px; margin-bottom: 10px; font-size: 20px">Listar Créditos Ventas</span></center>
+  </div>
     <div class="panel-body">
       <div class="dataTable_wrapper">
         <div class="table-responsive">
@@ -56,17 +55,12 @@
             <div class="modal fade" id="mdListarCreditos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard ="false" data-backdrop = "static">
               <div class="modal-dialog" role="document" style="width: 96% !important">
                 <div class="modal-content">
-                  <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                      <h4 class="modal-title" id="creditosClientModal" style="text-align:center; color: #3CB371">Detalles de Crédito de: <span id="cliente"></span> </h4>
-                  </div>
                   <div class="modal-body">
                   <div class="row">
                     <div class="col-md-12">
-                      <div class="panel panel-green" >
-                        <div class="panel-heading">
+                      <div class="panel panel-primary">
+                        <div class="panel-heading" stlyle="height: 70px; width: 100px">
+                            <center><span id="creditosClientModal" style="text-align:center; color: #fff; font-size: 20px">Detalles de Crédito de: <span id="cliente"></span> </center>
                         </div>
                         <div class="panel-body">
                           <div class="dataTable_wrapper">
@@ -89,17 +83,12 @@
             <div class="modal fade" id="mdListarAbonosCreditosV" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard ="false" data-backdrop = "static">
               <div class="modal-dialog" role="document" style="width: 45% !important">
                 <div class="modal-content">
-                  <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="abrirmodal()">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                    <h4 class="modal-title" id="creditosClientModal" style="text-align:center; color: #3CB371">Detalles Abonos de: <span id="cliente-DetallesAbonos"><span></h4>
-                  </div>
                   <div class="modal-body">
                   <div class="row">
                     <div class="col-md-12">
-                      <div class="panel panel-green" >
-                        <div class="panel-heading">
+                      <div class="panel panel-primary" >
+                        <div class="panel-heading" stlyle="height: 70px; width: 100px">
+                            <center><span id="creditosClientModal" style="text-align:center; color: #fff; font-size: 20px">Detalles Abonos de: <span id="cliente-DetallesAbonos"><span></center>
                         </div>
                         <div class="panel-body" id="panelAb">
                           <div class="dataTable_wrapper">
@@ -138,18 +127,19 @@
             <div class="modal fade" id="abonoCreditosV" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard ="false" data-backdrop = "static">
               <div class="modal-dialog" role="document" style="width: 40% !important">
                 <div class="modal-content">
-                  <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"onclick="abrirmodal()" >
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                    <h4 class="modal-title" id="myModalLabel" style="text-align:center; color: #3CB371">Abono a Créditos de: <span id="cliente-abonos"></span></h4>
-                  </div>
                   <div class="modal-body">
                   <form method="POST" id="form-abonos" action="<?php echo URL?>Ventas/registrarAbonoCreditoVen" data-parsley-validate="">
                   <div class="row">
                       <input type="hidden" name="txtidprestamoCredV" id="idprestamosCreditoV">
                       <input type="hidden" name="" id="totalsumaabonoCred" value="">
-                      <div class="col-xs-12 col-md-6">
+
+                      <div class="panel panel-primary" style="margin-left: 2%; margin-right: 2%">
+                          <div class="panel-heading" stlyle="height: 70px; width: 100px">
+                              <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 20px">Abono a Créditos de: <span id="cliente-abonos"></span></center>
+                          </div>
+
+                          <div class="panel-body">
+                            <div class="col-xs-12 col-md-6">
                           <label >Total Crédito Venta</label><br>
                           <input type="text" class="form-control" name="txtresta" placeholder="" id="idvalorCreditoV" disabled="">
                           <input type="hidden" name="txtva" id="idtruefalse" value="true">
@@ -159,8 +149,7 @@
                           <input type="text" class="form-control" name="txtresta" placeholder="" id="totalCreditoPendiente" disabled="">
                           <input type="hidden" name="txtva" id="idtruefalse" value="true">
                      </div>
-                   </div>
-                   <div class="row">
+
                      <div class="col-xs-12 col-md-6">
                          <br>
                          <label >Ingresar Abono</label><br>
@@ -168,44 +157,36 @@
                          <input type="hidden" name="empleadoAbonoVenta" value="<?= $_SESSION['USUARIO_ID']; ?>">
                      </div>
                   </div>
+                </div>
+                </div>
                   <br>
                     <div class="row">
-                      <div class="modal-footer">
-                        <div class="col-md-2">
-                        </div>
-
-                      <div class="col-xs-12 col-md-4">
-                        <button type="button" class="btn btn-secondary btn-active"  data-dismiss="modal" style="float: left" onclick="abrirmodal()"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
+                      <div class="col-xs-12 col-md-6 col-lg-9">
+                        <button type="button" class="btn btn-secondary btn-active pull-right"  data-dismiss="modal" style="float: left" onclick="abrirmodal()"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
                       </div>
 
-                      <div class="col-xs-12 col-md-4">
+                      <div class="col-xs-12 col-md-6 col-lg-3">
                         <button type="submit" name="btnRegistrarAbono" onclick="return validarAbonoCreditoV()" class="btn btn-success btn-active" id="btn-Guardar-Abono" style="float: right"><i class="fa fa-floppy-o" aria-hidden="true">   Guardar</i></button>
                       </div>
-
-                      <div class="col-md-2">
-                      </div>
-                    </div>
                   </div>
                 </form>
-              </div>
-            </div>
           </div>
         </div>
+      </div>
+    </div>
 
 
         <div class="modal fade" id="mymodificarCredito" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard ="false" data-backdrop = "static">
-          <div class="modal-dialog modal-md" role="document" style="width: 35% !important">
+          <div class="modal-dialog modal-md" role="document" style="width: 40% !important">
             <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="abrirmodal()">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-                <h4 class="modal-title" id="myModalLabel" style="text-align:center; color: #3CB371"> Modificar Fecha Límite Crédito<span id=""></span></h4>
-              </div>
               <div class="modal-body">
                 <form action="<?php echo URL?>Ventas/listarVentasCredito" method="POST" id="formModCredito" accept-charset="utf-8" data-parsley-validate="">
                 <div class="row">
                   <div class="col-md-12">
+                    <div class="panel panel-primary">
+                      <div class="panel-heading" stlyle="height: 70px; width: 100px">
+                          <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 20px"> Modificar Fecha Límite Crédito<span id=""></span></center>
+                      </div>
                     <div class="panel-body">
                       <input type="hidden" name="txthiddenCredito" id="idCredito">
                       <div class="row">
@@ -227,20 +208,15 @@
                   </div>
                 </div>
 
-                <div class="modal-footer">
                   <div class="row">
-                          <div class="col-md-3">
-                          </div>
-
-                        <div class="col-xs-12 col-md-3">
-                          <button type="button" class="btn btn-secondary btn-active"  data-dismiss="modal" onclick="abrirmodal()"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
+                        <div class="col-xs-12 col-md-6 col-lg-8">
+                          <button type="button" class="btn btn-secondary btn-active pull-right"  data-dismiss="modal" onclick="abrirmodal()"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
                         </div>
 
-                        <div class="col-xs-12 col-md-3">
+                        <div class="col-xs-12 col-md-6 col-lg-4">
                           <button type="submit" name="btnmodificarCredito" class="btn btn-success btn-active" onclick="return validarFecha()" id="btnmodificarCredito" style="float: left; margin-left: 70px"><i class="fa fa-floppy-o" aria-hidden="true">   Guardar</i></button>
                         </div>
                       </div>
-                    </div>
                 </form>
               </div>
             </div>

@@ -1,15 +1,13 @@
 
 <div class="row">
-    <div class="col-lg-12">
-       <center> <h3 class="page-header" style="text-align:center; color: #3CB371; margin-top: 10px; margin-bottom: 10px">Listar Categorías</h3></center>
-    </div>
-    <!-- /.col-lg-12 -->
+  <br><br>
 </div>
 <!-- /.row -->
 <div class="row">
     <div class="col-lg-12">
-        <div class="panel panel-default">
-            <div class="panel-heading" style="background-color:#5cb85c; color: white;">
+        <div class="panel panel-primary">
+            <div class="panel-heading" stlyle="height: 70px; width: 100px">
+                <center> <span style="text-align:center; color: #fff; margin-top: 10px; margin-bottom: 10px; font-size: 20px">Listar Categorías</span></center>
             </div>
             <!-- /.panel-heading -->
       <div class="panel-body">
@@ -51,18 +49,15 @@
 
           <div class="modal-dialog" role="document">
             <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-                <center>
-                  <h4 class="modal-title" id="myModalLabel" style="text-align:center; color: #3CB371">Modificar Categoría</h4>
-                  </center>
-              </div>
+
            <div class="modal-body">
                <div class="row">
-                  <div class="col-md-6">
-
+                   <div class="panel panel-primary" style="margin-left: 2%; margin-right: 2%">
+                    <div class="panel-heading" stlyle="height: 70px; width: 100px">
+                      <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 20px">Modificar Categoría</span></center>
+                    </div>
+                    <div class="panel-body">
+                      <div class="col-md-6">
                     <label for="form-control" style="color: #3CB371">Código</label><br>
                     <input type="text"  id="txtcodigo-show" class="form-control" value="1" disabled="true">
                     <input type="hidden" id="txtcodigo" name="txtcodigo" class="form-control" >
@@ -74,11 +69,15 @@
                 </div>
          </div>
          </div>
-         <div class="modal-footer">
-           <button type="button" class="btn btn-secondary btn-md active"  data-dismiss="modal"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
+       </div>
+       <div class="row">
+         <div class="col-xs-12 col-md-6 col-lg-9">
+           <button type="button" class="btn btn-secondary btn-md active pull-right"  data-dismiss="modal"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
+         </div>
+         <div class="col-xs-12 col-md-6 col-lg-3">
            <button type="submit" id="btn-modica" name="btn-modificar-categoria" class="btn btn-success btn-md active"><i class="fa fa-floppy-o" aria-hidden="true">   Modificar</i></button>
-        </div>
-   </div>
+         </div>
+       </div>
   </div>
   </div>
 </div>

@@ -1,12 +1,11 @@
  <div class="row">
-    <div class="col-lg-12">
-        <h3 class="page-header" style="text-align:center; color: #3CB371; margin-top: 10px; margin-bottom: 10px">Registrar Préstamos</h3>
-    </div>
+    <br><br>
 </div>
 <div class="row">
     <div class="col-lg-12">
-        <div class="panel panel-default">
-            <div class="panel-heading" style="background-color:#5cb85c; color: white">
+        <div class="panel panel-primary">
+          <div class="panel-heading" stlyle="height: 70px; width: 100px">
+                <center><span style="text-align:center; color: #fff; margin-top: 10px; margin-bottom: 10px; font-size: 20px">Registrar Préstamos</span></center>
             </div>
             <div class="panel-body">
               <div class="dataTable_wrapper">
@@ -49,16 +48,17 @@
     <div class="modal fade" id="myjh" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard ="false" data-backdrop = "static">
       <div class="modal-dialog" role="document" style="width: 40% !important" id="modalcss" >
         <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="cerrarpre()">
-              <span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title" id="myModalLabel" style="text-align:center; color: #3CB371">Registrar Préstamo</h4>
-          </div>
           <div class="modal-body" style="margin: 0 auto">
                 <form class="" action="<?php echo URL?>Empleados/registrarPrestamo" method="post" id="myFor" onsubmit="return validarfe()" data-parsley-validate="">
                   <input type="hidden" name="tipoEmpl" id="tipoEmpl" value="">
                 <div class="row">
                 <input type="hidden"  id="estadoempleado">
+                <div class="panel panel-primary" style="margin-left: 2%; margin-right: 2%">
+                    <div class="panel-heading" stlyle="height: 70px; width: 100px">
+                          <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 20px">Registrar Préstamo</span></center>
+                    </div>
+                    <div class="panel-body">
+                      <div class="row">
                   <div class="col-xs-12 col-md-6">
                       <label id="labelIdentificacion">Identificación</label><br>
                       <input type="text" class="form-control" name="txtIdentifica" placeholder="Identificacion" value="" id="iden" readonly="">
@@ -74,8 +74,6 @@
                   <label id="labelFechaPago">Fecha de Préstamo:</label>
                   <div class="">
                     <div class="input-group date">
-                      <!-- <div style="border-radius:5px;">
-                         <i class="fa fa-calendar"></i> -->
                       </div>
                       <input type="text" class="form-control" name="txtfechaPrestamo" step="1"  value="<?php echo date("Y-m-d");?>" format="yyyy-mm-dd" readonly="">
                     </div>
@@ -115,30 +113,22 @@
                   <textarea class="form-control" rows="3" name="txtdescripcion" id="descri"></textarea>
                 </div>
               </div>
-              <div class="row">
-              <br>
-          </div>
-          <br>
-              <div class="row">
-                <div class="col-xs-1 col-md-2">
-                </div>
-                <div class="col-xs-5 col-md-4" id="btnGuardarPrestamo">
-                  <button type="submit" class="btn btn-success btn-md active"  name="btnRegistrarPrestamo" id="btnguardarPrestamo"><i class="fa fa-floppy-o" aria-hidden="true">   Guardar</i></button>
-                </div>
-
-                <div class="col-md-2">
-                </div>
-
-                <div class="col-xs-5 col-md-4">
-                  <button type="button" class="btn btn-danger btn-md active" onclick="cancelarprestamo()" style="float: right; margin-right: 55%" id="btncancelar"><i class="fa fa-times" aria-hidden="true">   Cancelar</i></button>
-                </div>
               </div>
-              </div>
-            </form>
         </div>
+
+        <div class="row">
+          <div class="col-xs-12 col-md-6 col-lg-9">
+            <button type="button" class="btn btn-secondary btn-md active pull-right" data-dismiss="modal" id="btncancelar"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
+          </div>
+          <div class="col-xs-12 col-md-6 col-lg-3" id="btnGuardarPrestamo">
+            <button type="submit" class="btn btn-success btn-md active"  name="btnRegistrarPrestamo" id="btnguardarPrestamo"><i class="fa fa-floppy-o" aria-hidden="true">   Guardar</i></button>
+          </div>
+        </div>
+
       </div>
     </div>
 </div>
+</form>
 
           <script type="text/javascript">
             $(document).ready(function(){

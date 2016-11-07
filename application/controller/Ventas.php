@@ -478,6 +478,7 @@ private function validarAbonos($idVenta){
 
   $clientesCredito = $this->mdlVentas->listarClientesCreditoV();
   $notificacionCredito = $this->mdlVentas->listarNotificacionesCredito();
+  $info = $this->mdlVentas->estadoAbono();
   require APP . 'view/_templates/header.php';
   require APP . 'view/Ventas/listarClientesCredito.php';
   require APP . 'view/_templates/footer.php';

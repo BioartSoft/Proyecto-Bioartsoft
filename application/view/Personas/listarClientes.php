@@ -1,7 +1,5 @@
 <div class="row">
-  <center>
       <br><br>
-  </center>
 </div>
 <div class="row">
     <div class="col-lg-12">
@@ -91,7 +89,7 @@
            <span aria-hidden="true">&times;</span>
              </button>
                <center>
-                 <h4 class="modal-title"  style="color: #3CB371" id="myModalLabel">Modificar Clientes</h4>
+                 <h4 class="modal-title"  style="color: #337AB7" id="myModalLabel">Modificar Clientes (obligatorios *)</h4>
                </center>
              </div>
              <form method="POST"  id="form-2" role="form" action="<?= URL ?>Personas/listarPersonasClientes/<?= $clientes['id_persona'] ?>" data-parsley-validate="">
@@ -99,13 +97,13 @@
                 <input type="hidden" name="idPersona" value="<?= $clientes['id_persona'] ?>">
                 <div class="row">
                   <div class="col-md-6"  class="form-group">
-                  <label>Nombres</label><br>
+                  <label>Nombres *</label><br>
                   <input type="text" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ@\-\.\\ \/$]+" minlength="3" maxlength="30" class="form-control" name="txtnombre" id="ejemplo_password_2"
                   value="<?= $clientes['nombres'] ?>" data-parsley-required="true">
                 </div>
 
                   <div class="col-md-6">
-                    <label>Apellidos</label><br>
+                    <label>Apellidos *</label><br>
                       <input type="text" class="form-control" id="fecha" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ@\-\.\\ \/$]+" minlength="3" maxlength="30"
                          value="<?= $clientes['apellidos'] ?>" name="txtapell" onchange="(this)" data-parsley-required="true">
                   </div>
@@ -116,9 +114,9 @@
         <br>
         <div class="row">
                           <div class="col-md-6">
-                            <label>Celular</label><br>
+                            <label>Celular *</label><br>
                             <input type="text" class="form-control" id="ejemplo_password_2" maxlength="12" minlength="10" data-parsley-type="number"
-                                   value="<?= $clientes['celular'] ?>" name="txtcel" data-parsley-required="false">
+                                   value="<?= $clientes['celular'] ?>" name="txtcel" data-parsley-required="true">
                            </div>
                          <div class="col-md-6">
                            <label>Email</label><br>
@@ -142,7 +140,7 @@
         <br>
         <div class="row">
                      <div class="col-md-6">
-                       <label>Género</label>
+                       <label>Género *</label>
                        <select class="form-control" name="txtgener" pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+" data-parsley-required="true">
                        <option value="Masculino" <?= $clientes['genero'] == 'Masculino'? 'selected="selected"' : '' ?> >Masculino</option>
                        <option value="Femenino" <?= $clientes['genero'] == 'Femenino'? 'selected="selected"' : '' ?>>Femenino</option>
@@ -150,7 +148,7 @@
                       </div>
 
                       <div class="col-md-6">
-                        <label>Tipo de Cliente</label><br>
+                        <label>Tipo de Cliente *</label><br>
                         <select class="form-control" id="selectCliente" name="txtTipoCliente" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9!@#\$%\-\*\?_~\\ \/$]+" data-parsley-required="true">
                           <?php foreach($TipoCliente AS $tipo): ?>
                             <option value="<?= $tipo['idTbl_tipo_persona'] ?>" <?= $clientes['idTbl_tipo_persona'] == $tipo['idTbl_tipo_persona'] ? 'selected="selected"' : '' ?>>
@@ -189,25 +187,18 @@ $("#btnmodClientes").click(function(){
 
 
 <?php if ($id!= "" && $tipo == 3): ?>
-  <div class="modal fade" id="modal-detalles" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal fade" id="modal-detalles" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard ="false" data-backdrop = "static">
      <div class="modal-dialog" style="width: 80%" role="document">
        <div class="modal-content" style="width: 100%">
-         <div class="modal-header">
-           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-             <span aria-hidden="true">&times;</span>
-               </button>
-                 <center>
-                   <h4 class="modal-title"  style="color: #3CB371" id="myModalLabel">Detalles de <?php echo $clientes['nombres'].' '.$clientes['apellidos']?></h4>
-                 </center>
-               </div>
-               <form method="POST" action="<?= URL ?>Personas/listarPersonasClientes/<?=  $valor['id_persona'] ?>">
+          <!-- <form method="POST" action="<?= URL ?>Personas/listarPersonasClientes/<?=  $valor['id_persona'] ?>"> -->
                 <div class="modal-body">
                   <input type="hidden" name="idPersona" value="<?= $clientes['id_persona'] ?>">
                   <div class="row">
                   <div class="col-md-12">
-                    <div class="panel panel-green" >
-                        <div class="panel-heading" stlyle="height: 70px; width: 100px">
-                        </div>
+                    <div class="panel panel-primary" >
+                      <div class="panel-heading" stlyle="height: 70px; width: 100px">
+                          <center><span style="color: #fff; font-size: 20px" id="myModalLabel">Detalles de <?php echo $clientes['nombres'].' '.$clientes['apellidos']?></span></center>
+                      </div>
                           <div class="panel-body">
                             <div class="dataTable_wrapper">
                               <div class="table-responsive">
@@ -238,14 +229,12 @@ $("#btnmodClientes").click(function(){
               </div>
             </div>
           </div>
-          <hr>
    <div class="row">
      <div class="col-md-11">
-<button type="button" class="btn btn-secondary btn-md active pull-right"  data-dismiss="modal" style="float: center"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
+       <button type="button" class="btn btn-secondary btn-md active pull-right"  data-dismiss="modal" style="float: center"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
+     </div>
+   </div>
 </div>
-</div>
-</div>
-</form>
  </div>
 </div>
 </div>

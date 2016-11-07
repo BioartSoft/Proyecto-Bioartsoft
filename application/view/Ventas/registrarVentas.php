@@ -1,6 +1,6 @@
 
 <form id="forventas" method="post" action="<?= URL ?>Ventas/index"  name="fmVentas" data-parsley-validate="">
-  <div class="panel panel-default">
+  <div class="panel panel-primary" style="margin-top: 5px">
    <div class="row">
     <br>
 

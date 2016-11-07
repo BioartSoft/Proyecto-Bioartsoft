@@ -1,6 +1,6 @@
 
 <form id="detallesC" action="<?= URL ?>Compras/registrarCompra" method="post" name="formC" data-parsley-validate="">
-  <div class="panel panel-default">
+  <div class="panel panel-primary" style="margin-top: 5px">
    <div class="row">
      <br>
 

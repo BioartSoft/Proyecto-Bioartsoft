@@ -1,12 +1,16 @@
 
 <form id="frmBajas" method="post"  action="<?= URL ?>producto/registrarBajas" data-parsley-validate="">
+  <div class="panel panel-primary" style="margin-top: 5px">
    <div class="row">
+     <br>
 
-    <h3 class="page-header" style="text-align:center; color: #3CB371; margin-top: 10px; margin-bottom: 10px">Registrar Bajas</h3><br>
-    <div id="frmB" method="post" data-parsley-validate="">
+    <div class="panel-heading" stlyle="height: 70px; width: 100px">
+      <center><span style="text-align:center; color: #337AB7; margin-top: 10px; margin-bottom: 10px; font-size: 25px">Registrar Bajas</span></center>
+    </div>
 
+    <div class="panel-body">
     <div class="col-sm-6">
-      <div class="panel panel-default">
+      <div class="panel panel-primary">
         <div class="panel-heading">
           <h3 class="panel-title"><strong>Información de la Baja</strong></h3>
         </div>
@@ -63,6 +67,7 @@
        <button class="btn btn-success pull-right" id="btn-guardarBajas" type="submit"  name="btn-agregar"><i class="fa fa-floppy-o" ></i>   Guardar</button>
     </div>
   </div>
+</div>
 </div>
 </form>
 
