@@ -456,6 +456,13 @@ class mdlVentas
       return $stm->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function ultimoId(){
+        $sql = "SELECT max(id_ventas) as ultimo_id FROM tbl_ventas";
+        $stm = $this->db->prepare($sql);
+        $stm ->execute();
+        return $stm->fetch(PDO::FETCH_ASSOC);
+    }
+
 }
 
 ?>

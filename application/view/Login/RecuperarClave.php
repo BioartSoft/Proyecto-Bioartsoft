@@ -50,7 +50,7 @@
                           </center>
                         </div>
                         <div class="panel-body">
-                            <form role="form" method="post">
+                            <form  id="form-clave" method="post" action="<?= URL ?>Personas/registrarPersonas" data-parsley-validate="">
                               <center>
 
                               </center>
@@ -77,16 +77,18 @@
                                     </div>
                                   <?php endif; ?>
 
-                                  <form  id="form-clave" method="post" action="<?= URL ?>Personas/registrarPersonas" data-parsley-validate="">
                                     <div class="form-group">
-                                        <input class="form-control" placeholder="Nombre de usuario" name="txtNombreUsu" type="text" data-parsley-type="alphanum">
+                                        <input tabindex="1" class="form-control" id="nombreUsuario" placeholder="Nombre de usuario *" name="txtNombreUsu" maxlength="20" minlength="3" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9@#\-\_\\.\\ \/$]+" focus="1" autofocus="true" data-parsley-required="true">
                                     </div>
                                     <div class="form-group">
-                                        <input class="form-control" placeholder="E-mail" id="email" name="txtEmailUsu" type="text" data-parsley-type="email">
+                                        <input tabindex="2" class="form-control" placeholder="E-mail *" id="email" name="txtEmailUsu" data-parsley-type="email" maxlength="50" minlength="3" focus="2" data-parsley-required="true">
                                     </div><br>
-                                      <button type="submit" name="btnEnviar-Correo" id="#enviar" class="btn btn-lg btn-primary btn-block">Enviar</button>
+                                      <button tabindex="3" type="submit" name="btnEnviar-Correo" id="enviar" class="btn btn-lg btn-primary btn-block">Enviar</button>
 
-                                      <a href="<?= URL ?>login/iniciar" class="btn btn-lg btn-default btn-block">Salir</a>
+                                      <a tabindex="4" href="<?= URL ?>login/iniciar" class="btn btn-lg btn-default btn-block" id="salir">Salir</a>
+                                      <p tabindex="5">
+                                        &nbsp;
+                                      </p>
                                     </div>
                                 </fieldset>
                             </form>
@@ -94,6 +96,15 @@
                     </div>
                 </div>
             </div>
+
+            <script type="text/javascript">
+              $(document).ready(function(){
+                $("#salir").blur(function(e){
+                      $("#nombreUsuario").focus();
+
+                })
+              })
+            </script>
 
         <script src="<?php echo URL ?>js/bootstrap.min.js"></script>
 
@@ -123,8 +134,6 @@
   $(document).ready(function(){
 
     $("#enviar").click(function(){
-
-      $("#email").css("background", "red");
       $("#form-clave").parsley().validate();
 
     })

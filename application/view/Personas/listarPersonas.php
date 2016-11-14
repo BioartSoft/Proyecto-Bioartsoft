@@ -102,6 +102,14 @@
                 <div class="modal-body">
                   <input type="hidden" name="idPersona" value="<?= $persona['id_persona'] ?>">
 
+                  <div class="row">
+                      <div class="col-md-6">
+                        <label for="">Número de documento</label>
+                        <input type="text" name="txtIdPersona" value="<?= $persona['id_persona'] ?>" style="width: 100%"class="form-control" id="campoId" readonly="true">
+                      </div>
+                  </div>
+                  <br>
+
         <div class="row">
                 <div class="col-md-6" class="form-group">
                     <label>Nombres *</label><br>
@@ -113,9 +121,6 @@
                       <label>Apellidos *</label><br>
                         <input type="text" class="form-control" id="fecha"
                            value="<?= $persona['apellidos'] ?>" name="txtapell" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ@\-\.\\ \/$]+" minlength="3" maxlength="30" onchange="(this)" data-parsley-required="true">
-                    </div>
-
-                    <div class="col-md-3">
                     </div>
           </div>
           <br>
@@ -164,7 +169,7 @@
                         <div class="col-md-6">
                           <label>Dirección</label><br>
                             <input type="text" class="form-control" id="ejemplo_password_2"
-                               value="<?= $persona['direccion'] ?>" name="txtdirecc" maxlength="22" minlength="3" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9!@#\$%\-\*\?_~\\ \/$]+" ata-parsley-required="false">
+                               value="<?= $persona['direccion'] ?>" name="txtdirecc" maxlength="40" minlength="3" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9!@#\$%\-\*\?_~\\ \\.\/$]+" ata-parsley-required="false">
                         </div>
           </div>
           <br>

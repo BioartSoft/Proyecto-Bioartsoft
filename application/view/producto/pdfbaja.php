@@ -8,8 +8,9 @@
   </style>
 </head>
 <body>
-<center><legend><2>INFORME STOCK MÍNIMO</h2></legend></center>
-  <br><br>
+<center><legend><2>INFORME PRODUCTOS EN STOCK MÍNIMO</h2></legend></center>
+  <br>
+  <p><strong>Fecha reporte: <?= ucwords(date("Y/m/d h:i:s"))?></strong></p>
   <table border="1">
     <thead>
       <tr>

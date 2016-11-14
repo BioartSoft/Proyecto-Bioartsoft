@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Mi documento</title>
+	<title>Códigos</title>
 	<style>
 		.img{
 			margin: 15px;

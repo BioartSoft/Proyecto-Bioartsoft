@@ -24,4 +24,8 @@ define('DB_CHARSET', 'utf8');
 define('RAIZ', realpath(__DIR__ . '/../../'));
 define('DS', DIRECTORY_SEPARATOR);
 
+define('EMAIL_ADMIN', 'jhoanlt19@gmail.com');
+define('EMAIL_ADMIN_PASS', 'JHOANzurda200594');
+define('EMAIL_ALIAS', 'BIOARTES');
+
 require APP. 'libs/e.php';

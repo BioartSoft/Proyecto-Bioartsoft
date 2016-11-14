@@ -17,6 +17,10 @@
     <link href="<?= URL ?>css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="<?php echo URL ?>css/sweetalert.css">
 
+    <script src="<?= URL ?>js/jquery-1.12.3.min.js"></script>
+    <script src="<?= URL ?>js/parsley.min.js"></script>
+    <script src="<?= URL ?>js/i18n/es.js"></script>
+
 </head>
 
 <body background="<?= URL ?>img/fondo.png" style="background-size: cover">
@@ -32,7 +36,7 @@
                         </center>
                       </div>
                       <div class="panel-body">
-                          <form role="form" method="post">
+                          <form role="form" method="post" data-parsley-validate="">
                               <fieldset><br>
                                 <?php if ($estado == true): ?>
                                   <div class="alert alert-danger ">
@@ -48,13 +52,13 @@
                                       </p>
                                   </div>
                                 <?php endif; ?>
-                                <?php if ($errorVacios==true): ?>
+                                <!-- <?php if ($errorVacios==true): ?>
                                   <div class="alert alert-danger ">
                                       <p>
                                         Por favor ingresar usuario y contraseña
                                       </p>
                                   </div>
-                                <?php endif; ?>
+                                <?php endif; ?> -->
                                 <?php if ($error2 == true): ?>
                                   <div class="alert alert-danger ">
                                       <p>
@@ -63,15 +67,17 @@
                                   </div>
                                 <?php endif; ?>
                                   <div class="form-group">
-                                      <input class="form-control" placeholder="Nombre de usuario" name="txtPersona" type="text" >
+                                      <input tabindex="1" class="form-control" id="nombre" placeholder="Nombre de usuario *" name="txtPersona" type="text" data-parsley-required="true" maxlength="20" minlength="3" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9@#\-\_\\.\\ \/$]+" autofocus="true">
                                   </div>
                                   <div class="form-group">
-                                      <input class="form-control" placeholder="Contraseña" name="txtContras" type="password" value="">
+                                      <input tabindex="2" class="form-control" id="clave" placeholder="Contraseña *" name="txtContras" type="password" data-parsley-required="true" maxlength="15" minlength="3" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9!@#\$%\-\*\?_~\\.\\()\/$]+">
                                   </div><br>
-                                    <button type="submit" name="btnIniciar" class="btn btn-lg btn-primary btn-block">Iniciar sesión</button>
+                                    <button tabindex="3" type="submit" name="btnIniciar" id="btn-iniciar" class="btn btn-lg btn-primary btn-block">Iniciar sesión</button>
                                   <div class="checkbox">
-                                          <!-- <input name="remember" type="checkbox" value="Remember Me">Recordarme -->
-                                          <a href="<?= URL ?>login/recuperarContras" style="margin-left: 80px;color: blue; text-decoration: underline">Recuperar contraseña</a>
+                                          <a tabindex="4" href="<?= URL ?>login/recuperarContras" id="recuperarContras" style="margin-left: 80px;color: blue; text-decoration: underline">Recuperar contraseña</a>
+                                          <p tabindex="5">
+                                            &nbsp;
+                                          </p>
                                   </div>
                               </fieldset>
                           </form>
@@ -80,6 +86,15 @@
               </div>
           </div>
       </div>
+
+      <script type="text/javascript">
+        $(document).ready(function(){
+          $("#recuperarContras").blur(function(e){
+                $("#nombre").focus();
+
+          })
+        })
+      </script>
 
     <!-- jQuery -->
     <script src="<?= URL ?>js/jquery.min.js"></script>

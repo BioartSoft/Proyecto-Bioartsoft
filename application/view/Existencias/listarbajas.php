@@ -63,7 +63,8 @@
                     <button class="btn btn-primary"><i class="fa fa-file-pdf-o" aria-hidden="true">   Reporte PDF Bajas</i></button>
                   </a>
                 </center>
-            <?php else: ?>
+          <?php break; ?>
+          <?php else: ?>
           <?php endif; ?>
           <?php endforeach; ?>
             </div>

@@ -24,7 +24,7 @@ use Dompdf\Dompdf;
       require_once APP . 'libs/dompdf/autoload.inc.php';
       // $urlImagen = URL . 'producto/generarcodigo?id=';
       // $productos = $this->mdlproducto->listar();
-        $listarP = $this->modeloP->ListarProveedor();
+        $listarP = $this->modeloP->ListarProveedorReporte();
       ob_start();
       require APP . 'view/Personas/pdfproveedor.php';
       $html = ob_get_clean();
@@ -43,7 +43,7 @@ use Dompdf\Dompdf;
       require_once APP . 'libs/dompdf/autoload.inc.php';
       // $urlImagen = URL . 'producto/generarcodigo?id=';
       // $productos = $this->mdlproducto->listar();
-      $listarClientes = $this->modeloP->ListarPersClientes();
+      $listarClientes = $this->modeloP->ListarPersClientesReporte();
       ob_start();
       require APP . 'view/Personas/pdfClientes.php';
       $html = ob_get_clean();
@@ -212,6 +212,9 @@ use Dompdf\Dompdf;
           closeOnCancel: false
         })';
 
+        header("Location: ".URL."Personas/registrarPersonas");
+        exit();
+
 
       }else{
 
@@ -225,6 +228,8 @@ use Dompdf\Dompdf;
           closeOnCancel: false
         })';
 
+        header("Location: ".URL."Personas/registrarPersonas");
+        exit();
 
       }
 
@@ -265,6 +270,9 @@ use Dompdf\Dompdf;
             closeOnCancel: false
           })';
 
+          header("Location: ".URL."Personas/registrarPersonas");
+          exit();
+
         }else{
 
           $_SESSION['alerta'] = ' swal({
@@ -276,6 +284,9 @@ use Dompdf\Dompdf;
             closeOnConfirm: false,
             closeOnCancel: false
           })';
+
+          header("Location: ".URL."Personas/registrarPersonas");
+          exit();
 
         }
 
@@ -310,6 +321,9 @@ use Dompdf\Dompdf;
           closeOnCancel: false
         })';
 
+        header("Location: ".URL."Personas/registrarPersonas");
+        exit();
+
       }else{
 
         $_SESSION['alerta'] = ' swal({
@@ -321,6 +335,9 @@ use Dompdf\Dompdf;
           closeOnConfirm: false,
           closeOnCancel: false
         })';
+
+        header("Location: ".URL."Personas/registrarPersonas");
+        exit();
 
         }
     }
@@ -360,6 +377,9 @@ use Dompdf\Dompdf;
           closeOnCancel: false
         })';
 
+        header("Location: ".URL."Personas/registrarPersonas");
+        exit();
+
       }else{
 
         $_SESSION['alerta'] = ' swal({
@@ -371,6 +391,9 @@ use Dompdf\Dompdf;
           closeOnConfirm: false,
           closeOnCancel: false
         })';
+
+        header("Location: ".URL."Personas/registrarPersonas");
+        exit();
 
         }
 
@@ -391,13 +414,13 @@ use Dompdf\Dompdf;
 
       if($email['email'] != 0){
         // Si ya existe no dejar guardar
-        //$correo = false;
-        var_dump("No guardado, ya existe correo");
-        exit();
+        $correo = false;
+        // var_dump("No guardado, ya existe correo");
+        // exit();
       } else {
              // Si no existe dejar guardar
-             var_dump("Guardado");
-               exit();
+            //  var_dump("Guardado");
+            //    exit();
 
        $this->modeloP->__SET('idPersona', $_POST['txtidPersona']);
        $consultaProv = $this->modeloP->consultarProveedorJ() ;
@@ -428,6 +451,9 @@ use Dompdf\Dompdf;
               closeOnCancel: false
             })';
 
+            header("Location: ".URL."Personas/listarProveedores");
+            exit();
+
           }else{
 
             $this->modeloP->__SET('idPersona', $_POST['txtidPersona']);
@@ -451,6 +477,9 @@ use Dompdf\Dompdf;
                closeOnConfirm: false,
                closeOnCancel: false
              })';
+
+             header("Location: ".URL."Personas/listarProveedores");
+             exit();
 
           }
 
@@ -486,6 +515,9 @@ use Dompdf\Dompdf;
                closeOnCancel: false
              })';
 
+             header("Location: ".URL."Personas/listarProveedores");
+             exit();
+
           }else{
 
             $this->modeloP->__SET('nitEmpresa', $_POST['txtNit']);
@@ -513,6 +545,9 @@ use Dompdf\Dompdf;
                closeOnConfirm: false,
                closeOnCancel: false
              })';
+
+             header("Location: ".URL."Personas/listarProveedores");
+             exit();
           }
         }
      }
@@ -526,10 +561,6 @@ use Dompdf\Dompdf;
       $TipoProveedor = $this->modeloP->tipoPersonaProveedores();
       $tipoProveedores = $this->modeloP->tipoPersonaProveedor();
       $listarP= $this->modeloP->ListarProveedor();
-      // echo "<pre>";
-      // var_dump($id);
-      // exit();
-      //$ListarPID = $this->modeloP->ListarProveedorID($Id);
       require APP . 'view/_templates/header.php';
       require APP . 'view/Personas/listarProveedores.php';
       require APP . 'view/_templates/footer.php';
@@ -621,6 +652,9 @@ use Dompdf\Dompdf;
               closeOnCancel: false
             })';
 
+            header("Location: ".URL."Personas/listarPersonasEmpleados");
+            exit();
+
           }else{
 
             $_SESSION['alerta'] = ' swal({
@@ -632,6 +666,9 @@ use Dompdf\Dompdf;
               closeOnConfirm: false,
               closeOnCancel: false
             })';
+
+            header("Location: ".URL."Personas/listarPersonasEmpleados");
+            exit();
 
           }
 
@@ -668,6 +705,9 @@ use Dompdf\Dompdf;
               closeOnCancel: false
             })';
 
+            header("Location: ".URL."Personas/listarPersonasEmpleados");
+            exit();
+
           }else{
 
             $_SESSION['alerta'] = ' swal({
@@ -679,6 +719,9 @@ use Dompdf\Dompdf;
               closeOnConfirm: false,
               closeOnCancel: false
             })';
+
+            header("Location: ".URL."Personas/listarPersonasEmpleados");
+            exit();
 
             }
 
@@ -732,6 +775,9 @@ use Dompdf\Dompdf;
           closeOnCancel: false
         })';
 
+        header("Location: ".URL."Personas/registrarPersonas");
+        exit();
+
       }else{
 
         $_SESSION['alerta'] = ' swal({
@@ -743,6 +789,9 @@ use Dompdf\Dompdf;
           closeOnConfirm: false,
           closeOnCancel: false
         })';
+
+        header("Location: ".URL."Personas/registrarPersonas");
+        exit();
 
         }
     }
@@ -810,6 +859,9 @@ use Dompdf\Dompdf;
                   closeOnCancel: false
                 })';
 
+                header("Location: ".URL."Personas/listarPersonasClientes");
+                exit();
+
               }else{
 
                 $_SESSION['alerta'] = ' swal({
@@ -820,6 +872,9 @@ use Dompdf\Dompdf;
                   closeOnConfirm: false,
                   closeOnCancel: false
                 })';
+
+                header('Location: '.URL.'Personas/listarPersonasClientes');
+                exit();
               }
 
             }
@@ -859,7 +914,7 @@ use Dompdf\Dompdf;
           closeOnCancel: false
         })';
 
-        header('Location: ' . URL . '/Personas/listarPersonasEmpleados');
+        header('Location: ' . URL . 'Personas/listarPersonasEmpleados');
         exit();
     }
 

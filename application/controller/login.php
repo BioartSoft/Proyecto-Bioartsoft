@@ -92,6 +92,7 @@ class Login extends Controller
             session_destroy();
           }
             header("Location:".URL."login/iniciar");
+            exit();
       }
 
 
@@ -131,8 +132,8 @@ class Login extends Controller
 
               // Create the Transport
               $transport = Swift_SmtpTransport::newInstance('smtp.gmail.com', 465, 'ssl')
-              ->setUsername('jhoanlt19@gmail.com')
-              ->setPassword('JHOANzurda200594');
+              ->setUsername(EMAIL_ADMIN)
+              ->setPassword(EMAI_ADMIN_PASS);
 
               // Create the Mailer using your created Transport
               $mailer = Swift_Mailer::newInstance($transport);
@@ -144,7 +145,7 @@ class Login extends Controller
 
               // Create a message
               $message = Swift_Message::newInstance('Recuperación Contraseña')
-                ->setFrom(array('jhoanlt19@gmail.com' => 'BIOARTES'))
+                ->setFrom(array(EMAIL_ADMIN => EMAIL_ALIAS))
                 ->setTo(array($correo => 'A name'))
                 ->setBody($html, 'text/html');
 

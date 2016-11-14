@@ -506,7 +506,7 @@
          }
          calcularTotal();
          sumarSubtotal();
-         $("#txtcantidad").val("");
+         $("#txtcantidad").val(1);
 
          $("#total").priceFormat(
            {

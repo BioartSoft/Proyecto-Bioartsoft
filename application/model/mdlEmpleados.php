@@ -297,7 +297,7 @@
 			$stm = $this->db->prepare($sql);
 			$stm->bindParam(1, $this->id_persona);
 			$stm->execute();
-			return $stm->fetch(2);
+			return $stm->fetchAll(2);
 		}
 
 		public function informacionprestamo()

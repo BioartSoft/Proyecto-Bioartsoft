@@ -8,12 +8,11 @@
   </style>
 </head>
 <body>
-<!-- <div class="row" style="border: 2px solid black"> -->
-  <img src="<?php echo URL ?>img/BioartesV2.png" height="100" width="200">
-<!-- </div> -->
+  <img src="<?php echo URL ?>img/bio-artes.png" height="100" width="400">
   <br>
-<center><legend>INFORME DE BAJAS</legend></center>
-  <br><br>
+<center><legend><h2>INFORME DE BAJAS</h2></legend></center>
+  <br>
+  <p><strong>Fecha reporte: <?= ucwords(date("Y/m/d h:i:s"))?></strong></p>
   <table border="1">
     <thead>
       <tr>
@@ -23,7 +22,6 @@
       <th>Fecha Registro Baja</th>
       <th>Cantidad</th>
       <th>Tipo de Baja</th>
-
       </tr>
     </thead>
     <tbody>
@@ -46,9 +44,7 @@
                                <?= $value['tipo_baja'] ?>
                              </td>
                            </tr>
-                          <?php endforeach; ?>
-
-
+      <?php endforeach; ?>
     </tbody>
   </table>
 </body>

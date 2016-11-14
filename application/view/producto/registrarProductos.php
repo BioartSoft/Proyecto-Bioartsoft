@@ -12,12 +12,12 @@
                 <div class="col-md-1">
                 </div>
                 <div class="col-md-12 col-xs-12 col-lg-3">
-                    <label for="inputTwitter" class="control-label" style="color: #337AB7">Nombre Producto *</label>
+                    <label for="inputTwitter" class="control-label">Nombre Producto *</label>
                     <input name="txtnombreproducto" id="txtnombreproducto" type="text"  pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ@\-\.\\ \/$]+" maxlength="20" class="form-control"  placeholder="Nombre Producto" data-parsley-required="true">
                 </div>
 
               <div class="col-md-12 col-xs-12 col-lg-3">
-                <label for="form-control" style="color: #337AB7">Categoría *</label>
+                <label for="form-control">Categoría *</label>
                 <select name="txtcategoria" id="txtcategoria" class="form-control" maxlength="20" data-parsley-type"alphanum" data-parsley-required="true">
                   <option value="">Seleccionar Categoría</option>
                   <?php foreach ($categorias as   $value): ?>
@@ -27,7 +27,7 @@
               </div>
 
             <div class="col-md-12 col-xs-12 col-lg-3">
-                <label for="inputTwitter" class="control-label" style="color: #337AB7">Precio Unitario *</label>
+                <label for="inputTwitter" class="control-label">Precio Unitario *</label>
                 <input name="txtpreciocompra" id="txtpreciocompra" type="number" data-parsley-type="integer" min="0" max="100000" step="10" class="form-control" placeholder="Precio Unitario" data-parsley-required="true">
             </div>
             <div class="col-md-1">
@@ -40,16 +40,16 @@
   </div>
 
     <div class="col-md-12 col-xs-12 col-lg-3">
-        <label for="inputTwitter" class="control-label" style="color: #337AB7">Precio al Detal *</label>
+        <label for="inputTwitter" class="control-label">Precio al Detal *</label>
         <input name="txtprecioventa" type="number" id="txtprecioventa" type="text"  data-parsley-type="integer" min="0" step="10" max="100000" class="form-control" placeholder="Precio Detal" data-parsley-required="true">
     </div>
     <div class="col-md-12 col-xs-12 col-lg-3">
-        <label for="inputTwitter" class="control-label" style="color: #337AB7">Precio al por Mayor * </label>
+        <label for="inputTwitter" class="control-label">Precio al por Mayor * </label>
         <input id="txtprecioalpormayor" type="number" name="txtprecioalpormayor" data-parsley-type="integer" min="0" step="10" max="100000" class="form-control"  placeholder="Precio por Mayor" data-parsley-required="true">
     </div>
 
     <div class="col-md-12 col-xs-12 col-lg-3" id="talla"  style="display: none;" >
-      <label for="form-control" style="color: #337AB7">Talla</label>
+      <label for="form-control">Talla</label>
       <select id="txttalla" name="txttalla" class="form-control" data-parsley-type="alphanum" maxlength="15">
         <option value="">Seleccionar Talla</option>
         <option value="S">S</option>
@@ -61,8 +61,8 @@
     </div>
 
     <div class="col-md-12 col-xs-12 col-lg-3" id="tamano" style="display:block" >
-      <label for="form-control" style="color: #337AB7">Tamaño</label>
-      <input id="txttamano"  name="txttamano" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ@\-\.\\ \/$]+" maxlength="20" placeholder="Tamaño" class="form-control">
+      <label for="form-control">Descripción</label>
+      <textarea id="txttamano"  name="txttamano" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ@\-\.\\ \/$]+" maxlength="100"  class="form-control"></textarea>
     </div>
 
     <div class="col-md-1">
@@ -76,7 +76,7 @@
     </div>
 
     <div class="col-md-12 col-xs-12 col-lg-3">
-      <label for="inputTwitter" class="control-label" style="color: #337AB7">Stock Mínimo *</label>
+      <label for="inputTwitter" class="control-label">Stock Mínimo *</label>
       <input id="txtstock"  name="txtstock" data-parsley-type="number" min="1" type="number"  max="50" class="form-control"  placeholder="Stock Mínimo" data-parsley-required="true">
     </div>
 

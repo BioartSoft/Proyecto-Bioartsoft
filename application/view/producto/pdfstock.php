@@ -8,10 +8,11 @@
   </style>
 </head>
 <body>
-<img src="<?php echo URL ?>img/BioartesV2.png" height="100" width="200">
+<img src="<?php echo URL ?>img/bio-artes.png" height="100" width="400">
 <br>
-<center><legend><h2>INFORME GENERAL  DE STOCK MÍNIMO</h2></legend></center>
-  <br><br>
+<center><legend><h2>INFORME GENERAL  DE PRODUCTOS EN STOCK MÍNIMO</h2></legend></center>
+  <br>
+  <p><strong>Fecha reporte: <?= ucwords(date("Y/m/d h:i:s"))?></strong></p>
   <table border="1">
     <thead>
       <tr>

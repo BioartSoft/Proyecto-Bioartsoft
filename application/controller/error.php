@@ -1,5 +1,6 @@
 <?php
 class Error extends Controller{
+  
   public function sinPermiso(){
 
     $creditos = $this->modelo->creditos();

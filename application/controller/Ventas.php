@@ -51,7 +51,9 @@ class Ventas extends controller
 
   public function generarpdfDetallesVentas()
   {
-    $id = $_GET['id'];
+    $id = $_GET['txtId'];
+
+    if(isset($id)){
 
     $detalles = $this->mdlVentas->getDetallesVenta($id);
     $info = $this->mdlVentas->getInfoVenta($id);
@@ -80,6 +82,8 @@ class Ventas extends controller
     $dompdf->render();
     $dompdf->stream("Informe Ventas.pdf", array("Attachment" => false, 'isRemoteEnabled' => true));
   }
+}
+
 
 
   public function generarpdfDetalleAbonos()
@@ -268,6 +272,9 @@ class Ventas extends controller
                 closeOnConfirm: false,
                 closeOnCancel: false
               })';
+              header("Location:".URL.'Ventas/index');
+              exit();
+              return false;
             }
 
           } else {
@@ -282,8 +289,10 @@ class Ventas extends controller
             if($C){
               for ($i=0; $i < count($_POST['producto']); $i++) {
                 $this->mdlVentas-> insertarDetalleVenta($_POST['producto'][$i], $_POST['cantidad'][$i], $_POST['precioProducto'][$i], $_POST['precioUnitario'][$i]);
-
               }
+              $ultVenta = $this->mdlVentas->ultimoId();
+              // var_dump($ultVenta);
+              // exit();
             }else{
               $_SESSION['alerta'] = 'swal({
                 title: "Error en el registro!",
@@ -294,18 +303,41 @@ class Ventas extends controller
                 closeOnConfirm: false,
                 closeOnCancel: false
               })';
+              header("Location:".URL.'Ventas/index');
+              exit();
+              return false;
             }
           }
 
+          // $_SESSION['alerta'] = 'swal({
+          //   title: "Guardado exitoso!",
+          //   type: "success",
+          //   confirmButton: "#3CB371",
+          //   confirmButtonText: "Aceptar",
+          //   // confirmButtonText: "Cancelar",
+          //   closeOnConfirm: false,
+          //   closeOnCancel: false
+          // })';
+
           $_SESSION['alerta'] = 'swal({
-            title: "Guardado exitoso!",
-            type: "success",
-            confirmButton: "#3CB371",
-            confirmButtonText: "Aceptar",
-            // confirmButtonText: "Cancelar",
-            closeOnConfirm: false,
-            closeOnCancel: false
-          })';
+                  title: "Guardado exitoso!",
+                  text: "¿Desea imprimir el recibo de caja?",
+                  type: "success",
+                  confirmButtonColor: "#3CB371",
+                  cancelButtonText: "No",
+                  showCancelButton: true,
+                  confirmButtonText: "Si",
+                  closeOnConfirm: true,
+
+                  },
+                  function(isConfirm){
+                  if (isConfirm) {
+                    window.open("'.URL.'Ventas/generarpdfDetallesVentas?txtId='.$ultVenta['ultimo_id'].'");
+                  }
+                })';
+
+                header("Location: ".URL."Ventas/index");
+                exit();
 
       }
 
@@ -318,6 +350,11 @@ class Ventas extends controller
       require APP . 'view/_templates/header.php';
       require APP . 'view/Ventas/registrarVentas.php';
       require APP . 'view/_templates/footer.php';
+    }
+
+
+    public function ultimaVenta(){
+      $this->mdlVentas->__SET("codigo_venta", $_POST['']);
     }
 
 
@@ -450,6 +487,9 @@ private function validarAbonos($idVenta){
               closeOnConfirm: false,
               closeOnCancel: false
             })';
+
+            header("Location: ".URL."Ventas/listarVentasCredito");
+            exit();
         }
         else
         {
@@ -462,6 +502,8 @@ private function validarAbonos($idVenta){
               closeOnConfirm: false,
               closeOnCancel: false
             })';
+            header("Location: ".URL."Ventas/listarVentasCredito");
+            exit();
         }
     }
 
@@ -578,6 +620,8 @@ private function validarAbonos($idVenta){
             closeOnConfirm: false,
             closeOnCancel: false
           })';
+          header("Location: ".URL."Ventas/listarVentasCredito");
+          exit();
         }
         else
         {
@@ -590,6 +634,8 @@ private function validarAbonos($idVenta){
             closeOnConfirm: false,
             closeOnCancel: false
           })';
+          header("Location: ".URL."Ventas/listarVentasCredito");
+          exit();
         }
 
       }
@@ -722,6 +768,5 @@ private function validarAbonos($idVenta){
           'nombre' => $this->modeloP->nombres . " " . $this->modeloP->apellidos . " (" . ($this->modeloP->tipoPersona == 5? "Frecuente" : "No frecuente")  . ")",
         ]);
       }
-
   }
  ?>

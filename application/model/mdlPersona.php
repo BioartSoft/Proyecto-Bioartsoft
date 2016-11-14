@@ -265,6 +265,14 @@ class mdlPersona
 }
 
 
+public function ListarProveedorReporte(){
+  $sql= "CALL SP_listar_proveedor_reporte()";
+  $stm = $this->db->prepare($sql);
+  $stm->execute();
+  return $stm->fetchAll(PDO::FETCH_ASSOC);
+}
+
+
   public function ListarProveedorID($id){
     $sql= "CALL SP_Listar_Proveedores_ID(?)";
     $stm = $this->db->prepare($sql);
@@ -417,6 +425,14 @@ public function tipoPersonaProveedores(){
      $stm->execute();
      return $stm->fetchAll(PDO::FETCH_ASSOC);
     }
+
+
+    public function ListarPersClientesReporte(){
+      $sql= "CALL SP_listar_Personas_Clientes_Reporte()";
+      $stm = $this->db->prepare($sql);
+      $stm->execute();
+      return $stm->fetchAll(PDO::FETCH_ASSOC);
+     }
 
 }
 

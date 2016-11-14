@@ -96,6 +96,13 @@
               <div class="modal-body">
                 <input type="hidden" name="idPersona" value="<?= $clientes['id_persona'] ?>">
                 <div class="row">
+                  <div class="col-md-6">
+                    <label for="">Número de documento</label>
+                    <input type="text" name="txtIdPersona" style="width: 100%"class="form-control" id="campoId" value="<?= $clientes['id_persona'] ?>" readonly="true">
+                  </div>
+                </div>
+                <br>
+                <div class="row">
                   <div class="col-md-6"  class="form-group">
                   <label>Nombres *</label><br>
                   <input type="text" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ@\-\.\\ \/$]+" minlength="3" maxlength="30" class="form-control" name="txtnombre" id="ejemplo_password_2"
@@ -133,7 +140,7 @@
                       </div>
                       <div class="col-md-6">
                         <label>Dirección</label><br>
-                          <input type="text" class="form-control" id="ejemplo_password_2" maxlength="22" minlength="3" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9!@#\$%\-\*\?_~\\ \/$]+"
+                          <input type="text" class="form-control" id="ejemplo_password_2" maxlength="40" minlength="3" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9!@#\$%\-\*\?_~\\ \\.\/$]+"
                              value="<?= $clientes['direccion'] ?>" name="txtdirecc" data-parsley-required="false">
                       </div>
         </div>
@@ -309,6 +316,8 @@ function(isConfirm){
             closeOnConfirm: false,
             closeOnCancel: false
           });
+
+          window.reload();
     });
   </script>
 <?php endif; ?>

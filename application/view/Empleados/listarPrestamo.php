@@ -220,6 +220,7 @@
               </div>
             </div>
           </div>
+        </div>
 
           <script type="text/javascript">
             $(document).ready(function(){
@@ -414,7 +415,7 @@
   <script type="text/javascript">
         function cambiarestadoabono(cod, est){
     swal({
-      title: "¿Realmente Desea Anular el Abono?",
+      title: "¿Realmente desea anular el abono?",
       type: "warning",
       confirmButton: "#3CB371",
       confirmButtonText: "btn-danger",
@@ -428,7 +429,7 @@
     function(isConfirm){
         if (isConfirm) {
           swal({
-            title: "Abono Anulado.!",
+            title: "Abono anulado.!",
             type: "error",
             confirmButton: "#3CB371",
             confirmButtonText: "Aceptar",
@@ -493,7 +494,7 @@
         function cambiarestadoprestamo(cod, est){
           // validarSiTieneAbono(cod);
     swal({
-      title: "¿Realmente desea cambiar el estado del Préstamo?",
+      title: "¿Realmente desea cambiar el estado del préstamo?",
       type: "warning",
       confirmButton: "#3CB371",
       confirmButtonText: "btn-danger",
@@ -507,7 +508,7 @@
     function(isConfirm){
         if (isConfirm) {
           swal({
-            title: "Estado Cambiado.!",
+            title: "Estado cambiado.!",
             type: "error",
             confirmButton: "#3CB371",
             confirmButtonText: "Aceptar",

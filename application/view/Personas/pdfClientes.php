@@ -8,13 +8,15 @@
   </style>
 </head>
 <body>
-<img src="<?php echo URL ?>img/BioartesV2.png" height="100" width="200">
+<img src="<?php echo URL ?>img/bio-artes.png" height="100" width="400">
 <br>
-<center><legend><h2>INFORME GENERAL DE CLIENTES</h2></legend></center>
-  <br><br>
+<center><legend><h2>INFORME GENERAL DE CLIENTES HABILITADOS</h2></legend></center>
+  <br>
+  <p><strong>Fecha reporte: <?= ucwords(date("Y/m/d H:i:s")) ?></strong></p>
   <table border="1">
     <thead>
       <tr>
+                                <th >Tipo de Documento</th>
                                 <th>Identificación</th>
                                 <th>Nombre Cliente</th>
                                 <th>Apellidos Cliente</th>
@@ -27,6 +29,7 @@
     <tbody>
      <?php foreach ($listarClientes as $valor): ?>
                             <tr>
+                                <td><?= $valor['tipo_documento'] == "Cedula"?"Cédula" : "Cédula Extranjera" ?></td>
                                 <td><?= $valor['id_persona'] ?></td>
                                 <td><?=  $valor['nombres'] ?></td>
                                 <td><?=  $valor['apellidos'] ?></td>

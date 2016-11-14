@@ -8,13 +8,15 @@
   </style>
 </head>
 <body>
-<img src="<?php echo URL ?>img/BioartesV2.png" height="100" width="200">
+<img src="<?php echo URL ?>img/bio-artes.png" height="100" width="400">
 <br>
-<center><legend><h2>INFORME  GENERAL DE USUARIOS/EMPLEADOS</h2></legend></center>
-  <br><br>
+<center><legend><h2>INFORME  GENERAL DE EMPLEADOS HABILITADOS</h2></legend></center>
+  <br>
+  <p><strong>Fecha reporte: <?= ucwords(date("Y/m/d H:i:s")) ?></strong></p>
   <table border="1">
     <thead>
       <tr>
+                                <th >Tipo de Documento</th>
                                 <th>Identificación</th>
                                 <th>Nombres Empleado </th>
                                 <th>Apellidos Empleado</th>
@@ -30,6 +32,7 @@
     <tbody>
      <?php foreach ($listarEmpleados as $valor): ?>
                             <tr>
+                                <td><?= $valor['tipo_documento'] == "Cedula"?"Cédula" : "Cédula Extranjera" ?></td>
                                 <td style="width: 10%"><?= $valor['id_persona'] ?></td>
                                 <td><?=  $valor['nombres'] ?></td>
                                 <td><?=  $valor['apellidos'] ?></td>
@@ -41,7 +44,7 @@
                                 <td style="width: 10%"><?=  $valor['fecha_Contrato'] ?></td>
                                 <td ><?=  $valor['fecha_Terminacion_Contrato'] ?></td>
                               </tr>
-                                <?php endforeach; ?>
+    <?php endforeach; ?>
     </tbody>
   </table>
 </body>

@@ -54,13 +54,12 @@
               <select name="txtTipoDocumento"class="form-control" id="documento" style="width: 100%" data-parsley-required="true" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9!@#\$%\-\.\?_~\\ \\()\/$]+">
                   <option value="">Seleccionar tipo de documento</option>
                   <option value="Cedula">Cédula</option>
-                  <option value="Cédula_Extranjera">Documento de  Extranjería</option>
-                  <option value="Otro">Otro</option>
+                  <option value="Cedula_Extranjera">Documento de  Extranjería</option>
               </select>
             </div>
              <div class="col-md-3">
                 <label for="">Número de documento *</label>
-                <input type="text" name="txtIdPersona"  minlength="8" maxlength="10" style="width: 100%"class="form-control" id="campoId" placeholder="Número Documento" data-parsley-required="true">
+                <input type="text" name="txtIdPersona"  minlength="8" maxlength="15" style="width: 100%"class="form-control" id="campoId" placeholder="Número Documento" data-parsley-required="true">
             </div>
 
             <div class="col-md-1">
@@ -158,11 +157,11 @@
                   </div>
                   <div class="col-md-3" id="conNombreUsuario" style="display: none">
                         <label for="">Nombre usuario *</label>
-                      <input type="text"  name="txtUsuario" maxlength="30" minlength="3" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9@#\-\_\\.\\ \/$]+" class="form-control" id="campoNombreUsuario" placeholder="Nombre Usuario" data-parsley-required="true">
+                      <input type="text"  name="txtUsuario" maxlength="20" minlength="3" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9@#\-\_\\.\\ \/$]+" class="form-control" id="campoNombreUsuario" placeholder="Nombre Usuario" data-parsley-required="true">
                   </div>
             <div class="col-xs-12 col-md-3" id="conClave" style="display: none">
                   <label for="inputPassword"  class="control-label">Contraseña *</label>
-                  <input type="password"  maxlength="12" minlength="3" name="txtClave" class="form-control" id="campoClave" placeholder="Contraseña" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9!@#\$%\-\*\?_~\\.\\()\/$]+" data-parsley-required="true">
+                  <input type="password"  maxlength="15" minlength="3" name="txtClave" class="form-control" id="campoClave" placeholder="Contraseña" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9!@#\$%\-\*\?_~\\.\\()\/$]+" data-parsley-required="true">
             </div>
             <div class="col-xs-12 col-md-3" id="conConfirmar" style="display: none">
                   <label for="">Confirmar contraseña *</label>
@@ -419,26 +418,44 @@
 
       var campoId = $("#campoId").val();
 
-      $.ajax({
-        url: url + 'Personas/validacion',
-        data:{'campoId': campoId},
-        type: 'post',
-        dataType:"text"
-      }).done(function(resut){
+      if(campoId <= 0){
+        swal({
+              title: "Identificacion inválida!",
+              type: "error",
+              confirmButton: "#3CB371",
+              confirmButtonText: "Aceptar",
+              // confirmButtonText: "Cancelar",
+              closeOnConfirm: false,
+              closeOnCancel: false
+            });
+        $("#campoId").val("");
+        $("#campoId").focus();
+      }else{
+        $.ajax({
+          url: url + 'Personas/validacion',
+          data:{'campoId': campoId},
+          type: 'post',
+          dataType:"text"
+        }).done(function(resut){
 
-        if(resut == "1"){
-          swal({
-                title: "Identificación ya existe, no se puede registrar!",
-                type: "error",
-                confirmButton: "#3CB371",
-                confirmButtonText: "Aceptar",
-                // confirmButtonText: "Cancelar",
-                closeOnConfirm: false,
-                closeOnCancel: false
-              });
-        }
-      });
+          if(resut == "1"){
+            swal({
+                  title: "Identificación ya existe, no se puede registrar!",
+                  type: "error",
+                  confirmButton: "#3CB371",
+                  confirmButtonText: "Aceptar",
+                  // confirmButtonText: "Cancelar",
+                  closeOnConfirm: false,
+                  closeOnCancel: false
+                });
+          }
+
+        });
+      }
+
+
     });
+
   });
 </script>
 

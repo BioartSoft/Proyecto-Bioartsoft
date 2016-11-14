@@ -16,6 +16,10 @@ $notificaciones = mdlConfiguracionPago::getNotificaciones();
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
+    <!-- <meta http-equiv="Expires" content="0">
+    <meta http-equiv="Last-Modified" content="0">
+    <meta http-equiv="Cache-Control" content="no-cache, mustrevalidate">
+    <meta http-equiv="Pragma" content="no-cache"> -->
 
     <title>Bioartsoft</title>
 
@@ -73,7 +77,7 @@ $notificaciones = mdlConfiguracionPago::getNotificaciones();
 
               <li>
                   <a  href="#" title="Acerca de">
-                      <i class="fa fa-info-circle" aria-hidden="true" style="color: #fff"></i>
+                      <i class="fa fa-info-circle" aria-hidden="true" style="color: #fff" title="Acerca de" data-toggle="modal" data-target="#modal-info"></i>
                   </a>
                 </li>
 

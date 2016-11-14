@@ -8,9 +8,9 @@
   </style>
 </head>
 <body>
-<img src="<?php echo URL ?>img/BioartesV2.png" height="100" width="200">
+<img src="<?php echo URL ?>img/bio-artes.png" height="100" width="400">
 <br>
-<center><legend><h2>INFORME GENERAL DE PRODUTOS</h2></legend></center>
+<center><legend><h2>INFORME GENERAL DE PRODUTOS HABILITADOS</h2></legend></center>
   <br><br>
   <table border="1">
     <thead>

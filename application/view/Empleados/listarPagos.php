@@ -130,7 +130,7 @@
         cambiarEstadoAlAnularLiquidacion(iden);
       };
       swal({
-        title: "¿Realmente Desea Anular el Pago?",
+        title: "¿Realmente desea anular el pago?",
         type: "warning",
         confirmButton: "#3CB371",
         confirmButtonText: "btn-danger",
@@ -144,7 +144,7 @@
     function(isConfirm){
         if (isConfirm) {
           swal({
-            title: "Pago Anulado.!",
+            title: "Pago anulado.!",
             type: "error",
             confirmButton: "#3CB371",
             confirmButtonText: "Aceptar",
@@ -198,8 +198,6 @@
       data: {id: id},
     })
     .done(function() {
-
     });
-
   }
   </script>

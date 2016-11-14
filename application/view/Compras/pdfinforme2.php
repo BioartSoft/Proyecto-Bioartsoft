@@ -12,7 +12,7 @@
   <br>
   <center><legend><h2>INFORME DE ENTRADAS</h2></legend></center>
   <?php foreach($ver as $valor2): ?>
-      <h4>Informe del mes de: <?= ucfirst($valor2['mes']); ?></h4>
+      <h4>Informe de : <?= $rango ?> </h4>
   <?php break; ?>
   <?php  endforeach; ?>
   <br>

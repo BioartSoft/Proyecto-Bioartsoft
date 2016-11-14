@@ -1,54 +1,91 @@
 
+<div class="modal fade" id="modal-info" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard ="false" data-backdrop = "static">
+  <div class="modal-dialog modal-lg" role="document" style="width: 50% !important">
+    <div class="modal-content">
+      <div class="modal-body">
+        <form class="" action="" method="post">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="panel panel-primary" >
+              <div class="panel-heading" stlyle="height: 70px; width: 100px">
+                    <center><span style="text-align:center; color: #fff; font-size: 20px">BIOARTSOFT</span></center>
+                </div>
+                <div class="panel-body">
+                  <p>&copy; SENA. Todos los derechos reservados</p>
+                  <p>Información del sistema</p>
+                  <div class="panel panel-default">
+                    <p style="margin-left: 5px">Versión del software: 1.0. 2016</p>
+                    <p style="margin-left: 5px">Desarrolladores:</p>
+                    <p style="margin-left: 5px">Aprendices SENA</p>
+                    <ul>
+                      <li>Juan David Vargas Penagos (jdvargas752@misena.edu.co)</li>
+                      <li>Jhoan Esneider López Tapias (jhoanlt19@gmail.com)</li>
+                      <li>Johnatan Ramírez Restrepo (jramirezres86@gmail.com)</li>
+                      <li>Diego Alexander López Gómez (dalopez971@misena.edu.co)</li>
+                      <li>Cristian Alexis Piedrahita Rojas ()</li>
+                    </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+            <button type="button" class="btn btn-primary btn-active pull-rigth"  data-dismiss="modal" style="margin-left:80%"><i class="fa fa-check-circle" aria-hidden="true">   Aceptar</i></button>
+        </div>
+      </div>
     </div>
+  </div>
 
-      <script>
-          var url = "<?php echo URL; ?>";
-      </script>
 
-    <script src="<?php echo URL ?>js/bootstrap.min.js"></script>
+</div>
 
-    <script src="<?php echo URL ?>js/sb-admin-2.js"></script>
-
-    <script src="<?php echo URL ?>js/application.js"></script>
-
-    <script src="<?php echo URL ?>js/metisMenu.min.js"></script>
-
-    <!-- <script type="text/javascript" src="<?php echo URL ?>js/jquery.select2.js"></script> -->
-    <script type="text/javascript" src="<?php echo URL ?>js/select2.full.min.js"></script>
-    <script type="text/javascript" src="<?php echo URL ?>js/select2.min.js"></script>
-    <script type="text/javascript">
-      $(".js-example-basic-multiple").select2();
+    <script>
+        var url = "<?php echo URL; ?>";
     </script>
-    <script type="text/javascript" src="<?php echo URL ?>js/sweetAlert.min.js"></script>
-    <script type="text/javascript" src="<?php echo URL ?>js/funciones.js"></script>
-    <script type="text/javascript" src="<?php echo URL ?>js/funciones2.js"></script>
-    <script type="text/javascript" src="<?php echo URL ?>js/datatables.min.js"></script>
-    <script type="text/javascript" src="js/Spanish.js"></script>
 
-    <script type="text/javascript">
-    $(document).ready(function(){
-    $('#dataTables-example').DataTable({
-      language: {
-        url: "http://cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json"
-      }, responsive: true,
-      sort: false
-    });
+  <script src="<?php echo URL ?>js/bootstrap.min.js"></script>
+
+  <script src="<?php echo URL ?>js/sb-admin-2.js"></script>
+
+  <script src="<?php echo URL ?>js/application.js"></script>
+
+  <script src="<?php echo URL ?>js/metisMenu.min.js"></script>
+
+  <!-- <script type="text/javascript" src="<?php echo URL ?>js/jquery.select2.js"></script> -->
+  <script type="text/javascript" src="<?php echo URL ?>js/select2.full.min.js"></script>
+  <script type="text/javascript" src="<?php echo URL ?>js/select2.min.js"></script>
+  <script type="text/javascript">
+    $(".js-example-basic-multiple").select2();
+  </script>
+  <script type="text/javascript" src="<?php echo URL ?>js/sweetAlert.min.js"></script>
+  <script type="text/javascript" src="<?php echo URL ?>js/funciones.js"></script>
+  <script type="text/javascript" src="<?php echo URL ?>js/funciones2.js"></script>
+  <script type="text/javascript" src="<?php echo URL ?>js/datatables.min.js"></script>
+  <script type="text/javascript" src="js/Spanish.js"></script>
+
+  <script type="text/javascript">
+  $(document).ready(function(){
+  $('#dataTables-example').DataTable({
+    language: {
+      url: "http://cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json"
+    }, responsive: true,
+    sort: false
+  });
 
 });
-    </script>
+  </script>
 
-    <!-- <script src="<?php echo URL ?>js/jquery.anexgrid.js"></script> -->
-    <script src="<?php echo URL ?>js/bootstrap-datepicker.min.js"></script>
-    <!-- <script src="<?php echo URL ?>js/bootstrap-datetimepicker.min.js"></script> -->
-    <script src= "<?= URL ?>js/jquery.price_format.2.0.js"></script>
+  <!-- <script src="<?php echo URL ?>js/jquery.anexgrid.js"></script> -->
+  <script src="<?php echo URL ?>js/bootstrap-datepicker.min.js"></script>
+  <!-- <script src="<?php echo URL ?>js/bootstrap-datetimepicker.min.js"></script> -->
+  <script src= "<?= URL ?>js/jquery.price_format.2.0.js"></script>
 
 <script type="text/javascript">
 $(document).ready(function(){
-  <?php
-  if (isset($_SESSION['alerta']) != false && $_SESSION['alerta'] != null){
-    echo $_SESSION['alerta'];
-    $_SESSION['alerta'] = null;
-  }
+<?php
+if (isset($_SESSION['alerta']) != false && $_SESSION['alerta'] != null){
+  echo $_SESSION['alerta'];
+  $_SESSION['alerta'] = null;
+}
 ?>
 })
 
@@ -182,7 +219,7 @@ $(document).ready(function(){
 
 
                     if (tipo == "Empleado-temporal") {
-                      $("#divvalorpenditeprestamo").show();
+                      $("#divvalorpenditeprestamo").hide();
                       $("#divDiasLaborados").show();
                       $("#divValorDia").show();
                       $("#divPagoTotalPrimates").hide();

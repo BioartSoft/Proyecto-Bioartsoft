@@ -205,6 +205,9 @@ use Dompdf\Dompdf;
                 closeOnCancel: false
               })';
 
+              header("Location: ".URL."Empleados/ListarPrest");
+              exit();
+
             }else{
               $_SESSION['jhoan'] = ' swal({
                title: "Error en el registro!",
@@ -215,13 +218,13 @@ use Dompdf\Dompdf;
                closeOnConfirm: false,
                closeOnCancel: false
              })';
+             header("Location: ".URL."Empleados/ListarPrest");
+             exit();
             }
-
         }
 
         if (isset($_POST["btnmodificarprestamo"])) {
         $modelo->__SET("fecha_limite",$_POST["txtfechalimetepre"]);
-        // $modelo->__SET("valor_prestamo",$_POST["txtvalorprestamos"]);
         $modelo->__SET("id_prestamos",$_POST["txthideidprestamo"]);
 
         if ($modelo->modificarprestamos()) {
@@ -234,6 +237,9 @@ use Dompdf\Dompdf;
                   closeOnConfirm: false,
                   closeOnCancel: false
                 })';
+
+                header("Location: ".URL."Empleados/ListarPrest");
+                exit();
             }
             else
             {
@@ -246,6 +252,8 @@ use Dompdf\Dompdf;
                   closeOnConfirm: false,
                   closeOnCancel: false
                 })';
+                header("Location: ".URL."Empleados/ListarPrest");
+                exit();
             }
         }
 
@@ -334,8 +342,18 @@ use Dompdf\Dompdf;
             $modelo->__SET("estado", 1);
             $modelo->__SET("numero_docu", $_POST["txtIdentificacion"]);
             $modelo->__SET("fecha_liquidación",$_POST["txtfechaPagoliquidacion"] );
+            // var_dump($_POST["txtIdentificacion"],date('Y-m-d',$_POST["txtfechaPagoliquidacion"]));
+            // exit();
 
             if ($modelo->registrarPagoEmpleados()) {
+
+                for ($i=0; $i < count($_POST["txtidPrestamosPen"]); $i++) {
+                  $modelo->__SET("id_prestamos", $_POST["txtidPrestamosPen"][$i]);
+                  $modelo->modificarEstadoPre();
+                }
+
+
+
                 $modelo->modificarfechaLiquidacion();
 
                 $idpa = $modelo->ultimoPago();
@@ -380,6 +398,9 @@ use Dompdf\Dompdf;
             closeOnConfirm: false,
             closeOnCancel: false
           })';
+
+          header("Location: ".URL."Empleados/registrarPagos");
+          exit();
             }
 
           }
@@ -422,6 +443,9 @@ use Dompdf\Dompdf;
                   closeOnConfirm: false,
                   closeOnCancel: false
                 })';
+
+                header("Location: ".URL."Empleados/registrarPagos");
+                exit();
             }
 
           }
@@ -483,6 +507,9 @@ use Dompdf\Dompdf;
               closeOnConfirm: false,
               closeOnCancel: false
             })';
+
+            header("Location: ". URL . "otro/index");
+            exit();
           }
 
         }
@@ -492,6 +519,7 @@ use Dompdf\Dompdf;
         require APP . 'view/_templates/footer.php';
       }
 
+
       public function reciboPago(){
 
         $modelo = $this->loadModel("mdlConfiguracionPago");
@@ -500,6 +528,7 @@ use Dompdf\Dompdf;
         require APP . 'view/Empleados/reciboPago.php';
         require APP . 'view/_templates/footer.php';
       }
+
 
       public function listarPagos(){
 
@@ -543,6 +572,7 @@ use Dompdf\Dompdf;
         require APP . 'view/_templates/footer.php';
       }
 
+
       public function comprobante(){
 
         $modelo = $this->loadModel("mdlConfiguracionPago");
@@ -551,6 +581,7 @@ use Dompdf\Dompdf;
         require APP . 'view/Empleados/comprobante.php';
         require APP . 'view/_templates/footer.php';
       }
+
 
      public function ajaxDetallePagos()
       {
@@ -637,6 +668,7 @@ use Dompdf\Dompdf;
                   ]);
       }
 
+
       public function ajaxDetallePrestamos()
         {
           $modelo = $this->loadModel("mdlConfiguracionPago");
@@ -674,7 +706,6 @@ use Dompdf\Dompdf;
                     $html .= '<td class="price">'.$v.'</td>';
                     $html .= '<td class="price">'.$valorPen.'</td>';
                     $html .= '<td>'.$val['descripcion'].'</td>';
-
                     $estado = $val["estado_prestamo"] == 0?"Pagado":"Pendiente";
                     $estado1 = $val["estado_prestamo"] == 1?"Pendiente":"Pagado";
                     $estado3 = $val["estado_prestamo"] == 3?"Anulado":"Pendiente";
@@ -726,6 +757,7 @@ use Dompdf\Dompdf;
 
         }
 
+
       public function ajaxDetalleAbonos()
       {
         $modelo = $this->loadModel("mdlConfiguracionPago");
@@ -773,6 +805,7 @@ use Dompdf\Dompdf;
                   ]);
       }
 
+
       public function modificarestado()
       {
         $modelo = $this->loadModel("mdlConfiguracionPago");
@@ -788,6 +821,7 @@ use Dompdf\Dompdf;
           echo json_encode(["v"=>0]);
         }
       }
+
 
       public function sumarAbono()
       {
@@ -805,6 +839,7 @@ use Dompdf\Dompdf;
         }
       }
 
+
       public function fechaUnDiaDespues()
       {
         $modelo = $this->loadModel("mdlConfiguracionPago");
@@ -821,9 +856,10 @@ use Dompdf\Dompdf;
         $info = $modelo->getEmpleado();
 
           echo json_encode([
-            'html'=>$info['empleado'],
+            'html'=>ucwords($info['empleado']),
           ]);
         }
+
 
       public function valorVentasEmp()
       {
@@ -844,6 +880,7 @@ use Dompdf\Dompdf;
 
       }
 
+
       public function validarcantiPres()
       {
         $modelo = $this->loadModel("mdlEmpleados");
@@ -860,21 +897,23 @@ use Dompdf\Dompdf;
         }
       }
 
+
       public function valorprestamopendiente()
       {
         $modelo = $this->loadModel("mdlEmpleados");
         $modelo->__SET("id_persona", $_POST["identificacion"]);
         $valortotalpre = $modelo->prestamopendiente();
-        $resultadovalorprestamo = implode('', $valortotalpre);
+        // $resultadovalorprestamo = implode('', $valortotalpre);
 
-        if ($resultadovalorprestamo) {
-          echo json_encode(["v"=>$resultadovalorprestamo]);
+        if ($valortotalpre) {
+          echo json_encode(["v"=>$valortotalpre]);
         }
         else
         {
           echo json_encode(["v"=>null]);
         }
       }
+
 
       public function infoprestamos()
       {
@@ -885,6 +924,7 @@ use Dompdf\Dompdf;
         $informacionprestamo = $modelo->informacionprestamo();
         echo json_encode($informacionprestamo);
       }
+
 
       public function modificarestadoAbonos()
       {
@@ -901,6 +941,7 @@ use Dompdf\Dompdf;
         }
       }
 
+
       public function modificarestadoPrestamo()
       {
 
@@ -916,6 +957,7 @@ use Dompdf\Dompdf;
         }
       }
 
+
       public function ValidarAnularPrestamo()
       {
         $modelo = $this->loadModel("mdlEmpleados");
@@ -930,6 +972,7 @@ use Dompdf\Dompdf;
           echo json_encode(["v"=>null]);
         }
       }
+
 
 	public function retornarAbono()
       {

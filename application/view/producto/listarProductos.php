@@ -1,18 +1,13 @@
 
 <div class="row">
-  <center>
     <br><br>
-  </center>
-    <!-- /.col-lg-12 -->
 </div>
-<!-- /.row -->
 <div class="row">
     <div class="col-lg-12">
         <div class="panel panel-primary">
             <div class="panel-heading" stlyle="height: 70px; width: 100px">
               <center> <span style="color: #fff; margin-top: 10px; margin-bottom: 10px; font-size: 20px">Listar Productos</span></center>
             </div>
-            <!-- /.panel-heading -->
       <div class="panel-body">
         <div class="dataTable_wrapper">
           <div class="table-responsive">
@@ -23,7 +18,7 @@
        <th>Nombre Producto</th>
        <th>Categoría</th>
        <th>Talla</th>
-       <th>Tamaño</th>
+       <th>Descripción</th>
        <th>Cantidad </th>
        <th>Stock Mínimo</th>
        <th>Estado</th>
@@ -124,7 +119,7 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                           <span aria-hidden="true">&times;</span>
                         </button>
-                          <center><h4 class="modal-title" id="myModalLabel" style="color: #337AB7">Modificar Producto</h4></center>
+                          <center><h4 class="modal-title" id="myModalLabel" style="color: #337AB7">Modificar Productos (obligatorios *)</h4></center>
                       </div>
                    <div class="modal-body">
                        <div class="row">
@@ -134,7 +129,7 @@
                          <input id="txtcodigo" name="txtcodigo"  type="hidden">
                          </div>
                      <div class="col-md-6">
-                       <label >Nombre Producto </label><br>
+                       <label >Nombre Producto *</label><br>
                        <input id="txtnombreproducto" name="txtnombreproducto" type="text"  class="form-control" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ@\-\.\\ \/$]+" maxlength="50" data-parsley-required="true">
                    </div>
                    </div>
@@ -142,7 +137,7 @@
                    <br>
                    <div class="row">
                        <div class="col-md-6">
-                       <label >Categoría</label><br>
+                       <label >Categoría *</label><br>
                        <select id="txtcategoria" name="txtcategoria" name="txtcategoria" class="form-control" maxlength="20" data-parsley-type"alphanum" data-parsley-required="true">
                           <option value="">Seleccionar Categoría</option>
                           <?php foreach ($categorias as $value): ?>
@@ -151,7 +146,7 @@
                        </select>
                     </div>
                     <div class="col-md-6" id="div-talla" name="txttalla">
-                        <label id="lbltalla">Talla</label><br>
+                        <label id="lbltalla">Talla *</label><br>
                         <select id="txttalla" name="txttalla" class="form-control" data-parsley-type="alphanum" maxlength="15">
                           <option value="">Seleccionar Talla</option>
                           <option>S</option>
@@ -166,20 +161,20 @@
 
                   <div class="row">
                      <div class="col-md-6" id="txttamano"  name="txttamano">
-                        <label id="lbltamanio">Tamaño</label><br>
-                     <input id="txttamano-input"  name="txttamano" type="text" class="form-control" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ@\-\.\\ \/$]+" maxlength="20">
+                        <label id="lbltamanio">Descripción</label><br>
+                        <textarea id="txttamano-input"  name="txttamano" type="text" class="form-control" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ@\-\.\\ \/$]+" maxlength="100"></textarea>
                      </div>
                    </div>
                    <br>
 
                    <div class="row">
                      <div class="col-md-6">
-                     <label>Precio Detal</label><br>
+                     <label>Precio Detal *</label><br>
                       <input id="txtprecioventa" name="txtprecioventa" type="text" class="form-control"  data-parsley-type="integer" min="0" maxlength="10" data-parsley-required="true">
                    </div>
 
                      <div class="col-md-6" >
-                       <label>Precio al por Mayor </label><br>
+                       <label>Precio al por Mayor *</label><br>
                        <input id="txtprecioalpormayor" name="txtprecioalpormayor" type="text" class="form-control" data-parsley-type="integer" min="0" maxlength="10" data-parsley-required="true">
                    </div>
                  </div>
@@ -187,12 +182,12 @@
 
                  <div class="row">
                    <div class="col-md-6">
-                     <label>Precio Unitario</label><br>
+                     <label>Precio Unitario *</label><br>
                       <input type="text" id="txtpreciocompra" name="txtpreciocompra" class="form-control" data-parsley-type="integer" min="0" maxlength="10" data-parsley-required="true">
                    </div>
 
                    <div class="col-md-6">
-                     <label >Stock Mínimo</label><br>
+                     <label >Stock Mínimo *</label><br>
                       <input type="text" id="txtstock" name="txtstock" class="form-control" data-parsley-type="number" min="1" maxlength="3" data-parsley-required="true">
                    </div>
                    </div>
@@ -241,6 +236,10 @@
     </div>
     <button type="button" class="btn btn-secondary btn-md active pull-right"  data-dismiss="modal"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
   </div>
+</div>
+</div>
+</div>
+</div>
 </div>
 
 <script type="text/javascript">

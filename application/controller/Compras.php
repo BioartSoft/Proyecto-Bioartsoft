@@ -7,6 +7,20 @@
     private $mdlCompras;
     private $mdlProveedor;
     private $mdlProducto;
+    private $meses = [
+      'Enero',
+      'Febrero',
+      'Marzo',
+      'Abril',
+      'Mayo',
+      'Junio',
+      'Julio',
+      'Agosto',
+      'Septiembre',
+      'Octubre',
+      'Noviembre',
+      'Diciembre',
+    ];
 
     public function __construct(){
       $this->mdlCompras = $this->loadModel("mdlCompras");
@@ -46,6 +60,31 @@
 
               $this->mdlCompras->__SET('fechafinal',date("Y-m-d",strtotime($_POST['txtfechafinal'])));
               $fecha2 = $this->mdlCompras->validarFechaCompra();
+
+              $fi = new DateTime($_POST['txtfechainicial']);
+              $ff = new DateTime($_POST['txtfechafinal']);
+
+              $fechaI = new DateTime($fi->format("Y-m-01"));
+              $fechaF = new DateTime($ff->format("Y-m-t"));
+
+              $intervalo = DateInterval::createFromDateString("1 month");
+              $period = new DatePeriod($fechaI, $intervalo, $fechaF);
+              $meses = [];
+
+              foreach($period AS $p){
+                $meses[] = ['mes' => $p->format('m'), 'anio' => $p->format('Y'), 'nombre_mes' => $this->meses[intval($p->format('m')) - 1]];
+              }
+
+              $primerMes = $meses[0];
+              if(count($meses) > 1){
+                $ultimoMes = $meses[count($meses) - 1];
+                $rango = $primerMes['nombre_mes'] . " de " . $primerMes['anio'];
+                $rango .= " hasta ";
+                $rango .= $ultimoMes['nombre_mes'] . " de " . $ultimoMes['anio'];
+
+              } else {
+                $rango = $primerMes['nombre_mes'] . " de " . $primerMes['anio'];;
+              }
 
               if($fecha == true && $fecha2 == true){
 
@@ -164,6 +203,9 @@
             closeOnConfirm: false,
             closeOnCancel: false
           })';
+
+          header("Location: ".URL."Compras/index");
+          exit();
       }
 
       if($error == true)
@@ -225,7 +267,7 @@
  if($guardar == true)
  {
    $_SESSION['alerta'] =  'swal({
-     title: "Compra anulada!",
+     title: "Entrada anulada!",
      type: "error",
      confirmButton: "#3CB371",
      confirmButtonText: "Aceptar",

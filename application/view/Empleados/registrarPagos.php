@@ -100,12 +100,13 @@
                           <i class="fa fa-calendar"></i>
                         </div>
                         <input type="text" disabled="" class="form-control pull-right" name="txtfechacontrato" id="fecha_Contrato" style="border-radius:5px;"  value="">
-                        <input type="text" id="idfechaPagoPJunio">
+                        <input type="hidden" id="idfechaPagoPJunio">
                       </div>
                     </div>
                   </div>
                     <input type="hidden" name="" id="fechaliquidacion2">
                     <input type="hidden" name="" id="idcantidaddedias">
+                    <input type="hidden" name="txtidPrestamosPen[]" id="idPrestamosPen">
                   <div class="col-xs-12 col-md-4" id="divFechapagoliquidacion" style="display: none">
                     <label id="labelFechaPago">Finalización de Contrato:</label>
                     <div class="">
@@ -113,7 +114,7 @@
                         <div class="input-group-addon" style="border-radius:5px;">
                           <i class="fa fa-calendar"></i>
                         </div>
-                        <input type="text" class="form-control pull-right" onchange="vali()" name="txtfechaPagoliquidacion" id="idfechafin" style="border-radius:5px;" data-parsley-required="false" readonly="">
+                        <input type="text" class="form-control pull-right" onchange="vali()" name="txtfechaPagoliquidacion" id="idfechafin" style="border-radius:5px;" readonly="" data-parsley-required = "true">
                       </div>
                     </div>
                   </div>
@@ -198,10 +199,11 @@
                       </div>
                     </div>
                     <div class="col-xs-12 col-md-4" id="divvalorpenditeprestamo">
-                      <label id="labelValorVentas">Pendiente de Préstamos</label>                                 <div class="input-group">
-                        <input type="number" class="form-control" placeholder="Valor Pendiente" name="txtValorprestamo" id="valor_penprestamos" readonly="" min="0">
+                      <label id="labelValorVentas">Pendiente de Préstamos</label>                                 
+                      <div class="input-group">
+                        <input type="number" class="form-control" placeholder="Valor Pendiente" name="txtValorprestamo" id="valor_penprestamos" readonly="" min="0" value="0">
                         <span class="input-group-btn">
-                          <button class="btn btn-default" type="button" id="idbotonprestamos" onclick="traervalorprestamopen()" style="background-color: #E0F8E0"> <b>Consultar</b></button>
+                          <button class="btn btn-default" type="button" id="idbotonprestamos" onclick="traervalorprestamopen();" style="background-color: #E0F8E0"> <b>Consultar</b></button>
                         </span>
                       </div>
                     </div>
@@ -281,7 +283,7 @@
                             </div>
                           </div>
                           <div class="row">
-                            <button onclick="calcularTemporal()" id="CalcularTemporal" type="button" class="btn btn-primary pull-right" style="margin-top: 10px; margin-right: 5%"><i class="fa fa-building" aria-hidden="true">   Calcular</i></button>
+                            <button onclick="calcularTemporal()" id="CalcularTemporal" type="button" class="btn btn-primary pull-right" style="margin-top: 10px; margin-right: 5%"><i class="fa fa-building" aria-hidden="true"> Calcular</i></button>
                           </div>
                         </div>
                       </div>
@@ -356,6 +358,29 @@
           $("#totaltemporales").html(0);
           // $("#valor_primaser").val(0);
 
+          if ($("#idDia").val() == "") {
+            swal({
+                    title: "No se han ingresado días validos!",
+                    type: "error",
+                    confirmButton: "#3CB371",
+                    confirmButtonText: "btn-danger",
+                    confirmButtonClass: "btn-danger",
+                    confirmButtonText: "Aceptar",
+                    closeOnConfirm: true,
+                    },
+                    function(isConfir){
+                      $("#valorvacacionestot").val(0);
+                      $("#totalvacaciones").html(0);
+                      $("#valorcesantias").val(0);
+                      $("#idtotalcesantias").html(0);
+                      $("#valortotliquidacion").val(0);
+                      $("#totalliquidaciones").html(0);
+                      $("#valortotaltempo").val(0);
+                      $("#totaltemporales").html(0);
+                      });
+                      return false;
+          };  
+
           var fechaContrato = $("#fecha_Contrato").val();
 
             var fechafinal = $("#idfechafin").val();
@@ -427,6 +452,7 @@
              function calcularSalario(){
               if (vali()) {
               var salario = $("#valorBase").val();
+              var PendientePrestamos = $("#valor_penprestamos").val()
               var valorDia = parseInt($("#valorDia").val());
               var CantidaddeDias = parseInt($("#idDia").val());
               var pagoNormalCalculadoLiqui = parseInt($("#valor_pagoLi").val());
@@ -457,7 +483,7 @@
               var valvacaciones = parseInt((salario * diffDays) / 720);
 
               //Valor total liquidación
-              var totalliquidaciones = valvacaciones + valortotalcesantias + pagoNormalCalculadoLiqui + prima;
+              var totalliquidaciones = valvacaciones + valortotalcesantias + pagoNormalCalculadoLiqui + prima - PendientePrestamos;
 
               //Salario Neto
                var html = '        <div class="cta-desc">';
@@ -650,22 +676,48 @@
                }
              }
 
+             function valitempo() {
+
+                var diasTemporal = $("#valorDiatemporal").val();
+                var diasLaborados = $("#dias_laborados").val();
+                var tipoEmpleado = $("#tipoEmpleado").val();
+
+                if(diasTemporal == "" || diasLaborados == "" && tipoEmpleado == "Empleado-temporal"){
+                  swal({
+                        title: "No se han ingresado un número válido!",
+                        type: "error",
+                        confirmButton: "#3CB371",
+                        confirmButtonText: "Aceptar",
+                        closeOnConfirm: false,
+                        closeOnCancel: false
+                      });
+                      return false;
+                      $("#valortotaltempo").val("");
+                      $("#idfechafin").removeAttr("data-parsley-required");
+                  }
+                  else{
+                    return true;
+                  }
+            }
+
              function calcularTemporal() {
-               var dias = $("#dias_laborados").val();
-               var valorDia = $("#valorDiatemporal").val();
+                if (valitempo()) {
+                 var dias = $("#dias_laborados").val();
+                 var valorDia = $("#valorDiatemporal").val();
 
-               var html = '<div class="row"><div class="col-md-9 cta-contents">';
-                   html += '        <div class="cta-desc">';
-                   html += '           <p data-valor="'+dias * valorDia+'"></p>';
-                   html += '    </div>';
-                   html += '<input type="hidden" name="total" value="'+valortotaltempo+'">';
-                   html += ' </div>';
-                   html += '  </div>';
-                   html += '</div>';
+                 var html = '<div class="row"><div class="col-md-9 cta-contents">';
+                     html += '        <div class="cta-desc">';
+                     html += '           <p data-valor="'+dias * valorDia+'"></p>';
+                     html += '    </div>';
+                     html += '<input type="hidden" name="total" value="'+valortotaltempo+'">';
+                     html += ' </div>';
+                     html += '  </div>';
+                     html += '</div>';
 
-                $("#detalle").append(html);
+                  $("#detalle").append(html);
 
-                calcularSalarioTemporal();
+                  calcularSalarioTemporal();
+                }
              }
 
              function calcularSalarioTemporal(){
@@ -772,7 +824,7 @@
                     var years = elemento[0];
                     var meses = elemento[1];
                     var dias = elemento[2];
-
+                    
                     if (meses == 12 && dias >= 15 && dias <=30 ) {
                           $("#divvalorprimaservicios").hide();
                       }
@@ -785,7 +837,7 @@
                     if (meses != 12) {
                           $("#divvalorprimaservicios").hide();
                       }
-
+                         
                     $("#divFechacontrato").removeAttr('style');
                     $("#divFechapagoliquidacion").removeAttr('style');
                     $("#divTipoPago").show();
@@ -982,24 +1034,6 @@
               }
             });
 
-            $("#CalcularTemporal").click(function(){
-              var diasTemporal = $("#valorDiatemporal").val();
-              var diasLaborados = $("#dias_laborados").val();
-              var tipoEmpleado = $("#tipoEmpleado").val();
-
-              if(diasTemporal == "" || diasLaborados == "" && tipoEmpleado == "Empleado-temporal"){
-                swal({
-                      title: "No se han ingresado valorores válido!",
-                      type: "error",
-                      confirmButton: "#3CB371",
-                      confirmButtonText: "Aceptar",,
-                      closeOnConfirm: false,
-                      closeOnCancel: false
-                    });
-                    $("#valortotaltempo").val("");
-                    $("#idfechafin").removeAttr("data-parsley-required");
-              }
-            });
           </script>
 
           <script type="text/javascript">
@@ -1013,7 +1047,7 @@
 
                 var neto = $("#neto").val();
 
-                if(neto == NaN || neto == ""){
+                if(neto == NaN || neto == "" || neto == 0){
                   swal({
                     title: "No hay totales calculados!",
                     type: "error",
@@ -1034,7 +1068,7 @@
 
                 var vacaciones = $("#valorvacacionestot").val();
 
-                if(vacaciones == NaN || vacaciones == ""){
+                if(vacaciones == NaN || vacaciones == "" || vacaciones == 0){
                   swal({
                     title: "No hay totales calculados!",
                     type: "error",
@@ -1051,7 +1085,7 @@
               }
               else if(tipoEmpleado == "Empleado-temporal"){
                   var totalTemp = $("#valortotaltempo").val();
-                  if(totalTemp == NaN || totalTemp == ""){
+                  if(totalTemp == NaN || totalTemp == "" || totalTemp == 0){
                     swal({
                       title: "No hay totales calculados!",
                       type: "error",
@@ -1081,7 +1115,22 @@
             .done(function(respuesta) {
               if (respuesta.v != null) {
                 var valorp = respuesta.v;
-                $("#valor_penprestamos").val(valorp);
+                var suma = 0;
+                var array = [];
+                for (var i = 0; i <= valorp.length - 1; i++) {
+                  var id = valorp[i]["id_prestamos"];
+                  var valor = valorp[i]["valor_prestamo"];
+                  suma = suma + parseInt(valor);
+                  array.push(id);
+                  // if (i == 0) {
+                  //   $("#idPrestamosPen2").val(id);
+                  // }else{
+                  //   $("#idPrestamosPen").val(id);
+                  // }
+
+                };
+                $("#idPrestamosPen").val(array);
+                $("#valor_penprestamos").val(suma);
               };
 
             })

@@ -201,6 +201,9 @@ class producto extends Controller{
             closeOnConfirm: false,
             closeOnCancel: false
           })', 1);
+
+          header("Location: ".URL."producto/registrarBajas");
+          exit();
         }
 
       }
@@ -214,6 +217,9 @@ class producto extends Controller{
       closeOnConfirm: false,
       closeOnCancel: false
     })';
+
+    header("Location: ".URL."producto/registrarBajas");
+    exit();
 
     }
 
@@ -281,6 +287,10 @@ class producto extends Controller{
         closeOnConfirm: false,
         closeOnCancel: false
       })';
+
+      header("Location: ".URL."producto/registrarProductos");
+      exit();
+
     }
 
   }
@@ -295,6 +305,9 @@ class producto extends Controller{
           closeOnConfirm: false,
           closeOnCancel: false
         })';
+
+        header("Location: ".URL."producto/registrarProductos");
+        exit();
     }
     if($error == true){
         $_SESSION["alerta"] = 'swal({
@@ -306,6 +319,9 @@ class producto extends Controller{
           closeOnConfirm: false,
           closeOnCancel: false
         })';
+
+        header("Location: ".URL."producto/registrarProductos");
+        exit();
     }
 
 
@@ -347,6 +363,9 @@ class producto extends Controller{
           closeOnConfirm: false,
           closeOnCancel: false
         })';
+
+        header("Location: ".URL."producto/registrarCategoria");
+        exit();
       }
 
       if( $eror == true){
@@ -359,6 +378,8 @@ class producto extends Controller{
           closeOnConfirm: false,
           closeOnCancel: false
         })';
+        header("Location: ".URL."producto/registrarCategoria");
+        exit();
       }
 
     }
@@ -454,6 +475,9 @@ class producto extends Controller{
               closeOnConfirm: false,
               closeOnCancel: false
             })';
+
+            header("Location: ".URL."producto/listarCategorias");
+            exit();
         }
 
         if($error == true)
@@ -467,6 +491,9 @@ class producto extends Controller{
             closeOnConfirm: false,
             closeOnCancel: false
           })';
+
+          header("Location: ".URL."producto/listarCategorias");
+          exit();
         }
 
         }
@@ -564,6 +591,8 @@ class producto extends Controller{
         closeOnConfirm: false,
         closeOnCancel: false
       })';
+      header("Location: ".URL."producto/listarProductos");
+      exit();
       return true;
     }else{
       throw new Exception( 'swal({
@@ -575,6 +604,8 @@ class producto extends Controller{
         closeOnConfirm: false,
         closeOnCancel: false
       })', 1);
+      header("Location: ".URL."producto/listarProductos");
+      exit();
     }
   }
 }
@@ -657,14 +688,14 @@ class producto extends Controller{
       $html = "";
       foreach ($detalles as $key => $value) {
         $html .= '<tr>';
-        $html .= '<td class="price">' . $value['precio_unitario'] . '</td>';
+        $html .= '<td class="price">' .$value['precio_unitario'] . '</td>';
         $html .= '<td class="price">' . $value['precio_detal'] . '</td>';
         $html .= '<td class="price">' . $value['precio_por_mayor'] . '</td>';
         $html .= '</tr>';
       }
       echo json_encode([
         'producto'=>$info['nombre_producto'],
-        'html' => $html,
+        'html' => $html
       ]);
 
     }
@@ -731,7 +762,7 @@ class producto extends Controller{
  if($error == true)
  {
    $_SESSION['alerta'] =  'swal({
-     title: "Error al intentar anular la compra!",
+     title: "Error al intentar anular la baja!",
      type: "error",
      confirmButton: "#3CB371",
      confirmButtonText: "Aceptar",

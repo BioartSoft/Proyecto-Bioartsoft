@@ -12,6 +12,7 @@ use Dompdf\Dompdf;
 
   }
 
+
   public function informbajas()
     {
     require_once APP . 'libs/dompdf/autoload.inc.php';
@@ -32,9 +33,6 @@ use Dompdf\Dompdf;
 
 
     public function registrarBajas(){
-      $modeloconfiguracion = $this->loadModel("mdlConfiguracionPago");
-      $configuracion = $modeloconfiguracion->listarConfiguracion();
-
       if(isset($_POST['btn-agregar'])){
         $this->mdlexistencias->tipo_baja = $_POST['tipo_baja'];
         $error = $this->mdlexistencias->insertarBaja();
@@ -57,8 +55,8 @@ use Dompdf\Dompdf;
           closeOnConfirm: false,
           closeOnCancel: false
         })';
-        // exit();
-        // header("Location: ");
+        header("Location: ".URL."Existencias/registrarBajas");
+        exit();
       }
 
      $producto = $this->mdlexistencias->listarpro();
@@ -67,9 +65,8 @@ use Dompdf\Dompdf;
       require APP . 'view/_templates/footer.php';
     }
 
+
     public function listarBajas(){
-      $modeloconfiguracion = $this->loadModel("mdlConfiguracionPago");
-      $configuracion = $modeloconfiguracion->listarConfiguracion();
       $bajas = $this->mdlexistencias->listarBajas();
       require APP . 'view/_templates/header.php';
       require APP . 'view/Existencias/listarbajas.php';
