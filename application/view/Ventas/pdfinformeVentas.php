@@ -43,7 +43,7 @@
     </tbody>
   </table>
   <?php foreach($totalVentasPorFecha as $total): ?>
-      <p style="text-align: right"><strong>Total: </strong><strong><?= $total['total']; ?></strong></p>
+      <p style="text-align: right"><strong>Total Ventas: </strong><strong><?= $total['total']; ?></strong></p>
   <?php endforeach; ?>
 </body>
 </html>

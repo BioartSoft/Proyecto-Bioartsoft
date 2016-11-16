@@ -52,7 +52,7 @@ class Ventas extends controller
   public function generarpdfDetallesVentas()
   {
     $id = $_GET['txtId'];
-
+    
     if(isset($id)){
 
     $detalles = $this->mdlVentas->getDetallesVenta($id);
@@ -83,6 +83,44 @@ class Ventas extends controller
     $dompdf->stream("Informe Ventas.pdf", array("Attachment" => false, 'isRemoteEnabled' => true));
   }
 }
+
+
+public function generarpdfDetallesVentas2()
+{
+  //$id = $_GET['txtId'];
+  $id = $_GET['id'];
+
+  if(isset($id)){
+
+  $detalles = $this->mdlVentas->getDetallesVenta($id);
+  $info = $this->mdlVentas->getInfoVenta($id);
+  $tabla = "";
+  foreach ($detalles as $value) {
+    $tabla .= '<tr>';
+    $tabla .= '<td class="center">' . $value['id_producto'] . '</td>';
+    $tabla .= '<td class="center">' . $value['nombre_producto'] . '</td>';
+    $tabla .= '<td class="center">' . $value['cantidad'] . ' unidades</td>';
+    $tabla .= '<td class="center">' . $value['precio_venta'] . '</td>';
+    $tabla .= '<td class="price center">' . $value['cantidad'] * $value['precio_venta'] . '</td>';
+    $tabla .= '</tr>';
+  }
+
+  require_once APP . 'libs/dompdf/autoload.inc.php';
+  ob_start();
+  require APP . 'view/Ventas/pdfDetallesVentas.php';
+
+
+  $html = ob_get_clean();
+  $dompdf = new Dompdf();
+  $dompdf->loadHtml($html);
+  // $dompdf->load_html_file($urlImagen);
+  // $dompdf->setPaper('A4', 'landscape');
+  $dompdf->setPaper([0,0,350,841], 'portrait');
+  $dompdf->render();
+  $dompdf->stream("Informe Ventas.pdf", array("Attachment" => false, 'isRemoteEnabled' => true));
+}
+}
+
 
 
 

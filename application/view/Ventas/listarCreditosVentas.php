@@ -22,6 +22,7 @@
               <th>Nombres</th>
               <th>Apellidos</th>
               <th>Tipo Cliente</th>
+              <th>Estado Crédito</th>
               <th>Ver Detalles</th>
             </tr>
           </thead>
@@ -32,6 +33,14 @@
                 <td><?=  $cliente['nombres'] ?></td>
                 <td><?=  $cliente['apellidos'] ?></td>
                 <td><?=  $cliente['Tbl_nombre_tipo_persona'] ?></td>
+                <td><?php  if($cliente['estado_credito'] == 1): ?>
+                  Pendiente
+                <?php elseif($cliente['estado_credito'] == 2): ?>
+                  Condonado
+                <?php else: ?>
+                  Pagado
+                <?php endif; ?>
+                </td>
                 <td><button type="button" class="btn btn-primary btn-circle btn-md" data-toggle="modal" data-target="#myJhoan" data-tipop = "<?=  $cliente['Tbl_nombre_tipo_persona'] ?>" title="Listar Créditos" onclick="traerDetalleCreditoV('<?=  $cliente['id_persona'] ?>')"><i class="fa fa-eye" aria-hidden="true"></i></button>
               </tr>
           <?php endforeach; ?>

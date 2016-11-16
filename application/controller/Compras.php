@@ -29,8 +29,55 @@
     }
 
     public function index(){
-      $modeloconfiguracion = $this->loadModel("mdlConfiguracionPago");
-      $configuracion = $modeloconfiguracion->listarConfiguracion();
+
+
+        if(isset($_POST['btn-modificar'])){
+          if($_POST["txtpreciocompra"] <  $_POST["txtprecioventa"] && $_POST["txtpreciocompra"] < $_POST["txtprecioalpormayor"] && $_POST["txtprecioventa"] > $_POST["txtprecioalpormayor"]){
+          $this->mdlCompras->__SET("Codigo_producto", $_POST['txtcodigo']);
+          $this->mdlCompras->__SET("precio_unitario", $_POST['txtpreciocompra']);
+          $this->mdlCompras->__SET("precio_por_mayor", $_POST['txtprecioalpormayor']);
+          $this->mdlCompras->__SET("precio_detal", $_POST['txtprecioventa']);
+          $producto = $this->mdlCompras->modificarPrecios();
+
+          if($producto == true){
+            $_SESSION['alerta'] = ' swal({
+              title: "Modificación exitosa!",
+              type: "success",
+              confirmButton: "#3CB371",
+              confirmButtonText: "Aceptar",
+              // confirmButtonText: "Cancelar",
+              closeOnConfirm: false,
+              closeOnCancel: false
+            })';
+
+            header("Location: ".URL."Compras/index");
+            exit();
+          }else{
+            $_SESSION['alerta'] = ' swal({
+              title: "Error en la modificación!",
+              type: "error",
+              confirmButton: "#3CB371",
+              confirmButtonText: "Aceptar",
+              // confirmButtonText: "Cancelar",
+              closeOnConfirm: false,
+              closeOnCancel: false
+            })';
+
+            header("Location: ".URL."Compras/index");
+          }
+        }else{
+          $_SESSION['alerta'] = ' swal({
+            title: "Precios inválidos!",
+            type: "error",
+            confirmButton: "#3CB371",
+            confirmButtonText: "Aceptar",
+            // confirmButtonText: "Cancelar",
+            closeOnConfirm: false,
+            closeOnCancel: false
+          })';
+        }
+
+        }
 
       $proveedor = $this->mdlProveedor->listar();
       $proveedorJ = $this->mdlProveedor->listarJuridico();
@@ -167,11 +214,8 @@
 
 
     public function registrarCompra(){
-      $modeloconfiguracion = $this->loadModel("mdlConfiguracionPago");
-      $configuracion = $modeloconfiguracion->listarConfiguracion();
       $guardar=false;
       $error=false;
-
       $this->mdlCompras->__SET("codigo_proveedor", $_POST['ddlproveedor']);
       $this->mdlCompras->__SET("valor_total", $_POST['txttotal']);
       $this->mdlCompras->__SET("empleado", $_POST['hdempleado']);
@@ -330,6 +374,7 @@
         'empleado'=>$info['empleado'],
         'fecha' => $info['fecha_compra'],
         'proveedor' => $info['proveedor'],
+        'id' => $info['id_persona'],
         'total' => $info['total'],
         'html' => $html,
       ]);

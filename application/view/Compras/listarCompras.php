@@ -65,7 +65,7 @@
                   <div class="panel-heading" stlyle="height: 70px; width: 100px">
                         <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 20px">Detalles de Entrada Número: <span id="codigoC"></span></center>
                   </div>
-                <div class="panel-body">
+                <div class="panel-body" id="panel_compras">
                   <h5><strong>Entrada realizada por: <span id="empleado"></span></strong></h5>
                   <div class="dataTable_wrapper">
                     <div class="table-responsive">
@@ -73,6 +73,7 @@
                         <thead>
                           <tr>
                             <th>Fecha Entrada</th>
+                            <th>Identificación Proveedor</th>
                             <th>Nombre Proveedor</th>
                             <th>Total Entrada</th>
                           </tr>
@@ -80,6 +81,7 @@
                         <tbody>
                           <tr>
                             <td id="fecha-compra"></td>
+                            <td id="id-proveedor"></td>
                             <td id="proveedor-compra"></td>
                             <td id="total-compra"></td>
                           </tr>
@@ -150,6 +152,7 @@ function traerDetallesCompra(id){
     $("#empleado").text(respuesta.empleado);
     $("#fecha-compra").text(respuesta.fecha);
     $("#proveedor-compra").text(respuesta.proveedor);
+    $("#id-proveedor").text(respuesta.id);
     $("#total-compra").text(respuesta.total).priceFormat({
       centsLimit: 3,
       clearPrefix: true

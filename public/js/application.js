@@ -137,3 +137,26 @@ function Traerdatoscategoria(id_categoria){
   },
     });
 }
+
+function preciosProducto(){
+  var id = $("#ddlproducto").val();
+    $.ajax({
+      type: 'POST',
+      url: url + 'producto/obtenerProductos2',
+      dataType: 'json',
+      data: {id: id},
+    })
+      .done(function(respuesta){
+        var ids = respuesta.id;
+        var precio1 = respuesta.precio1;
+        var precio2 = respuesta.precio2;
+        var precio3 = respuesta.precio3;
+        if (respuesta.id != null) {
+          $("#txtcodigo").val(ids);
+          $("#txtpreciocompra").val(precio1);
+          $("#txtprecioventa").val(precio2);
+          $("#txtprecioalpormayor").val(precio3);
+        }
+      })
+
+}

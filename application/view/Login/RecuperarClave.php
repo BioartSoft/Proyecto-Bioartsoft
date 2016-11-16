@@ -46,13 +46,12 @@
                         <div class="panel-heading">
                            <center>
                             <!-- <img alt="Brand" src="<?= URL ?>img/LOGOv2.png" style="height:100px; width: 300px"> -->
-                            <h3 class="form-group" style="color: white">¿Olvidaste tu contraseña?</h3>
+                            <h3 class="form-group" style="color: white">Recuperar Contraseña</h3>
                           </center>
                         </div>
                         <div class="panel-body">
-                            <form  id="form-clave" method="post" action="<?= URL ?>Personas/registrarPersonas" data-parsley-validate="">
+                            <form  id="form-clave" method="post" action="<?= URL ?>login/recuperarContras" data-parsley-validate="">
                               <center>
-
                               </center>
                                 <fieldset><br>
                                   <?php if ($mensaje == true): ?>

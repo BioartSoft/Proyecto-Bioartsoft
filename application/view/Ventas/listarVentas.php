@@ -71,9 +71,9 @@
                   <div class="col-lg-12">
                     <div class="panel panel-primary">
                         <div class="panel-heading" stlyle="height: 70px; width: 100px">
-                            <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 20px">Detalles de Venta Número: <span id="codigo-venta"></span></center>
+                            <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 20px">Detalle de Venta Número: <span id="codigo-venta"></span></center>
                         </div>
-                      <div class="panel-body">
+                      <div class="panel-body" id="panel_ventas">
                           <h5><strong>Venta realizada por: <span id="empleado"></span></strong></h5>
                         <div class="dataTable_wrapper">
                           <div class="table-responsive">
@@ -122,7 +122,7 @@
                     </div>
                 <?php if($_SESSION['ROL'] == 1 || $_SESSION['ROL'] == 3): ?>
                     <div class="col-md-2">
-                      <a href="<?= URL ?>Ventas/generarpdfDetallesVentas" target="_blank" id="pdfDeta">
+                      <a href="<?= URL ?>Ventas/generarpdfDetallesVentas2" target="_blank" id="pdfDeta">
                         <button class="btn btn-primary" name="btnComprasD"><i class="fa fa-file-pdf-o" aria-hidden="true">   Recibo de Caja</i></button>
                       </a>
                     </div>
@@ -140,7 +140,7 @@
 
 function traerDetallesVenta(id){
   var enlace = $("#pdfDeta");
-  var nUrl = '<?= URL ?>Ventas/generarpdfDetallesVentas?id=' + id;
+  var nUrl = '<?= URL ?>Ventas/generarpdfDetallesVentas2?id=' + id;
   enlace.attr("href", nUrl);
 
 

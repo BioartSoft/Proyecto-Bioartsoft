@@ -37,7 +37,7 @@
               <option value="">Seleccionar</option>
               <?php foreach ($producto as $value): ?>
                 <?php if($value['estado'] == 1): ?>
-                  <option Precio="<?= $value['precio_unitario'] ?>" value="<?= $value['id_producto'] ?>"><?= $value['id_producto']." ".$value['nombre_producto'] ?></option>
+                  <option Precio="<?= $value['precio_unitario'] ?>" Precio2="<?= $value['precio_detal'] ?>" Precio3="<?= $value['precio_por_mayor'] ?>" value="<?= $value['id_producto'] ?>"><?= $value['id_producto']." ".$value['nombre_producto'] ?></option>
                 <?php else: ?>
 
                 <?php endif; ?>
@@ -46,10 +46,29 @@
             <button type="button" class="btn btn-primary pull-right btn-sm" title="Registrar producto" data-toggle="modal" data-target="#modal-registroProducto"><i class="fa fa-plus plus" title="Registrar producto"></i></button>
           </div>
 
+          <div class="row">
           <div class="form-group">
-            <label for="form-control">Precio</label>
-            <p id="precio">0</p>
+            <div class="col-md-3">
+              <label for="form-control">Precio Unitario</label>
+              <p id="precio">0</p>
+           </div>
+           <div class="col-md-3">
+                <label for="form-control">Precio al Detal</label>
+                <p id="precio2">0</p>
           </div>
+          <div class="col-md-3">
+            <label for="form-control">Precio por Mayor</label>
+            <p id="precio3">0</p>
+          </div>
+          <div class="col-md3">
+            <button type="button" onclick="preciosProducto('<?= $value['id_producto'] ?>')"
+              class="btn btn-success btn-circle btn-md" data-toggle="modal" data-target="#modal-modificarPrecios" title="Modificar">
+              <i class="fa fa-pencil-square-o" aria-hidden="true" title="Modificar"></i>
+            </button>
+          </div>
+          </div>
+        </div>
+        <br>
           <div class="form-group" id="cant">
             <label for="">Cantidad</label>
             <input type="text" id="txtcantidad" min="1" maxlength="4" name="txtcantidad" class="form-control" data-parsley-type="number" data-parsley-required="true">
@@ -149,7 +168,52 @@
               </div>
              </div>
            </div>
-         </div>
+
+
+           <form action="<?= URL ?>Compras/index" method="POST" id="form-modificar" data-parsley-validate="" >
+           <div class="modal fade" id="modal-modificarPrecios" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static">
+             <div id="modal-mod-prod" method="post" data-parsley-validate="">
+
+                             <div class="modal-dialog" role="document">
+                               <div class="modal-content">
+                                 <div class="modal-header">
+                                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                     <span aria-hidden="true">&times;</span>
+                                   </button>
+                                     <center><h4 class="modal-title" id="myModalLabel" style="color: #337AB7">Modificar Precios Productos (obligatorios *)</h4></center>
+                                 </div>
+                              <div class="modal-body">
+                              <input id="txtcodigo" name="txtcodigo" type="hidden">
+                              <div class="row">
+                                <div class="col-md-6">
+                                  <label>Precio Unitario *</label><br>
+                                   <input type="text" id="txtpreciocompra" name="txtpreciocompra" class="form-control" data-parsley-type="integer" min="0" maxlength="10" data-parsley-required="true">
+                              </div>
+
+                                <div class="col-md-6" >
+                                  <label>Precio Detal *</label><br>
+                                   <input id="txtprecioventa" name="txtprecioventa" type="text" class="form-control"  data-parsley-type="integer" min="0" maxlength="10" data-parsley-required="true">
+                              </div>
+                            </div>
+                            <br>
+
+                            <div class="row">
+                              <div class="col-md-6">
+                                <label>Precio al por Mayor *</label><br>
+                                <input id="txtprecioalpormayor" name="txtprecioalpormayor" type="text" class="form-control" data-parsley-type="integer" min="0" maxlength="10" data-parsley-required="true">
+                              </div>
+                              </div>
+                            </div>
+                            <br>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary btn-md active"  data-dismiss="modal"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
+                              <button id="btn-modificar" type="submit" name="btn-modificar" class="btn btn-success btn-md active"><i class="fa fa-floppy-o" aria-hidden="true">   Modificar</i></button>
+                           </div>
+                          </div>
+                      </div>
+                   </div>
+             </div>
+           </form>
 
 <style media="screen">
   #txtProductoS{
@@ -232,16 +296,30 @@
      $("#txtProductoS").focus();
    })
 
-  //  setInterval(function() {
-  //    $("#txtProductoS").focus();
-  //  },5000)
-
    function ponerPrecio(elemento){
      var valor = $("#ddlproducto").val();
      var precio = $("#ddlproducto [value='"+valor+"']").attr("precio");
+     var precio2 = $("#ddlproducto [value='"+valor+"']").attr("precio2");
+     var precio3 = $("#ddlproducto [value='"+valor+"']").attr("precio3");
       var cant = $("#txtcantidad").val();
      $("#precio").text(precio);
      $("#precio").priceFormat(
+       {
+         centsLimit: 3,
+         clearPrefix: true
+       }
+     );
+
+     $("#precio2").text(precio2);
+     $("#precio2").priceFormat(
+       {
+         centsLimit: 3,
+         clearPrefix: true
+       }
+     );
+
+     $("#precio3").text(precio3);
+     $("#precio3").priceFormat(
        {
          centsLimit: 3,
          clearPrefix: true

@@ -508,6 +508,27 @@ class producto extends Controller{
     header("Content-type: application/json");
     $producto = $this->mdlproducto->traerPorReferencia($_POST['id']);
     echo json_encode($producto);
+
+  }
+
+
+  public function obtenerProductos2(){
+    header("Content-type: application/json");
+    $producto = $this->mdlproducto->traerPorReferencia($_POST['id']);
+
+    if($producto){
+
+      echo json_encode([
+        "id"=>$producto['id_producto'],
+        "precio1"=>$producto['precio_unitario'],
+        "precio2"=>$producto['precio_detal'],
+        "precio3"=>$producto['precio_por_mayor']
+
+    ]);
+    }else{
+      echo json_encode(["v"=>NULL]);
+    }
+
   }
 
 
@@ -567,6 +588,7 @@ class producto extends Controller{
       // var_dump("Guardado");
       // exit();
 
+  if($_POST["txtpreciocompra"] <  $_POST["txtprecioventa"] && $_POST["txtpreciocompra"] < $_POST["txtprecioalpormayor"] && $_POST["txtprecioventa"] > $_POST["txtprecioalpormayor"]){
     $this->mdlproducto->precio_detal = $_POST["txtprecioventa"];
     $this->mdlproducto->precio_por_mayor = $_POST["txtprecioalpormayor"];
     $this->mdlproducto->precio_unitario = $_POST["txtpreciocompra"];
@@ -607,6 +629,19 @@ class producto extends Controller{
       header("Location: ".URL."producto/listarProductos");
       exit();
     }
+  }else{
+    $_SESSION['alerta'] = 'swal({
+      title: "Precios inválidos!",
+      type: "error",
+      confirmButton: "#3CB371",
+      confirmButtonText: "Aceptar",
+      // confirmButtonText: "Cancelar",
+      closeOnConfirm: false,
+      closeOnCancel: false
+    })';
+    header("Location: ".URL."producto/listarProductos");
+    exit();
+  }
   }
 }
 

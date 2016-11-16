@@ -11,3 +11,13 @@
 .hijo:first-child, .hijo:last-child{
   border-radius: 0px;
 }
+
+#panel_compras{
+  max-height: 320px;
+  overflow-y: auto;
+}
+
+#panel_ventas{
+  max-height: 320px;
+  overflow-y: auto;
+}

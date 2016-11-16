@@ -139,7 +139,6 @@ class Login extends Controller
               $mailer = Swift_Mailer::newInstance($transport);
               $contrasenia = decrypt($usuario['clave']);
               $html .= $contrasenia;
-              //$html .= '<img src="http://i1-news.softpedia-static.com/images/news2/ubuntu-16-04-lts-xenial-xerus-final-beta-screenshot-tour-502161-7.jpg">';
               $html .='</div>';
               $html .='</body>';
 

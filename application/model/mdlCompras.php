@@ -13,6 +13,9 @@ class mdlCompras
   private $empleado;
   private $fechainicial;
   private $fechafinal;
+  private $precio_unitario;
+  private $precio_por_mayor;
+  private $precio_detal;
   private $db;
 
   public function __SET($attr, $valor){
@@ -104,6 +107,17 @@ class mdlCompras
     $stm->bindParam(4, $precio);
     return $stm->execute();
   }
+
+
+    public function modificarPrecios(){
+      $sql = "CALL SP_Modificar_Precios(?, ?, ?, ?)";
+      $stm = $this->db->prepare($sql);
+      $stm->bindParam(1, $this->precio_unitario);
+      $stm->bindParam(2, $this->precio_detal);
+      $stm->bindParam(3, $this->precio_por_mayor);
+      $stm->bindParam(4, $this->Codigo_producto);
+      return $stm->execute();
+    }
 
 
   public function ValidarCantidadporEstado($codigoProd, $cant){

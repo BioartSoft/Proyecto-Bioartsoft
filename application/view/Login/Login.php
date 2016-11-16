@@ -74,7 +74,7 @@
                                   </div><br>
                                     <button tabindex="3" type="submit" name="btnIniciar" id="btn-iniciar" class="btn btn-lg btn-primary btn-block">Iniciar sesión</button>
                                   <div class="checkbox">
-                                          <a tabindex="4" href="<?= URL ?>login/recuperarContras" id="recuperarContras" style="margin-left: 80px;color: blue; text-decoration: underline">Recuperar contraseña</a>
+                                          <a tabindex="4" href="<?= URL ?>login/recuperarContras" id="recuperarContras" style="margin-left: 80px;color: blue; text-decoration: underline">¿Olvidaste tu Contraseña?</a>
                                           <p tabindex="5">
                                             &nbsp;
                                           </p>

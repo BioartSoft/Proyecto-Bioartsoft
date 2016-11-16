@@ -20,7 +20,7 @@
             <label for="">Tipo de Baja</label>
             <select name="tipo_baja" id="baja" class="form-control" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ@\-\.\\ \/$]+" data-parsley-required="true">
               <option value="">Seleccionar</option>
-              <option value="Robo">Robo</option>
+              <option value="Robo">Hurto</option>
               <option value="Averia">Avería</option>
             </select>
           </div>

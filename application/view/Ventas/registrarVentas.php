@@ -74,29 +74,29 @@
             </div>
         </div>
 
-          <div class="form-group">
+          <!-- <div class="form-group">
             <label for="form-control">Pago</label>
                 <select class="form-control" id="select-pago"  name="txtpago" data-parsley-type="alphanum" data-parsley-required="true">
                   <option value="">Seleccionar</option>
                   <option value="1">Crédito</option>
                   <option value="2">Contado</option>
                 </select>
-              </div>
-            <div style="display: none" id="div-plazo">
+              </div> -->
+            <!-- <div style="display: none" id="div-plazo">
               <label for="form-control">Días Plazo Crédito</label>
               <input type="number" id="txtplazo" min="1" maxlength="2" max="30" name="txtplazo" class="form-control" data-parsley-type="number" data-parsley-required="true">
-            </div>
-              <br>
+            </div> -->
+              <!-- <br>
               <?php foreach ($listarConfiguracionVentas as $va): ?>
               <input type="hidden" value="<?= $va['Porcentaje_Maximo_Dcto'] ?>" id="porc-max">
               <input type="hidden" value="<?= $va['Porcentaje_Minimo_Dcto'] ?>" id="porc-min">
               <input type="hidden" value="<?= $va['Valor_Subtotal_Maximo'] ?>" id="vlr-max">
               <input type="hidden" value="<?= $va['Valor_Subtotal_Minimo'] ?>" id="vlr-min">
-            <?php endforeach; ?>
-              <div class="form-group" id="contenedorDescuento">
+            <?php endforeach; ?> -->
+              <!-- <div class="form-group" id="contenedorDescuento">
                 <label for="form-control">Descuento</label>
                 <input type="number" id="txt-campo-des" name="txt-campo-des" class="form-control" value="0" min="0" data-parsley-type="integer">
-              </div>
+              </div> -->
             </div>
           </div>
           <button onclick="agregarProducto()" type="button" class="btn btn-primary pull-right" title="Agregar Producto"><i class="fa fa-plus plus" title="Agregar Producto"></i>   Agregar</button>
@@ -120,7 +120,47 @@
         <h3 class="panel-title"><strong>Total:</strong> <input type="hidden" id="txttotal" name="txttotal" value=""> <span id="total">0</span></h3>
       </div>
     </div>
-    <button type="submit" class="btn btn-success pull-right" name="btn-guardar-venta" id="btnGuardar" onclick="validarCantidad()" title="Guardar Venta"><i class="fa fa-floppy-o" title="Guardar Venta"></i>   Guardar</button><br><br>
+
+    <div class="panel panel-primary">
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-6">
+        <div class="form-group">
+          <label for="form-control">Tipo de Pago</label>
+              <select class="form-control" id="select-pago" name="txtpago" data-parsley-type="alphanum" data-parsley-required="true">
+                <option value="">Seleccionar</option>
+                <option value="1">Crédito</option>
+                <option value="2">Contado</option>
+              </select>
+            </div>
+          </div>
+            <div class="col-md-6">
+              <div style="display: none" id="div-plazo">
+                <label for="form-control">Días Plazo Crédito</label>
+                <input type="number" id="txtplazo" min="1" maxlength="2" max="30" name="txtplazo" class="form-control" data-parsley-type="number" data-parsley-required="true">
+              </div>
+            </div>
+            <br>
+            <?php foreach ($listarConfiguracionVentas as $va): ?>
+            <input type="hidden" value="<?= $va['Porcentaje_Maximo_Dcto'] ?>" id="porc-max">
+            <input type="hidden" value="<?= $va['Porcentaje_Minimo_Dcto'] ?>" id="porc-min">
+            <input type="hidden" value="<?= $va['Valor_Subtotal_Maximo'] ?>" id="vlr-max">
+            <input type="hidden" value="<?= $va['Valor_Subtotal_Minimo'] ?>" id="vlr-min">
+          <?php endforeach; ?>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group" id="contenedorDescuento">
+                <label for="form-control">Descuento en Pesos</label>
+                <input type="number" id="txt-campo-des" name="txt-campo-des" class="form-control" value="0" min="0" data-parsley-type="integer">
+              </div>
+            </div>
+          </div>
+          </div>
+      </div>
+      <button type="submit" class="btn btn-success pull-right" name="btn-guardar-venta" id="btnGuardar" onclick="validarCantidad()" title="Guardar Venta"><i class="fa fa-floppy-o" title="Guardar Venta"></i>   Guardar</button><br><br>
+    </div>
+
   </div>
   <input type="hidden" id="txtProductoS" focus="true" autocomplete="off" >
    </div>
