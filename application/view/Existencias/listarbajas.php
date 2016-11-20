@@ -15,20 +15,20 @@
                     <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                         <thead>
                             <tr>
-                                <th>Código Producto</th>
-                                <th>Nombre Producto</th>
-                                <th>Categoría</th>
+                                <th>Código Bajas</th>
+                                <th>Empleado Responsable Baja</th>
                                 <th>Estado</th>
+                                <th>Fecha Baja</th>
                                 <th>Anular</th>
                             </tr>
                         </thead>
                         <tbody>
                           <?php foreach ($bajas as $value): ?>
                            <tr>
-                             <td><?= $value['Tbl_Productos_id_productos'] ?></td>
-                             <td><?= $value['nombre_producto'] ?></td>
-                             <td><?= $value['nombre'] ?></td>
+                             <td><?= $value['id_bajas'] ?></td>
+                             <td><?= $value['nombre_persona'] ?></td>
                              <td><?= $value['estado'] == 1? "Activo" : "Eliminado" ?></td>
+                             <td><?= $value['fecha_salida'] ?></td>
                              <td>
 
                                <?php
@@ -59,12 +59,12 @@
             <?php foreach ($bajas as $value): ?>
             <?php if($value['estado'] == 1): ?>
                 <center>
-                  <a href="<?= URL ?>Existencias/informbajas" target="_blank">
-                    <button class="btn btn-primary"><i class="fa fa-file-pdf-o" aria-hidden="true">   Reporte PDF Bajas</i></button>
-                  </a>
+                  <!-- <a href="<?= URL ?>Existencias/informbajas" target="_blank"> -->
+                    <button class="btn btn-primary" data-toggle="modal" data-target="#modal-reporte_bajas"><i class="fa fa-file-pdf-o" aria-hidden="true">&nbsp;&nbsp;Reporte Bajas</i></button>
+                  <!-- </a> -->
                 </center>
-          <?php break; ?>
-          <?php else: ?>
+                <?php break; ?>
+            <?php else: ?>
           <?php endif; ?>
           <?php endforeach; ?>
             </div>
@@ -85,22 +85,22 @@
               <div class="col-lg-12">
                 <div class="panel panel-primary">
                   <div class="panel-heading" stlyle="height: 70px; width: 100px">
-                      <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 20px">Detalles de Baja Número: <span id="baja"><span></center>
+                      <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 20px">Detalle de Baja Número: <span id="baja"><span></center>
                   </div>
                   <div class="panel-body">
-                    <h5><strong>Baja Registrada por: <span class="empleado"></span></strong></h5>
                     <div class="dataTable_wrapper">
                       <div class="table-responsive">
 
                         <table class="table table-striped table-bordered table-hover">
                           <thead>
                              <tr>
-                              <th>Fecha Registro Baja</th>
-                              <th>Tipo de Baja</th>
+                              <th>Producto</th>
                               <th>Cantidad</th>
+                              <th>Tipo de Baja</th>
                             </tr>
                           </thead>
                           <tbody class="precios" id="detalles-bajas">
+
                           </tbody>
                         </table>
                       </div>
@@ -110,7 +110,78 @@
                 <button type="button" class="btn btn-secondary btn-md active pull-right"  data-dismiss="modal"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
               </div>
             </div>
-</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="modal-reporte_bajas" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static" style="display:none" style="width: 50px" action="<?= URL ?>producto/listarProductos">
+       <div class="modal-dialog" role="document">
+         <div class="modal-content">
+            <div class="modal-body">
+
+                <div class="row">
+                  <div class="col-lg-12">
+                    <div class="panel panel-primary">
+                      <div class="panel-heading" stlyle="height: 70px; width: 100px">
+                          <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 20px">Reporte de Bajas</center>
+                      </div>
+                      <div class="panel-body">
+                        <form id="formPdfBajas" action="<?= URL ?>producto/pdfBajas" method="post" data-parsley-validate="" target="_blank">
+                        <div class="row">
+                          <br>
+                            <div class="panel-body">
+                          <div class="row">
+                            <div class="col-md-1"></div>
+                            <div   class="col-md-6 col-xs-12 col-lg-5">
+                                <label for="">Fecha Inicial </label>
+                                <div class="input-group date" data-provide="datepicker">
+                                <input type="text" class="form-control" readonly="true"name="txtfechainicial" id="txtfechainicial" placeholder="Fecha Inicial" data-parsley-required="true">
+                                <div class="input-group-addon">
+                                <span class="glyphicon glyphicon-th"></span>
+                              </div>
+                              </div>
+                            </div>
+
+                            <div   class="col-md-6 col-xs-12 col-lg-5">
+                                <label for="">Fecha Final </label>
+                                <div class="input-group date" data-provide="datepicker">
+                                <input type="text" class="form-control" name="txtfechafinal" readonly="true" id="txtfechafinal"  placeholder="Fecha final" data-parsley-required="true">
+                                <div class="input-group-addon">
+                                <span class="glyphicon glyphicon-th"></span>
+                              </div>
+                              </div>
+                          </div>
+                          <div class="col-md-1"></div>
+                        </div>
+                        <br><br>
+                        <div class="row">
+                          <div class="col-md-4"></div>
+                            <div class="col-md-4">
+                              <button type="submit" class="btn btn-primary active" id="btn-pdf" name="btnconsultar" target="_blank"><i class="fa fa-file-pdf-o" aria-hidden="true"> Generar PDF Bajas</i></button>
+                            </div>
+                        </div>
+                        </div>
+                        </div>
+                        </form>
+                      </div>
+                    </div>
+                    <button type="button" class="btn btn-secondary btn-md active pull-right"  data-dismiss="modal"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <script type="text/javascript">
+          $(document).ready(function(){
+            $("#btn-pdf").click(function(){
+              $("#formPdfBajas").parsley().validate();
+            })
+          });
+        </script>
+
 
 <script type="text/javascript">
 
@@ -153,7 +224,7 @@ function cambiarEstado(cod, est){
                 bandera = false;
               }else{
                 swal({
-                  title: "Error al intentar anular la compra!",
+                  title: "Error al intentar anular la baja!",
                   type: "error",
                   confirmButton: "#3CB371",
                   confirmButtonText: "Aceptar",
@@ -164,7 +235,7 @@ function cambiarEstado(cod, est){
             }).fail(function(respuesta){
               if(respuesta.v == 0){
                 swal({
-                  title: "Error al intentar anular la compra!",
+                  title: "Error al intentar anular la baja!",
                   type: "error",
                   confirmButton: "#3CB371",
                   confirmButtonText: "Aceptar",
@@ -193,7 +264,6 @@ function cambiarEstado(cod, est){
       }
     }).done(function(respuesta){
       $("#baja").text(respuesta.baja);
-      $(".empleado").text(respuesta.empleado);
       $("#detalles-bajas").html(respuesta.html);
     });
   }

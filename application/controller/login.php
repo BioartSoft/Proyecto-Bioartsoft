@@ -133,7 +133,7 @@ class Login extends Controller
               // Create the Transport
               $transport = Swift_SmtpTransport::newInstance('smtp.gmail.com', 465, 'ssl')
               ->setUsername(EMAIL_ADMIN)
-              ->setPassword(EMAI_ADMIN_PASS);
+              ->setPassword(EMAIL_ADMIN_PASS);
 
               // Create the Mailer using your created Transport
               $mailer = Swift_Mailer::newInstance($transport);

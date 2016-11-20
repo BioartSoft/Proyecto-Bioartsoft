@@ -62,6 +62,17 @@
  </tbody>
   </table>
 </div>
+
+    <?php if($_SESSION['ROL'] == 1 || $_SESSION['ROL'] == 3): ?>
+        <div class="row">
+         <div class="col-sm-12">
+           <center>
+             <button class="btn btn-primary" data-toggle="modal" data-target="#modalReporteVentas"><i class="fa fa-file-pdf-o" aria-hidden="true">   Reporte de ventas </i></button>
+         </center>
+         </div>
+       </div>
+    <?php endif; ?>
+
 </div>
 <div class="modal fade" id="myForm2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static" style="display:none" action="<?= URL ?>Ventas/index">
    <div class="modal-dialog" role="document">
@@ -134,6 +145,72 @@
             </div>
           </div>
         </div>
+
+
+        <div class="modal fade" id="modalReporteVentas" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static" style="display:none" action="<?= URL ?>Ventas/index">
+           <div class="modal-dialog" role="document">
+               <div class="modal-content" style="">
+                     <div class="modal-body">
+                        <div class="row">
+                          <div class="col-lg-12">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading" stlyle="height: 70px; width: 100px">
+                                    <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 20px">Reporte Ventas</center>
+                                </div>
+                              <div class="panel-body" id="panel_ventas">
+                                <form id="formPdfVentas" action="<?= URL ?>Ventas/pdfVentas" method="post" data-parsley-validate="" target="_blank">
+                                <div class="row">
+                                  <br>
+                                  <div class="panel-body">
+                                  <div class="row">
+                                    <div class="col-md-1"></div>
+                                    <div   class="col-md-4">
+                                        <label for="">Fecha Inicial </label>
+                                        <div class="input-group date" data-provide="datepicker">
+                                        <input type="text" class="form-control" name="txtfechainicial" id="txtfechainicial" placeholder="Fecha Inicial" readonly="true" data-parsley-required="true">
+                                        <div class="input-group-addon">
+                                        <span class="glyphicon glyphicon-th"></span>
+                                      </div>
+                                      </div>
+                                    </div>
+                                    <div class="col-md-1"></div>
+                                    <div   class="col-md-4">
+                                        <label for="">Fecha Final </label>
+                                        <div class="input-group date" data-provide="datepicker">
+                                        <input type="text" class="form-control" name="txtfechafinal" id="txtfechafinal" readonly="true"  placeholder="Fecha final" data-parsley-required="true">
+                                        <div class="input-group-addon">
+                                        <span class="glyphicon glyphicon-th"></span>
+                                      </div>
+                                      </div>
+                                  </div>
+                                </div>
+                                <br><br>
+                                <div class="row">
+                                  <div class="col-md-5"></div>
+                                    <div class="col-md-4">
+                                      <button type="submit"class="btn btn-primary active" id="btn-pdf" name="btnconsultar"><i class="fa fa-file-pdf-o" aria-hidden="true"> Generar PDF Ventas</i></button>
+                                    </div>
+                                </div>
+                                </div>
+                                </div>
+                                </form>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-6 col-xs-12 col-lg-11">
+                              <button type="button" class="btn btn-secondary btn-md active pull-right"  data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"> Cerrar</span></button>
+                            </div>
+                          </div>
+                        </div>
+                        <br>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+
 
 
 <script type="text/javascript">

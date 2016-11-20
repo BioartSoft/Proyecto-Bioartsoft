@@ -15,9 +15,8 @@ use Dompdf\Dompdf;
 
   public function informbajas()
     {
+
     require_once APP . 'libs/dompdf/autoload.inc.php';
-      // $urlImagen = URL . 'producto/generarcodigo?id=';
-      // $productos = $this->mdlproducto->listar();
 
      $bajas = $this->mdlexistencias->pdfBajas();
       ob_start();
@@ -25,7 +24,6 @@ use Dompdf\Dompdf;
       $html = ob_get_clean();
       $dompdf = new Dompdf();
       $dompdf->loadHtml($html);
-      // $dompdf->load_html_file($urlImagen);
       $dompdf->setPaper('A4', 'landscape');
       $dompdf->render();
       $dompdf->stream("Informe Bajas.pdf", array("Attachment" => false, 'isRemoteEnabled' => true));

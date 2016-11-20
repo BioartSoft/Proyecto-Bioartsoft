@@ -73,33 +73,9 @@
               <div class="input-group-addon">Unidades (<span id="unidades-actuales-info"></span>)</div>
             </div>
         </div>
-
-          <!-- <div class="form-group">
-            <label for="form-control">Pago</label>
-                <select class="form-control" id="select-pago"  name="txtpago" data-parsley-type="alphanum" data-parsley-required="true">
-                  <option value="">Seleccionar</option>
-                  <option value="1">Crédito</option>
-                  <option value="2">Contado</option>
-                </select>
-              </div> -->
-            <!-- <div style="display: none" id="div-plazo">
-              <label for="form-control">Días Plazo Crédito</label>
-              <input type="number" id="txtplazo" min="1" maxlength="2" max="30" name="txtplazo" class="form-control" data-parsley-type="number" data-parsley-required="true">
-            </div> -->
-              <!-- <br>
-              <?php foreach ($listarConfiguracionVentas as $va): ?>
-              <input type="hidden" value="<?= $va['Porcentaje_Maximo_Dcto'] ?>" id="porc-max">
-              <input type="hidden" value="<?= $va['Porcentaje_Minimo_Dcto'] ?>" id="porc-min">
-              <input type="hidden" value="<?= $va['Valor_Subtotal_Maximo'] ?>" id="vlr-max">
-              <input type="hidden" value="<?= $va['Valor_Subtotal_Minimo'] ?>" id="vlr-min">
-            <?php endforeach; ?> -->
-              <!-- <div class="form-group" id="contenedorDescuento">
-                <label for="form-control">Descuento</label>
-                <input type="number" id="txt-campo-des" name="txt-campo-des" class="form-control" value="0" min="0" data-parsley-type="integer">
-              </div> -->
-            </div>
-          </div>
-          <button onclick="agregarProducto()" type="button" class="btn btn-primary pull-right" title="Agregar Producto"><i class="fa fa-plus plus" title="Agregar Producto"></i>   Agregar</button>
+      </div>
+      </div>
+          <button onclick="agregarProducto()" type="button" class="btn btn-primary pull-right" id="btn-agregar" title="Agregar Producto"><i class="fa fa-plus plus" title="Agregar Producto"></i>   Agregar</button>
       </div>
 
   <div class="col-md-7">
@@ -127,7 +103,7 @@
           <div class="col-md-6">
         <div class="form-group">
           <label for="form-control">Tipo de Pago</label>
-              <select class="form-control" id="select-pago" name="txtpago" data-parsley-type="alphanum" data-parsley-required="true">
+              <select class="form-control" id="select-pago" name="txtpago" data-parsley-type="alphanum">
                 <option value="">Seleccionar</option>
                 <option value="1">Crédito</option>
                 <option value="2">Contado</option>
@@ -137,7 +113,7 @@
             <div class="col-md-6">
               <div style="display: none" id="div-plazo">
                 <label for="form-control">Días Plazo Crédito</label>
-                <input type="number" id="txtplazo" min="1" maxlength="2" max="30" name="txtplazo" class="form-control" data-parsley-type="number" data-parsley-required="true">
+                <input type="number" id="txtplazo" min="1" maxlength="2" max="30" name="txtplazo" class="form-control" data-parsley-type="number">
               </div>
             </div>
             <br>
@@ -181,16 +157,16 @@
                <div class="modal-body">
                  <div class="row">
                    <div class="col-md-4">
-                     <label for="txtTipoPersona">Tipo persona *</label>
+                     <label for="txtTipoPersona">Tipo persona <span class="obligatorio">*</label>
                      <select class="form-control" id="tipoPersona" name="txtTipoPersona" style="width: 100%">
-                       <option value="">Seleccionar tipo persona</option>
+                       <option value="">Seleccionar</option>
                        <?php foreach ($TipoPersona as $value): ?>
                          <option value="<?= $value['idTbl_tipo_persona'] ?>"><?= $value['Tbl_nombre_tipo_persona'] ?></option>
                         <?php endforeach; ?>
                      </select>
                    </div>
                    <div class="col-md-4">
-                       <label for="txtTipoDocumento">Tipo de documento *</label>
+                       <label for="txtTipoDocumento">Tipo de documento <span class="obligatorio">*</label>
                        <select name="txtTipoDocumento"class="form-control" id="documento" style="width: 100%" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9!@#\$%\-\.\?_~\\ \\()\/$]+">
                            <option value="">Seleccionar tipo de documento</option>
                            <option value="Cedula">Cédula</option>
@@ -199,7 +175,7 @@
                        </select>
                      </div>
                       <div class="col-md-4">
-                         <label for="">Número de documento *</label>
+                         <label for="">Número de documento <span class="obligatorio">*</label>
                          <input type="text" name="txtIdPersona" style="width: 100%" class="form-control" id="campoId" placeholder="Número Documento">
                      </div>
                    </div>
@@ -207,16 +183,16 @@
 
                    <div class="row">
                      <div class="col-md-4">
-                         <label for="txtNombres">Nombres *</label>
+                         <label for="txtNombres">Nombres <span class="obligatorio">*</label>
                           <input type="text"  name="txtNombres" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ@\-\.\\ \/$]+" class="form-control" style="width: 100%" id="campoNombre" placeholder="Nombres">
                     </div>
 
                      <div class="col-md-4">
-                         <label for="txtApellidos">Apellidos *</label>
+                         <label for="txtApellidos">Apellidos <span class="obligatorio">*</label>
                            <input type="text"  name="txtApellidos" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ@\-\.\\ \/$]+" class="form-control" id="campoApellido" placeholder="Apellidos">
                        </div>
                        <div class="col-md-4">
-                           <label for="txtCelular">Número de Celular *</label>
+                           <label for="txtCelular">Número de Celular <span class="obligatorio">*</label>
                            <input type="text"  name="txtCelular" class="form-control" id="campoCelular" placeholder="Numero Celular">
                        </div>
                    </div>
@@ -224,7 +200,7 @@
 
                 <div class="row">
                    <div class="col-md-4">
-                     <label for="txtGenero">Género *</label>
+                     <label for="txtGenero">Seleccionar Género <span class="obligatorio">*</label>
                      <select id="genero" name="txtGenero" class="form-control" style="width: 100%" pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+">
                          <option value="">Seleccionar</option>
                           <option value="Masculino">Masculino</option>
@@ -236,18 +212,12 @@
                     <hr>
                    </div>
                        <div class="row">
-                       <div class="col-md-3">
-                       </div>
-                          <div class="col-md-3">
-                              <button type="button" name="btnGuardarPersona" id="btn-guardar" class="btn btn-success active" onclick="registrarCliente()"><i class="fa fa-floppy-o" aria-hidden="true">  Guardar</i></button>
-                          </div>
-                            <div class="col-md-1">
-                            </div>
-                          <div class="col-md-3">
-                            <button type="reset" class="btn btn-secondary active" data-dismiss="modal"><i class="fa fa-remove" aria-hidden="true">  Cerrar</i></button>
+                          <div class="col-md-6 col-xs-12 col-lg-9">
+                            <button type="button" class="btn btn-secondary active pull-right" data-dismiss="modal"><i class="fa fa-remove" aria-hidden="true">  Cerrar</i></button>
                          </div>
-                      <div class="col-md-2">
-                   </div>
+                         <div class="col-md-6 col-xs-12 col-lg-3">
+                           <button type="button" name="btnGuardarPersona" id="btn-guardar" class="btn btn-success active" onclick="registrarCliente()"><i class="fa fa-floppy-o" aria-hidden="true">  Guardar</i></button>
+                         </div>
                  </div>
                  <br>
                </div>
@@ -271,6 +241,11 @@
 </style>
 
  <script type="text/javascript">
+
+ $("#btn-agregar").click(function(){
+   $("#select-pago").attr("data-parsley-required", "false");
+   $("#txtplazo").attr("data-parsley-required", "false");
+ });
 
    $(document).ready(function(){
 
@@ -449,6 +424,7 @@
          clearPrefix: true
        });
    }
+
 
    function agregarProducto(){
 
@@ -719,7 +695,7 @@ function validarCantidad(){
       var totalCreditos = parseInt(cliente.attr("data-creditos"));
       if(totalCreditos > 0){
         swal({
-        title: "Este cliente ya tiene créditos registrados en estado pendiente!",
+        title: "Este cliente ya tiene 2 créditos registrados en estado pendiente!",
         type: "error",
         confirmButton: "#3CB371",
         confirmButtonText: "Aceptar",
@@ -838,4 +814,37 @@ function cancelar() {
       });
     }
 }
+</script>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $("#btnGuardar").click(function(){
+      // var pago = $("#select-pago").val();
+
+        // if(pago == "1"){
+          $("#select-pago").attr("data-parsley-required", "true");
+          $("#txtplazo").attr("data-parsley-required", "true");
+        // }else if(pago == "2"){
+        //   $("#txtplazo").attr("data-parsley-required", "false");
+        // }else{
+        //
+        // }
+    })
+  })
+</script>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    function validarTipoDatos(){
+    var tipoPer = $("#tipoPersona").val();
+    var tipoDocum = $("#documento").val();
+    var numeroDocum = $("#campoId").val();
+    var nombresPer = $("#campoNombre").val();
+    var apellidosPer = $("#campoApellido").val();
+    var celularPer = $("#campoCelular").val();
+    var generoPer = $("#genero").val();
+
+    if(!is_string(tipoPer) || !is_string(tipoDocum) || !is_numeric(numeroDocum) || )
+    }
+})
 </script>

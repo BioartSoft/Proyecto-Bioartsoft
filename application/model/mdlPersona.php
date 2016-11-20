@@ -243,6 +243,15 @@ class mdlPersona
     return $stm->fetchAll(PDO::FETCH_ASSOC);
 }
 
+
+    public function ListarPersEmpleadoPdf(){
+    $sql= "CALL SP_listar_Personas_emp_fijo2()";
+    $stm = $this->db->prepare($sql);
+    $stm->execute();
+    return $stm->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
   public function ListarPersEmpleadoFecha(){
     $sql= "CALL SP_TraerPersonaFechaPago()";
     $stm = $this->db->prepare($sql);

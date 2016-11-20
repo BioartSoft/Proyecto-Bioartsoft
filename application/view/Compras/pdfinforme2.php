@@ -30,7 +30,7 @@
       <tr>
           <td><?= $valor['id_compras'] ?></td>
           <td><?= $valor['fecha_compra'] ?></td>
-          <td><?= $valor['valor_total'] ?></td>
+          <td><?= "$ ".number_format($valor['valor_total'], "0", ".", ".") ?></td>
           <td><?= $valor['proveedor'] ?></td>
       </tr>
     <?php endforeach; ?>

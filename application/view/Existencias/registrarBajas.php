@@ -18,9 +18,9 @@
         <div class="panel-body">
           <div class="form-group">
             <label for="">Tipo de Baja</label>
-            <select name="tipo_baja" id="baja" class="form-control" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ@\-\.\\ \/$]+" data-parsley-required="true">
+            <select id="txttipo" name="tipo_baja" id="baja" class="form-control" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ@\-\.\\ \/$]+" data-parsley-required="true">
               <option value="">Seleccionar</option>
-              <option value="Robo">Hurto</option>
+              <option value="Hurto">Hurto</option>
               <option value="Averia">Avería</option>
             </select>
           </div>
@@ -52,22 +52,25 @@
         </div>
       </div>
     </div>
-    <div class="col-sm-6">
+    <div class="col-sm-6" style="max-height: 350px; overflow-y: auto">
       <table id="tabla-detalles" class="table table-bordered">
         <thead>
           <tr>
             <th>Producto</th>
             <th>Cantidad</th>
-            <th>&nbsp;</th>
+            <th>Tipo de baja</th>
+            <th>Opción</th>
           </tr>
         </thead>
         <tbody>
         </tbody>
       </table>
-       <button class="btn btn-success pull-right" id="btn-guardarBajas" type="submit"  name="btn-agregar"><i class="fa fa-floppy-o" ></i>   Guardar</button>
+    </div>
+      <div class="col-md-6 col-xs-12 col-lg-12">
+        <button class="btn btn-success pull-right" id="btn-guardarBajas" type="submit"  name="btn-agregar"><i class="fa fa-floppy-o" ></i>   Guardar</button>
+      </div>
     </div>
   </div>
-</div>
 </div>
 </form>
 
@@ -96,6 +99,7 @@ $(document).ready(function(){
       $("#cmb_producto").val($("#txtProductoS").val()).trigger("change");
       $("#txtProductoS").val("");
       $("#txt_cantidad").val("");
+      $("#txttipo").val("");
     } else {
       var c = String.fromCharCode(e.keyCode);
       var input = $("#txtProductoS");
@@ -157,6 +161,7 @@ $(document).ready(function(){
       var producto = $("#cmb_producto").val();
 
       var cantidad = $("#txt_cantidad").val();
+      var tipo =  $("#txttipo").val();
 
       var cantidad2 = $("#cmb_producto [value='" + producto + "']").attr("data-cantidad");
 
@@ -170,8 +175,13 @@ $(document).ready(function(){
       var romper = false;
       $(".datos").each(function(key,value){
 
+
         var v=$(value).find("input[id='txtproducto']").val();
-         if(v == producto){
+        var ti=$(value).find("input[id='tipo']").val();
+        // var t=$("#tipo").val();
+
+         if(v == producto && ti== tipo){
+
             var cantAnt = parseInt($(value).find("td.cantidad2").text());
             var cantAct = parseInt($("#txt_cantidad").val());
             var cTotal = parseInt($("#unidades-actuales").val());
@@ -192,12 +202,15 @@ $(document).ready(function(){
             }else{
 
               var c = $(value).find('td.cantidad2').text(cantAnt + cantAct);
+              var input = $(c.parent().find("td.hiddens > input[name='cantidad[]']"));
+              input.val(cantAnt + cantAct);
               $(value).find('input#cantidad');
               $(value).find("td.cantidad2").text(cantAnt + cantAct);
               bandera=false;
             }
 
          }
+
       });
 
       if(romper === true){
@@ -207,9 +220,11 @@ $(document).ready(function(){
       if(bandera){
         var hiddens = '<input id="txtproducto" type="hidden" name="producto[]" value="' + producto + '">';
         hiddens += '<input type="hidden" id="cantidad" name="cantidad[]" value="' + cantidad + '">';
+        hiddens +='<input type="hidden" id="tipo" name="tipo[]" value="' + tipo + '">';
         var html = '<tr class="datos" data-producto="true">'+
-                '<td id="producto2">' + hiddens + productoTxt + '</td>' +
+                '<td id="producto2" class="hiddens">' + hiddens + productoTxt + '</td>' +
                 '<td class="cantidad2">' + cantidad + '</td>' +
+                  '<td id="producto2">' +  tipo + '</td>'+
                 '<td>' +
                   '<button class="btn btn-danger" onclick="eliminarfila($(this))">' +
                     '<i class="fa fa-trash"></i>' +

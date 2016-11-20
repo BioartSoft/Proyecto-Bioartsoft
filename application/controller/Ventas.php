@@ -52,7 +52,7 @@ class Ventas extends controller
   public function generarpdfDetallesVentas()
   {
     $id = $_GET['txtId'];
-    
+
     if(isset($id)){
 
     $detalles = $this->mdlVentas->getDetallesVenta($id);
@@ -63,8 +63,8 @@ class Ventas extends controller
       $tabla .= '<td class="center">' . $value['id_producto'] . '</td>';
       $tabla .= '<td class="center">' . $value['nombre_producto'] . '</td>';
       $tabla .= '<td class="center">' . $value['cantidad'] . ' unidades</td>';
-      $tabla .= '<td class="center">' . $value['precio_venta'] . '</td>';
-      $tabla .= '<td class="price center">' . $value['cantidad'] * $value['precio_venta'] . '</td>';
+      $tabla .= '<td class="center"> $ ' . number_format($value['precio_venta'], "0", ".", ".") . '</td>';
+      $tabla .= '<td class="price center"> $ ' . number_format($value['cantidad'] * $value['precio_venta'], "0",".", ".") . '</td>';
       $tabla .= '</tr>';
     }
 
@@ -80,7 +80,7 @@ class Ventas extends controller
     // $dompdf->setPaper('A4', 'landscape');
     $dompdf->setPaper([0,0,350,841], 'portrait');
     $dompdf->render();
-    $dompdf->stream("Informe Ventas.pdf", array("Attachment" => false, 'isRemoteEnabled' => true));
+    $dompdf->stream("Recibo de Caja.pdf", array("Attachment" => false, 'isRemoteEnabled' => true));
   }
 }
 
@@ -789,8 +789,8 @@ private function validarAbonos($idVenta){
 
       public function registrarCliente(){
         $this->modeloP->__SET("idPersona", $_POST['numeroDoc']);
-        $this->modeloP->__SET("nombres", ucfirst($_POST['nombres']));
-        $this->modeloP->__SET("apellidos", ucfirst($_POST['apellidos']));
+        $this->modeloP->__SET("nombres", ucwords($_POST['nombres']));
+        $this->modeloP->__SET("apellidos", ucwords($_POST['apellidos']));
         $this->modeloP->__SET("celular", $_POST['celular']);
         $this->modeloP->__SET("tipoPersona", $_POST['tipoPersona']);
         $this->modeloP->__SET("genero", $_POST['genero']);

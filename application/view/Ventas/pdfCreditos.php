@@ -27,7 +27,7 @@
           <td><?= $valor['id_persona'] ?></td>
           <td><?= $valor['cliente'] ?></td>
           <td class="price"><?= $valor['Tbl_nombre_tipo_persona'] ?></td>
-          <td class="price"><?= $valor['total_venta'] ?></td>
+          <td class="price"><?= "$ ". number_format($valor['total_venta'], "0", ".", ".") ?></td>
       </tr>
     <?php endforeach; ?>
     </tbody>

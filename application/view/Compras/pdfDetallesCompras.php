@@ -10,8 +10,9 @@
 <body>
   <img src="<?php echo URL ?>img/BioartesV2.png" height="100" width="200">
   <br>
-  <center><legend><h2>INFORME DE ENTRADA NÚMERO:<?= $val['id_compras'] ?></h2></legend></center>
-  <br><br>
+  <center><legend><h2>INFORME DE ENTRADA NÚMERO: <?= $val['id_compras'] ?></h2></legend></center>
+  <br>
+  <p><strong>Fecha Informe: <?= ucwords(date("Y/m/d h:i:s"))?></strong></p>
   <table border="1">
     <thead>
       <tr>

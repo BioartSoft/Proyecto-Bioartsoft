@@ -1,11 +1,12 @@
 
 <form  id="el-form" method="post" action="<?= URL ?>Personas/registrarPersonas" data-parsley-validate="">
+  <br><br>
   <div class="panel panel-primary" style="margin-top: 5px">
+    <div class="panel-heading" stlyle="height: 70px; width: 100px">
+      <center><span style="text-align:center; color: #FFF; margin-top: 10px; margin-bottom: 10px; font-size: 25px">Registrar Personas (obligatorios * )</span></center>
+    </div>
     <div class="row">
       <br>
-      <div class="panel-heading" stlyle="height: 70px; width: 100px">
-        <center><span style="text-align:center; color: #337AB7; margin-top: 10px; margin-bottom: 10px; font-size: 25px">Registrar Personas (obligatorios * )</span></center>
-      </div>
     <div class="panel-body">
         <div class="row">
 
@@ -14,9 +15,9 @@
 
           <?php if ($_SESSION['ROL'] == 1):?>
           <div class="col-md-3">
-            <label for="">Seleccionar tipo persona *</label>
+            <label for="">Seleccionar tipo persona <span class="obligatorio">*</span></label>
             <select class="form-control" id="tipoPersona" name="txtTipoPersona" style="width: 100%" data-parsley-type="alphanum" data-parsley-required="true">
-              <option value="">Seleccionar tipo persona</option>
+              <option value="">Seleccionar</option>
               <?php foreach ($TipoPersona as $value): ?>
                 <?php if($value['idTbl_tipo_persona'] != 1 && $value['idTbl_tipo_persona'] != 2): ?>
                 <option value="<?= $value['idTbl_tipo_persona'] ?>"><?= $value['Tbl_nombre_tipo_persona'] ?></option>
@@ -27,9 +28,9 @@
           </div>
         <?php elseif ($_SESSION['ROL'] == 3):?>
         <div class="col-md-3">
-          <label for="">Seleccionar tipo persona *</label>
+          <label for="">Seleccionar tipo persona <span class="obligatorio">*</span></label>
           <select class="form-control" id="tipoPersona" name="txtTipoPersona" style="width: 100%" data-parsley-type="alphanum" data-parsley-required="true">
-            <option value="">Seleccionar tipo persona</option>
+            <option value="">Seleccionar</option>
             <?php foreach ($TipoPersona as $value): ?>
               <option value="<?= $value['idTbl_tipo_persona'] ?>"><?= $value['Tbl_nombre_tipo_persona'] ?></option>
 
@@ -38,9 +39,9 @@
         </div>
         <?php elseif ($_SESSION['ROL'] == 2):?>
         <div class="col-md-3">
-          <label for="">Seleccionar tipo persona *</label>
+          <label for="">Seleccionar tipo persona <span class="obligatorio">*</span></label>
           <select class="form-control" id="tipoPersona" name="txtTipoPersona" style="width: 100%" data-parsley-type="alphanum" data-parsley-required="true">
-            <option value="">Seleccionar tipo persona</option>
+            <option value="">Seleccionar</option>
             <?php foreach ($TipoPerVendedor as $value): ?>
               <option value="<?= $value['idTbl_tipo_persona'] ?>"><?= $value['Tbl_nombre_tipo_persona'] ?></option>
 
@@ -50,15 +51,15 @@
       <?php endif; ?>
 
           <div class="col-md-3">
-              <label for="">Seleccionar tipo de documento *</label>
+              <label for="">Seleccionar tipo de documento <span class="obligatorio">*</span></label>
               <select name="txtTipoDocumento"class="form-control" id="documento" style="width: 100%" data-parsley-required="true" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9!@#\$%\-\.\?_~\\ \\()\/$]+">
-                  <option value="">Seleccionar tipo de documento</option>
+                  <option value="">Seleccionar</option>
                   <option value="Cedula">Cédula</option>
                   <option value="Cedula_Extranjera">Documento de  Extranjería</option>
               </select>
             </div>
              <div class="col-md-3">
-                <label for="">Número de documento *</label>
+                <label for="">Número de documento <span class="obligatorio">*</span></label>
                 <input type="text" name="txtIdPersona"  minlength="8" maxlength="15" style="width: 100%"class="form-control" id="campoId" placeholder="Número Documento" data-parsley-required="true">
             </div>
 
@@ -74,12 +75,12 @@
             </div>
 
             <div class="col-md-3">
-                <label for="">Nombres *</label>
+                <label for="">Nombres <span class="obligatorio">*</span></label>
                  <input type="text"  name="txtNombres" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ@\-\.\\ \/$]+" minlength="3" maxlength="30" class="form-control" style="width: 100%" id="campoNombre" placeholder="Nombres" data-parsley-required="true">
            </div>
 
             <div class="col-md-3">
-                <label for="">Apellidos *</label>
+                <label for="">Apellidos <span class="obligatorio">*</span></label>
                   <input type="text"  name="txtApellidos" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ@\-\.\\ \/$]+" minlength="3" maxlength="30" class="form-control" id="campoApellido" placeholder="Apellidos" data-parsley-required="true">
               </div>
              <div class="col-md-3">
@@ -99,7 +100,7 @@
          </div>
 
          <div class="col-md-3">
-             <label for="">Número de Celular *</label>
+             <label for="">Número de Celular <span class="obligatorio">*</span></label>
              <input type="text"  name="txtCelular" maxlength="12" minlength="10" data-parsley-type="number" class="form-control" id="campoCelular" placeholder="Número Celular" data-parsley-required="true">
          </div>
           <div class="col-xs-12 col-md-3">
@@ -109,7 +110,7 @@
                </div>
           </div>
           <div class="col-md-3">
-            <label for="">Género *</label>
+            <label for="">Género <span class="obligatorio">*</span></label>
             <select id="genero" name="txtGenero" class="form-control" style="width: 100%" pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+" data-parsley-required="true">
                 <option value="">Seleccionar</option>
                  <option value="Masculino">Masculino</option>
@@ -131,7 +132,7 @@
                 </div>
 
               <div id="conFechaContrato" style="display: none" class="col-md-3">
-                  <label for="">Fecha Contrato *</label>
+                  <label for="">Fecha Contrato <span class="obligatorio">*</span></label>
                   <div class="input-group date" data-provide="datepicker">
                   <input type="text" class="form-control" name="txtFechaContrato" id="campoFechaContrato" readonly="true" placeholder="Fecha Contrato" data-parsley-requred="true">
                   <div class="input-group-addon">
@@ -140,7 +141,7 @@
                 </div>
               </div>
               <div class="col-md-3" id="conTipoRol" style="display: none">
-                  <label for="">Seleccionar Rol *</label>
+                  <label for="">Seleccionar Rol <span class="obligatorio">*</span></label>
                 <select name="txtRol" id="campoTipoRol" class="form-control"  style="width: 100%" data-parsley-required="true">
                      <option value="" >Seleccionar Rol</option>
                      <?php foreach ($Roles as $valor): ?>
@@ -156,15 +157,15 @@
                   <div class="col-md-1">
                   </div>
                   <div class="col-md-3" id="conNombreUsuario" style="display: none">
-                        <label for="">Nombre usuario *</label>
+                        <label for="">Nombre usuario <span class="obligatorio">*</span></label>
                       <input type="text"  name="txtUsuario" maxlength="20" minlength="3" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9@#\-\_\\.\\ \/$]+" class="form-control" id="campoNombreUsuario" placeholder="Nombre Usuario" data-parsley-required="true">
                   </div>
             <div class="col-xs-12 col-md-3" id="conClave" style="display: none">
-                  <label for="inputPassword"  class="control-label">Contraseña *</label>
+                  <label for="inputPassword"  class="control-label">Contraseña <span class="obligatorio">*</span></label>
                   <input type="password"  maxlength="15" minlength="3" name="txtClave" class="form-control" id="campoClave" placeholder="Contraseña" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9!@#\$%\-\*\?_~\\.\\()\/$]+" data-parsley-required="true">
             </div>
             <div class="col-xs-12 col-md-3" id="conConfirmar" style="display: none">
-                  <label for="">Confirmar contraseña *</label>
+                  <label for="">Confirmar contraseña <span class="obligatorio">*</span></label>
                   <input type="password" maxlength=12 minlength="3" name="txtConfClave" data-parsley-equalto="#campoClave" class="form-control" id="campoConfirmar" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9!@#\$%\-\*\?_~\\.\()\/$]+" placeholder="Confirmar Contraseña" data-parsley-required="true">
             </div>
             <div class="col-md-1">
@@ -176,17 +177,17 @@
             <div class="col-md-1">
             </div>
               <div class="col-xs-12 col-md-3" id="conNit" style="display: none">
-                    <label for="">Nit Empresa *</label>
+                    <label for="">Nit Empresa <span class="obligatorio">*</span></label>
                   <input type="text"  name="txtnit" maxlength="30" minlength="6" class="form-control" id="campoNit" placeholder="Nit Empresa" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9!@#\$%\-\*\?_~\\.\()\/$]+" data-parsley-required="true">
             </div>
 
             <div class="col-xs-12 col-md-3" id="conNombreEmpresa" style="display: none">
-                <label for="">Nombre Empresa *</label>
+                <label for="">Nombre Empresa <span class="obligatorio">*</span></label>
                 <input type="text"  name="txtnombreEmpresa" maxlength="30" minlength="3" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9!@#\$%\-\.\?_~\\ \\()\/$]+" class="form-control" id="campoNombreEmpresa" placeholder="Nombre Empresa" data-parsley-required="true">
             </div>
 
             <div class="col-xs-12 col-md-3" id="conDireccionEmpresa" style="display: none">
-                <label for="">Teléfono Empresa *</label>
+                <label for="">Teléfono Empresa <span class="obligatorio">*</span></label>
                   <input type="text"  name="txtDireccionEmpresa" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9!@#\$%\-\.\?_~\\ \\()\/$]+" minlength="6" maxlength="20" class="form-control" id="campoDireccionEmpresa" placeholder="Teléfono Empresa" data-parsley-required="true">
             </div>
             <div class="col-md-1">
@@ -195,14 +196,12 @@
           </div>
 
               <div class="row">
-              <div class="col-md-3">
-              </div>
-                 <div class="col-md-3">
-                     <button type="submit" name="btnGuardarPersona" id="btn-enviar" class="btn btn-success active"><i class="fa fa-floppy-o" aria-hidden="true">  Guardar</i></button>
+                 <div class="col-md-6 col-xs-12 col-lg-8">
+                     <button type="submit" name="btnGuardarPersona" id="btn-enviar" class="btn btn-success active pull-right"><i class="fa fa-floppy-o" aria-hidden="true">  Guardar</i></button>
                  </div>
-                   <div class="col-md-1">
+                   <div class="col-md-1 col-xs-12 col-lg-1">
                    </div>
-                 <div class="col-md-3">
+                 <div class="col-md-6 col-xs-12 col-lg-3">
                    <button type="reset" class="btn btn-danger active" onclick="cancelar()"><i class="fa fa-remove" aria-hidden="true">  Cancelar</i></button>
                 </div>
              <div class="col-md-2">

@@ -64,6 +64,7 @@
             })';
 
             header("Location: ".URL."Compras/index");
+            exit();
           }
         }else{
           $_SESSION['alerta'] = ' swal({
@@ -75,6 +76,8 @@
             closeOnConfirm: false,
             closeOnCancel: false
           })';
+          header("Location: ".URL."Compras/index");
+          exit();
         }
 
         }
@@ -182,7 +185,7 @@
               $tabla2 .= '<tr>';
               $tabla2 .= '<td>' . $val['fecha_compra'] . '</td>';
               $tabla2 .= '<td>' . $val['proveedor'] . '</td>';
-              $tabla2 .= '<td>' . $val['valor_total'] . '</td>';
+              $tabla2 .= '<td> $ ' . number_format($val['valor_total'], "0", ".", ".") . '</td>';
               $tabla2 .= '</tr>';
             }
 
@@ -192,8 +195,8 @@
               $tabla .= '<tr>';
               $tabla .= '<td>' . $value['nombre_producto'] . '</td>';
               $tabla .= '<td>' . $value['cantidad'] . ' unidades</td>';
-              $tabla .= '<td class="price">' . $value['precio_unitario'] . '</td>';
-              $tabla .= '<td class="price">' . $value['total'] . '</td>';
+              $tabla .= '<td>$ ' . number_format($value['valor_compra'], "0", ".", ".") . '</td>';
+              $tabla .= '<td>$ ' . number_format($value['total'], "0", ".", ".") . '</td>';
               $tabla .= '</tr>';
             }
 
@@ -382,20 +385,28 @@
 
 
     public function registrarProducto(){
-      $this->mdlProducto->__SET("nombre_producto", ucfirst($_POST['nombreProd']));
-      $this->mdlProducto->__SET("Tbl_Categoria_idcategoria", ($_POST['categ']));
+      $errorNombre = true;
+      $this->mdlProducto->__SET("nombre_producto", ucwords($_POST['nombreProd']));
+      $validarNombre = $this->mdlProducto->validarNombre();
+      $this->mdlProducto->__SET("Tbl_Categoria_idcategoria", $_POST['categ']);
+      $this->mdlProducto->__SET("Talla", $_POST['talla']);
       $this->mdlProducto->__SET("precio_unitario", $_POST['precioUnit']);
       $this->mdlProducto->__SET("precio_detal", $_POST['precioDet']);
       $this->mdlProducto->__SET("precio_por_mayor", $_POST['precioMay']);
       $this->mdlProducto->__SET("stock", $_POST['stockMin']);
       $producto = $this->mdlProducto->guardar();
-      header("Content-Type: application/json");
-      echo json_encode([
-        'error' => $producto? false : true,
-        'id' => $this->mdlProducto->ultimoId(),
-        'nombre' => $this->mdlProducto->nombre_producto,
-        'codigo'=>$this->mdlProducto->codigo
-      ]);
-    }
 
-  }
+      if($validarNombre != false){
+        $errorNombre = false;
+       }else{
+
+        header("Content-Type: application/json");
+        echo json_encode([
+          'error' => $producto? false : true,
+          'id' => $this->mdlProducto->ultimoId(),
+          'nombre' => $this->mdlProducto->nombre_producto,
+          'codigo'=>$this->mdlProducto->codigo
+        ]);
+        }
+    }
+}

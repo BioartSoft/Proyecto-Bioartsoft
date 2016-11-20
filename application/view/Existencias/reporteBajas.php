@@ -8,12 +8,12 @@
   </style>
 </head>
 <body>
-  <img src="<?php echo URL ?>img/BioartesV2.png" height="100" width="200">
+  <img src="<?php echo URL ?>img/bio-artes.png" height="100" width="400">
   <br>
 <center><legend><h2>INFORME DE BAJAS</h2></legend></center>
 <?php foreach ($ver as $value): ?>
-<h3>Reporte del mes de: <?= ucfirst($value['fecha']); ?></h3>
-  <br><br>
+<h3>Reporte del mes de: <?= ucwords($value['fecha']); ?></h3>
+  <br>
   <table border="1">
     <thead>
       <tr>
@@ -34,7 +34,7 @@
                              <td><?= $value['cantidad'] ?></td>
                              <td><?= $value['tipo_baja'] ?></td>
                            </tr>
-                          <?php endforeach; ?>
+  <?php endforeach; ?>
     </tbody>
   </table>
 </body>

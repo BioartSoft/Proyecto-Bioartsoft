@@ -16,8 +16,10 @@
   <table border="1">
     <thead>
       <tr>
-      <th>Código Producto</th>
-      <th>Nombre Producto</th>
+      <th>Código Baja</th>
+      <th>Empleado Responsable Baja</th>
+      <th>Identificación Empleado</th>
+      <th>Producto</th>
       <th>Categoría</th>
       <th>Fecha Registro Baja</th>
       <th>Cantidad</th>
@@ -27,22 +29,14 @@
     <tbody>
       <?php foreach ($bajas as $value): ?>
                            <tr>
-                             <td><?= $value['Tbl_Productos_id_productos'] ?></td>
-                             <td>
-                               <?= $value['nombre_producto'] ?>
-                             </td>
-                             <td>
-                               <?= $value['nombre'] ?>
-                             </td>
-                             <td>
-                               <?= $value['fecha_salida'] ?>
-                             </td>
-                             <td>
-                               <?= $value['Cantidad'] ?>
-                             </td>
-                             <td>
-                               <?= $value['tipo_baja'] ?>
-                             </td>
+                             <td><?= $value['id_bajas'] ?></td>
+                             <td><?= $value['empleado'] ?></td>
+                             <td><?= $value['id_persona'] ?></td>
+                             <td><?= $value['nombre_producto'] ?></td>
+                             <td><?= $value['nombre'] ?></td>
+                             <td><?= $value['fecha_salida'] ?></td>
+                             <td><?= $value['Cantidad'] ?></td>
+                             <td><?= $value['tipo_baja'] ?></td>
                            </tr>
       <?php endforeach; ?>
     </tbody>

@@ -33,6 +33,10 @@ class producto extends Controller{
 
     public function generarPdfCodigo(){
       $id = $_GET['id'];
+      $cantidad = isset($_POST['txtCantidad'])? intval($_POST['txtCantidad']) : 10;
+
+      $producto = $this->mdlproducto->traerPorReferencia($id);
+
       require_once APP . 'libs/dompdf/autoload.inc.php';
       $urlImagen = URL . 'producto/generarcodigo?id=' . $id;
       ob_start();
@@ -76,10 +80,23 @@ class producto extends Controller{
 
 
   public function validacionNombre(){
-      $this->mdlproducto->__SET("nombre_producto", $_POST['campoNombre']);
-      $ValidarNombre = $this->mdlproducto->validarNombre();
+    $this->mdlproducto->__SET("nombre_producto", $_POST['campoNombre']);
+    $ValidarNombre = $this->mdlproducto->validarNombre();
 
       if ($ValidarNombre != false)
+        echo "1";
+      else
+        echo "0";
+  }
+
+
+  public function validacionNombre2(){
+    $this->mdlproducto->__SET("nombre_producto", $_POST['campoNombre']);
+    $this->mdlproducto->__SET("nombre", $_POST['campoCateg']);
+    $this->mdlproducto->__SET("Talla", $_POST['campoTalla']);
+    $ValidarNombre2 = $this->mdlproducto->validarNombre2();
+
+      if ($ValidarNombre2 != false)
         echo "1";
       else
         echo "0";
@@ -160,7 +177,7 @@ class producto extends Controller{
                closeOnConfirm: false,
                closeOnCancel: false
              }, function(isConfirm){ if(isConfirm){ window.close(); } })';
-           header("Location:".URL.'producto/informeBajas');
+           header("Location:".URL.'producto/listarBajas');
            exit();
          }
        }
@@ -180,54 +197,40 @@ class producto extends Controller{
      }
 
 
-  public function registrarBajas(){
-    if(isset($_POST['btn-agregar'])){
-      $this->mdlexistencias->tipo_baja = $_POST['tipo_baja'];
-      $this->mdlexistencias->__SET("id_bajas", $_POST['empleadoId']);
-      $this->mdlexistencias->__SET("id_bajas", $_POST['empleadoId']);
+    public function registrarBajas(){
+      if(isset($_POST['btn-agregar'])){
+        $this->mdlexistencias->__SET("id_persona", $_POST['empleadoId']);
+        $error = $this->mdlexistencias->insertarBaja();
+        $idbaja = $this->mdlexistencias->ultimaBaja();
+        foreach($_POST['producto'] as $k=>$producto_id){
 
-      $error = $this->mdlexistencias->insertarBaja();
-      $id_baja = $this->mdlexistencias->ultimaBaja();
+          $error = !$this->mdlexistencias->insertarDetalleBaja($idbaja, $producto_id, $_POST['cantidad'][$k], $_POST['tipo'][$k]);
+          // echo "<pre>";
+          // var_dump($idbaja, $producto_id, $_POST['cantidad'][$k], $_POST['tipo'][$k]);
+          // exit();
+          if($error){
+            throw new Exception("Error en el registro");
+          }
 
-      foreach($_POST['producto'] as $k=>$producto_id){
-        $error = !$this->mdlexistencias->insertarDetalleBaja($id_baja, $producto_id, $_POST['cantidad'][$k]);
-        if($error){
-          throw new Exception( 'swal({
-            title: "Error en el registro!",
-            type: "error",
-            confirmButton: "#3CB371",
-            confirmButtonText: "Aceptar",
-            // confirmButtonText: "Cancelar",
-            closeOnConfirm: false,
-            closeOnCancel: false
-          })', 1);
-
-          header("Location: ".URL."producto/registrarBajas");
-          exit();
         }
+
+      $_SESSION['alerta'] = ' swal({
+        title: "Guardado exitoso!",
+        type: "success",
+        confirmButton: "#3CB371",
+        confirmButtonText: "Aceptar",
+        // confirmButtonText: "Cancelar",
+        closeOnConfirm: false,
+        closeOnCancel: false
+      })';
 
       }
 
-    $_SESSION['alerta'] = ' swal({
-      title: "Guardado exitoso!",
-      type: "success",
-      confirmButton: "#3CB371",
-      confirmButtonText: "Aceptar",
-      // confirmButtonText: "Cancelar",
-      closeOnConfirm: false,
-      closeOnCancel: false
-    })';
-
-    header("Location: ".URL."producto/registrarBajas");
-    exit();
-
+     $producto = $this->mdlexistencias->listarpro();
+      require APP . 'view/_templates/header.php';
+      require APP . 'view/Existencias/registrarBajas.php';
+      require APP . 'view/_templates/footer.php';
     }
-
-   $producto = $this->mdlexistencias->listarpro();
-    require APP . 'view/_templates/header.php';
-    require APP . 'view/Existencias/registrarBajas.php';
-    require APP . 'view/_templates/footer.php';
-  }
 
 
   public function listarBajas(){
@@ -336,55 +339,56 @@ class producto extends Controller{
     $guarda = false;
     $eror = false;
     $categ = true;
+    $guardar=false;
+    $error=false;
+    $existeCategoria = false;
+    $existeCategoria2 = false;
+    $noExisteCategoria = false;
 
     if(isset($_POST['btn-ca'])){
 
-      $this->mdlproducto->__SET("nombre", $_POST["txtnombrec"]);
+      $this->mdlproducto->__SET("nombre", ucwords($_POST["txtnombrec"]));
       $categoria = $this->mdlproducto->validarNombreCategoria2();
-      // var_dump($categoria);
-      // exit();
 
       if($categoria['total'] != 0){
         $categ = false;
       }else{
         if($this->mdlproducto->Guardarca()){
-          $guarda = true;
+              $guarda = true;
         }else{
           $eror = true;
         }
 
-      if($guarda == true){
-        $_SESSION["alerta"] = 'swal({
-          title: "Guardado exitoso!",
-          type: "success",
-          confirmButton: "#3CB371",
-          confirmButtonText: "Aceptar",
-          // confirmButtonText: "Cancelar",
-          closeOnConfirm: false,
-          closeOnCancel: false
-        })';
+        if($guarda == true){
+          $_SESSION['alerta'] = ' swal({
+                title: "Guardado exitoso!",
+                type: "success",
+                confirmButton: "#3CB371",
+                confirmButtonText: "Aceptar",
+                // confirmButtonText: "Cancelar",
+                closeOnConfirm: false,
+                closeOnCancel: false
+              })';
+              header("Location: ".URL."producto/registrarCategoria");
+              exit();
+        }else{
+          $_SESSION['alerta'] = ' swal({
+                title: "Error en el registro!",
+                type: "error",
+                confirmButton: "#3CB371",
+                confirmButtonText: "Aceptar",
+                // confirmButtonText: "Cancelar",
+                closeOnConfirm: false,
+                closeOnCancel: false
+              })';
+              header("Location: ".URL."producto/registrarCategoria");
+              exit();
+            }
 
-        header("Location: ".URL."producto/registrarCategoria");
-        exit();
-      }
-
-      if( $eror == true){
-        $_SESSION["alerta"] =  'swal({
-          title: "Error en el registro!",
-          type: "success",
-          confirmButton: "#3CB371",
-          confirmButtonText: "Aceptar",
-          // confirmButtonText: "Cancelar",
-          closeOnConfirm: false,
-          closeOnCancel: false
-        })';
-        header("Location: ".URL."producto/registrarCategoria");
-        exit();
-      }
+        }
 
     }
-
-}
+    $cate = $this->mdlproducto->listarca();
     require APP . 'view/_templates/header.php';
     require APP . 'view/producto/registrarCategoria.php';
     require APP . 'view/_templates/footer.php';
@@ -411,9 +415,9 @@ class producto extends Controller{
     $existeCategoria2 = false;
     $noExisteCategoria = false;
 
-    if(isset($_POST['txtcodigo'])){
+    if(isset($_POST['btn-modificar-categoria'])){
 
-      $this->mdlproducto->__SET('nombre', ucfirst($_POST['txtnombreca']));
+      $this->mdlproducto->__SET('nombre', ucwords($_POST['txtnombreca']));
       $this->mdlproducto->__SET('id_categoria', $_POST['txtcodigo']);
 
       $validarNombreC = $this->mdlproducto->validarModCategoria();
@@ -499,7 +503,7 @@ class producto extends Controller{
         }
         $cate = $this->mdlproducto->listarca();
         require APP . 'view/_templates/header.php';
-        require APP . 'view/producto/listarCategorias.php';
+        require APP . 'view/producto/registrarCategoria.php';
         require APP . 'view/_templates/footer.php';
   }
 
@@ -730,31 +734,31 @@ class producto extends Controller{
       }
       echo json_encode([
         'producto'=>$info['nombre_producto'],
-        'html' => $html
+        'id2'=>$info['id_producto'],
+        'html' => $html,
       ]);
 
     }
 
 
     public function ajaxDetallesBajas(){
-      $detalles = $this->mdlproducto->getDetallesBajas($_POST['idbaja']);
-      $info = $this->mdlproducto->getInfoBaja($_POST['idbaja']);
+    $detalles = $this->mdlproducto->getDetallesBajas($_POST['idbaja']);
+    $info = $this->mdlproducto->getInfoBaja($_POST['idbaja']);
 
-        $html = "";
-        foreach ($detalles as $key => $value) {
-          $html .= '<tr>';
-          $html .= '<td>' . $value['fecha_salida'] . '</td>';
-          $html .= '<td>' . $value['tipo_baja'] . '</td>';
-          $html .= '<td>' . $value['cantidad'] . '</td>';
-          $html .= '</tr>';
-        }
-        echo json_encode([
-          'empleado' => $info['empleado'],
-          'baja'=>$value['id_bajas'],
-          'html' => $html,
-        ]);
-
+      $html = "";
+      foreach ($detalles as $key => $value) {
+        $html .= '<tr>';
+        $html .= '<td>' . $value['nombre_producto'] . '</td>';
+        $html .= '<td>' . $value['Cantidad'] . '</td>';
+        $html .= '<td>' . $value['tipo_baja'] . '</td>';
+        $html .= '</tr>';
       }
+      echo json_encode([
+        'baja'=> $_POST['idbaja'],
+        'html' => $html,
+      ]);
+
+    }
 
 
     public function validacionCategoria(){

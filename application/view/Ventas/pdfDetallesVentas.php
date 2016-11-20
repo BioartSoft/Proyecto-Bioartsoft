@@ -46,8 +46,8 @@
     ------------------------------------------------------------------------<br>
     ------------------------------------------------------------------------<br><br>
     <p>Tipo de pago: <strong><?= $info['tipo_de_pago'] == 1? "Crédito" : "Contado";  ?></strong></p>
-    <p>Descuento: <strong><?= $info['descuento']; ?></p>
-    <p>Valor total a pagar: <strong><?= $info['total']; ?></p>
+    <p>Descuento: $ <strong><?= number_format($info['descuento'], "0", ".", "."); ?></p>
+    <p>Valor total a pagar: $ <strong><?= number_format($info['total'], "0", ".", "."); ?></p>
     <br><br>
     <p style="text-align: center"><strong>Gracias por su visita</strong></p>
 

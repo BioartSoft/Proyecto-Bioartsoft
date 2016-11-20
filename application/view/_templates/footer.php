@@ -80,15 +80,14 @@
   <script src= "<?= URL ?>js/jquery.price_format.2.0.js"></script>
 
 <script type="text/javascript">
-$(document).ready(function(){
-<?php
-if (isset($_SESSION['alerta']) != false && $_SESSION['alerta'] != null){
-  echo $_SESSION['alerta'];
-  $_SESSION['alerta'] = null;
-}
-?>
-})
-
+  $(document).ready(function(){
+    <?php
+    if (isset($_SESSION['alerta']) != false && $_SESSION['alerta'] != null){
+      echo $_SESSION['alerta'];
+      $_SESSION['alerta'] = null;
+    }
+  ?>
+  });
 </script>
 
 <script type="text/javascript">
@@ -415,6 +414,14 @@ if (isset($_SESSION['alerta']) != false && $_SESSION['alerta'] != null){
             window.location.reload();
             }
 
+  </script>
+
+  <script type="text/javascript">
+    $(document).ready(function{
+      $('.datepicker').datepicker({
+    language: 'es'
+    });
+    })
   </script>
 
 </body>

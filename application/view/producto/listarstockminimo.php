@@ -18,7 +18,7 @@
        <th>Nombre Producto</th>
        <th>Categoría</th>
        <th>Talla</th>
-       <th>Tamaño</th>
+       <th>Descripción</th>
        <th>Cantidad </th>
       <th>Stock Mínimo</th>
      </tr>
@@ -62,9 +62,9 @@
 <script type="text/javascript">
   $(document).ready(function(){
 
-    $(".precio1").priceFormat({centsLimit: 3, clearPrefix: true});
-    $(".precio2").priceFormat({centsLimit: 3, clearPrefix: true});
-    $(".precio3").priceFormat({centsLimit: 3, clearPrefix: true});
+    $(".precio1").priceFormat({centsLimit: 3, prefix: '$ '});
+    $(".precio2").priceFormat({centsLimit: 3, prefix: '$ '});
+    $(".precio3").priceFormat({centsLimit: 3, prefix: '$ '});
 
   });
 </script>

@@ -12,6 +12,7 @@ class mdlExistencias
   private $id_bajas;
 	private $fechainicial;
 	private $fechafinal;
+	private $id_persona;
 
 	public function __SET($parametros, $valor){
 
@@ -48,14 +49,16 @@ class mdlExistencias
 
   }
 
+	public function getDb(){
+		return $this->db;
+	}
 
   public function insertarBaja(){
-    $sql = "CALL SP_InsertarBaja(?, ?)";
+    $sql = "CALL SP_InsertarBaja(?)";
     try {
 
     $stm = $this->db->prepare($sql);
-		$stm->bindParam(1, $this->tipo_baja);
-    $stm->bindParam(2, $this->id_bajas);
+		$stm->bindParam(1, $this->id_persona);
     return $stm->execute();
 
     } catch (Exception $e) {
@@ -79,13 +82,14 @@ class mdlExistencias
   }
 
 
-    public function insertarDetalleBaja($idBaja, $Tbl_Productos_id_productos,$cant){
-    $sql = "CALL SP_DetalleBaja(?,?,?)";
+    public function insertarDetalleBaja($idbaja, $Tbl_Productos_id_productos,$cant,$tipo){
+    $sql = "CALL SP_DetalleBaja(?,?,?,?)";
 		try {
 			$stm = $this->db->prepare($sql);
-			$stm->bindParam(1, $idBaja);
-			$stm->bindParam(2, $Tbl_Productos_id_productos );
+			$stm->bindParam(1, $idbaja);
+			$stm->bindParam(2, $Tbl_Productos_id_productos);
 			$stm->bindParam(3, $cant);
+			$stm->bindParam(4, $tipo);
 			return $stm->execute();
 		} catch (Exception $e) {
 

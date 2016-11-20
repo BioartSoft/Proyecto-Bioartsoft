@@ -11,7 +11,10 @@
 <img src="<?php echo URL ?>img/bio-artes.png" height="100" width="400">
 <br>
 <center><legend><h2>INFORME GENERAL DE PRODUTOS HABILITADOS</h2></legend></center>
-  <br><br>
+  <br>
+  <p>
+    <strong>Fecha Reporte: <?= date("Y/m/d H:i:s")  ?></strong>
+  </p>
   <table border="1">
     <thead>
       <tr>
@@ -31,9 +34,9 @@
        <td><?= $val["nombre_producto"]?></td>
        <td><?= $val["nombre"] ?></td>
        <td><?= $val["cantidad"] ?></td>
-       <td><?= $val["precio_unitario"] ?></td>
-       <td><?= $val["precio_detal"] ?></td>
-       <td><?= $val["precio_por_mayor"] ?></td>
+       <td><?= "$ ". number_format($val["precio_unitario"], "0", ".", ".") ?></td>
+       <td><?= "$ ". number_format($val["precio_detal"], "0", ".", ".") ?></td>
+       <td><?= "$ ". number_format($val["precio_por_mayor"], "0", ".", ".") ?></td>
 </tr>
  <?php endforeach ?>
     </tbody>

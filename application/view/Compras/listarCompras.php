@@ -52,6 +52,13 @@
 <?php endforeach; ?>
  </tbody>
   </table>
+  <?php if($_SESSION['ROL'] == 1 || $_SESSION['ROL'] == 3): ?>
+  <div class="col-md-6 col-lg-7 col-xs-12">
+    <a href="#" id="">
+      <button class="btn btn-primary pull-right" name="btnComprasD" data-toggle="modal" data-target="#modal_reportes"><i class="fa fa-file-pdf-o" aria-hidden="true">&nbsp;&nbsp;Reporte Entradas</i></button>
+    </a>
+  </div>
+<?php endif; ?>
 </div>
 </div>
 
@@ -106,14 +113,12 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-md-9">
+              <div class="col-md-6 col-xs-12 col-lg-9">
                 <button type="button" class="btn btn-secondary btn-md active pull-right"  data-dismiss="modal"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
               </div>
 
-              <div class="col-md-0.5">
-              </div>
               <?php if($_SESSION['ROL'] == 1 || $_SESSION['ROL'] == 3): ?>
-              <div class="col-md-2">
+              <div class="col-md-6 col-xs-12 col-lg-3">
                 <a href="<?= URL ?>Compras/generarpdfDetallesCompras" target="_blank" id="pdfDeta">
                   <button class="btn btn-primary" name="btnComprasD"><i class="fa fa-file-pdf-o" aria-hidden="true">   Pdf Detalles Entradas</i></button>
                 </a>
@@ -126,12 +131,85 @@
       </div>
     </div>
   </div>
+</div>
+
+<div class="modal fade" id="modal_reportes" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static" style="display:none" style="width: 50px" action="<?= URL ?>Compras/registrarCompra">
+   <div class="modal-dialog" role="document">
+       <div class="modal-content" style="width: 900px">
+         <div class="modal-body">
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="panel panel-primary">
+                  <div class="panel-heading" stlyle="height: 70px; width: 100px">
+                        <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 20px">Reporte de Entradas</center>
+                  </div>
+                <div class="panel-body" id="panel_compras">
+                  <form id="formPdfCompras" action="<?= URL ?>Compras/pdfCompras" method="post" data-parsley-validate="" target="_blank">
+                  <div class="row">
+                    <br>
+                    <div class="row">
+                      <div class="col-md-1"></div>
+                      <div   class="col-md-4">
+                          <label for="">Fecha Inicial *</label>
+                          <div class="input-group date" data-provide="datepicker">
+                          <input type="text" class="form-control" readonly="true"name="txtfechainicial" id="txtfechainicial" placeholder="Fecha Inicial" data-parsley-required="true">
+                          <div class="input-group-addon">
+                          <span class="glyphicon glyphicon-th"></span>
+                        </div>
+                        </div>
+                      </div>
+                      <div class="col-md-1"></div>
+                      <div   class="col-md-4">
+                          <label for="">Fecha Final *</label>
+                          <div class="input-group date" data-provide="datepicker">
+                          <input type="text" class="form-control" name="txtfechafinal" readonly="true" id="txtfechafinal"  placeholder="Fecha final" data-parsley-required="true">
+                          <div class="input-group-addon">
+                          <span class="glyphicon glyphicon-th"></span>
+                        </div>
+                        </div>
+                    </div>
+                  </div>
+                  <br><br>
+                  <div class="row">
+                    <div class="col-md-5"></div>
+                      <div class="col-md-4">
+                        <button type="submit" class="btn btn-primary active" id="btn-pdf" name="btnconsultar" target="_blank"><i class="fa fa-file-pdf-o" aria-hidden="true"> Generar PDF Entradas</i></button>
+                      </div>
+                  </div>
+                  <br>
+                  </div>
+                  </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-9">
+                <button type="button" class="btn btn-secondary btn-md active pull-right"  data-dismiss="modal"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
+              </div>
+
+            </div>
+            <br>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $("#btn-pdf").click(function(){
+        $("#formPdfCompras").parsley().validate();
+      })
+    });
+  </script>
+
 
 <script type="text/javascript">
 
 $(document).ready(function(){
 
-  $(".valor").priceFormat({centsLimit: 3, clearPrefix: true});
+  $(".valor").priceFormat({centsLimit: 3, prefix: '$ '});
 
 })
 
@@ -155,10 +233,10 @@ function traerDetallesCompra(id){
     $("#id-proveedor").text(respuesta.id);
     $("#total-compra").text(respuesta.total).priceFormat({
       centsLimit: 3,
-      clearPrefix: true
+      prefix: '$ '
     });
     $("#detalles-productos-compra").html(respuesta.html);
-    $(".price").priceFormat({centsLimit: 3, clearPrefix: true});
+    $(".price").priceFormat({centsLimit: 3, prefix: '$ '});
   });
 }
 

@@ -16,10 +16,6 @@ $notificaciones = mdlConfiguracionPago::getNotificaciones();
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <!-- <meta http-equiv="Expires" content="0">
-    <meta http-equiv="Last-Modified" content="0">
-    <meta http-equiv="Cache-Control" content="no-cache, mustrevalidate">
-    <meta http-equiv="Pragma" content="no-cache"> -->
 
     <title>Bioartsoft</title>
 
@@ -77,19 +73,19 @@ $notificaciones = mdlConfiguracionPago::getNotificaciones();
 
               <li>
                   <a  href="#" title="Acerca de">
-                      <i class="fa fa-info-circle" aria-hidden="true" style="color: #fff" title="Acerca de" data-toggle="modal" data-target="#modal-info"></i>
+                      <i class="fa fa-info-circle" aria-hidden="true" style="color: #fff; font-size: 20px" title="Acerca de" data-toggle="modal" data-target="#modal-info"></i>
                   </a>
                 </li>
 
               <li>
                   <a  href="#" title="Ayuda">
-                      <i class="fa fa-question-circle" aria-hidden="true" style="color: #fff"></i>
+                      <i class="fa fa-question-circle" aria-hidden="true" style="color: #fff; font-size: 20px"></i>
                   </a>
                 </li>
 
               <li>
                   <a  href="<?= URL ?>otro/index2" title="Mapa Navegación">
-                      <i class="fa fa-globe" style="color: #fff"></i>
+                      <i class="fa fa-globe" style="color: #fff; font-size: 20px"></i>
                   </a>
                 </li>
 
@@ -97,7 +93,7 @@ $notificaciones = mdlConfiguracionPago::getNotificaciones();
              <?php if($_SESSION['ROL'] == 1 || $_SESSION['ROL'] == 3): ?>
                  <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" title="Configuraciones">
-                        <i class="fa fa-cog" style="color: #fff"></i>  <i class="fa fa-caret-down" style="color: #fff"></i>
+                        <i class="fa fa-cog" style="color: #fff; font-size: 20px"></i>  <i class="fa fa-caret-down" style="color: #fff"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-alerts">
                         <li>
@@ -116,7 +112,7 @@ $notificaciones = mdlConfiguracionPago::getNotificaciones();
                <?php if($_SESSION['ROL'] == 1 || $_SESSION['ROL'] == 2 || $_SESSION['ROL'] == 3): ?>
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#" title="Notificaciones">
-                        <i class="fa fa-bell fa-fw" style="color: #fff"></i>
+                        <i class="fa fa-bell fa-fw" style="color: #fff; font-size: 20px"></i>
                           <?php if(count($notificaciones) > 0): ?>
                             <span class="badge badge-danger" style="background-color: red;font-size: 8px;position: absolute;left: 0px;top: 12px;"><?= count($notificaciones) ?></span>
                           <?php endif ?>
@@ -141,13 +137,13 @@ $notificaciones = mdlConfiguracionPago::getNotificaciones();
                 <!-- /.dropdown -->
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#" title="Usuario">
-                        <i class="fa fa-user fa-fw" style="color: #fff"></i>  <i class="fa fa-caret-down" style="color: #fff"></i>
+                        <i class="fa fa-user fa-fw" style="color: #fff; font-size: 20px"></i>  <i class="fa fa-caret-down" style="color: #fff"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
                         <li><i class="fa fa-user fa-fw"></i><?= $_SESSION['NOMBRE_ROL'] ?></li>
                         <li><i class="fa fa-user fa-fw"></i> <?= $_SESSION['USUARIO']. " ".   $_SESSION['USUARIO-APE'] ?></li>
                         <li class="divider"></li>
-                  <li><a href="<?Php echo URL ?>login/cerrarsesion"><i class="fa fa-sign-out fa-fw"></i> Cerrar sesión</a>
+                        <li><a href="<?Php echo URL ?>login/cerrarsesion"><i class="fa fa-sign-out fa-fw"></i> Cerrar sesión</a>
                         </li>
                     </ul>
                 </li>
@@ -500,7 +496,18 @@ $notificaciones = mdlConfiguracionPago::getNotificaciones();
                 }
               ?>
               });
-</script>
+          </script>
+
+          <script type="text/javascript">
+            $(document).ready(function(){
+              <?php
+              if (isset($_SESSION['alerta']) != false && $_SESSION['alerta'] != null){
+                echo $_SESSION['alerta'];
+                $_SESSION['alerta'] = null;
+              }
+            ?>
+            });
+          </script>
 
 <script type="text/javascript">
     $("#valorBase").keydown(function(e){

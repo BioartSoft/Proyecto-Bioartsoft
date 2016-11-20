@@ -90,6 +90,18 @@ class mdlProducto
   }
 
 
+  public function validarNombre2(){
+    $sql = "CALL 	SP_Validar_Nombre_Producto2(?, ?, ?)";
+    $stm = $this->db->prepare($sql);
+    $stm->bindParam(1, $this->nombre_producto);
+    $stm->bindParam(2, $this->nombre);
+    $stm->bindParam(3, $this->Talla);
+    $stm->execute();
+    return $stm->fetch(PDO::FETCH_ASSOC);
+  }
+
+
+
   public function listarpdfp(){
      $sql="CALL  SP_Listar_informe()";
     try {
@@ -300,21 +312,21 @@ public function validarCantidad(){
 
 
   public function getDetallesBajas($idBaja){
-    $sql = "CALL SP_Detalles_Bajas(?)";
-    $stm = $this->db->prepare($sql);
-    $stm->bindParam(1, $idBaja);
-    $stm->execute();
-    return $stm->fetchAll(2);
-  }
+      $sql = "CALL SP_Detalles_Bajas(?)";
+      $stm = $this->db->prepare($sql);
+      $stm->bindParam(1, $idBaja);
+      $stm->execute();
+      return $stm->fetchAll(2);
+    }
 
 
-  public function getInfoProducto($idproducto){
-    $sql = "CALL SP_Info_Producto(?)";
-    $stm = $this->db->prepare($sql);
-    $stm->bindParam(1, $idproducto);
-    $stm->execute();
-    return $stm->fetch();
-  }
+    public function getInfoProducto($idproducto){
+      $sql = "CALL SP_Info_Producto(?)";
+      $stm = $this->db->prepare($sql);
+      $stm->bindParam(1, $idproducto);
+      $stm->execute();
+      return $stm->fetch();
+    }
 
 
   public function getInfoBaja($codigo){

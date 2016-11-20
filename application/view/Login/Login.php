@@ -52,13 +52,7 @@
                                       </p>
                                   </div>
                                 <?php endif; ?>
-                                <!-- <?php if ($errorVacios==true): ?>
-                                  <div class="alert alert-danger ">
-                                      <p>
-                                        Por favor ingresar usuario y contraseña
-                                      </p>
-                                  </div>
-                                <?php endif; ?> -->
+
                                 <?php if ($error2 == true): ?>
                                   <div class="alert alert-danger ">
                                       <p>
@@ -73,8 +67,9 @@
                                       <input tabindex="2" class="form-control" id="clave" placeholder="Contraseña *" name="txtContras" type="password" data-parsley-required="true" maxlength="15" minlength="3" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9!@#\$%\-\*\?_~\\.\\()\/$]+">
                                   </div><br>
                                     <button tabindex="3" type="submit" name="btnIniciar" id="btn-iniciar" class="btn btn-lg btn-primary btn-block">Iniciar sesión</button>
+                                    <br>
                                   <div class="checkbox">
-                                          <a tabindex="4" href="<?= URL ?>login/recuperarContras" id="recuperarContras" style="margin-left: 80px;color: blue; text-decoration: underline">¿Olvidaste tu Contraseña?</a>
+                                          <a tabindex="4" href="<?= URL ?>login/recuperarContras" id="recuperarContras" style="margin-left: 80px;color: blue; text-decoration: underline">¿Olvidó la Contraseña?</a>
                                           <p tabindex="5">
                                             &nbsp;
                                           </p>

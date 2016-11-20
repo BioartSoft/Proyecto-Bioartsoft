@@ -21,7 +21,8 @@
                           <?php foreach ($ventasMes as $ventasMes): ?>
                               <div class="huge"></div>
                               <p>Ventas Mes:</p>
-                              <span class="ventas"><?= $ventasMes ?></span>
+                              <?php $pesos = "$"; ?>
+                              <span class="ventas"><?= $pesos ?><?= $ventasMes ?></span>
                           <?php endforeach; ?>
                         </div>
                     </div>
@@ -116,7 +117,7 @@
 
   <script type="text/javascript">
     $(document).ready(function(){
-      $(".ventas").priceFormat({centsLimit: 3, clearPrefix: true});
-      $(".compras").priceFormat({centsLimit: 3, clearPrefix: true});
+      $(".ventas").priceFormat({centsLimit: 3, prefix: '$ '});
+      $(".compras").priceFormat({centsLimit: 3, prefix: '$ '});
     });
   </script>

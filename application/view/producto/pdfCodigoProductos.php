@@ -17,6 +17,7 @@
 	</style>
 </head>
 <body>
+	<center><legend><h2>CÓDIGOS PRODUCTOS</h2></legend></center>
 	<?php foreach($productos AS $producto): ?>
 		<img src="<?= $urlImagen.$producto['id_producto'] ?>" alt="" class="img">
 	<?php endforeach ?>

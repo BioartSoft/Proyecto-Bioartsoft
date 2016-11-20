@@ -57,14 +57,15 @@
             <i class="fa fa-pencil-square-o" aria-hidden="true" title="Modificar"></i>
           </button>
 
-             <a href="<?= URL ?>producto/generarPdfCodigo?id=<?= $val['id_producto'] ?>" target="_blank">
-               <button class="btn btn-warning btn-circle btn-md" title="Generar Código de Barras">
+             <a href="" target="_blank" data-toggle="modal" data-target="#myForm3">
+               <button class="btn btn-warning btn-circle btn-md" title="Generar Código de Barras" onclick="traerDetallesProducto('<?= $val['id_producto']?>')">
                  <i class="fa fa-barcode" title="Generar Código de Barras"></i>
                </button>
              </a>
 
+
          <button type="button" class="btn btn-danger btn-circle btn-md" onclick="cambiarestado('<?= $val['id_producto']?>')" title="Cambiar Estado"><span class="glyphicon glyphicon-refresh" aria-hidden="true" title="Cambiar Estado"></span></button>
-           <?php else : ?>
+       <?php else : ?>
              <button type="button" class="btn btn-primary btn-circle btn-md" data-toggle="modal" data-target="#myForm2" onclick="traerDetallesProducto(<?= $val['id_producto'] ?>)" title="Ver Detalles"><i class="fa fa-eye" aria-hidden="true" title="Ver Detalles"></i></button>
 
              <a href="<?= URL ?>producto/generarPdfCodigo?id=<?= $val['id_producto'] ?>" target="_blank">
@@ -109,7 +110,7 @@
 </div>
 </center>
 
-<form action="" method="POST" id="form-modificar" data-parsley-validate="">
+<form action="" method="POST" id="form-modificar" data-parsley-validate="" onsubmit="return validarPreciosModificacion()">
 <div class="modal fade" id="actualizar-producto" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static">
   <div id="modal-mod-prod" method="post" data-parsley-validate="">
 
@@ -119,7 +120,7 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                           <span aria-hidden="true">&times;</span>
                         </button>
-                          <center><h4 class="modal-title" id="myModalLabel" style="color: #337AB7">Modificar Productos (obligatorios *)</h4></center>
+                          <center><h4 class="modal-title" id="myModalLabel" style="color: #337AB7">Modificar Producto (obligatorios *)</h4></center>
                       </div>
                    <div class="modal-body">
                        <div class="row">
@@ -129,7 +130,7 @@
                          <input id="txtcodigo" name="txtcodigo"  type="hidden">
                          </div>
                      <div class="col-md-6">
-                       <label >Nombre Producto *</label><br>
+                       <label >Nombre Producto <span class="obligatorio">*</span></label><br>
                        <input id="txtnombreproducto" name="txtnombreproducto" type="text"  class="form-control" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ@\-\.\\ \/$]+" maxlength="50" data-parsley-required="true">
                    </div>
                    </div>
@@ -137,16 +138,16 @@
                    <br>
                    <div class="row">
                        <div class="col-md-6">
-                       <label >Categoría *</label><br>
+                       <label >Categoría <span class="obligatorio">*</span></label><br>
                        <select id="txtcategoria" name="txtcategoria" name="txtcategoria" class="form-control" maxlength="20" data-parsley-type"alphanum" data-parsley-required="true">
-                          <option value="">Seleccionar Categoría</option>
+                          <option value="">Seleccionar Categoría <span class="obligatorio">*</span></option>
                           <?php foreach ($categorias as $value): ?>
                           <option value="<?= $value['id_categoria'] ?>"><?= $value['nombre']  ?></option>
                           <?php endforeach ?>
                        </select>
                     </div>
                     <div class="col-md-6" id="div-talla" name="txttalla">
-                        <label id="lbltalla">Talla *</label><br>
+                        <label id="lbltalla">Talla <span class="obligatorio">*</span></label><br>
                         <select id="txttalla" name="txttalla" class="form-control" data-parsley-type="alphanum" maxlength="15">
                           <option value="">Seleccionar Talla</option>
                           <option>S</option>
@@ -162,33 +163,33 @@
                   <div class="row">
                      <div class="col-md-6" id="txttamano"  name="txttamano">
                         <label id="lbltamanio">Descripción</label><br>
-                        <textarea id="txttamano-input"  name="txttamano" type="text" class="form-control" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ@\-\.\\ \/$]+" maxlength="100"></textarea>
+                        <textarea id="txttamano-input"  name="txttamano" type="text" class="form-control" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ@\-\.\\ \/$]+" maxlength="20"></textarea>
                      </div>
                    </div>
                    <br>
 
                    <div class="row">
                      <div class="col-md-6">
-                     <label>Precio Detal *</label><br>
-                      <input id="txtprecioventa" name="txtprecioventa" type="text" class="form-control"  data-parsley-type="integer" min="0" maxlength="10" data-parsley-required="true">
+                     <label>Precio Detal <span class="obligatorio">*</span></label><br>
+                      <input id="txtprecioventa" name="txtprecioventa" type="number" class="form-control"  data-parsley-type="integer" min="0" maxlength="10" step="50" data-parsley-required="true">
                    </div>
 
                      <div class="col-md-6" >
-                       <label>Precio al por Mayor *</label><br>
-                       <input id="txtprecioalpormayor" name="txtprecioalpormayor" type="text" class="form-control" data-parsley-type="integer" min="0" maxlength="10" data-parsley-required="true">
+                       <label>Precio al por Mayor <span class="obligatorio">*</span></label><br>
+                       <input id="txtprecioalpormayor" name="txtprecioalpormayor" type="number" class="form-control" data-parsley-type="integer" min="0" maxlength="10" step="50" data-parsley-required="true">
                    </div>
                  </div>
                  <br>
 
                  <div class="row">
                    <div class="col-md-6">
-                     <label>Precio Unitario *</label><br>
-                      <input type="text" id="txtpreciocompra" name="txtpreciocompra" class="form-control" data-parsley-type="integer" min="0" maxlength="10" data-parsley-required="true">
+                     <label>Precio Unitario <span class="obligatorio">*</span></label><br>
+                      <input type="number" id="txtpreciocompra" name="txtpreciocompra" class="form-control" data-parsley-type="integer" min="0" maxlength="10" step="50" data-parsley-required="true">
                    </div>
 
                    <div class="col-md-6">
-                     <label >Stock Mínimo *</label><br>
-                      <input type="text" id="txtstock" name="txtstock" class="form-control" data-parsley-type="number" min="1" maxlength="3" data-parsley-required="true">
+                     <label >Stock Mínimo <span class="obligatorio">*</span></label><br>
+                      <input type="number" id="txtstock" name="txtstock" class="form-control" data-parsley-type="number" min="1" maxlength="3" step="1" data-parsley-required="true">
                    </div>
                    </div>
                  </div>
@@ -242,12 +243,71 @@
 </div>
 </div>
 
+
+<div class="modal fade" id="myForm3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static" style="display:none" style="width: 50px" action="<?= URL ?>producto/listarProductos">
+   <div class="modal-dialog" role="document">
+       <div class="modal-content">
+         <div class="modal-body">
+           <form method="POST"  id="form-2" target="_blank" role="form"  data-parsley-validate="">
+
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading" stlyle="height: 70px; width: 100px">
+                        <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 20px">Producto: <span id="productoid"> </span> - <span id="producto2"></span></span></center>
+                    </div>
+                  <div class="panel-body">
+                    <div class="dataTable_wrapper">
+                      <div >
+                         <center>
+                          <div class="row">
+                            <div class="col-md-3">
+                            </div>
+                            <div class="col-md-4">
+                            <input type="number" id="txtCantidad" name="txtCantidad" class="form-control" data-parsley-type="number" min="1" maxlength="3" step="1" data-parsley-required="true" placeholder="Ingresar cantidad">
+                          </div>
+                        <div class="col-md-2">
+
+                        <button  type="submit" name="btn-imprimir" class="btn btn-success btn-md active" id="enviar-imprimir"><i class="fa fa-floppy-o" aria-hidden="true">   Imprimir</i></button>
+                        </div>
+                      <div class="col-md-3">
+                      </div>
+                        </center>
+                      </div>
+                      </div>
+                    </div>
+                  </div>
+                    <button type="reset" id="mcerrar"  onclick="" class="btn btn-secondary btn-md active pull-right"  data-dismiss="modal"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
+                </div>
+
+              </div>
+            </div>
+
+          </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
 <script type="text/javascript">
   $(document).ready(function(){
 
     $("#btn-modificar").click(function(){
 
       $("#form-modificar").parsley().validate();
+
+    });
+
+  });
+</script>
+<script type="text/javascript">
+  $(document).ready(function(){
+
+    $("#mcerrar").click(function(){
+
+      $("#txtCantidad").val("");
 
     });
 
@@ -302,6 +362,11 @@ function cambiarestado(id){
 }
 
 function traerDetallesProducto(id){
+  // here
+  var form = $("#form-2");
+  var _url = '<?= URL ?>producto/generarPdfCodigo?id=' + id;
+  form.attr("action", _url);
+
   $.ajax({
     url:url+"producto/ajaxDetallesProducto",
     type:'POST',
@@ -310,10 +375,68 @@ function traerDetallesProducto(id){
       'idproducto':id,
     }
   }).done(function(respuesta){
+
     $("#producto").text(respuesta.producto);
+    $("#producto2").text(respuesta.producto);
+    $("#productoid").text(respuesta.id2);
     $("#detalles-productos").html(respuesta.html);
-    $(".price").priceFormat({centsLimit: 3, clearPrefix: true});
+    $(".price").priceFormat({centsLimit: 3, prefix: '$ '});
   });
 }
+</script>
 
+<script type="text/javascript">
+  function validarPreciosModificacion(){
+    var precioUnit = $("#txtpreciocompra").val();
+    var precioDet = $("#txtprecioventa").val();
+    var precioMay = $("#txtprecioalpormayor").val();
+
+    if((precioUnit >  precioDet && precioUnit > precioMay) || precioDet < precioMay || precioMay < precioUnit){
+      swal({
+            title: "Precios inválidos, verificar valores!",
+            type: "error",
+            confirmButton: "#3CB371",
+            confirmButtonText: "Aceptar",
+            // confirmButtonText: "Cancelar",
+            closeOnConfirm: false,
+            closeOnCancel: false
+          });
+          return false;
+    }else{
+      return true;
+    }
+  }
+</script>
+
+
+<script type="text/javascript">
+  $("#txtpreciocompra").keydown(function(e){
+    if(e.which === 189 || e.which === 69 || e.which === 190){
+      e.preventDefault();
+    }
+  });
+
+  $("#txtprecioventa").keydown(function(e){
+    if(e.which === 189 || e.which === 69 || e.which === 190){
+      e.preventDefault();
+    }
+  });
+
+  $("#txtprecioalpormayor").keydown(function(e){
+    if(e.which === 189 || e.which === 69 || e.which === 190){
+      e.preventDefault();
+    }
+  });
+
+  $("#txtstock").keydown(function(e){
+    if(e.which === 189 || e.which === 69 || e.which === 190){
+      e.preventDefault();
+    }
+  });
+
+  $("#txtCantidad").keydown(function(e){
+    if(e.which === 189 || e.which === 69 || e.which === 190){
+      e.preventDefault();
+    }
+  })
 </script>

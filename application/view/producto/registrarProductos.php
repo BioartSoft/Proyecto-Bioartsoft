@@ -41,7 +41,7 @@
 
     <div class="col-md-12 col-xs-12 col-lg-3">
         <label for="inputTwitter" class="control-label">Precio al Detal *</label>
-        <input name="txtprecioventa" type="number" id="txtprecioventa" type="text"  data-parsley-type="integer" min="0" step="10" max="100000" class="form-control" placeholder="Precio Detal" data-parsley-required="true">
+        <input name="txtprecioventa" type="number" id="txtprecioventa" data-parsley-type="integer" min="0" step="10" max="100000" class="form-control" placeholder="Precio Detal" data-parsley-required="true">
     </div>
     <div class="col-md-12 col-xs-12 col-lg-3">
         <label for="inputTwitter" class="control-label">Precio al por Mayor * </label>
@@ -241,25 +241,25 @@ function cancelar() {
 
 <script type="text/javascript">
   $("#txtpreciocompra").keydown(function(e){
-    if(e.which === 189 || e.which === 69){
+    if(e.which === 189 || e.which === 69 || e.which === 190){
       e.preventDefault();
     }
   });
 
   $("#txtprecioventa").keydown(function(e){
-    if(e.which === 189 || e.which === 69){
+    if(e.which === 189 || e.which === 69 || e.which === 190){
       e.preventDefault();
     }
   });
 
   $("#txtprecioalpormayor").keydown(function(e){
-    if(e.which === 189 || e.which === 69){
+    if(e.which === 189 || e.which === 69 || e.which === 190){
       e.preventDefault();
     }
   });
 
   $("#txtstock").keydown(function(e){
-    if(e.which === 189 || e.which === 69){
+    if(e.which === 189 || e.which === 69 || e.which === 190){
       e.preventDefault();
     }
   });
@@ -281,7 +281,39 @@ function cancelar() {
 
         if(resut == "1"){
           swal({
-                title: "Nombre Producto ya existe, no se puede registrar!",
+                title: "Nombre de Producto ya existe, no se puede registrar!",
+                type: "error",
+                confirmButton: "#3CB371",
+                confirmButtonText: "Aceptar",
+                closeOnConfirm: false,
+                closeOnCancel: false
+              });
+        }
+      });
+    });
+  });
+</script>
+
+
+<script type="text/javascript">
+  $(function(){
+
+    $("#txttalla").change(function(){
+
+      var campoTalla = $("#txttalla").val();
+      var campoNombre = $("#txtnombreproducto").val();
+      var campoCateg = $("#txtcategoria").val();
+
+      $.ajax({
+        url: url + 'producto/validacionNombre2',
+        data:{'campoTalla': campoTalla, 'campoNombre': campoNombre, 'campoCateg': campoCateg},
+        type: 'post',
+        dataType:"text"
+      }).done(function(resut){
+
+        if(resut == "1"){
+          swal({
+                title: "Nombre de Producto ya existe, no se puede registrar!",
                 type: "error",
                 confirmButton: "#3CB371",
                 confirmButtonText: "Aceptar",

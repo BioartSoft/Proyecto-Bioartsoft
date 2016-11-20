@@ -62,7 +62,7 @@ use Dompdf\Dompdf;
       require_once APP . 'libs/dompdf/autoload.inc.php';
       // $urlImagen = URL . 'producto/generarcodigo?id=';
       // $productos = $this->mdlproducto->listar();
-      $listarEmpleados = $this->modeloP->ListarPersEmpleadoFijo();
+      $listarEmpleados = $this->modeloP->ListarPersEmpleadoPdf();
       ob_start();
       require APP . 'view/Personas/pdfEmpledos.php';
       $html = ob_get_clean();

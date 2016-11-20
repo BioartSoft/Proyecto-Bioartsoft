@@ -5,53 +5,136 @@
   <br>
 
     <div class="panel-heading" stlyle="height: 70px; width: 100px">
-        <center><span style="text-align:center; color: #337AB7; margin-top: 10px; margin-bottom:10px; font-size: 25px">Registrar Categoría</span></center>
+        <center><span style="text-align:center; color: #337AB7; margin-top: 10px; margin-bottom:10px; font-size: 25px">Gestionar Categorías</span></center>
   </div>
   <div class="panel-body">
-      <div id="frmpro" method="post" data-parsley-validate="">
-
-              <div class="col-md-1">
-              </div>
-
-              <div class="col-md-3">
-              </div>
-
-               <div class="col-md-4">
-                  <label for="form-control" class="control-label">Nombre Categoría *</label>
-                  <input type="text" name="txtnombrec" minlength="4" maxlength="30" data-parsley-type="alphanum" id="txtnombrec"class="form-control" data-parsley-required="true">
-              </div>
-            </div>
+    <div class="col-md-6">
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <h3 class="panel-title"><strong>Registrar Categoría</strong></h3>
+        </div>
+        <div class="panel-body">
+          <div class="row">
+          <div class="col-md-6">
+             <label for="form-control" class="control-label">Nombre Categoría *</label>
+             <input type="text" name="txtnombrec" minlength="4" maxlength="30" data-parsley-type="alphanum" id="txtnombrec"class="form-control" data-parsley-required="true">
+         </div>
+       </div>
+       <br>
+       <div class="row">
+          <div class="col-md-6 col-xs-12 col-lg-9">
+              <button type="submit" class="btn btn-success pull-right" id="btn-guardar" name="btn-ca"><i class="fa fa-floppy-o" aria-hidden="true">   Guardar</i></button>
           </div>
+          <div class="col-md-6 col-xs-12 col-lg-3">
+              <button type="reset" class="btn btn-danger" onclick="cancelar()"><i class="fa fa-remove" aria-hidden="true">   Cancelar</i></button>
+          </div>
+         </div>
+       </div>
+     </div>
+    </div>
+  </form>
 
-     <br><br>
-      <div class="row">
-            <div class="col-md-4">
-
-            </div>
-            <div class="col-md-3">
-                <button type="submit" class="btn btn-success" id="btn-guardar" name="btn-ca"><i class="fa fa-floppy-o" aria-hidden="true">   Guardar</i></button>
-            </div>
-             <div class="col-md-">
-                 <button type="reset" class="btn btn-danger" onclick="cancelar()"><i class="fa fa-remove" aria-hidden="true">   Cancelar</i></button>
-             </div>
+  <div class="col-md-6 col-xs-12 col-lg-6">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title"><strong>Listar Categorías</strong></h3>
       </div>
-      <br>
-</div>
-</div>
-</form>
+      <div class="panel-body" id="panel_categorias">
+        <div class="dataTable_wrapper">
+          <div class="table-responsive">
+          <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+            <thead>
+               <tr>
+                 <th>Código</th>
+                 <th>Nombre Categoría</th>
+                 <th>Modificar</th>
+               </tr>
+           </thead>
 
+ <tbody>
+   <?php foreach ($cate as $value): ?>
+     <tr>
+       <td><?= $value['id_categoria']  ?></td>
+       <td><?= $value['nombre'] ?></td>
+       <td>
+          <button type="button" class="btn btn-success btn-circle btn-md" onclick="Traerdatoscategoria('<?= $value['id_categoria']?>')" data-toggle="modal" data-target="#myForm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+
+  </td>
+     </tr>
+   <?php endforeach ?>
+
+ </div>
+</tbody>
+</table>
+</div>
+     </div>
+   </div>
+  </div>
+  </div>
+ </div>
+
+ <form action="<?= URL ?>producto/listarCategorias/" method="POST"  id="form-modi" data-parsley-validate="">
+   <div class="modal fade" id="myForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static">
+     <div id="frmModCateg" method="post" data-parsley-validate="">
+
+           <div class="modal-dialog" role="document">
+             <div class="modal-content">
+
+            <div class="modal-body">
+                <div class="row">
+                    <div class="panel panel-primary" style="margin-left: 2%; margin-right: 2%">
+                     <div class="panel-heading" stlyle="height: 70px; width: 100px">
+                       <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 20px">Modificar Categoría</span></center>
+                     </div>
+                     <div class="panel-body">
+                       <div class="col-md-6">
+                     <label for="form-control">Código</label><br>
+                     <input type="text"  id="txtcodigo-show" class="form-control" value="1" disabled="true">
+                     <input type="hidden" id="txtcodigo" name="txtcodigo" class="form-control" >
+
+                  </div>
+                  <div class="col-md-6">
+                    <label for="form-control">Nombre *</label><br>
+                     <input  id="txtnombreca" name="txtnombreca" type="text" class="form-control" data-parsley-type="alphanum" minlength="3" maxlength="30" data-parsley-required="true">
+                 </div>
+          </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12 col-md-6 col-lg-9">
+            <button type="button" class="btn btn-secondary btn-md active pull-right"  data-dismiss="modal"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
+          </div>
+          <div class="col-xs-12 col-md-6 col-lg-3">
+            <button type="submit" id="btn-modica" name="btn-modificar-categoria" class="btn btn-success btn-md active"><i class="fa fa-floppy-o" aria-hidden="true">   Modificar</i></button>
+          </div>
+        </div>
+   </div>
+   </div>
+ </div>
+ </div>
+ </div>
+ </form>
+
+ <script type="text/javascript">
+   $(document).ready(function(){
+       $("#btn-modica").click(function(){
+
+        //  $("#txtnombrec").removeAttr("data-parsley-required");
+         $("#form-modi").parsley().validate();
+       })
+ })
+
+ </script>
+</div>
 
 <script>
 $(document).ready(function(){
 
   $("#btn-guardar").click(function(){
 
-
-
+      $("#txtnombreca").removeAttr("data-parsley-required");
       $("#formulariocate").parsley().validate();
-
   })
-
 })
 </script>
 
@@ -114,8 +197,6 @@ function cancelar() {
                 closeOnConfirm: false,
                 closeOnCancel: false
               });
-
-                $("#txtnombrec").val("");
         }
 
       });
@@ -147,8 +228,40 @@ function cancelar() {
                 closeOnConfirm: false,
                 closeOnCancel: false
               });
+        }
 
-                $("#txtnombrec").val("");
+      });
+    });
+  });
+</script>
+
+
+<script type="text/javascript">
+  $(function(){
+
+    $("#txtnombreca").keyup(function(){
+
+      var txtnombrec = $("#txtnombreca").val();
+
+      $.ajax({
+        url: url + 'producto/validacionCategoria',
+        data:{'txtnombrec': txtnombrec},
+        type: 'post',
+        dataType:"text"
+      }).done(function(resut){
+
+        if(resut == "1"){
+          swal({
+                title: "Nombre de categoría ya existe, no se puede registrar!",
+                type: "error",
+                confirmButton: "#3CB371",
+                confirmButtonText: "Aceptar",
+                // confirmButtonText: "Cancelar",
+                closeOnConfirm: false,
+                closeOnCancel: false
+              });
+
+              $("#txtnombreca").val("");
         }
 
       });
@@ -169,6 +282,84 @@ function cancelar() {
             closeOnConfirm: false,
             closeOnCancel: false
           });
+
+        window.location("producto/registrarCategoria.php");
     });
   </script>
+<?php endif; ?>
+
+<!-- <script type="text/javascript">
+  function guardarCategorias(){
+    var categoria =  $("#txtnombrec").val();
+    $.ajax({
+      url: url + 'producto/registrarCategoria',
+      data: {'categoria': categoria},
+      type: 'POST',
+      dataType: 'text'
+    }).done(function(result){
+      if(result == true){
+        swal({
+              title: "Guardado exitoso!",
+              type: "success",
+              confirmButton: "#3CB371",
+              confirmButtonText: "Aceptar",
+              // confirmButtonText: "Cancelar",
+              closeOnConfirm: false,
+              closeOnCancel: false
+            },
+            function(isConfirm){
+              if(isConfirm){
+                  window.location.reload();
+              }else{
+                  window.location.reload();
+              }
+            }
+          );
+
+      }else{
+        swal({
+              title: "Error en el registro!",
+              //text: "Nombre de categoria ya existe o campo vacío",
+              type: "error",
+              confirmButton: "#3CB371",
+              confirmButtonText: "Aceptar",
+              // confirmButtonText: "Cancelar",
+              closeOnConfirm: false,
+              closeOnCancel: false
+            },
+            function(isConfirm){
+              if(isConfirm){
+                swal({
+                      title: "Nombre de categoría ya existe o campo vacío",
+                      type: "error",
+                      confirmButton: "#3CB371",
+                      confirmButtonText: "Aceptar",
+                      // confirmButtonText: "Cancelar",
+                      closeOnConfirm: false,
+                      closeOnCancel: false
+                    })
+              }else{
+                  window.location.reload();
+              }
+            }
+          );
+      }
+    })
+  }
+</script> -->
+
+<?php if(isset($guarda) && $guarda == true): ?>
+<script type="text/javascript">
+  $(document).ready(function(){
+  swal({
+        title: "Guardado exitoso!",
+        type: "success",
+        confirmButton: "#3CB371",
+        confirmButtonText: "Aceptar",
+        // confirmButtonText: "Cancelar",
+        closeOnConfirm: false,
+        closeOnCancel: false
+      })
+  })
+</script>
 <?php endif; ?>
