@@ -65,11 +65,17 @@ $notificaciones = mdlConfiguracionPago::getNotificaciones();
             <div class="navbar-header">
              <center>
                <!-- <i class="fa fa-bars" aria-hidden="true"></i> -->
-              <img src="<?php echo URL ?>img/Logov2.png" alt="" style="width: 150px; height: 35px; margin-left:42px; margin-top: 8px"/>
+              <img src="<?php echo URL ?>img/LOGOv3.png" alt="" style="width: 150px; height: 35px; margin-left:42px; margin-top: 8px"/>
             </center>
             </div>
 
             <ul class="nav navbar-top-links navbar-right">
+
+              <li>
+                  <a  href="#" title="Ganancias">
+                      <i class="fa fa-bar-chart" aria-hidden="true" style="color: #fff; font-size: 20px" title="Ganancias" data-toggle="modal" data-target="#modal-money"></i>
+                  </a>
+                </li>
 
               <li>
                   <a  href="#" title="Acerca de">

@@ -16,7 +16,6 @@
                                 <th>Identificación</th>
                                 <th>Nombres</th>
                                 <th>Apellidos</th>
-                                <!-- <th>Telefono</th> -->
                                 <th>Tipo de Proveedor</th>
                                 <th>Estado</th>
                                 <th>Opciones</th>
@@ -29,7 +28,6 @@
                                 <td><?= $valor['id_persona'] ?></td>
                                 <td><?=  $valor['nombres'] ?></td>
                                 <td><?=  $valor['apellidos'] ?></td>
-                                <!-- <td><?=  $valor['telefono'] ?></td> -->
                                 <td><?=  $valor['Tbl_nombre_tipo_persona'] ?></td>
                                 <td><?php if($valor['estado'] == 1): ?>
                                         Habilitado
@@ -90,9 +88,9 @@
    <div class="modal-dialog" role="document">
      <div class="modal-content">
        <div class="modal-header">
-         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+         <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
            <span aria-hidden="true">&times;</span>
-             </button>
+             </button> -->
                <center>
                  <h4 class="modal-title"  style="color: #337AB7" id="myModalLabel">Modificar Proveedores (obligatorios *)</h4>
                </center>
@@ -104,20 +102,20 @@
                 <div class="row">
                   <div class="col-md-6">
                     <label for="">Número de documento</label>
-                    <input type="text" name="txtIdPersona" style="width: 100%"class="form-control" id="campoId" readonly="true" value="<?= $proveedor['id_persona'] ?>">
+                    <input type="text" tabindex="1" name="txtIdPersona" style="width: 100%"class="form-control" id="campoId" readonly="true" value="<?= $proveedor['id_persona'] ?>">
                   </div>
                 </div>
                   <br>
         <div class="row">
               <div class="col-md-6"  class="form-group">
-                  <label>Nombres *</label><br>
-                  <input type="text" class="form-control" name="txtnombre" id="ejemplo_password_2" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ@\-\.\\ \/$]+" minlength="3" maxlength="30"
+                  <label>Nombres <span class="obligatorio">*</span></label><br>
+                  <input type="text" tabindex="2" class="form-control" name="txtnombre" id="ejemplo_password_2" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ@\-\.\\ \/$]+" minlength="3" maxlength="30"
                   value="<?= $proveedor['nombres'] ?>" data-parsley-required="true">
                </div>
 
                   <div class="col-md-6">
-                    <label>Apellidos *</label><br>
-                      <input type="text" class="form-control" id="fecha" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ@\-\.\\ \/$]+" minlength="3" maxlength="30"
+                    <label>Apellidos <span class="obligatorio">*</span></label><br>
+                      <input type="text" tabindex="3" class="form-control" id="fecha" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ@\-\.\\ \/$]+" minlength="3" maxlength="30"
                          value="<?= $proveedor['apellidos'] ?>" name="txtapell" data-parsley-required="true">
                   </div>
         </div>
@@ -125,13 +123,13 @@
 
         <div class="row">
                           <div class="col-md-6">
-                            <label>Celular *</label><br>
-                            <input type="text" class="form-control" id="ejemplo_password_2" maxlength="12" minlength="10" data-parsley-type="number"
+                            <label>Celular <span class="obligatorio">*</span></label><br>
+                            <input type="text" tabindex="4" class="form-control" id="ejemplo_password_2" maxlength="12" minlength="10" data-parsley-type="number"
                                    value="<?= $proveedor['celular'] ?>" name="txtcel" data-parsley-required="true">
                            </div>
                          <div class="col-md-6">
                            <label>Email</label><br>
-                           <input type="email" class="form-control" id="ejemplo_password_2" data-parsley-type="email"
+                           <input type="email" tabindex="5" class="form-control" id="ejemplo_password_2" data-parsley-type="email"
                            value="<?= $proveedor['email'] ?>" name="txtcorreo">
                          </div>
         </div>
@@ -139,12 +137,12 @@
         <div class="row">
                      <div class="col-md-6">
                        <label>Teléfono</label><br>
-                       <input type="text" class="form-control" id="ejemplo_password_2" maxlength="10" minlength="7" data-parsley-type="number"
+                       <input type="text" tabindex="6" class="form-control" id="ejemplo_password_2" maxlength="10" minlength="7" data-parsley-type="number"
                               value="<?= $proveedor['telefono'] ?>" name="txttel" data-parsley-required="false">
                       </div>
                       <div class="col-md-6">
                         <label>Dirección</label><br>
-                          <input type="text" class="form-control" id="ejemplo_password_2" maxlength="40" minlength="3"  pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9!@#\$%\-\*\?_~\\ \\.\/$]+"
+                          <input type="text" tabindex="7" class="form-control" id="ejemplo_password_2" maxlength="40" minlength="3"  pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9!@#\$%\-\*\?_~\\ \\.\/$]+"
                              value="<?= $proveedor['direccion'] ?>" name="txtdirecc" data-parsley-required="false">
                       </div>
         </div>
@@ -152,8 +150,8 @@
         <div class="row">
 
                    <div class="col-md-6">
-                     <label>Tipo Proveedor *</label><br>
-                     <select class="form-control" name="txtTipoEmpleado" id="select-proveedor" data-parsley-type="alphanum" data-parsley-required="true">
+                     <label>Tipo Proveedor <span class="obligatorio">*</span></label><br>
+                     <select class="form-control" tabindex="8" name="txtTipoEmpleado" id="select-proveedor" data-parsley-type="alphanum" data-parsley-required="true">
                          <!-- <option>Seleccione un rol</option> -->
                        <?php foreach($TipoProveedor AS $tipo): ?>
                          <option value="<?= $tipo['idTbl_tipo_persona'] ?>" <?= $proveedor['Tbl_TipoPersona_idTbl_TipoPersona'] == $tipo['idTbl_tipo_persona'] ? 'selected="selected"' : '' ?>>
@@ -166,8 +164,8 @@
                    </div>
                    <?php if (isset($proveedorJ)): ?>
                      <div class="col-md-6" id="div-empresa">
-                       <label>Nit Empresa *</label><br>
-                       <input type="text" class="form-control" id="txtnit"  maxlength="30" minlength="6" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9!@#\$%\-\.\?_~\\ \\()\/$]+"
+                       <label>Nit Empresa <span class="obligatorio">*</span></label><br>
+                       <input type="text" tabindex="9" class="form-control" id="txtnit"  maxlength="30" minlength="6" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9!@#\$%\-\.\?_~\\ \\()\/$]+"
                               value="<?= $proveedorJ['nit'] ?>" name="txtNit" data-parsley-required="true">
                       </div>
                    <?php endif; ?>
@@ -178,13 +176,13 @@
                       <div class="row">
                          <?php if (isset($proveedorJ)): ?>
                                    <div class="col-md-6" id="div-nombreEmp">
-                                     <label>Nombre Empresa *</label><br>
-                                     <input type="text" class="form-control" id="txtnombreEmp" maxlength="30" minlength="3" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9!@#\$%\-\.\?_~\\ \\()\/$]+"
+                                     <label>Nombre Empresa <span class="obligatorio">*</span></label><br>
+                                     <input type="text" tabindex="10" class="form-control" id="txtnombreEmp" maxlength="30" minlength="3" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9!@#\$%\-\.\?_~\\ \\()\/$]+"
                                             value="<?= $proveedorJ['empresa'] ?>" name="txtEmpresa" data-parsley-required="true">
                                     </div>
                                     <div class="col-md-6" id="div-telefonoEmp">
-                                      <label>Teléfono Empresa *</label><br>
-                                        <input type="text" class="form-control" id="txttelefonoEmp" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9!@#\$%\-\.\?_~\\ \\()\/$]+" minlength="6" maxlength="20"
+                                      <label>Teléfono Empresa <span class="obligatorio">*</span></label><br>
+                                        <input type="text" tabindex="11" class="form-control" id="txttelefonoEmp" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9!@#\$%\-\.\?_~\\ \\()\/$]+" minlength="6" maxlength="20"
                                            value="<?= $proveedorJ['telefono_empresa'] ?>" name="txtTele" data-parsley-required="true">
                                     </div>
                           <?php endif; ?>
@@ -199,18 +197,18 @@
                                   </div>
                                   <br>
                                   <div class="col-md-4" id="div-emp" style="display: none">
-                                    <label>Nit Empresa *</label><br>
-                                    <input type="text" class="form-control" id="txtNitE" maxlength="30" minlength="6" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9!@#\$%\-\.\?_~\\ \/$]+"
+                                    <label>Nit Empresa <span class="obligatorio">*</span></label><br>
+                                    <input type="text" tabindex="12" class="form-control" id="txtNitE" maxlength="30" minlength="6" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9!@#\$%\-\.\?_~\\ \/$]+"
                                            value="" name="txtNitEmp" data-parsley-required="true">
                                    </div>
                                    <div class="col-md-4" id="div-nombreEmpresa"  style="display: none">
-                                     <label>Nombre Empresa *</label><br>
-                                     <input type="text" class="form-control" id="txtNombreEmpresa" maxlength="30" minlength="3" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9!@#\$%\-\.\?_~\\ \\()\/$]+"
+                                     <label>Nombre Empresa <span class="obligatorio">*</span></label><br>
+                                     <input type="text" tabindex="13" class="form-control" id="txtNombreEmpresa" maxlength="30" minlength="3" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9!@#\$%\-\.\?_~\\ \\()\/$]+"
                                             value="" name="txtNombreE" data-parsley-required="true">
                                     </div>
                                     <div class="col-md-4" id="div-telefEmp"  style="display: none">
-                                      <label>Teléfono Empresa *</label><br>
-                                        <input type="text" class="form-control" id="txttelefonoEmpresa" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9!@#\$%\-\.\?_~\\ \\()\/$]+" minlength="6" maxlength="20"
+                                      <label>Teléfono Empresa <span class="obligatorio">*</span></label><br>
+                                        <input type="text" tabindex="14" class="form-control" id="txttelefonoEmpresa" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9!@#\$%\-\.\?_~\\ \\()\/$]+" minlength="6" maxlength="20"
                                            value="" name="txtTeleEmp" data-parsley-required="true">
                                     </div>
 
@@ -218,15 +216,23 @@
                       <?php endif; ?>
                       <br>
                        <div class="modal-footer">
-                         <button type="button" class="btn btn-secondary btn-md active"  data-dismiss="modal"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
-                         <button type="submit" name="btn-modificar-prov" id="btn-guardar-Mod-Prov" class="btn btn-success btn-md"><i class="fa fa-floppy-o" aria-hidden="true">   Modificar</i></button>
-
+                         <button type="button" tabindex="15" class="btn btn-secondary btn-md active"  data-dismiss="modal"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
+                         <button type="submit" tabindex="16" name="btn-modificar-prov" id="btn-guardar-Mod-Prov" class="btn btn-success btn-md"><i class="fa fa-floppy-o" aria-hidden="true">   Modificar</i></button>
+                         <input type="hidden" tabindex="17">
                        </div>
                      </form>
                   </div>
                 </div>
 </div>
  <?php endif; ?>
+
+ <script type="text/javascript">
+   $(document).ready(function(){
+     $("#btn-guardar-Mod-Prov").blur(function(e){
+       $("#campoId").focus();
+     })
+   })
+ </script>
 
  <?php if ($id!= "" && $tipo == 3): ?>
  <div class="modal fade" id="modal-detalles-Proveedor" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static">
@@ -239,7 +245,7 @@
                   <div class="col-md-12">
                     <div class="panel panel-primary" >
                         <div class="panel-heading" stlyle="height: 70px; width: 100px">
-                            <center><span style="color: #fff; font-size: 20px" id="myModalLabel">Detalles de <?php echo $proveedor['nombres'].' '.$proveedor['apellidos']?></span></center>
+                            <center><span style="color: #fff; font-size: 20px" id="myModalLabel">Detalles de: <?php echo $proveedor['id_persona']." - ".$proveedor['nombres'].' '.$proveedor['apellidos']?></span></center>
                         </div>
                           <div class="panel-body">
                             <div class="dataTable_wrapper">

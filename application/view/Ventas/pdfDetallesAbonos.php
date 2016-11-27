@@ -19,8 +19,8 @@
   Recibo de abono número: <strong><?= $val['idabono'] ?></strong><br>
   Fecha: <?= $val['fechaAbono'];?>&nbsp;&nbsp;&nbsp;&nbsp;<?= date("H:i:s"); ?>
   <br><br>
-  Atendido por: <strong><?= ucfirst($_SESSION['USUARIO'])." ".ucfirst($_SESSION['USUARIO-APE']) ?></strong><br>
-  Cliente: <strong><?= ucfirst($val['cliente']) ?></strong><br>
+  Atendido por: <strong><?= ucwords($_SESSION['USUARIO'])." ".ucwords($_SESSION['USUARIO-APE']) ?></strong><br>
+  Cliente: <strong><?= ucwords($val['cliente']) ?></strong><br>
   Identificación: <strong><?= $val['id_persona'] ?></strong><br>
   <br>
   ----------------------------------------------------------<br>

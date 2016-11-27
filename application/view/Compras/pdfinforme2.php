@@ -8,13 +8,10 @@
   </style>
 </head>
 <body>
-  <img src="<?php echo URL ?>img/BioartesV2.png" height="100" width="200">
+  <img src="<?php echo URL ?>img/bio-artes.png" height="100" width="400">
   <br>
   <center><legend><h2>INFORME DE ENTRADAS</h2></legend></center>
-  <?php foreach($ver as $valor2): ?>
       <h4>Informe de : <?= $rango ?> </h4>
-  <?php break; ?>
-  <?php  endforeach; ?>
   <br>
   <table border="1">
     <thead>
@@ -31,13 +28,13 @@
           <td><?= $valor['id_compras'] ?></td>
           <td><?= $valor['fecha_compra'] ?></td>
           <td><?= "$ ".number_format($valor['valor_total'], "0", ".", ".") ?></td>
-          <td><?= $valor['proveedor'] ?></td>
+          <td><?= ucwords($valor['proveedor']) ?></td>
       </tr>
     <?php endforeach; ?>
     </tbody>
   </table>
 <?php foreach ($totalCompraFecha as $val): ?>
-    <p style="text-align: right"><strong>Total: <?= $val['total']; ?></strong></p>
+    <p style="text-align: right"><strong>Total Entradas: <?= "$ ".number_format($val['total'], "0", ".", "."); ?></strong></p>
 <?php endforeach; ?>
 </body>
 </html>

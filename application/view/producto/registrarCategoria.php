@@ -1,14 +1,15 @@
 
 <form id="formulariocate" action="<?= URL ?>producto/registrarCategoria" method="post" data-parsley-validate="">
+  <br><br>
 <div class="panel panel-primary" style="margin-top: 5px">
+  <div class="panel-heading" stlyle="height: 70px; width: 100px">
+    <center><span style="text-align:center; color: #FFF; margin-top: 10px; margin-bottom:10px; font-size: 25px">Gestionar Categorías</span></center>
+  </div>
 <div class="row">
   <br>
 
-    <div class="panel-heading" stlyle="height: 70px; width: 100px">
-        <center><span style="text-align:center; color: #337AB7; margin-top: 10px; margin-bottom:10px; font-size: 25px">Gestionar Categorías</span></center>
-  </div>
   <div class="panel-body">
-    <div class="col-md-6">
+    <div class="col-md-6 col-xs-12 col-lg-5">
       <div class="panel panel-primary">
         <div class="panel-heading">
           <h3 class="panel-title"><strong>Registrar Categoría</strong></h3>
@@ -16,17 +17,18 @@
         <div class="panel-body">
           <div class="row">
           <div class="col-md-6">
-             <label for="form-control" class="control-label">Nombre Categoría *</label>
-             <input type="text" name="txtnombrec" minlength="4" maxlength="30" data-parsley-type="alphanum" id="txtnombrec"class="form-control" data-parsley-required="true">
+             <label for="form-control" class="control-label">Nombre Categoría <span class="obligatorio">*</span></label>
+             <input type="text" tabindex="1" name="txtnombrec" minlength="4" maxlength="30" data-parsley-type="alphanum" id="txtnombrec"class="form-control" data-parsley-required="true">
          </div>
        </div>
        <br>
        <div class="row">
-          <div class="col-md-6 col-xs-12 col-lg-9">
-              <button type="submit" class="btn btn-success pull-right" id="btn-guardar" name="btn-ca"><i class="fa fa-floppy-o" aria-hidden="true">   Guardar</i></button>
+          <div class="col-md-6 col-xs-12 col-lg-8">
+              <button type="submit" tabindex="2" class="btn btn-success active pull-right" id="btn-guardar" name="btn-ca"><i class="fa fa-floppy-o" aria-hidden="true">   Guardar</i></button>
           </div>
           <div class="col-md-6 col-xs-12 col-lg-3">
-              <button type="reset" class="btn btn-danger" onclick="cancelar()"><i class="fa fa-remove" aria-hidden="true">   Cancelar</i></button>
+              <button type="reset" tabindex="3" class="btn btn-danger active" onclick="cancelar()" id="btnCancelar"><i class="fa fa-remove" aria-hidden="true">   Cancelar</i></button>
+              <input type="hidden" tabindex="4">
           </div>
          </div>
        </div>
@@ -34,7 +36,15 @@
     </div>
   </form>
 
-  <div class="col-md-6 col-xs-12 col-lg-6">
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $("#btnCancelar").blur(function(e){
+        $("#txtnombrec").focus();
+      })
+    })
+  </script>
+
+  <div class="col-md-6 col-xs-12 col-lg-7">
     <div class="panel panel-primary">
       <div class="panel-heading">
         <h3 class="panel-title"><strong>Listar Categorías</strong></h3>
@@ -89,23 +99,24 @@
                      <div class="panel-body">
                        <div class="col-md-6">
                      <label for="form-control">Código</label><br>
-                     <input type="text"  id="txtcodigo-show" class="form-control" value="1" disabled="true">
+                     <input type="text" tabindex="1"  id="txtcodigo-show" class="form-control" value="1" disabled="true">
                      <input type="hidden" id="txtcodigo" name="txtcodigo" class="form-control" >
 
                   </div>
                   <div class="col-md-6">
-                    <label for="form-control">Nombre *</label><br>
-                     <input  id="txtnombreca" name="txtnombreca" type="text" class="form-control" data-parsley-type="alphanum" minlength="3" maxlength="30" data-parsley-required="true">
+                    <label for="form-control">Nombre <span class="obligatorio">*</span></label><br>
+                     <input  id="txtnombreca" tabindex="2" name="txtnombreca" type="text" class="form-control" data-parsley-type="alphanum" minlength="3" maxlength="30" data-parsley-required="true">
                  </div>
           </div>
           </div>
         </div>
         <div class="row">
           <div class="col-xs-12 col-md-6 col-lg-9">
-            <button type="button" class="btn btn-secondary btn-md active pull-right"  data-dismiss="modal"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
+            <button type="button" tabindex="3" class="btn btn-secondary btn-md active pull-right"  data-dismiss="modal"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
           </div>
           <div class="col-xs-12 col-md-6 col-lg-3">
-            <button type="submit" id="btn-modica" name="btn-modificar-categoria" class="btn btn-success btn-md active"><i class="fa fa-floppy-o" aria-hidden="true">   Modificar</i></button>
+            <button type="submit" tabindex="4" id="btn-modica" name="btn-modificar-categoria" class="btn btn-success btn-md active"><i class="fa fa-floppy-o" aria-hidden="true">   Modificar</i></button>
+            <input type="hidden" tabindex="5">
           </div>
         </div>
    </div>
@@ -117,9 +128,15 @@
 
  <script type="text/javascript">
    $(document).ready(function(){
-       $("#btn-modica").click(function(){
+     $("#btn-modica").blur(function(e){
+       $("#txtcodigo-show").focus();
+     })
+   })
+ </script>
 
-        //  $("#txtnombrec").removeAttr("data-parsley-required");
+ <script type="text/javascript">
+   $(document).ready(function(){
+       $("#btn-modica").click(function(){
          $("#form-modi").parsley().validate();
        })
  })

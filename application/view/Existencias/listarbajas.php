@@ -133,24 +133,33 @@
                             <div class="panel-body">
                           <div class="row">
                             <div class="col-md-1"></div>
+                            <?php
+                            $hoy2 = Date("Y-m-d");
+                            $hoy1 = Date("Y-m-d");
+                            $nuevaFecha = strtotime('-3 month', strtotime($hoy1));
+                            $nuevaFecha = date('Y-m-d', $nuevaFecha);
+                             ?>
                             <div   class="col-md-6 col-xs-12 col-lg-5">
-                                <label for="">Fecha Inicial </label>
+                                <label for="">Fecha Inicial <span class="obligatorio">*</span></label>
                                 <div class="input-group date" data-provide="datepicker">
-                                <input type="text" class="form-control" readonly="true"name="txtfechainicial" id="txtfechainicial" placeholder="Fecha Inicial" data-parsley-required="true">
+                                <input type="text" tabindex="1" class="form-control" readonly="true"name="txtfechainicial1" id="txtfechainicial1"  value="<?= $nuevaFecha ?>" data-parsley-required="true">
                                 <div class="input-group-addon">
                                 <span class="glyphicon glyphicon-th"></span>
                               </div>
                               </div>
+                                <input type="hidden" class="form-control" name="txtfechai2" value="<?= $nuevaFecha ?>" id="txtfechai2">
                             </div>
 
                             <div   class="col-md-6 col-xs-12 col-lg-5">
-                                <label for="">Fecha Final </label>
+                                <label for="">Fecha Final <span class="obligatorio">*</span></label>
                                 <div class="input-group date" data-provide="datepicker">
-                                <input type="text" class="form-control" name="txtfechafinal" readonly="true" id="txtfechafinal"  placeholder="Fecha final" data-parsley-required="true">
+                                <input type="text" tabindex="2" class="form-control" name="txtfechafinal" readonly="true" id="txtfechafinal"  value="<?= $hoy1 ?>" data-parsley-required="true">
                                 <div class="input-group-addon">
                                 <span class="glyphicon glyphicon-th"></span>
                               </div>
                               </div>
+
+                            <input type="hidden"  name="txtfechafinal2"  id="txtfechafinal2"  value="<?= $hoy2 ?>" >
                           </div>
                           <div class="col-md-1"></div>
                         </div>
@@ -158,7 +167,7 @@
                         <div class="row">
                           <div class="col-md-4"></div>
                             <div class="col-md-4">
-                              <button type="submit" class="btn btn-primary active" id="btn-pdf" name="btnconsultar" target="_blank"><i class="fa fa-file-pdf-o" aria-hidden="true"> Generar PDF Bajas</i></button>
+                              <button type="submit" tabindex="3" class="btn btn-primary active" id="btn-pdf" name="btnconsultar" target="_blank"><i class="fa fa-file-pdf-o" aria-hidden="true"> Generar PDF Bajas</i></button>
                             </div>
                         </div>
                         </div>
@@ -166,13 +175,22 @@
                         </form>
                       </div>
                     </div>
-                    <button type="button" class="btn btn-secondary btn-md active pull-right"  data-dismiss="modal"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
+                    <button type="button" tabindex="4" class="btn btn-secondary btn-md active pull-right"  data-dismiss="modal" id="cerrar"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
+                    <input type="hidden" tabindex="5">
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
+
+        <script type="text/javascript">
+          $(document).ready(function(){
+            $("#cerrar").blur(function(e){
+              $("#txtfechainicial").focus();
+            })
+          })
+        </script>
 
         <script type="text/javascript">
           $(document).ready(function(){
@@ -267,4 +285,56 @@ function cambiarEstado(cod, est){
       $("#detalles-bajas").html(respuesta.html);
     });
   }
+</script>
+
+<script type="text/javascript">
+  $("#txtfechainicial1").change(function(){
+    var valor = $('#txtfechainicial1').val();
+    var valor2 = $('#txtfechai2').val();
+
+
+    if(valor < valor2){
+      swal({
+              title: "Fecha inválida, la fecha no puede ser menor a 3 meses!",
+              type: "error",
+              confirmButtonColor: "#86CCEB",
+              confirmButtonText: "Aceptar",
+              closeOnConfirm: true,
+
+              },
+              function(isConfirm){
+              if (isConfirm) {
+                  $('#txtfechainicial1').val(valor2);
+              }
+            })
+    }
+
+
+
+
+
+  });
+
+</script>
+<script type="text/javascript">
+$("#txtfechafinal").change(function(){
+  var valor3 = $('#txtfechafinal').val();
+  var valor4= $('#txtfechafinal2').val();
+  if(valor3 > valor4)
+  {
+    swal({
+            title: "Fecha inválida, esta fecha no puede ser mayor a la actual!",
+            type: "error",
+            confirmButtonColor: "#86CCEB",
+            confirmButtonText: "Aceptar",
+            closeOnConfirm: true,
+
+            },
+            function(isConfirm){
+            if (isConfirm) {
+                $('#txtfechafinal').val(valor4);
+            }
+          })
+  }
+});
 </script>

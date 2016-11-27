@@ -9,11 +9,75 @@ use Dompdf\Dompdf;
       private $mdlTipoPersona;
       private $modeloUsuario;
       private $modelo;
+      private $meses = [
+        'Enero',
+        'Febrero',
+        'Marzo',
+        'Abril',
+        'Mayo',
+        'Junio',
+        'Julio',
+        'Agosto',
+        'Septiembre',
+        'Octubre',
+        'Noviembre',
+        'Diciembre',
+      ];
 
       function __construct(){
         $this->modeloP = $this->loadModel("mdlPersona");
         $this->mdlTipoPersona = $this->loadModel("mdlTipoPersona");
       }
+
+
+      public function pdfPrestamos()
+         {
+
+           if(isset($_POST['btnconsultar'])){
+             $fi = new DateTime($_POST['txtfechainicial1']);
+             $ff = new DateTime($_POST['txtfechafinal1']);
+
+             $fechaI = new DateTime($fi->format("Y-m-01"));
+             $fechaF = new DateTime($ff->format("Y-m-t"));
+
+             $intervalo = DateInterval::createFromDateString("1 month");
+             $period = new DatePeriod($fechaI, $intervalo, $fechaF);
+             $meses = [];
+
+             foreach($period AS $p){
+               $meses[] = ['mes' => $p->format('m'), 'anio' => $p->format('Y'), 'nombre_mes' => $this->meses[intval($p->format('m')) - 1]];
+             }
+
+             $primerMes = $meses[0];
+             if(count($meses) > 1){
+               $ultimoMes = $meses[count($meses) - 1];
+               $rango = $primerMes['nombre_mes'] . " de " . $primerMes['anio'];
+               $rango .= " hasta ";
+               $rango .= $ultimoMes['nombre_mes'] . " de " . $ultimoMes['anio'];
+
+             } else {
+               $rango = $primerMes['nombre_mes'] . " de " . $primerMes['anio'];;
+             }
+             $this->modeloP->__SET('fechainicial',date("Y-m-d",strtotime($_POST['txtfechainicial1'])));
+             $this->modeloP->__SET('fechafinal',date("Y-m-d",strtotime($_POST['txtfechafinal1'])));
+             $ver = $this->modeloP->listarInformePrestamos();
+             $totalPrestamosFecha = $this->modeloP->totalPorFecha();
+
+           }
+
+           require_once APP . 'libs/dompdf/autoload.inc.php';
+           // $urlImagen = URL . 'producto/generarcodigo?id=';
+           // $productos = $this->mdlproducto->listar();
+           ob_start();
+           require APP . 'view/Empleados/pdfinformePrestamos.php';
+           $html = ob_get_clean();
+           $dompdf = new Dompdf();
+           $dompdf->loadHtml($html);
+           // $dompdf->load_html_file($urlImagen);
+           $dompdf->setPaper('A4', 'landscape');
+           $dompdf->render();
+           $dompdf->stream("Informe Préstamos.pdf", array("Attachment" => false, 'isRemoteEnabled' => true));
+         }
 
 
       public function informePagos()
@@ -51,10 +115,10 @@ use Dompdf\Dompdf;
           $tabla2 .= '<tr>';
           // $tabla2 .= '<td>' . $val['id_persona'] . '</td>';
           // $tabla2 .= '<td>' . $val['cliente'] . '</td>';
-          $tabla2 .= '<td style="text-align: center">' . $val['valor_prestamo'] . '</td>';
-          $tabla2 .= '<td style="text-align: center">' . $val['valor'] . '</td>';
-          $tabla2 .= '<td style="text-align: center">' . $val['abonado'] . '</td>';
-          $tabla2 .= '<td style="text-align: center">' . $val['pendiente'] . '</td>';
+          $tabla2 .= '<td style="text-align: center"> $ ' . number_format($val['valor_prestamo'], "0", ".", ".") . '</td>';
+          $tabla2 .= '<td style="text-align: center"> $ ' . number_format($val['valor'], "0", ".", ".") . '</td>';
+          $tabla2 .= '<td style="text-align: center"> $ ' . number_format($val['abonado'], "0", ".", ".") . '</td>';
+          $tabla2 .= '<td style="text-align: center"> $ ' . number_format($val['pendiente'], "0", ".", ".") . '</td>';
           $tabla2 .= '</tr>';
           // echo "<pre>";
           // var_dump($tabla2);
@@ -109,14 +173,18 @@ use Dompdf\Dompdf;
         foreach ($listarPagos as $val) {
           $tabla .= '<tr>';
           $tabla .= '<td style="width: 10%">' . $val['id_persona'] . '</td>';
-          $tabla .= '<td style="width: 10%">' . $val['empleado'] . '</td>';
+          $tabla .= '<td style="width: 10%">' . ucwords($val['empleado']) . '</td>';
           $tabla .= '<td style="width: 15%">' . $val['Tbl_nombre_tipo_persona'] . '</td>';
           $tabla .= '<td style="width: 15%">' . $val['fecha_pago'] . '</td>';
           $tabla .= '<td>' . $val['tipo_pago'] . '</td>';
-          $tabla .= '<td style="width: 10%">' . $val['cantidad_dias'] . '</td>';
-          $tabla .= '<td style="width: 10%">' . $val['valor_dia'] . '</td>';
-          $tabla .= '<td>' . $val['valorComision'] . '</td>';
-          $tabla .= '<td>' . $val['total_pago'] . '</td>';
+          if($val['Tbl_nombre_tipo_persona'] == "Empleado-temporal"){
+            $tabla .= '<td style="width: 10%">' . $val['cantidad_dias'] . '</td>';
+          }else{
+
+          }
+          $tabla .= '<td style="width: 10%"> $ ' . number_format($val['valor_dia'], "0", ".", ".") . '</td>';
+          $tabla .= '<td> $ ' . number_format($val['valorComision'], "0", ".", ".") . '</td>';
+          $tabla .= '<td> $ ' . number_format($val['total_pago'], "0", ".", ".") . '</td>';
           $tabla .= '</tr>';
         }
 
@@ -147,10 +215,10 @@ use Dompdf\Dompdf;
         foreach ($listarPrestamos as $val) {
           $tabla .= '<tr>';
           $tabla .= '<td>' . $val['id_persona'] . '</td>';
-          $tabla .= '<td>' . $val['empleado'] . '</td>';
+          $tabla .= '<td>' . ucwords($val['empleado']) . '</td>';
           $tabla .= '<td>' . $val['Tbl_nombre_tipo_persona'] . '</td>';
           $tabla .= '<td>' . $val['fecha_prestamo'] . '</td>';
-          $tabla .= '<td class="price">' . $val['valor_prestamo'] . '</td>';
+          $tabla .= '<td> $ ' . number_format($val['valor_prestamo'], "0", ".", ".") . '</td>';
           $tabla .= '<td>' . $val['descripcion'] . '</td>';
           $tabla .= '<td>' . $val['fecha_limite'] . '</td>';
           $tabla .= '</tr>';
@@ -176,7 +244,7 @@ use Dompdf\Dompdf;
         $configuracion = $modelo2->listarConfiguracion();
         $confi2 = $modelo2->listarConfiguracion2();
         $modelo = $this->loadModel("mdlEmpleados");
-        $listarPrestamos = $this->modeloP->ListarPrestamos();
+        $listarPrestamos = $this->modeloP->ListarPrestamos2();
 
         if (isset($_POST["btnRegistrarAbono"])) {
 
@@ -342,21 +410,11 @@ use Dompdf\Dompdf;
             $modelo->__SET("estado", 1);
             $modelo->__SET("numero_docu", $_POST["txtIdentificacion"]);
             $modelo->__SET("fecha_liquidación",$_POST["txtfechaPagoliquidacion"] );
-            // var_dump($_POST["txtIdentificacion"],date('Y-m-d',$_POST["txtfechaPagoliquidacion"]));
-            // exit();
 
             if ($modelo->registrarPagoEmpleados()) {
-
-                for ($i=0; $i < count($_POST["txtidPrestamosPen"]); $i++) {
-                  $modelo->__SET("id_prestamos", $_POST["txtidPrestamosPen"][$i]);
-                  $modelo->modificarEstadoPre();
-                }
-
-
-
                 $modelo->modificarfechaLiquidacion();
-
                 $idpa = $modelo->ultimoPago();
+
                 if ($_POST["tipoPago"] == 1) {
                 $modelo->__SET("id_pago", implode("", $idpa));
                 $modelo->__SET("idTbl_Configuracion", $_POST["tipoPago"]);
@@ -364,18 +422,34 @@ use Dompdf\Dompdf;
                 $modelo->registrarDetallepagoconfi();
                 }
                 if ($_POST["tipoPago"] == 2) {
+                    if ($_POST["txtValorprestamo"] != 0) {
+                        $arr1 = $_POST["txtidPrestamosPen"];
+                        $stringId = implode('', $arr1);
+                        $ids = explode(",", $stringId);
+                        $arrValores = $_POST["txtvalorPrestamosPen"];
+                        $stringValores = implode('', $arrValores);
+                        $valores = explode(",", $stringValores);
+
+                      for ($i=0; $i < count($ids); $i++) {
+                          $modelo->__SET("Tbl_Prestamos_idprestamos", $ids[$i]);
+                          $modelo->__SET("id_prest", $ids[$i]);
+                          $modelo->__SET("estadoabonos", 1);
+                        for ($v=0; $v < count($valores); $v++) {
+                          if ($i == $v) {
+                            $modelo->__SET("valor", $valores[$v]);
+                            $modelo->registrarAbonoPrestamo();
+                          }
+                        }
+                            $modelo->modificarEstadoPre();
+                      }
+                    }
                 $modelo->__SET("id_pago", implode("", $idpa));
                 $modelo->__SET("idTbl_Configuracion", $_POST["tipoPago"]);
                 $modelo->__SET("valorTotal", $_POST["txttotalliquidacion"]);
                 $modelo->registrarDetallepagoconfi();
                 $modelo3->ModificarEstadoUsuDesdeLiquidacion($_POST["txtIdentificacion"]);
                 }
-                // if ($_POST["tipoPago"] == 3) {
-                // $modelo->__SET("id_pago", implode("", $idpa));
-                // $modelo->__SET("idTbl_Configuracion", $_POST["tipoPago"]);
-                // $modelo->__SET("valorTotal", $_POST["txtvalorprima"]);
-                // $modelo->registrarDetallepagoconfi();
-                // }
+
                     $_SESSION['jhoan'] = ' swal({
                   title: "Guardado exitoso!",
                   type: "success",
@@ -519,7 +593,6 @@ use Dompdf\Dompdf;
         require APP . 'view/_templates/footer.php';
       }
 
-
       public function reciboPago(){
 
         $modelo = $this->loadModel("mdlConfiguracionPago");
@@ -528,7 +601,6 @@ use Dompdf\Dompdf;
         require APP . 'view/Empleados/reciboPago.php';
         require APP . 'view/_templates/footer.php';
       }
-
 
       public function listarPagos(){
 
@@ -572,7 +644,6 @@ use Dompdf\Dompdf;
         require APP . 'view/_templates/footer.php';
       }
 
-
       public function comprobante(){
 
         $modelo = $this->loadModel("mdlConfiguracionPago");
@@ -582,7 +653,6 @@ use Dompdf\Dompdf;
         require APP . 'view/_templates/footer.php';
       }
 
-
      public function ajaxDetallePagos()
       {
         $modelo = $this->loadModel("mdlConfiguracionPago");
@@ -591,7 +661,10 @@ use Dompdf\Dompdf;
         $detalle = $modelo->getDetallePagos($_POST["idPersona"]);
           $fijo = false;
           $html = "";
-              foreach ($detalle as $value) {
+          $cabecera = "";
+              foreach ($detalle as $value)
+              {
+                $estado = $value["estado"] == 1?"Realizado":"Anulado";
                 $html .= '<tr>';
                 // $html .= '<td>'.$value['Tbl_Persona_id_persona'].'</td>';
                 $html .= '<td>'.$value['fecha_pago'].'</td>';
@@ -600,53 +673,47 @@ use Dompdf\Dompdf;
                 if($value['Tbl_nombre_tipo_persona'] == "Empleado-fijo"){
                   $fijo = true;
                   $html .= '<td>'.$value['tipo_pago'].'</td>';
-                  // $html .= '<td>'.$value['porcentaje_comision'].'</td>';
-                  // $html .= '<td>'.$value['valor_base'].'</td>';
-                  // $html .= '<td>'.$value['cantidad_Dias'].'</td>';
                   $html .= '<td class="price">'.$value['valorVentas'].'</td>';
                   $html .= '<td class="price">'.$value['valorComision'].'</td>';
+                  $html .= '<td class="price">'.$value['valor_prima'].'</td>';
+                  $html .= '<td class="price">'.$value['valor_vacaciones'].'</td>';
+                  $html .= '<td class="price">'.$value['valor_cesantias'].'</td>';
                   $html .= '<td class="price">'.$value['total_pago'].'</td>';
                 }
 
                 if($value['Tbl_nombre_tipo_persona'] == "Empleado-temporal"){
                   $fijo = false;
-                  $html .= '<td>'.$value['cantidad_Dias'].'</td>';
+                  $html .= '<td class="price">'.$value['cantidad_Dias'].'</td>';
                   $html .= '<td class="price">'.$value['valor_dia'].'</td>';
                   $html .= '<td class="price">'.$value['total_pago'].'</td>';
                 }
-                  $estado = $value["estado"] == 1?"Realizado":"Anulado";
-
                   // $html .= '<td>'.$value['valorTotal'].'</td>';
                   $html .= '<td>'.$estado.'</td>';
                   $html .= '<td>';
                   // '<button type="button" class="btn btn-success btn-circle btn-md" data-toggle="modal" data-target="#myModal" title="Generar Recibo"><i class="fa fa-file-pdf-o" aria-hidden="true"></i>
                   // </button>';
                 $fechaActual = date("Y-m-d");
-                if($value['fecha_pago'] == $fechaActual){
-                if($value["estado"] == 1){
-                    $html .= ' <button  title="Anular" type="button" class="btn btn-danger btn-circle btn-md" data-toggle="modal" onclick="cambiarestado('.$value["id_pago"].', 0, '.$value['Tbl_Persona_id_persona'].' , \''.$value['tipo_pago'].'\' )"><i class="fa fa-remove" aria-hidden="true"></i></button>';
-                }else{
-                  $html .= ' <button  title="Anular" type="button" class="btn btn-danger btn-circle btn-md" data-toggle="modal" onclick="cambiarestado('.$value["id_pago"].', 0, '.$value['Tbl_Persona_id_persona'].' , \''.$value['tipo_pago'].'\' )"><i class="fa fa-remove" aria-hidden="true"></i></button>';
+                if($value['fecha_pago'] != $fechaActual && $value["estado"] == 1){
+                    $html .= ' <button  disabled ="" title="Anular" type="button" class="btn btn-danger btn-circle btn-md" data-toggle="modal" onclick="cambiarestado('.$value["id_pago"].', 0, '.$value['Tbl_Persona_id_persona'].' , \''.$value['tipo_pago'].'\' )"><i class="fa fa-remove" aria-hidden="true"></i></button>';
+                }else if($value['fecha_pago'] == $fechaActual && $value["estado"] == 1){
+                    $html .= ' <button title="Anular" type="button" class="btn btn-danger btn-circle btn-md" data-toggle="modal" onclick="cambiarestado('.$value["id_pago"].', 0, '.$value['Tbl_Persona_id_persona'].' , \''.$value['tipo_pago'].'\' )"><i class="fa fa-remove" aria-hidden="true"></i></button>';
                 }
-              }else{
-
-              }
                 if ($value["estado"]==0) {
-                  $html .= ' <button  disabled="" title="Cambiar Estado" type="button" class="btn btn-danger btn-circle btn-md" data-toggle="modal"><i class="fa fa-remove" aria-hidden="true"></i></button>';
+                  $html .= ' <button  disabled="" title="Cambiar Estado" type="button" class="btn btn-danger btn-circle btn-md" data-toggle="modal"><i class="fa fa-ban" aria-hidden="true"></i></button>';
                 }
                   $html .= '</td></tr>';
               }
-                  $cabecera = '<tr>';
+                  $cabecera .= '<tr>';
                   // $cabecera .= '<th>'.'Identidad'.'</th>';
                   $cabecera .= '<th>'.'Fecha Pago'.'</th>';
 
                 if($fijo == true){
                   $cabecera .= '<th>'.'Tipo de Pago'.'</th>';
-                  // $cabecera .= '<th>'.'Porcentaje Comisión'.'</th>';
-                  // $cabecera .= '<th>'.'Valor Base'.'</th>';
-                  // $cabecera .= '<th>'.'Dias Laborados'.'</th>';
                   $cabecera .= '<th>'.'Valor en Ventas'.'</th>';
                   $cabecera .= '<th>'.'Comisiones'.'</th>';
+                  $cabecera .= '<th>'.'Prima'.'</th>';
+                  $cabecera .= '<th>'.'Vacaciones'.'</th>';
+                  $cabecera .= '<th>'.'Cesantias'.'</th>';
                   $cabecera .= '<th>'.'Valor Total'.'</th>';
                 }
 
@@ -660,14 +727,13 @@ use Dompdf\Dompdf;
                   $cabecera .= '<th>'.'Total Pago'.'</th>';
                 }
                   $cabecera .= '<th>'.'Estado'.'</th>';
-                  $cabecera .= '<th>'.'Estado del Pago'.'</th>';
+                  $cabecera .= '<th>'.'Opción'.'</th>';
                   $cabecera .= '</tr>';
 
                   echo json_encode([
                   'html' => $html,'cabecera'=>$cabecera
                   ]);
       }
-
 
       public function ajaxDetallePrestamos()
         {
@@ -757,7 +823,6 @@ use Dompdf\Dompdf;
 
         }
 
-
       public function ajaxDetalleAbonos()
       {
         $modelo = $this->loadModel("mdlConfiguracionPago");
@@ -805,7 +870,6 @@ use Dompdf\Dompdf;
                   ]);
       }
 
-
       public function modificarestado()
       {
         $modelo = $this->loadModel("mdlConfiguracionPago");
@@ -822,7 +886,6 @@ use Dompdf\Dompdf;
         }
       }
 
-
       public function sumarAbono()
       {
         $modelo = $this->loadModel("mdlEmpleados");
@@ -838,7 +901,6 @@ use Dompdf\Dompdf;
           echo json_encode(["v"=>NULL]);
         }
       }
-
 
       public function fechaUnDiaDespues()
       {
@@ -857,9 +919,9 @@ use Dompdf\Dompdf;
 
           echo json_encode([
             'html'=>ucwords($info['empleado']),
+            'id'=>$info['id_persona']
           ]);
         }
-
 
       public function valorVentasEmp()
       {
@@ -880,7 +942,6 @@ use Dompdf\Dompdf;
 
       }
 
-
       public function validarcantiPres()
       {
         $modelo = $this->loadModel("mdlEmpleados");
@@ -896,7 +957,6 @@ use Dompdf\Dompdf;
           echo json_encode(["v"=>null]);
         }
       }
-
 
       public function valorprestamopendiente()
       {
@@ -914,7 +974,6 @@ use Dompdf\Dompdf;
         }
       }
 
-
       public function infoprestamos()
       {
         header("Content-type: application/json");
@@ -924,7 +983,6 @@ use Dompdf\Dompdf;
         $informacionprestamo = $modelo->informacionprestamo();
         echo json_encode($informacionprestamo);
       }
-
 
       public function modificarestadoAbonos()
       {
@@ -941,7 +999,6 @@ use Dompdf\Dompdf;
         }
       }
 
-
       public function modificarestadoPrestamo()
       {
 
@@ -957,7 +1014,6 @@ use Dompdf\Dompdf;
         }
       }
 
-
       public function ValidarAnularPrestamo()
       {
         $modelo = $this->loadModel("mdlEmpleados");
@@ -972,7 +1028,6 @@ use Dompdf\Dompdf;
           echo json_encode(["v"=>null]);
         }
       }
-
 
 	public function retornarAbono()
       {

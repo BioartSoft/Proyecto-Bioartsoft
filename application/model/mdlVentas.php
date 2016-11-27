@@ -56,6 +56,7 @@ class mdlVentas
  }
 
 
+
  public function listarTotalFecha()
 {
   $sql="CALL SP_Total_Ventas_Por_Fecha(?,?)";
@@ -70,6 +71,22 @@ class mdlVentas
   }
 
 }
+
+
+    public function listarCreditosFecha()
+    {
+     $sql="CALL SP_listar_Creditos_Fecha(?,?)";
+     try {
+      $ca = $this->db->prepare($sql);
+      $ca->bindParam(1,$this->fechainicial);
+      $ca->bindParam(2,$this->fechafinal);
+     $ca->execute();
+      return $ca->fetchAll(PDO::FETCH_ASSOC);
+     } catch (Exception $e) {
+
+     }
+
+    }
 
 
      public function listarganancias()
@@ -304,17 +321,6 @@ class mdlVentas
   }
 
 
-  public function facturaVenta($cod){
-    $sql = "SELECT * FROM venta v INNER JOIN venta_producto vp ON v.codigo = vp.codigo_venta INNER JOIN producto p.codigo = vp.codigoProducto INNER JOIN cliente c ON v.codigo_cliente = c.documento WHERE v.codigo = ?";
-    $stm = $this->db->prepare($sql);
-    $stm->bindParam(1,$cod);
-    $stm->execute();
-    return $stm->fetchAll();
-  }
-
-
-
-
   public function listarConfiguracionVentas()
   {
     $sql = "CALL 	SP_Listar_Configuracion_Venta()";
@@ -322,8 +328,6 @@ class mdlVentas
     $stm->execute();
     return $stm->fetchAll(2);
   }
-
-
 
 
   public function modificarConfiguracionVentas(){

@@ -30,7 +30,7 @@
       <?php foreach ($Ventas as $value):?>
      <tr>
        <td><?= $value["id_ventas"] ?></td>
-       <td class="price"><?= $value["total_venta"] ?></td>
+       <td><?= "$ " . number_format($value["total_venta"], "0", ".", ".") ?></td>
        <td><?= $value["fecha_venta"] ?></td>
        <td><?= $value["Tbl_persona_idpersona_cliente"] ?></td>
        <td><?= $value["cliente"] ?></td>
@@ -165,30 +165,38 @@
                                   <div class="row">
                                     <div class="col-md-1"></div>
                                     <div   class="col-md-4">
-                                        <label for="">Fecha Inicial </label>
+                                      <?php
+                                      $hoy2 = Date("Y-m-d");
+                                      $hoy1 = Date("Y-m-d");
+                                      $nuevaFecha = strtotime('-3 month', strtotime($hoy1));
+                                      $nuevaFecha = date('Y-m-d', $nuevaFecha);
+                                       ?>
+                                        <label for="">Fecha Inicial <span class="obligatorio">*</span></label>
                                         <div class="input-group date" data-provide="datepicker">
-                                        <input type="text" class="form-control" name="txtfechainicial" id="txtfechainicial" placeholder="Fecha Inicial" readonly="true" data-parsley-required="true">
+                                        <input type="text" tabindex="1" class="form-control" name="txtfechainicial1" id="txtfechainicial1" value="<?= $nuevaFecha ?>" readonly="true" data-parsley-required="true">
                                         <div class="input-group-addon">
                                         <span class="glyphicon glyphicon-th"></span>
                                       </div>
                                       </div>
+                                      <input type="hidden" class="form-control" name="txtfechainicial2" id="txtfechainicial2" value="<?= $nuevaFecha ?>" >
                                     </div>
                                     <div class="col-md-1"></div>
                                     <div   class="col-md-4">
-                                        <label for="">Fecha Final </label>
+                                        <label for="">Fecha Final <span class="obligatorio">*</span></label>
                                         <div class="input-group date" data-provide="datepicker">
-                                        <input type="text" class="form-control" name="txtfechafinal" id="txtfechafinal" readonly="true"  placeholder="Fecha final" data-parsley-required="true">
+                                        <input type="text" tabindex="2" class="form-control" name="txtfechafinal1" id="txtfechafinal1" readonly="true"  value="<?= $hoy1 ?>" data-parsley-required="true">
                                         <div class="input-group-addon">
                                         <span class="glyphicon glyphicon-th"></span>
                                       </div>
                                       </div>
+                                      <input type="hidden"  name="txtfechafinal2" id="txtfechafinal2" value="<?= $hoy2 ?>">
                                   </div>
                                 </div>
                                 <br><br>
                                 <div class="row">
                                   <div class="col-md-5"></div>
                                     <div class="col-md-4">
-                                      <button type="submit"class="btn btn-primary active" id="btn-pdf" name="btnconsultar"><i class="fa fa-file-pdf-o" aria-hidden="true"> Generar PDF Ventas</i></button>
+                                      <button type="submit" tabindex="3" class="btn btn-primary active" id="btn-pdf" name="btnconsultar"><i class="fa fa-file-pdf-o" aria-hidden="true"> Generar PDF Ventas</i></button>
                                     </div>
                                 </div>
                                 </div>
@@ -199,7 +207,8 @@
                           </div>
                           <div class="row">
                             <div class="col-md-6 col-xs-12 col-lg-11">
-                              <button type="button" class="btn btn-secondary btn-md active pull-right"  data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"> Cerrar</span></button>
+                              <button type="button" tabindex="4" id="cancelar" class="btn btn-secondary btn-md active pull-right"  data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"> Cerrar</span></button>
+                              <input type="hidden" tabindex="5">
                             </div>
                           </div>
                         </div>
@@ -209,17 +218,19 @@
                   </div>
                 </div>
 
-
-
-
+                <script type="text/javascript">
+                  $(document).ready(function(){
+                    $("#cancelar").blur(function(e){
+                      $("#txtfechainicial").focus();
+                    })
+                  })
+                </script>
 
 <script type="text/javascript">
-
 function traerDetallesVenta(id){
   var enlace = $("#pdfDeta");
   var nUrl = '<?= URL ?>Ventas/generarpdfDetallesVentas2?id=' + id;
   enlace.attr("href", nUrl);
-
 
   $.ajax({
     url:url+"Ventas/ajaxDetallesVenta",
@@ -233,11 +244,11 @@ function traerDetallesVenta(id){
     $("#empleado").text(respuesta.empleado);
     $("#fecha-venta").text(respuesta.fecha);
     $("#cliente-venta").text(respuesta.cliente);
-    $("#subtotal-venta").text(respuesta.subtotal).priceFormat({centsLimit: 3, clearPrefix: true});
-    $("#descuento-venta").text(respuesta.descuento).priceFormat({centsLimit: 3, clearPrefix: true});
-    $("#total-venta").text(respuesta.total).priceFormat({centsLimit: 3, clearPrefix: true});
+    $("#subtotal-venta").text(respuesta.subtotal).priceFormat({centsLimit: 3, prefix: '$ '});
+    $("#descuento-venta").text(respuesta.descuento).priceFormat({centsLimit: 3, prefix: '$ '});
+    $("#total-venta").text(respuesta.total).priceFormat({centsLimit: 3, prefix: '$ '});
     $("#detalles-productos-venta").html(respuesta.html);
-    $(".price").priceFormat({centsLimit: 3, clearPrefix: true});
+    $(".price").priceFormat({centsLimit: 3, prefix: '$ '});
   });
 }
 
@@ -280,4 +291,55 @@ function cambiarEstado(cod, est){
        $(".modal-content").css({
          width: '900px'
        });
+</script>
+<script type="text/javascript">
+  $("#txtfechainicial1").change(function(){
+    var valor = $('#txtfechainicial1').val();
+    var valor2 = $('#txtfechainicial2').val();
+
+
+    if(valor < valor2){
+      swal({
+              title: "Fecha inválida, la fecha no puede ser menor a 3 meses!",
+              type: "error",
+              confirmButtonColor: "#86CCEB",
+              confirmButtonText: "Aceptar",
+              closeOnConfirm: true,
+
+              },
+              function(isConfirm){
+              if (isConfirm) {
+                  $('#txtfechainicial1').val(valor2);
+              }
+            })
+    }
+
+
+
+
+
+  });
+
+</script>
+<script type="text/javascript">
+$("#txtfechafinal1").change(function(){
+  var valor3 = $('#txtfechafinal1').val();
+  var valor4= $('#txtfechafinal2').val();
+  if(valor3 > valor4)
+  {
+    swal({
+            title: "Fecha inválida, esta fecha no puede ser mayor a la actual!",
+            type: "error",
+            confirmButtonColor: "#86CCEB",
+            confirmButtonText: "Aceptar",
+            closeOnConfirm: true,
+
+            },
+            function(isConfirm){
+            if (isConfirm) {
+                $('#txtfechafinal1').val(valor4);
+            }
+          })
+  }
+});
 </script>

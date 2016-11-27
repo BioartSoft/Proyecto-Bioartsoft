@@ -49,9 +49,27 @@ class mdlExistencias
 
   }
 
+
+ // public function totalPorFecha()
+ // {
+ //  $sql="CALL  SP_Total_Bajas_Fecha(?,?)";
+ //  try {
+ // 	$ca = $this->db->prepare($sql);
+ // 	$ca->bindParam(1,$this->fechainicial);
+ // 	$ca->bindParam(2,$this->fechafinal);
+ //  $ca->execute();
+ // 	return $ca->fetchAll(PDO::FETCH_ASSOC);
+ //  } catch (Exception $e) {
+ //
+ //  }
+ //
+ // }
+
+
 	public function getDb(){
 		return $this->db;
 	}
+
 
   public function insertarBaja(){
     $sql = "CALL SP_InsertarBaja(?)";

@@ -34,9 +34,9 @@
                             <tr>
                                 <td><?= $valor['tipo_documento'] == "Cedula"?"Cédula" : "Cédula Extranjera" ?></td>
                                 <td style="width: 10%"><?= $valor['id_persona'] ?></td>
-                                <td><?=  $valor['nombres'] ?></td>
-                                <td><?=  $valor['apellidos'] ?></td>
-                                <td style="width: 12%"><?=  $valor['Tbl_nombre_tipo_persona'] ?></td>
+                                <td><?=  ucwords($valor['nombres']) ?></td>
+                                <td><?=  ucwords($valor['apellidos']) ?></td>
+                                <td style="width: 15%"><?=  $valor['Tbl_nombre_tipo_persona'] ?></td>
                                 <td style="width: 10%"><?=  $valor['nombre_rol'] ?></td>
                                 <td style="width: 8%"><?=  $valor['email'] ?></td>
                                 <td><?=  $valor['celular'] ?></td>

@@ -33,7 +33,7 @@
                   </a>
               <?php endforeach; ?>
               <div class="modal fade" id="myJhoan" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard ="false" data-backdrop = "static">
-                <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-dialog modal-lg" role="document" style="width: 90% !important">
                   <div class="modal-content">
                     <div class="modal-body">
                       <form class="" action="" method="post">
@@ -41,7 +41,7 @@
                           <div class="col-md-12">
                             <div class="panel panel-primary" >
                             <div class="panel-heading" stlyle="height: 70px; width: 100px">
-                                  <center><span style="text-align:center; color: #fff; font-size: 20px">Detalles de Pago de: <span id="empleado"></span></span></center>
+                                  <center><span style="text-align:center; color: #fff; font-size: 20px">Detalles de Pago de: <span id="empleadoId"></span> - <span id="empleado"></span></center>
                               </div>
                               <div class="panel-body">
                                 <div class="dataTable_wrapper">
@@ -102,16 +102,15 @@
       .done(function(respuesta) {
 
         var html = '<table class="table table-striped table-bordered table-hover" id="listarDetalle" style="width: 100% !important">' +
-                                  '<thead id="titulos" >' +
+                                  '<thead id="titulos">' +
                                   '</thead>' +
                                   '<tbody id="detalles_pagos">' +
                                   '</tbody>' +
                                 '</table>';
-                                '';
-        $("#cont-table").html(html);
+        $('#cont-table').html(html);
         $('#detalles_pagos').append(respuesta.html);
-        $('#titulos').append(respuesta.cabecera);idempleado
-        $(".price").priceFormat({centsLimit: 3, clearPrefix: true});
+        $('#titulos').append(respuesta.cabecera);
+        $(".price").priceFormat({centsLimit: 3, prefix: '$ '});
 
       var tabla = $('#listarDetalle').DataTable({
       language: {
@@ -186,6 +185,7 @@
       }
     }).done(function(respuesta){
       $("#empleado").text(respuesta.html);
+      $("#empleadoId").text(respuesta.id);
 
     });
   }

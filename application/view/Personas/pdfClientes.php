@@ -12,7 +12,7 @@
 <br>
 <center><legend><h2>INFORME GENERAL DE CLIENTES HABILITADOS</h2></legend></center>
   <br>
-  <p><strong>Fecha reporte: <?= ucwords(date("Y/m/d H:i:s")) ?></strong></p>
+  <p><strong>Fecha Reporte: <?= ucwords(date("Y/m/d H:i:s")) ?></strong></p>
   <table border="1">
     <thead>
       <tr>
@@ -31,8 +31,8 @@
                             <tr>
                                 <td><?= $valor['tipo_documento'] == "Cedula"?"Cédula" : "Cédula Extranjera" ?></td>
                                 <td><?= $valor['id_persona'] ?></td>
-                                <td><?=  $valor['nombres'] ?></td>
-                                <td><?=  $valor['apellidos'] ?></td>
+                                <td><?=  ucwords($valor['nombres']) ?></td>
+                                <td><?=  ucwords($valor['apellidos']) ?></td>
                                 <td style="width: 15%"><?=  $valor['Tbl_nombre_tipo_persona'] ?></td>
                                 <td style="width: 15%"><?=  $valor['email'] ?></td>
                                 <td style="width: 12%"><?=  $valor['celular'] ?></td>

@@ -8,10 +8,11 @@
   <title>Reporte Préstamos</title>
 </head>
 <body>
-  <img src="<?php echo URL ?>img/BioartesV2.png" height="100" width="200">
+  <img src="<?php echo URL ?>img/bio-artes.png" height="100" width="400">
   <br>
   <center><legend><h2>INFORME DE PRÉSTAMOS DE: <?= $val['empleado'] ?></h2></legend></center>
-  <br><br>
+  <br>
+    <p><strong>Fecha Informe: <?= ucwords(date("Y/m/d h:i:s"))?></strong></p>
   <table border="1">
     <thead>
       <tr>
@@ -30,7 +31,3 @@
   </table>
 </body>
 </html>
-
-<script type="text/javascript">
-  $(".price").priceFormat({centsLimit: 3, clearPrefix: true});
-</script>

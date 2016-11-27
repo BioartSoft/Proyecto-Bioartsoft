@@ -10,7 +10,7 @@
   <div class="row">
     <div class="col-md-1"></div>
     <div   class="col-md-4">
-        <label for="">Fecha Inicial </label>
+        <label for="">Fecha Inicial <span class="obligatorio">*</span></label>
         <div class="input-group date" data-provide="datepicker">
         <input type="text" class="form-control" name="txtfechainicial" id="txtfechainicial" placeholder="Fecha Inicial" readonly="true" data-parsley-required="true">
         <div class="input-group-addon">
@@ -20,7 +20,7 @@
     </div>
     <div class="col-md-1"></div>
     <div   class="col-md-4">
-        <label for="">Fecha Final </label>
+        <label for="">Fecha Final <span class="obligatorio">*</span></label>
         <div class="input-group date" data-provide="datepicker">
         <input type="text" class="form-control" name="txtfechafinal" id="txtfechafinal" readonly="true"  placeholder="Fecha final" data-parsley-required="true">
         <div class="input-group-addon">

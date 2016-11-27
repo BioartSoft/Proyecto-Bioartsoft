@@ -7,6 +7,20 @@ class producto extends Controller{
 
     private $mdlproducto;
     private $mdlexistencias;
+    private $meses = [
+      'Enero',
+      'Febrero',
+      'Marzo',
+      'Abril',
+      'Mayo',
+      'Junio',
+      'Julio',
+      'Agosto',
+      'Septiembre',
+      'Octubre',
+      'Noviembre',
+      'Diciembre',
+    ];
 
     public function __construct(){
 
@@ -156,30 +170,36 @@ class producto extends Controller{
      {
 
        if(isset($_POST['btnconsultar'])){
-         $this->mdlexistencias->__SET('fechainicial',date("Y-m-d",strtotime($_POST['txtfechainicial'])));
-         $fecha = $this->mdlexistencias->validarFechaBaja();
-         $this->mdlexistencias->__SET('fechafinal',date("Y-m-d",strtotime($_POST['txtfechafinal'])));
-         $fecha2 = $this->mdlexistencias->validarFechaBaja();
 
-         if($fecha == true && $fecha2 == true){
 
-           $this->mdlexistencias->__SET('fechainicial',date("Y-m-d",strtotime($_POST['txtfechainicial'])));
-           $this->mdlexistencias->__SET('fechafinal',date("Y-m-d",strtotime($_POST['txtfechafinal'])));
-           $ver = $this->mdlexistencias->listarpdf();
+         $fi = new DateTime($_POST['txtfechainicial1']);
+         $ff = new DateTime($_POST['txtfechafinal']);
 
-           }else{
-             $_SESSION['alerta'] = ' swal({
-               title: "No existen registros en ese rango de fecha!",
-               type: "error",
-               confirmButton: "#3CB371",
-               confirmButtonText: "Aceptar",
-               // confirmButtonText: "Cancelar",
-               closeOnConfirm: false,
-               closeOnCancel: false
-             }, function(isConfirm){ if(isConfirm){ window.close(); } })';
-           header("Location:".URL.'producto/listarBajas');
-           exit();
+         $fechaI = new DateTime($fi->format("Y-m-01"));
+         $fechaF = new DateTime($ff->format("Y-m-t"));
+
+         $intervalo = DateInterval::createFromDateString("1 month");
+         $period = new DatePeriod($fechaI, $intervalo, $fechaF);
+         $meses = [];
+
+         foreach($period AS $p){
+           $meses[] = ['mes' => $p->format('m'), 'anio' => $p->format('Y'), 'nombre_mes' => $this->meses[intval($p->format('m')) - 1]];
          }
+
+         $primerMes = $meses[0];
+         if(count($meses) > 1){
+           $ultimoMes = $meses[count($meses) - 1];
+           $rango = $primerMes['nombre_mes'] . " de " . $primerMes['anio'];
+           $rango .= " hasta ";
+           $rango .= $ultimoMes['nombre_mes'] . " de " . $ultimoMes['anio'];
+
+         } else {
+           $rango = $primerMes['nombre_mes'] . " de " . $primerMes['anio'];;
+         }
+
+         $this->mdlexistencias->__SET('fechainicial',date("Y-m-d",strtotime($_POST['txtfechainicial1'])));
+         $this->mdlexistencias->__SET('fechafinal',date("Y-m-d",strtotime($_POST['txtfechafinal'])));
+         $ver = $this->mdlexistencias->listarpdf();
        }
 
        require_once APP . 'libs/dompdf/autoload.inc.php';
@@ -253,13 +273,12 @@ class producto extends Controller{
       $this->mdlproducto->__SET("nombre_producto", $_POST['txtnombreproducto']);
       $validarNombre = $this->mdlproducto->validarNombre();
       // $this->mdlproducto->__SET("id_producto",$_POST["txtcodigo"]);
-      $this->mdlproducto->__SET("nombre_producto",ucfirst($_POST["txtnombreproducto"]));
+      $this->mdlproducto->__SET("nombre_producto",$_POST["txtnombreproducto"]);
       $this->mdlproducto->__SET("precio_detal",$_POST["txtprecioventa"]);
       $this->mdlproducto->__SET("precio_por_mayor",$_POST["txtprecioalpormayor"]);
       $this->mdlproducto->__SET("precio_unitario",$_POST["txtpreciocompra"]);
       $this->mdlproducto->__SET("Tbl_Categoria_idcategoria",$_POST["txtcategoria"]);
-      $this->mdlproducto->__SET("Talla",$_POST["txttalla"]);
-      $this->mdlproducto->__SET("Tamano",$_POST["txttamano"]);
+      $this->mdlproducto->__SET("Tamano",$_POST["txttamano1"]);
       $this->mdlproducto->__SET("stock",$_POST["txtstock"]);
 
 
@@ -549,7 +568,7 @@ class producto extends Controller{
     $noExiste = false;
 
     $this->mdlproducto->id_producto = $_POST["txtcodigo"];
-    $this->mdlproducto->nombre_producto = ucfirst($_POST["txtnombreproducto"]);
+    $this->mdlproducto->nombre_producto = ucwords($_POST["txtnombreproducto"]);
 
     $validarNombre = $this->mdlproducto->validarModNombre();
     $consultarNombres = $this->mdlproducto->consultarProductos();
@@ -596,15 +615,8 @@ class producto extends Controller{
     $this->mdlproducto->precio_detal = $_POST["txtprecioventa"];
     $this->mdlproducto->precio_por_mayor = $_POST["txtprecioalpormayor"];
     $this->mdlproducto->precio_unitario = $_POST["txtpreciocompra"];
-    $this->mdlproducto->Tbl_Categoria_idcategoria = $_POST["txtcategoria"];
-
-    if($this->mdlproducto->Tbl_Categoria_idcategoria == 1){
-      $this->mdlproducto->Talla = $_POST["txttalla"];
-      $this->mdlproducto->Tamano = "";
-    } else {
-      $this->mdlproducto->Tamano = $_POST["txttamano"];
-      $this->mdlproducto->Talla = "";
-    }
+    $this->mdlproducto->Tbl_Categoria_idcategoria = $_POST["txtcategoria1"];
+    $this->mdlproducto->Tamano=$_POST["txttamano"];
     $this->mdlproducto->stock = $_POST["txtstock"];
 
     if($this->mdlproducto->actualizarProducto()){
@@ -658,7 +670,7 @@ class producto extends Controller{
     $noExisteCategoria = false;
 
     $this->mdlproducto->__SET('id_categoria', $_POST['txtcodigo']);
-    $this->mdlproducto->__SET('nombre', ucfirst($_POST['txtnombreca']));
+    $this->mdlproducto->__SET('nombre', ucwords($_POST['txtnombreca']));
 
     $validarNombreC = $this->mdlproducto->validarModCategoria();
     var_dump($validarNombreC);

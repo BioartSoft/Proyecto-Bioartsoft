@@ -19,8 +19,8 @@
   Recibo de caja número: <strong><?= $info['id_ventas'] ?></strong><br>
   Fecha: <?= $info['fecha_venta'];?>&nbsp;&nbsp;&nbsp;&nbsp;<?= date("H:i:s"); ?>
   <br><br>
-  Atendido por: <strong><?= ucfirst($info['empleado']);?></strong><br>
-  Cliente: <strong><?= ucfirst($info['cliente']) ?></strong><br>
+  Atendido por: <strong><?= ucwords($info['empleado']);?></strong><br>
+  Cliente: <strong><?= ucwords($info['cliente']) ?></strong><br>
   Identificación: <strong><?= $info['id_persona'] ?></strong><br>
   <br>
   ------------------------------------------------------------------------<br>

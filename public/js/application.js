@@ -52,12 +52,11 @@ function Traerdatosdelproducto(id_producto){
         $("#txtprecioventa").val("");
         $("#txtprecioalpormayor").val("");
         $("#txtpreciocompra").val("");
-        $("#txtcategoria").val("");
-        $("#txttalla").val("");
+        $("#txtcategoria1").val("");
         $("#txttamano").val("");
         $("#txtstock").val("");
-        if($("#txtcategoria").data("select2") !== undefined){
-        $("#txtcategoria").select2("destroy");
+        if($("#txtcate1").data("select2") !== undefined){
+        $("#txtcategoria1").select2("destroy");
         }
         $("#txtcodigo").val(respuesta.id_producto);
         $("#txtcodigo-txt").val(respuesta.id_producto);
@@ -65,22 +64,19 @@ function Traerdatosdelproducto(id_producto){
         $("#txtprecioventa").val(respuesta.precio_detal);
         $("#txtprecioalpormayor").val(respuesta.precio_por_mayor);
         $("#txtpreciocompra").val(respuesta.precio_unitario);
-        $("#txtcategoria").val(respuesta.Tbl_Categoria_idcategoria);
+        $("#txtcategoria1").val(respuesta.Tbl_Categoria_idcategoria);
 
         if(respuesta.Tbl_Categoria_idcategoria ==  1){
           $("#txttalla").val(respuesta.talla).show();
-          $("#lbltalla").show();
-          $("#txttamano-input").val(respuesta.tamano).hide();
-          $("#lbltamanio").hide();
+          $("#txttamano-input").val(respuesta.tamano).show();
+          $("#lbltamanio").show();
         } else {
-          $("#txttalla").val(respuesta.talla).hide();
-            $("#lbltalla").val(respuesta.talla).hide();
             $("#txttamano-input").val(respuesta.tamano).show();
             $("#lbltamanio").show();
         }
 
         $("#txtstock").val(respuesta.stock_minimo);
-        $("#txtcategoria").select2({width: "100%"});
+        $("#txtcategoria1").select2({width: "100%"});
        $("#actualizar-producto").modal('show');
 
      },
@@ -90,7 +86,7 @@ function Traerdatosdelproducto(id_producto){
 $(function(){
   $("#txtcategoria").change(function(){
     var valor = parseInt($(this).val());
-    if(valor === 1){
+    if(valor === 1 ){
       var contenedorOcultar = $("#txttamano");
       var contenedorMostrar = $("#div-talla");
       contenedorMostrar.find('label').show();

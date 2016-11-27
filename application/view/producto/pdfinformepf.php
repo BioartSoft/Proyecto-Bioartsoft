@@ -31,8 +31,8 @@
      <?php foreach ($ver2 as $val) :  ?>
      <tr>
        <td class="price"><?= $val["id_producto"]  ?></td>
-       <td><?= $val["nombre_producto"]?></td>
-       <td><?= $val["nombre"] ?></td>
+       <td><?= ucwords($val["nombre_producto"]) ?></td>
+       <td><?= ucwords($val["nombre"]) ?></td>
        <td><?= $val["cantidad"] ?></td>
        <td><?= "$ ". number_format($val["precio_unitario"], "0", ".", ".") ?></td>
        <td><?= "$ ". number_format($val["precio_detal"], "0", ".", ".") ?></td>

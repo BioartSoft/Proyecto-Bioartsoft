@@ -6,7 +6,7 @@
     <div class="col-lg-12">
         <div class="panel panel-primary">
             <div class="panel-heading" stlyle="height: 70px; width: 100px">
-                <center><span style="text-align:center; color: #fff; margin-top:10px; margin-bottom: 10px; font-size: 20px">Listar Stock Mínimo</span></center>
+                <center><span style="text-align:center; color: #fff; margin-top:10px; margin-bottom: 10px; font-size: 20px">Productos en Stock Mínimo</span></center>
             </div>
       <div class="panel-body">
         <div class="dataTable_wrapper">
@@ -17,7 +17,6 @@
        <th>Código</th>
        <th>Nombre Producto</th>
        <th>Categoría</th>
-       <th>Talla</th>
        <th>Descripción</th>
        <th>Cantidad </th>
       <th>Stock Mínimo</th>
@@ -30,7 +29,6 @@
        <td><?= $val["id_producto"]  ?></td>
        <td><?= $val["nombre_producto"]?></td>
        <td><?= $val["nombre"] ?></td>
-       <td><?= $val["talla"] ?></td>
        <td><?= $val["tamano"] ?></td>
       <td><?= $val["cantidad"] ?></td>
       <td><?= $val["stock_minimo"] ?></td>

@@ -22,6 +22,8 @@ class mdlPersona
   private $telefonoEmpresa;
   private $idPersonaJuridica;
   private $nombreUsuario;
+  private $fechainicial;
+  private $fechafinal;
   Private $db;
 
     public function __SET($parametros, $valor){
@@ -46,7 +48,34 @@ class mdlPersona
 
   public function ListarPrestamos()
   {
-    $sql = "CALL SP_Listar_Prestamos()";
+    $sql = "CALL SP_Listar_Prestamos(?, ?)";
+    $stm = $this->db->prepare($sql);
+    $stm->bindParam(1,$this->fechainicial);
+    $stm->bindParam(2,$this->fechafinal);
+    $stm->execute();
+    return $stm->fetchAll(2);
+  }
+
+
+  public function totalPorFecha()
+ {
+   $sql="CALL  SP_Total_Prestamos_Fecha(?,?)";
+   try {
+    $ca = $this->db->prepare($sql);
+    $ca->bindParam(1,$this->fechainicial);
+    $ca->bindParam(2,$this->fechafinal);
+   $ca->execute();
+    return $ca->fetchAll(PDO::FETCH_ASSOC);
+   } catch (Exception $e) {
+
+   }
+
+ }
+
+
+  public function ListarPrestamos2()
+  {
+    $sql = "CALL SP_Listar_Prestamos2()";
     $stm = $this->db->prepare($sql);
     $stm->execute();
     return $stm->fetchAll(2);
@@ -88,8 +117,10 @@ class mdlPersona
 
   public function listarInformePrestamos()
   {
-    $sql = "CALL SP_Informe_Prestamos()";
+    $sql = "CALL SP_Informe_Prestamos(?, ?)";
           $stm = $this->db->prepare($sql);
+          $stm->bindParam(1,$this->fechainicial);
+          $stm->bindParam(2,$this->fechafinal);
           $stm->execute();
           return $stm->fetchAll(PDO::FETCH_ASSOC);
   }
@@ -175,6 +206,20 @@ class mdlPersona
           $e->getMessage();
       }
       }
+
+
+      // public function actualizarFecha(){
+      //   $sql = "CALL SP_Actualizar_fecha_fin_contrato(?, ?)";
+      //   try {
+      //     $stm = $this->db->prepare($sql);
+      //     $stm->bindParam(1, $this->idPersona);
+      //     $stm->bindParam(2, $this->fechaTerminacion);
+      //     $resultado = $stm->execute();
+      //     return $resultado;
+      // } catch (Exception $e) {
+      //     $e->getMessage();
+      // }
+      // }
 
 
     public function insertarProveedor(){

@@ -12,7 +12,7 @@
 <br>
 <center><legend><h2>INFORME GENERAL  DE PRODUCTOS EN STOCK MÍNIMO</h2></legend></center>
   <br>
-  <p><strong>Fecha reporte: <?= ucwords(date("Y/m/d h:i:s"))?></strong></p>
+  <p><strong>Fecha Reporte: <?= ucwords(date("Y/m/d h:i:s"))?></strong></p>
   <table border="1">
     <thead>
       <tr>

@@ -7,7 +7,7 @@
                 <legend style="text-align: center;">Recibo de pago</legend>
                 <div style="border: 2px solid black; width: 1000px;">
                 <div style="border: 2px solid black; width: 800px;">
-                <img alt="Brand" src="<?php echo URL ?>img/BioartesV2.png" style="height:100px; width: 200px; "/>
+                <img alt="Brand" src="<?php echo URL ?>img/bio-artes.png" style="height:100px; width: 200px; "/>
                 <span style="font-weight: bold;">RECIBO DE PAGO</span>
                 <span style="float: right"><strong>Fecha:</strong> 22/09/2015</span>
                 <p><span><strong>Consecutivo Número:</strong> 0123 </span></p>

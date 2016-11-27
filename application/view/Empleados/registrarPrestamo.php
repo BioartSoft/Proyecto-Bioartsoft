@@ -25,8 +25,8 @@
                       <?php foreach ($listarEmpleadoFijo as $empleado): ?>
                         <tr>
                           <td><?=  $empleado['id_persona'] ?></td>
-                          <td><?=  $empleado['nombres'] ?></td>
-                          <td><?=  $empleado['apellidos'] ?></td>
+                          <td><?=  ucwords($empleado['nombres']) ?></td>
+                          <td><?=  ucwords($empleado['apellidos']) ?></td>
                           <td><?=  $empleado['Tbl_nombre_tipo_persona'] ?></td>
                           <td><?php if($empleado['estado'] == 1): ?>
                                 Habilitado
@@ -105,7 +105,7 @@
                 <div class="col-xs-12 col-md-6" id="divvalorprestamo">
                   <br>
                   <label>Valor Préstamo</label>
-                  <input type="number" min ="1000" id="valorpres" maxlength="8" name="txtvalorprestamo" size="9" step="1000" class="form-control" data-parsley-type="integer" data-parsley-required="true">
+                  <input type="number" min ="1000" id="valorpres" maxlength="8" name="txtvalorprestamo" size="4" class="form-control" data-parsley-type="integer" data-parsley-required="true">
                 </div>
                 <div class="col-xs-12 col-md-6" id="divdescripcion">
                   <br>
@@ -225,6 +225,7 @@ $("#valorpres").keydown(function(e){
 function validarfe() {
   var felimite = $("#Flimite").val();
   var feli = $("#limite").val();
+  var valorpre = $("#valorpres").val();
   if (felimite < feli) {
     swal({
       title: "La fecha no puede ser menor a la fecha límite!",
@@ -239,7 +240,11 @@ function validarfe() {
         $("#Flimite").val(feli);
         });
       return false;
-  }else{
+  }else if(valorp.length < 4){
+    alert("valor invalido");
+    return false;
+  }
+  else{
     return true;
   }
 }

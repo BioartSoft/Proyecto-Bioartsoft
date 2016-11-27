@@ -22,7 +22,7 @@
                       <li>Jhoan Esneider López Tapias (jhoanlt19@gmail.com)</li>
                       <li>Johnatan Ramírez Restrepo (jramirezres86@gmail.com)</li>
                       <li>Diego Alexander López Gómez (dalopez971@misena.edu.co)</li>
-                      <li>Cristian Alexis Piedrahita Rojas ()</li>
+                      <li>Cristian Alexis Piedrahita Rojas (capiedrahita126@misena.edu.co)</li>
                     </ul>
                 </div>
               </div>
@@ -35,8 +35,100 @@
     </div>
   </div>
 
+  <div class="modal fade" id="modal-money" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard ="false" data-backdrop = "static">
+    <div class="modal-dialog modal-lg" role="document" style="width: 50% !important">
+      <div class="modal-content">
+        <div class="modal-body">
+          <form class="" action="" method="post">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="panel panel-primary" >
+                <div class="panel-heading" stlyle="height: 70px; width: 100px">
+                      <center><span style="text-align:center; color: #fff; font-size: 20px">GANANCIAS</span></center>
+                  </div>
+                  <div class="panel-body">
+                    <form id="formGanancias" action="<?= URL ?>Ventas/reporteGanancias" method="post" data-parsley-validate="">
+                    <div class="row">
+                      <br>
+                        <div class="panel-body">
+                      <div class="row">
+                        <div class="col-md-1"></div>
+                        <div   class="col-md-4">
+                          <?php
+                            $hoy1 = Date("Y-m-d");
+                            $hoy2 = Date("Y-m-d");
+                            $nuevaFecha = strtotime('-1 month', strtotime($hoy1));
+                            $nuevaFecha = date('Y-m-d', $nuevaFecha);
+                          ?>
+                            <label for="">Fecha Inicial </label>
+                            <div class="input-group date" data-provide="datepicker">
+                            <input type="text" class="form-control" name="txtfechainicial" value="<?= $nuevaFecha ?>" id="txtfechainicial" placeholder="Fecha Inicial" readonly="true" data-parsley-required="true">
 
+                            <div class="input-group-addon">
+                            <span class="glyphicon glyphicon-th"></span>
+                          </div>
+                          </div>
+                          <input type="hidden" class="form-control" name="txtfechainicial2" value="<?= $nuevaFecha ?>" id="txtfechainicial2">
+                        </div>
+                        <div class="col-md-1"></div>
+                        <div   class="col-md-4">
+                            <label for="">Fecha Final </label>
+                            <div class="input-group date" data-provide="datepicker">
+                            <input type="text" class="form-control" name="txtfechafinal" value="<?= $hoy1 ?>" id="txtfechafinal1" readonly="true"  placeholder="Fecha final" data-parsley-required="true">
+                            <div class="input-group-addon">
+                            <span class="glyphicon glyphicon-th"></span>
+                          </div>
+                          </div>
+                      </div>
+                      <input type="hidden" class="form-control" name="txtfechafinal2" value="<?= $hoy2 ?>" id="txtfechafinal2">
+                    </div>
+                    <br><br>
+                    <div class="row">
+                      <div class="col-md-6 col-xs-12 col-lg-4"></div>
+                        <div class="col-md-6 col-xs-12 col-lg-4">
+                          <button type="button"class="btn btn-primary active" id="btn-ganancias" name="btnconsultarganancia" onclick="consultarGanancia()"><i class="fa fa-building-o" aria-hidden="true" data-toggle="modal" data-target="#modal-ganancias"> Generar Ganancias</i></button>
+                        </div>
+                    </div>
+                    </div>
+                    </div>
+                    </form>
+              </div>
+            </div>
+          </div>
+              <button type="button" class="btn btn-secondary btn-active pull-rigth"  data-dismiss="modal" style="margin-left:80%"><i class="fa fa-remove" aria-hidden="true">&nbsp;&nbsp;Cerrar</i></button>
+          </div>
+        </div>
+      </div>
+    </div>
 </div>
+
+<div class="modal fade" id="modal-ganancias" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static">
+ <div class="modal-dialog" role="document">
+   <div class="modal-content modal-xs">
+           <div class="modal-body">
+           <div class="row">
+             <div class="col-md-12">
+               <div class="panel panel-primary" >
+                 <div class="panel-heading" stlyle="height: 70px; width: 100px">
+                   <center><span style="color: #fff; font-size: 20px" id="myModalLabel">Detalles Promedio de Ganancias</span></center>
+                 </div>
+                 <div class="panel-body">
+                   <div class="dataTable_wrapper">
+                     <div class="table-responsive">
+                       <div id="conte-table">
+
+                       </div>
+                     </div>
+                   </div>
+             </div>
+            </div>
+           </div>
+           </div>
+           <button type="button" class="btn btn-secondary btn-active" style="margin-left:80%" onclick="abrirModal()"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
+           </div>
+       </div>
+      </div>
+    </div>
 
     <script>
         var url = "<?php echo URL; ?>";
@@ -73,10 +165,54 @@
 
 });
   </script>
+  <script type="text/javascript">
+    $("#txtfechainicial").change(function(){
+      var valor = $('#txtfechainicial').val();
+      var valor2 = $('#txtfechainicial2').val();
 
-  <!-- <script src="<?php echo URL ?>js/jquery.anexgrid.js"></script> -->
+      if(valor < valor2){
+        swal({
+                title: "Fecha inválida, la fecha no puede ser menor a 1 mes!",
+                type: "error",
+                confirmButtonColor: "#86CCEB",
+                confirmButtonText: "Aceptar",
+                closeOnConfirm: true,
+
+                },
+                function(isConfirm){
+                if (isConfirm) {
+                    $('#txtfechainicial').val(valor2);
+                }
+              })
+      }
+
+    });
+  </script>
+
+  <script type="text/javascript">
+  $("#txtfechafinal1").change(function(){
+    var valor3 = $('#txtfechafinal1').val();
+    var valor4= $('#txtfechafinal2').val();
+    if(valor3 > valor4)
+    {
+      swal({
+              title: "Fecha inválida, esta fecha no puede ser mayor a la actual!",
+              type: "error",
+              confirmButtonColor: "#86CCEB",
+              confirmButtonText: "Aceptar",
+              closeOnConfirm: true,
+
+              },
+              function(isConfirm){
+              if (isConfirm) {
+                  $('#txtfechafinal1').val(valor4);
+              }
+            })
+    }
+  });
+  </script>
+
   <script src="<?php echo URL ?>js/bootstrap-datepicker.min.js"></script>
-  <!-- <script src="<?php echo URL ?>js/bootstrap-datetimepicker.min.js"></script> -->
   <script src= "<?= URL ?>js/jquery.price_format.2.0.js"></script>
 
 <script type="text/javascript">
@@ -88,6 +224,12 @@
     }
   ?>
   });
+</script>
+<script type="text/javascript">
+function abrirModal(){
+  $("#modal-money").modal("show");
+  $("#modal-ganancias").modal("hide");
+}
 </script>
 
 <script type="text/javascript">
@@ -121,7 +263,7 @@
             var fechafin = $(listarE).attr("data-fechafin");
             var fechafinContrato = $(listarE).attr("data-fechafin");
             var nombre = $(listarE).attr("data-nombre");
-            var fechacontrato = $(listarE).attr("data-fechacontrato");
+            var fechacontrato1 = $(listarE).attr("data-fechacontrato");
             var PagoPrimaJunio = $(listarE).attr("data-fechaPagoPJunio");
             var fechainicial2 = $(listarE).attr("data-fechaultipago");
             var estaemple = $(listarE).attr("data-estadoemp");
@@ -130,11 +272,19 @@
             var fechafin = $('#idfechafin').val(fechafin);
             var fechafincontrato = $('#fechaliquidacion2').val(fechafinContrato);
             var nombre = $('#nombre').val(nombre);
-            var fechacontrato = $("#fecha_Contrato").val(fechacontrato);
+            var fechacontrato = $("#fecha_Contrato").val(fechacontrato1);
             var PagoPrimaJunio = $("#idfechaPagoPJunio").val(PagoPrimaJunio);
             var fechainicial = $("#idfechainicial").val(fechainicial2);
             var estadoemple = $("#estadoem").val(estaemple);
             var fechaactual = new Date().toJSON().slice(0,10);
+            $("#valor_Ventas").val(0);
+            $("#divvalorventas").show();
+            $("#divvalorprimaservicios").hide();
+              if (fechainicial2 == "") {
+                  $("#idfechainicial").val(fechacontrato1);
+              }else if(fechainicial){
+                $("#idfechainicial").val(fechainicial2);
+              }
 
                 if (estaemple == 0) {
                   swal({
@@ -310,8 +460,6 @@
                         type: "warning",
                         confirmButton: "#3CB371",
                         confirmButtonText: "btn-danger",
-                        // cancelButtonText: "Cancelar",
-                        // showCancelButton: true,
                         confirmButtonClass: "btn-danger",
                         confirmButtonText: "Aceptar",
                         closeOnConfirm: false,
@@ -421,8 +569,88 @@
       $('.datepicker').datepicker({
     language: 'es'
     });
+
     })
   </script>
 
+
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $("#btnconsultarganancia").click(function(){
+        $("#formGanancias").parsley().validate();
+      })
+    });
+  </script>
+
+  <script type="text/javascript">
+  function consultarGanancia() {
+
+    var fecha1 = $("#txtfechainicial").val();
+    var fecha2 = $("#txtfechafinal").val();
+
+    if(fecha1 == "" && fecha2 == ""){
+      swal({
+        title: "No se ingresarón fechas!",
+        type: "error",
+        confirmButton: "#3CB371",
+        confirmButtonText: "Aceptar",
+        closeOnConfirm: false,
+        closeOnCancel: false,
+      },
+      function(isConfirm) {
+        if (isConfirm) {
+          swal({
+            title: "Por favor ingresar una fecha válida!",
+            type: "error",
+            confirmButton: "#3CB371",
+            confirmButtonText: "Aceptar",
+            closeOnConfirm: false,
+            closeOnCancel: false,
+          });
+          $("#modal-ganancias").modal('hide');
+    }
+  });
+  }else{
+
+    $.ajax({
+      url: url + 'Ventas/reporteGanancias',
+      type: 'POST',
+      dataType: 'JSON',
+      data: {fecha1: fecha1,
+             fecha2: fecha2},
+    })
+    .done(function(respuesta) {
+
+      var html = '<table class="table table-striped table-bordered table-hover" id="listarDetalleganancias" style="width: 100% !important">' +
+                                '<thead id="titu" >' +
+                                '</thead>' +
+                                '<tbody id="detal_ganancias">' +
+                                '</tbody>' +
+                              '</table>';
+                              $("#conte-table").html(respuesta.html);
+                              $(".price").priceFormat({centsLimit: 3, prefix: '$ '});
+                            });
+
+                        }
+                        $("#modal-money").modal("hide");
+
+                    }
+
+
+  </script>
+
+  <?php if(isset($error) && $error == true): ?>
+  <script type="text/javascript">
+  swal({
+    title: "No existen registros en ese rango de fecha!",
+    type: "error",
+    confirmButton: "#3CB371",
+    confirmButtonText: "Aceptar",
+    // confirmButtonText: "Cancelar",
+    closeOnConfirm: false,
+    closeOnCancel: false
+  });
+  </script>
+  <?php endif; ?>
 </body>
 </html>

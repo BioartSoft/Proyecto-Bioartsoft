@@ -12,7 +12,7 @@
   <br>
 <center><legend><h2>INFORME DE BAJAS</h2></legend></center>
   <br>
-  <p><strong>Fecha reporte: <?= ucwords(date("Y/m/d h:i:s"))?></strong></p>
+  <h4>Informe de : <?= $rango ?> </h4>
   <table border="1">
     <thead>
       <tr>

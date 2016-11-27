@@ -45,9 +45,13 @@
 
           <div class="col-sm-12">
             <center>
-            <a href="<?= URL ?>Empleados/informePrestamos" target="_blank">
-              <button class="btn btn-primary"><i class="fa fa-file-pdf-o" aria-hidden="true">   Reporte PDF Préstamos</i></button>
-            </a>
+              <?php if($_SESSION['ROL'] == 1 || $_SESSION['ROL'] == 3): ?>
+              <div class="col-md-6 col-lg-7 col-xs-12">
+                <a href="#">
+                  <button class="btn btn-primary pull-right" name="btnReportePrestamos" data-toggle="modal" data-target="#modal_reportes_prestamos"><i class="fa fa-file-pdf-o" aria-hidden="true">&nbsp;&nbsp;Reporte Préstamos</i></button>
+                </a>
+              </div>
+            <?php endif; ?>
           </center>
           </div>
 
@@ -55,6 +59,76 @@
       </div>
     </div>
   </div>
+
+  <div class="modal fade" id="modal_reportes_prestamos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static" style="display:none" style="width: 50px" action="<?= URL ?>Compras/registrarCompra">
+     <div class="modal-dialog" role="document">
+         <div class="modal-content" style="width: 900px">
+           <div class="modal-body">
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading" stlyle="height: 70px; width: 100px">
+                          <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 20px">Reporte de Préstamos</center>
+                    </div>
+                  <div class="panel-body" id="panel_compras">
+                    <form id="formprestamos" action="<?= URL ?>Empleados/pdfPrestamos" method="post" data-parsley-validate="" target="_blank">
+                    <div class="row">
+                      <br>
+                      <div class="row">
+                        <div class="col-md-1"></div>
+                        <div   class="col-md-4">
+                          <?php
+                            $hoy2 = Date("Y-m-d");
+                            $hoy1 = Date("Y-m-d");
+                            $nuevaFecha = strtotime('-3 month', strtotime($hoy1));
+                            $nuevaFecha = date('Y-m-d', $nuevaFecha);
+                           ?>
+                            <label for="">Fecha Inicial <span class="obligatorio">*</span></label>
+                            <div class="input-group date" data-provide="datepicker">
+                            <input type="text" tabindex="1" class="form-control" readonly="true" name="txtfechainicial1" id="txtfechainicial1" value="<?= $nuevaFecha ?>" data-parsley-required="true">
+                            <div class="input-group-addon">
+                            <span class="glyphicon glyphicon-th"></span>
+                          </div>
+                          </div>
+                          <input type="hidden" name="txtfechainicial2" id="txtfechainicial2" value="<?= $nuevaFecha ?>">
+                        </div>
+                        <div class="col-md-1"></div>
+                        <div   class="col-md-4">
+                            <label for="">Fecha Final <span class="obligatorio">*</span></label>
+                            <div class="input-group date" data-provide="datepicker">
+                            <input type="text" tabindex="2" class="form-control" name="txtfechafinal1" readonly="true" id="txtfechafinal1"  value="<?= $hoy1 ?>"data-parsley-required="true">
+                            <div class="input-group-addon">
+                            <span class="glyphicon glyphicon-th"></span>
+                          </div>
+                          </div>
+                          <input type="hidden" name="txtfechafinal2" id="txtfechafinal2" value="<?= $hoy2 ?>">
+                      </div>
+                    </div>
+                    <br><br>
+                    <div class="row">
+                      <div class="col-md-5"></div>
+                        <div class="col-md-4">
+                          <button type="submit" tabindex="3" class="btn btn-primary active" id="btn-pdf" name="btnconsultar" target="_blank"><i class="fa fa-file-pdf-o" aria-hidden="true">  Generar Reporte</i></button>
+                        </div>
+                    </div>
+                    <br>
+                    </div>
+                    </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-9">
+                  <button type="button" tabindex="4" id="btn_cancelar" class="btn btn-secondary btn-md active pull-right"  data-dismiss="modal"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
+                  <input type="hidden" tabindex="5">
+                </div>
+              </div>
+              <br>
+            </div>
+          </div>
+        </div>
+      </div>
 
               <div class="modal fade" id="myJhoan" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard ="false" data-backdrop = "static">
                 <div class="modal-dialog" role="document" style="width: 90% !important">
@@ -202,7 +276,7 @@
                         <div class="col-xs-12 col-md-6">
                           <br>
                           <label >Valor Abono</label><br>
-                          <input type="number" class="form-control" placeholder="Valor Abono" id="idabono" min="1" name="txtvalorabono" data-parsley-type="integer" data-parsley-required="true">
+                          <input type="number" class="form-control" placeholder="Valor Abono" id="idabono" min="1000" step="500" maxlength="8" name="txtvalorabono" data-parsley-type="integer" data-parsley-required="true">
                       </div>
                       </div>
                     </div>
@@ -221,6 +295,55 @@
             </div>
           </div>
         </div>
+
+
+        <script type="text/javascript">
+          $("#txtfechainicial1").change(function(){
+            var valor = $('#txtfechainicial1').val();
+            var valor2 = $('#txtfechainicial2').val();
+
+
+            if(valor < valor2){
+              swal({
+                      title: "Fecha inválida, la fecha no puede ser menor a 3 meses!",
+                      type: "error",
+                      confirmButtonColor: "#86CCEB",
+                      confirmButtonText: "Aceptar",
+                      closeOnConfirm: true,
+
+                      },
+                      function(isConfirm){
+                      if (isConfirm) {
+                          $('#txtfechainicial1').val(valor2);
+                      }
+                    })
+            }
+
+          });
+
+        </script>
+        <script type="text/javascript">
+        $("#txtfechafinal1").change(function(){
+          var valor3 = $('#txtfechafinal1').val();
+          var valor4= $('#txtfechafinal2').val();
+          if(valor3 > valor4)
+          {
+            swal({
+                    title: "Fecha inválida, esta fecha no puede ser mayor a la actual!",
+                    type: "error",
+                    confirmButtonColor: "#86CCEB",
+                    confirmButtonText: "Aceptar",
+                    closeOnConfirm: true,
+
+                    },
+                    function(isConfirm){
+                    if (isConfirm) {
+                        $('#txtfechafinal1').val(valor4);
+                    }
+                  })
+          }
+        });
+        </script>
 
           <script type="text/javascript">
             $(document).ready(function(){
@@ -281,7 +404,7 @@
         $('#empleado').append(respuesta.empleado);
         $('#empleado-prestamo').append(respuesta.empleado);
         $('#empleado-det-abonos').append(respuesta.empleado);
-        $(".price").priceFormat({centsLimit: 3, clearPrefix: true});
+        $(".price").priceFormat({centsLimit: 3, prefix: '$ '});
 
 
       var tabla = $('#listarDetalle').DataTable({
@@ -316,7 +439,7 @@
         $('#titulos').append(respuesta.cabecera);
         $("#abonosPrestamos").modal("show");
         $('#myJhoan').modal('hide');
-        $(".price").priceFormat({centsLimit: 3, clearPrefix: true});
+        $(".price").priceFormat({centsLimit: 3, prefix: '$ '});
 
       var tabla = $('#listarabono').DataTable({
       language: {
@@ -334,7 +457,6 @@
       {
 
         var campos = $(detalle).parent().parent().parent();
-
         $('#abonos').modal("show");
         $('#myJhoan').modal('hide');
            setTimeout(function(){
@@ -570,7 +692,7 @@
       if (Limite <= fechte) {
         swal({
           title: "La fecha no puede ser menor o igual a la fecha límite!",
-          type: "warning",
+          type: "error",
           confirmButton: "#3CB371",
           confirmButtonText: "btn-danger",
           confirmButtonClass: "btn-danger",

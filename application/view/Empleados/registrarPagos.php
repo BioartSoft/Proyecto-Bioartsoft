@@ -80,20 +80,23 @@
                 <div class="row">
                   <div class="col-xs-12 col-md-4" id="divValorDiatemporal" style="display: none">
                     <label for="">Valor Día</label>
-                    <input type="number" step="1000" min="1000" id="valorDiatemporal" name="txtValorDia" class="form-control" data-parsley-type="integer" data-parsley-required="true"  onchange="vali()">
+                    <input type="number" min="1000" id="valorDiatemporal" name="txtValorDia" class="form-control" data-parsley-type="integer" data-parsley-required="true" onchange="vali()" maxlength="8">
                   </div>
                   <div class="col-xs-12 col-md-4" id="divDiasLaborados" style="display: none">
                     <label id="labelDias">Días Laborados</label>
-                    <input type="number" min="1" id="dias_laborados" name="txtdiasLaborados" class="form-control" data-parsley-type="number" data-parsley-required="true" onchange="vali()">
+                    <input type="number" min="1" id="dias_laborados" name="txtdiasLaborados" class="form-control" data-parsley-type="number" data-parsley-required="true" onchange="vali()" maxlength="2">
                   </div>
                 </div>
                 <div class="row">
                   <div class="col-xs-12 col-md-4" id="divValorBase">
                     <label id="labelValorBase">Valor Base</label><br>
-                    <input type="text" class="form-control" name="txtvalorBase" placeholder="Valor Base" value="<?= $valor["valor_base"] ?>" readonly="" id="valorBase">
+                    <div class="input-group">
+                      <span class="input-group-addon" id="basic-addon1">$</span>
+                      <input type="text" class="form-control price" name="txtvalorBase" placeholder="Valor Base" value="<?= $valor["valor_base"] ?>" readonly="" id="valorBase">
+                    </div>
                   </div>
                   <div class="col-xs-12 col-md-4" id="divFechacontrato" style="display: none">
-                    <label id="labelFechacontrato">Fecha de Contrato:</label>
+                    <label id="labelFechacontrato">Fecha inicio de labores:</label>
                     <div class="">
                       <div class="input-group date" data-provide = "datepicker">
                         <div class="input-group-addon" style="border-radius:5px;">
@@ -107,14 +110,15 @@
                     <input type="hidden" name="" id="fechaliquidacion2">
                     <input type="hidden" name="" id="idcantidaddedias">
                     <input type="hidden" name="txtidPrestamosPen[]" id="idPrestamosPen">
+                    <input type="hidden" name="txtvalorPrestamosPen[]" id="valorPrestamosPen">
                   <div class="col-xs-12 col-md-4" id="divFechapagoliquidacion" style="display: none">
-                    <label id="labelFechaPago">Finalización de Contrato:</label>
+                    <label id="labelFechaPago">Finalización de labores:</label>
                     <div class="">
                       <div class="input-group date" data-provide ="datepicker">
                         <div class="input-group-addon" style="border-radius:5px;">
                           <i class="fa fa-calendar"></i>
                         </div>
-                        <input type="text" class="form-control pull-right" onchange="vali()" name="txtfechaPagoliquidacion" id="idfechafin" style="border-radius:5px;" readonly="" data-parsley-required = "true">
+                        <input type="text" class="form-control pull-right" onchange="vali()" name="txtfechaPagoliquidacion" id="idfechafin" style="border-radius:5px;" readonly="">
                       </div>
                     </div>
                   </div>
@@ -132,15 +136,6 @@
                         <?php endforeach; ?>
                       </select>
                     </div>
-                    <div class="col-xs-12 col-md-4" id="divvalorultipago">
-                      <label>Pago</label>
-                      <div class="input-group">
-                        <input type="number" class="form-control" name="txtValorultipago" id="valor_pagoLi" value="0" min="0" readonly="">
-                        <span class="input-group-btn">
-                          <button class="btn btn-default" type="button" id="idbotoncalcularpagoenliqui" onclick="calcularElPagoNormalEnLiquidacion()" style="background-color: #E0F8E0"> <b>Calcular</b></button>
-                        </span>
-                      </div>
-                    </div>
                     <div class="col-xs-12 col-md-4" id="divTiempoPago">
                       <label id="labelTiempoPago">Período de Pago</label>
                       <input id="inputTipoPago" type="text" class="form-control" name="txttiempoPago" placeholder="Tiempo de Pago" value="<?= $valor["tiempo_pago"] ?>" readonly="">
@@ -150,20 +145,33 @@
                       <label>Días a Pagar</label><br>
                       <input type="number" class="form-control" name="txtdiaspagar" placeholder="Cantidad de Días" value="15"  min="1" max="15" id="idDia" size="2" maxlength="2" onkeyup="checkday(this)" onchange="valid()" data-parsley-required="true">
                     </div>
+                    <div class="col-xs-12 col-md-4" id="divvalorultipago">
+                      <label>Total dias a pagar</label>
+                      <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1">$</span> 
+                        <input type="number" class="form-control" name="txtValorultipago" id="valor_pagoLi" value="0" min="0" readonly="">
+                        <span class="input-group-btn">
+                          <button class="btn btn-default" type="button" id="idbotoncalcularpagoenliqui" onclick="calcularElPagoNormalEnLiquidacion()" style="background-color: #E0F8E0"> <b>Calcular</b></button>
+                        </span>
+                      </div>
+                    </div>
                   </div>
                   <br>
                   <div class="row">
                     <div class="col-xs-12 col-md-4" style="" id="divPorcentaje">
                       <label id="labelPorcentaje">Porcentaje Comisión</label><br>
                       <div class="input-group">
-                        <input type="text" class="form-control" name="txtporceComision" placeholder="Porcentaje Comision" value="<?= floatval($valor["porcentaje_comision"]) * 100 ?>" readonly="">
                         <div class="input-group-addon">%</div>
+                        <input type="text" class="form-control" name="txtporceComision" placeholder="Porcentaje Comision" value="<?= floatval($valor["porcentaje_comision"]) * 100 ?>" readonly="">
                       </div>
                       <input type="hidden" class="form-control" name="txtporceComision" placeholder="Porcentaje Comision" value="<?= $valor["porcentaje_comision"]. " %" ?>" readonly="" id="comision">
                     </div>
                     <div class="col-xs-12 col-md-4" id="divValordia">
                       <label>Valor Día</label><br>
-                      <input type="text" class="form-control" name="txtvalordia" placeholder="Valor Dia" value="<?= $valor["Valor_dia"] ?>" readonly="" id="valorDia">
+                      <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1">$</span>
+                        <input type="text" class="form-control price" aria-describedby="basic-addon1" id="valorDia" readonly="" value="<?= $valor["Valor_dia"] ?>" name="txtvalordia">
+                      </div>
                     </div>
                     <div class="col-xs-12 col-md-4" id="divFechaInicial" style="">
                       <label>Fecha Inicial:</label>
@@ -183,13 +191,14 @@
                     <div class="col-xs-12 col-md-4" id="divvalorventas">
                       <label id="labelValorVentas">Valor Ventas</label>
                       <div class="input-group">
+                      <span class="input-group-addon" id="basic-addon1">$</span>
   		                  <input type="text" class="form-control" placeholder="Valor Ventas" name="txtValorVentas" id="valor_Ventas" data-parsley-type="integer" readonly="">
   		                  <span class="input-group-btn">
-  		                    <button class="btn btn-default" type="button" id="idbotonventas" onclick="traervalorVentas()" style="background-color: #E0F8E0"> <b>Consultar</b></button>
+  		                    <button class="btn btn-default" type="button" id="idbotonventas" onclick="traervalorVentas()"><span class="fa fa-search-plus"></span></button><button type="button" class="btn btn-default" onclick="limpiarCampos();"><span class="fa fa-trash-o"></span></button>
   		                  </span>
 		                  </div>
                     </div>
-                    <div class="col-xs-12 col-md-4" id="divvalorprimaservicios" style="display: none">
+                    <div class="col-xs-12 col-md-4" id="divvalorprimaservicios">
                       <label>Prima</label>
                       <div class="input-group">
                         <input type="number" class="form-control" placeholder="Valor Prima" name="txtValorprimaServicios" id="valor_primaser" value="0" min="0" readonly="">
@@ -199,11 +208,12 @@
                       </div>
                     </div>
                     <div class="col-xs-12 col-md-4" id="divvalorpenditeprestamo">
-                      <label id="labelValorVentas">Pendiente de Préstamos</label>                                 
+                      <label id="labelValorVentas">Pendiente de Préstamos</label>                               
                       <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1">$</span>
                         <input type="number" class="form-control" placeholder="Valor Pendiente" name="txtValorprestamo" id="valor_penprestamos" readonly="" min="0" value="0">
                         <span class="input-group-btn">
-                          <button class="btn btn-default" type="button" id="idbotonprestamos" onclick="traervalorprestamopen();" style="background-color: #E0F8E0"> <b>Consultar</b></button>
+                          <button class="btn btn-default" type="button" id="idbotonprestamos" onclick="traervalorprestamopen();"><span class="fa fa-search-plus"></span></button><button type="button" class="btn btn-default" onclick="limpiarCampos();"><span class="fa fa-trash-o"></span></button>
                         </span>
                       </div>
                     </div>
@@ -312,7 +322,8 @@
           var valordia = $("#valorDia").val();
           var dias = $("#idDia").val();
 
-          var pago = parseInt(dias * valordia);
+          var valor = valordia.replace('.', '');
+          var pago = parseInt(dias * valor);
           $("#valor_pagoLi").val(pago);
         }
       </script>
@@ -333,7 +344,22 @@
     				if(respuesta.v != null){
     					var valor = respuesta.v;
               		$("#valor_Ventas").val(valor);
-	              }else{
+              		$("#neto").val("");
+			        $("#total").html(0);
+			        $("#valorcomision").val("");
+			        $("#totalco").html(0);
+			        $("#totalpago").val("");
+			        $("#totalpagos").html(0);
+	              }else if(respuesta.v == null){
+	              		var valor = respuesta.v;
+                    swal({
+                    title: "El empleado no ha realizado ventas",
+                    confirmButton: "#3CB371",
+                    confirmButtonClass: "btn-danger",
+                    confirmButtonText: "Aceptar",
+                    closeOnConfirm: false,
+                    });
+              		$("#valor_Ventas").val(0);
 	              }
 	      			})
       	}
@@ -424,8 +450,8 @@
                 return true;
               }
               else{
-                $("#divvalorprimaservicios").hide();
-                $("#valor_primaser").val(0);
+                // $("#divvalorprimaservicios").show();
+                // $("#valor_primaser").val(0);
                 return true;
                 }
         }
@@ -458,7 +484,7 @@
               var pagoNormalCalculadoLiqui = parseInt($("#valor_pagoLi").val());
               var ventas = $("#valor_Ventas").val();
               var comision = $("#comision").val();
-              var resulcomision = ventas * comision;
+              var resulcomision = Math.round(ventas * comision);
               $("#valorcomi").val(resulcomision);
               var prima = parseInt($("#valor_primaser").val());
               var vacaciones = parseInt($("#valorvacaciones").val());
@@ -1116,22 +1142,43 @@
               if (respuesta.v != null) {
                 var valorp = respuesta.v;
                 var suma = 0;
+                var ids = "";
                 var array = [];
+                var valores = [];
                 for (var i = 0; i <= valorp.length - 1; i++) {
                   var id = valorp[i]["id_prestamos"];
                   var valor = valorp[i]["valor_prestamo"];
                   suma = suma + parseInt(valor);
+  
+
                   array.push(id);
+                  valores.push(valor);
                   // if (i == 0) {
                   //   $("#idPrestamosPen2").val(id);
                   // }else{
                   //   $("#idPrestamosPen").val(id);
                   // }
-
                 };
                 $("#idPrestamosPen").val(array);
                 $("#valor_penprestamos").val(suma);
-              };
+                $("#valorPrestamosPen").val(valores);
+                $("#valorvacacionestot").val(0);
+		        $("#totalvacaciones").html(0);
+		        $("#valorcesantias").val(0);
+		        $("#idtotalcesantias").html(0);
+		        $("#valortotliquidacion").val(0);
+		        $("#totalliquidaciones").html(0);
+              }else if(respuesta.v == null){
+              	var valorp = respuesta.v;
+                swal({
+                title: "El empleado no tiene préstamos pendientes",
+                confirmButton: "#3CB371",
+                confirmButtonClass: "btn-danger",
+                confirmButtonText: "Aceptar",
+                closeOnConfirm: false,
+                });
+              	$("#valor_penprestamos").val(0);
+              }
 
             })
           }
@@ -1210,3 +1257,60 @@
 
             }
           </script>
+          <script type="text/javascript">
+          	function  limpiarCampos() {
+          		$("#valor_penprestamos").val(0);
+          		$("#valor_Ventas").val(0);
+          		$("#neto").val("");
+		        $("#total").html(0);
+		        $("#valorcomision").val("");
+		        $("#totalco").html(0);
+		        $("#totalpago").val("");
+		        $("#totalpagos").html(0);
+		        $("#valorvacacionestot").val(0);
+                $("#totalvacaciones").html(0);
+                $("#valorcesantias").val(0);
+                $("#idtotalcesantias").html(0);
+                $("#valortotliquidacion").val(0);
+                $("#totalliquidaciones").html(0);
+          	}
+
+          	$("input[name='txtValorDia']").on('keyup keypress blur change', function(e) {
+			    //return false if not 0-9
+			    if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+			       return false;
+			    }else{
+			        //limit length but allow backspace so that you can still delete the numbers.
+			        if( $(this).val().length >= parseInt($(this).attr('maxlength')) && (e.which != 8 && e.which != 0)){
+			            return false;
+			        }
+			    }
+			});
+			$("input[name='txtdiasLaborados']").on('keyup keypress blur change', function(e) {
+			    //return false if not 0-9
+			    if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+			       return false;
+			    }else{
+			        //limit length but allow backspace so that you can still delete the numbers.
+			        if( $(this).val().length >= parseInt($(this).attr('maxlength')) && (e.which != 8 && e.which != 0)){
+			            return false;
+			        }
+			    }
+			});
+      $("input[name='txtValorDia']").on('keyup keypress blur change', function(e) {
+          //return false if not 0-9
+          if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+             return false;
+          }else{
+              //limit length but allow backspace so that you can still delete the numbers.
+              if( $(this).val().length >= parseInt($(this).attr('maxlength')) && (e.which != 8 && e.which != 0)){
+                  return false;
+              }
+          }
+      });  
+        $(".price").priceFormat({
+          clearPrefix:true,
+          centsLimit: 3
+        });
+          </script>
+

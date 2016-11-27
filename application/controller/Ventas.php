@@ -10,6 +10,20 @@ class Ventas extends controller
   private $mdlProducto;
   private $mdlTipoPersona;
   private $modeloP;
+  private $meses = [
+    'Enero',
+    'Febrero',
+    'Marzo',
+    'Abril',
+    'Mayo',
+    'Junio',
+    'Julio',
+    'Agosto',
+    'Septiembre',
+    'Octubre',
+    'Noviembre',
+    'Diciembre',
+  ];
 
 
   public function __construct(){
@@ -32,6 +46,38 @@ class Ventas extends controller
 
   public function generarpdfCreditos()
   {
+
+    if(isset($_POST['btnconsultar'])){
+      $fi = new DateTime($_POST['txtfechainicial1']);
+      $ff = new DateTime($_POST['txtfechafinal1']);
+
+      $fechaI = new DateTime($fi->format("Y-m-01"));
+      $fechaF = new DateTime($ff->format("Y-m-t"));
+
+      $intervalo = DateInterval::createFromDateString("1 month");
+      $period = new DatePeriod($fechaI, $intervalo, $fechaF);
+      $meses = [];
+
+      foreach($period AS $p){
+        $meses[] = ['mes' => $p->format('m'), 'anio' => $p->format('Y'), 'nombre_mes' => $this->meses[intval($p->format('m')) - 1]];
+      }
+
+      $primerMes = $meses[0];
+      if(count($meses) > 1){
+        $ultimoMes = $meses[count($meses) - 1];
+        $rango = $primerMes['nombre_mes'] . " de " . $primerMes['anio'];
+        $rango .= " hasta ";
+        $rango .= $ultimoMes['nombre_mes'] . " de " . $ultimoMes['anio'];
+
+      } else {
+        $rango = $primerMes['nombre_mes'] . " de " . $primerMes['anio'];;
+      }
+      $this->mdlVentas->__SET('fechainicial',date("Y-m-d",strtotime($_POST['txtfechainicial1'])));
+      $this->mdlVentas->__SET('fechafinal',date("Y-m-d",strtotime($_POST['txtfechafinal1'])));
+      $ver = $this->mdlVentas->listarpdf();
+      $totalCreditosFecha = $this->mdlVentas->listarCreditosFecha();
+    }
+
     require_once APP . 'libs/dompdf/autoload.inc.php';
     // $urlImagen = URL . 'producto/generarcodigo?id=';
     // $productos = $this->mdlproducto->listar();
@@ -61,7 +107,7 @@ class Ventas extends controller
     foreach ($detalles as $value) {
       $tabla .= '<tr>';
       $tabla .= '<td class="center">' . $value['id_producto'] . '</td>';
-      $tabla .= '<td class="center">' . $value['nombre_producto'] . '</td>';
+      $tabla .= '<td class="center">' . ucwords($value['nombre_producto']) . '</td>';
       $tabla .= '<td class="center">' . $value['cantidad'] . ' unidades</td>';
       $tabla .= '<td class="center"> $ ' . number_format($value['precio_venta'], "0", ".", ".") . '</td>';
       $tabla .= '<td class="price center"> $ ' . number_format($value['cantidad'] * $value['precio_venta'], "0",".", ".") . '</td>';
@@ -98,10 +144,10 @@ public function generarpdfDetallesVentas2()
   foreach ($detalles as $value) {
     $tabla .= '<tr>';
     $tabla .= '<td class="center">' . $value['id_producto'] . '</td>';
-    $tabla .= '<td class="center">' . $value['nombre_producto'] . '</td>';
+    $tabla .= '<td class="center">' . ucwords($value['nombre_producto']) . '</td>';
     $tabla .= '<td class="center">' . $value['cantidad'] . ' unidades</td>';
-    $tabla .= '<td class="center">' . $value['precio_venta'] . '</td>';
-    $tabla .= '<td class="price center">' . $value['cantidad'] * $value['precio_venta'] . '</td>';
+    $tabla .= '<td class="center"> $ ' . number_format($value['precio_venta'], "0", ".", ".") . '</td>';
+    $tabla .= '<td class="price center"> $ ' . number_format($value['cantidad'] * $value['precio_venta'], "0", ".", ".") . '</td>';
     $tabla .= '</tr>';
   }
 
@@ -135,10 +181,10 @@ public function generarpdfDetallesVentas2()
       // var_dump($val);
       // exit();
       $tabla2 .= '<tr>';
-      $tabla2 .= '<td style="text-align: center">' . $val['total_venta'] . '</td>';
-      $tabla2 .= '<td style="text-align: center">' . $val['valor_abono'] . '</td>';
-      $tabla2 .= '<td style="text-align: center">' . $val['total_abonado'] . '</td>';
-      $tabla2 .= '<td style="text-align: center">' . $val['pendiente'] . '</td>';
+      $tabla2 .= '<td style="text-align: center"> $ ' . number_format($val['total_venta'], "0", ".", ".") . '</td>';
+      $tabla2 .= '<td style="text-align: center"> $ ' . number_format($val['valor_abono'], "0", ".", ".") . '</td>';
+      $tabla2 .= '<td style="text-align: center"> $ ' . number_format($val['total_abonado'], "0", ".", ".") . '</td>';
+      $tabla2 .= '<td style="text-align: center"> $ ' . number_format($val['pendiente'], "0", ".", ".") . '</td>';
       $tabla2 .= '</tr>';
     }
 
@@ -177,34 +223,38 @@ public function generarpdfDetallesVentas2()
      public function pdfVentas()
         {
           if(isset($_POST['btnconsultar'])){
-            $this->mdlVentas->__SET('fechainicial',date("Y-m-d",strtotime($_POST['txtfechainicial'])));
-            $fecha = $this->mdlVentas->validarFechaVenta();
 
 
-            $this->mdlVentas->__SET('fechafinal',date("Y-m-d",strtotime($_POST['txtfechafinal'])));
-            $fecha2 = $this->mdlVentas->validarFechaVenta();
+            $fi = new DateTime($_POST['txtfechainicial1']);
+            $ff = new DateTime($_POST['txtfechafinal1']);
 
-            if($fecha == true && $fecha2 == true){
+            $fechaI = new DateTime($fi->format("Y-m-01"));
+            $fechaF = new DateTime($ff->format("Y-m-t"));
 
-                $this->mdlVentas->__SET('fechainicial',date("Y-m-d",strtotime($_POST['txtfechainicial'])));
-                $this->mdlVentas->__SET('fechafinal',date("Y-m-d",strtotime($_POST['txtfechafinal'])));
-                $ver = $this->mdlVentas->listarpdf();
-                $totalVentasPorFecha = $this->mdlVentas->listarTotalFecha();
+            $intervalo = DateInterval::createFromDateString("1 month");
+            $period = new DatePeriod($fechaI, $intervalo, $fechaF);
+            $meses = [];
 
-            }else{
-
-              $_SESSION['alerta'] = ' swal({
-                title: "No existen registros en ese rango de fecha!",
-                type: "error",
-                confirmButton: "#3CB371",
-                confirmButtonText: "Aceptar",
-                // confirmButtonText: "Cancelar",
-                closeOnConfirm: false,
-                closeOnCancel: false
-              }, function(isConfirm){ if(isConfirm){ window.close(); } })';
-            header("Location:".URL.'Compras/informeproducto');
-            exit();
+            foreach($period AS $p){
+              $meses[] = ['mes' => $p->format('m'), 'anio' => $p->format('Y'), 'nombre_mes' => $this->meses[intval($p->format('m')) - 1]];
             }
+
+            $primerMes = $meses[0];
+            if(count($meses) > 1){
+              $ultimoMes = $meses[count($meses) - 1];
+              $rango = $primerMes['nombre_mes'] . " de " . $primerMes['anio'];
+              $rango .= " hasta ";
+              $rango .= $ultimoMes['nombre_mes'] . " de " . $ultimoMes['anio'];
+
+            } else {
+              $rango = $primerMes['nombre_mes'] . " de " . $primerMes['anio'];;
+            }
+
+            $this->mdlVentas->__SET('fechainicial',date("Y-m-d",strtotime($_POST['txtfechainicial1'])));
+            $this->mdlVentas->__SET('fechafinal',date("Y-m-d",strtotime($_POST['txtfechafinal1'])));
+            $ver = $this->mdlVentas->listarpdf();
+            $totalVentasPorFecha = $this->mdlVentas->listarTotalFecha();
+
           }
           require_once APP . 'libs/dompdf/autoload.inc.php';
           // $urlImagen = URL . 'producto/generarcodigo?id=';
@@ -224,38 +274,21 @@ public function generarpdfDetallesVentas2()
 
         public function reporteGanancias()
            {
-             $error = false;
 
                  $this->mdlVentas->__SET('fechainicial',date("Y-m-d",strtotime($_POST['fecha1'])));
-                 $fecha = $this->mdlVentas->validarFechaGananacia();
-
                  $this->mdlVentas->__SET('fechafinal',date("Y-m-d",strtotime($_POST['fecha2'])));
-                 $fecha2 = $this->mdlVentas->validarFechaGananacia();
-
-                if($fecha == true && $fecha2 == true){
 
                      $detalles = $this->mdlVentas->listarganancias();
 
                      $cabecera = "";
                      $cabecera .= '<th>'.'El promedio de ganancias en el rango de fecha ingresado es de:&nbsp; ';
-                     $cabecera .= '<td class="price"><strong>'.$detalles["ganancias"].'</strong></td>';
+                     $cabecera .= '<td class="price"><strong> $ '.number_format($detalles["ganancias"], "0", ".", ".").'</strong></td>';
                      $cabecera .= '</th>';
 
                  echo json_encode([
-                   'html' => $detalles, 'cabecera' => $cabecera
+                   'html' => $cabecera
                  ]);
 
-                }else{
-
-                      $cabecera = "";
-                      $cabecera .= '<th>'.'No se encontrarón registros en ese rango de fecha';
-                      // $cabecera .= '<td class="price"><strong>'.$detalles["ganancias"].'</strong></td>';
-                      $cabecera .= '</th>';
-
-                  echo json_encode([
-                    'cabecera' => $cabecera
-                  ]);
-             }
      }
 
 
@@ -347,16 +380,6 @@ public function generarpdfDetallesVentas2()
             }
           }
 
-          // $_SESSION['alerta'] = 'swal({
-          //   title: "Guardado exitoso!",
-          //   type: "success",
-          //   confirmButton: "#3CB371",
-          //   confirmButtonText: "Aceptar",
-          //   // confirmButtonText: "Cancelar",
-          //   closeOnConfirm: false,
-          //   closeOnCancel: false
-          // })';
-
           $_SESSION['alerta'] = 'swal({
                   title: "Guardado exitoso!",
                   text: "¿Desea imprimir el recibo de caja?",
@@ -419,7 +442,7 @@ public function generarpdfDetallesVentas2()
       $html = "";
       foreach ($detalles as $key => $value) {
         $html .= '<tr>';
-        $html .= '<td>' . $value['nombre_producto'] . '</td>';
+        $html .= '<td>' . ucwords($value['nombre_producto']) . '</td>';
         $html .= '<td class="price">' . $value['precio_venta'] . '</td>';
         $html .= '<td>' . $value['cantidad'] . ' unidades</td>';
         $html .= '<td class="price">' . $value['cantidad'] * $value['precio_venta'] . '</td>';
@@ -682,7 +705,6 @@ private function validarAbonos($idVenta){
 
     $notificacionCredito = $this->mdlVentas->listarNotificacionesCredito();
     $clientesCredito = $this->mdlVentas->listarClientesCreditoV();
-    //$info = $this->mdlVentas->pdfDetallesAbono($id);
     require APP . 'view/_templates/header.php';
     require APP . 'view/Ventas/listarCreditosVentas.php';
     require APP . 'view/_templates/footer.php';

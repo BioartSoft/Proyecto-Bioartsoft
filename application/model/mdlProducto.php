@@ -126,7 +126,7 @@ public function validarCantidad(){
 
 
   public function Guardar(){
-    $sql= "CALL SP_Registrar_producto(?,?,?,?,?,?,?,?)";
+    $sql= "CALL SP_Registrar_producto(?,?,?,?,?,?,?)";
 
    try {
 
@@ -136,9 +136,8 @@ public function validarCantidad(){
      $ca->bindParam(3,$this->precio_por_mayor);
      $ca->bindParam(4,$this->precio_unitario);
      $ca->bindParam(5,$this->Tbl_Categoria_idcategoria);
-     $ca->bindParam(6,$this->Talla);
-     $ca->bindParam(7,$this->Tamano);
-     $ca->bindParam(8,$this->stock);
+     $ca->bindParam(6,$this->Tamano);
+     $ca->bindParam(7,$this->stock);
       return $ca->execute();
     } catch (PDOException $ex) {
            echo  $ex->getMessage();
@@ -172,7 +171,7 @@ public function validarCantidad(){
   }
 
    public function actualizarProducto(){
-  $sql="CALL SP_Modificar_producto(?,?,?,?,?,?,?,?,?) ";
+  $sql="CALL SP_Modificar_producto(?,?,?,?,?,?,?,?) ";
   try {
     $ca = $this->db->prepare($sql);
     $ca->bindParam(1,$this->id_producto);
@@ -181,9 +180,8 @@ public function validarCantidad(){
     $ca->bindParam(4,$this->precio_por_mayor);
     $ca->bindParam(5,$this->precio_unitario);
     $ca->bindParam(6,$this->Tbl_Categoria_idcategoria);
-    $ca->bindParam(7,$this->Talla);
-    $ca->bindParam(8,$this->Tamano);
-    $ca->bindParam(9,$this->stock);
+    $ca->bindParam(7,$this->Tamano);
+    $ca->bindParam(8,$this->stock);
      return $ca->execute();
   } catch (Exception $e) {
 

@@ -11,8 +11,7 @@
   <img src="<?php echo URL ?>img/bio-artes.png" height="100" width="400">
   <br>
 <center><legend><h2>INFORME DE BAJAS</h2></legend></center>
-<?php foreach ($ver as $value): ?>
-<h3>Reporte del mes de: <?= ucwords($value['fecha']); ?></h3>
+    <h4>Informe de : <?= $rango ?> </h4>
   <br>
   <table border="1">
     <thead>
@@ -26,6 +25,7 @@
       </tr>
     </thead>
     <tbody>
+      <?php foreach ($ver as $value): ?>
                            <tr>
                              <td><?= $value['id_producto'] ?></td>
                              <td><?= $value['nombre_producto'] ?></td>
@@ -34,7 +34,7 @@
                              <td><?= $value['cantidad'] ?></td>
                              <td><?= $value['tipo_baja'] ?></td>
                            </tr>
-  <?php endforeach; ?>
+                         <?php endforeach; ?>
     </tbody>
   </table>
 </body>

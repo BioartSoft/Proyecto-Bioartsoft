@@ -1,12 +1,13 @@
 
 <form id="forventas" method="post" action="<?= URL ?>Ventas/index"  name="fmVentas" data-parsley-validate="">
+  <br><br>
   <div class="panel panel-primary" style="margin-top: 5px">
+    <div class="panel-heading" stlyle="height: 70px; width: 100px">
+      <center><span style="color: #FFF; margin-top: 10px; margin-bottom: 10px; font-size: 25px">Registrar Ventas</span></center>
+    </div>
    <div class="row">
     <br>
 
-    <div class="panel-heading" stlyle="height: 70px; width: 100px">
-      <center><span style="color: #337AB7; margin-top: 10px; margin-bottom: 10px; font-size: 25px">Registrar Ventas</span></center>
-    </div>
     <div class="panel-body">
        <div class="col-md-5">
         <div class="panel panel-primary">
@@ -75,7 +76,7 @@
         </div>
       </div>
       </div>
-          <button onclick="agregarProducto()" type="button" class="btn btn-primary pull-right" id="btn-agregar" title="Agregar Producto"><i class="fa fa-plus plus" title="Agregar Producto"></i>   Agregar</button>
+          <button onclick="agregarProducto()" type="button" class="btn btn-primary active pull-right" id="btn-agregar" title="Agregar Producto"><i class="fa fa-plus plus" title="Agregar Producto"></i>   Agregar</button>
       </div>
 
   <div class="col-md-7">
@@ -86,21 +87,21 @@
       <div class="panel-body" id="detalleV">
         Seleccione para agregar
       </div>
-      <div class="panel-footer">
-        <h3 class="panel-title"><strong>Subtotal:</strong> <input type="hidden" id="txtsubtotal" name="txtsubtotal" value=""> <span id="sub-total">0</span></h3>
+      <div class="panel-footer" style="height: 2em">
+        <span class="panel-title" style="font-size: 14px; margin-top: 1px"><strong>Subtotal:</strong> <input type="hidden" id="txtsubtotal" name="txtsubtotal" value=""> <span id="sub-total">0</span></span>
       </div>
-       <div class="panel-footer">
-        <h3 class="panel-title"><strong>Descuento:</strong> <input type="hidden" id="txtdescuento" name="txtdescuento" value="0"><span id="span-desc">0</span></h3>
+       <div class="panel-footer" style="height: 2em">
+        <span class="panel-title" style="font-size: 14px;"><strong>Descuento:</strong> <input type="hidden" id="txtdescuento" name="txtdescuento" value="0"><span id="span-desc">0</span></span>
       </div>
-      <div class="panel-footer" id="foodertotal">
-        <h3 class="panel-title"><strong>Total:</strong> <input type="hidden" id="txttotal" name="txttotal" value=""> <span id="total">0</span></h3>
+      <div class="panel-footer" id="foodertotal" style="height: 2em">
+        <span class="panel-title" style="font-size: 14px;"><strong>Total:</strong> <input type="hidden" id="txttotal" name="txttotal" value=""> <span id="total">0</span></span>
       </div>
     </div>
 
     <div class="panel panel-primary">
       <div class="panel-body">
         <div class="row">
-          <div class="col-md-6">
+          <div class="col-md-4">
         <div class="form-group">
           <label for="form-control">Tipo de Pago</label>
               <select class="form-control" id="select-pago" name="txtpago" data-parsley-type="alphanum">
@@ -110,33 +111,37 @@
               </select>
             </div>
           </div>
-            <div class="col-md-6">
+            <div class="col-md-4" id="div_plazo_Credito">
               <div style="display: none" id="div-plazo">
                 <label for="form-control">Días Plazo Crédito</label>
                 <input type="number" id="txtplazo" min="1" maxlength="2" max="30" name="txtplazo" class="form-control" data-parsley-type="number">
               </div>
             </div>
-            <br>
             <?php foreach ($listarConfiguracionVentas as $va): ?>
             <input type="hidden" value="<?= $va['Porcentaje_Maximo_Dcto'] ?>" id="porc-max">
             <input type="hidden" value="<?= $va['Porcentaje_Minimo_Dcto'] ?>" id="porc-min">
             <input type="hidden" value="<?= $va['Valor_Subtotal_Maximo'] ?>" id="vlr-max">
             <input type="hidden" value="<?= $va['Valor_Subtotal_Minimo'] ?>" id="vlr-min">
           <?php endforeach; ?>
-          </div>
-          <div class="row">
-            <div class="col-md-6">
+
+            <div class="col-md-4" id="dcto">
               <div class="form-group" id="contenedorDescuento">
                 <label for="form-control">Descuento en Pesos</label>
                 <input type="number" id="txt-campo-des" name="txt-campo-des" class="form-control" value="0" min="0" data-parsley-type="integer">
               </div>
             </div>
-          </div>
+            </div>
           </div>
       </div>
-      <button type="submit" class="btn btn-success pull-right" name="btn-guardar-venta" id="btnGuardar" onclick="validarCantidad()" title="Guardar Venta"><i class="fa fa-floppy-o" title="Guardar Venta"></i>   Guardar</button><br><br>
-    </div>
-
+      <div class="row">
+        <div class="col-md-6 col-xs-12 col-lg-9">
+            <button type="submit" class="btn btn-success active pull-right" name="btn-guardar-venta" id="btnGuardar" onclick="validarCantidad()" title="Guardar Venta"><i class="fa fa-floppy-o" title="Guardar Venta"></i>   Guardar</button>
+        </div>
+        <div class="col-md-6 col-xs-12 col-lg-3">
+            <button type="button" class="btn btn-danger active pull-right" name="btn-cancelar-venta" id="btncancel" onclick="cancelar()" title="Cancelar Venta"><i class="fa fa-remove" title="Guardar Venta"></i>   Cancelar</button>
+        </div>
+  </div>
+  </div>
   </div>
   <input type="hidden" id="txtProductoS" focus="true" autocomplete="off" >
    </div>
@@ -147,9 +152,6 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-              </button>
                 <center>
                   <h4 class="modal-title"  style="color: #337AB7" id="myModalLabel">Registrar Clientes (obligatorios *)</h4>
                 </center>
@@ -176,7 +178,7 @@
                      </div>
                       <div class="col-md-4">
                          <label for="">Número de documento <span class="obligatorio">*</label>
-                         <input type="text" name="txtIdPersona" style="width: 100%" class="form-control" id="campoId" placeholder="Número Documento">
+                         <input type="text" onkeypress="return soloNumeros(event)" maxlength="15" name="txtIdPersona" style="width: 100%" class="form-control" id="campoId" placeholder="Número Documento">
                      </div>
                    </div>
                    <br><br>
@@ -184,16 +186,16 @@
                    <div class="row">
                      <div class="col-md-4">
                          <label for="txtNombres">Nombres <span class="obligatorio">*</label>
-                          <input type="text"  name="txtNombres" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ@\-\.\\ \/$]+" class="form-control" style="width: 100%" id="campoNombre" placeholder="Nombres">
+                          <input type="text" onkeypress="return soloLetras(event)" maxlength="50" name="txtNombres" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ@\-\.\\ \/$]+" class="form-control" style="width: 100%" id="campoNombre" placeholder="Nombres">
                     </div>
 
                      <div class="col-md-4">
                          <label for="txtApellidos">Apellidos <span class="obligatorio">*</label>
-                           <input type="text"  name="txtApellidos" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ@\-\.\\ \/$]+" class="form-control" id="campoApellido" placeholder="Apellidos">
+                           <input type="text" onkeypress="return soloLetras(event)" maxlength="50" name="txtApellidos" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ@\-\.\\ \/$]+" class="form-control" id="campoApellido" placeholder="Apellidos">
                        </div>
                        <div class="col-md-4">
                            <label for="txtCelular">Número de Celular <span class="obligatorio">*</label>
-                           <input type="text"  name="txtCelular" class="form-control" id="campoCelular" placeholder="Numero Celular">
+                           <input type="text" maxlength="12" onkeypress="return soloNumeros(event)" name="txtCelular" class="form-control" id="campoCelular" placeholder="Numero Celular">
                        </div>
                    </div>
                    <br><br>
@@ -224,6 +226,48 @@
               </div>
             </div>
           </div>
+
+          <script>
+            function soloLetras(e){
+               key = e.keyCode || e.which;
+               tecla = String.fromCharCode(key).toLowerCase();
+               letras = " áéíóúabcdefghijklmnñopqrstuvwxyz";
+               especiales = "8-37-39-46";
+
+               tecla_especial = false
+               for(var i in especiales){
+                    if(key == especiales[i]){
+                        tecla_especial = true;
+                        break;
+                    }
+                }
+
+                if(letras.indexOf(tecla)==-1 && !tecla_especial){
+                    return false;
+                }
+            }
+        </script>
+
+        <script>
+          function soloNumeros(e){
+             key = e.keyCode || e.which;
+             tecla = String.fromCharCode(key).toLowerCase();
+             letras = " 0123456789";
+             especiales = "8-37-39-46";
+
+             tecla_especial = false
+             for(var i in especiales){
+                  if(key == especiales[i]){
+                      tecla_especial = true;
+                      break;
+                  }
+              }
+
+              if(letras.indexOf(tecla)==-1 && !tecla_especial){
+                  return false;
+              }
+          }
+      </script>
 
 <style media="screen">
   #txtProductoS{
@@ -333,8 +377,6 @@
          var valMinDes = total * porMin;
          var valMaxDes = total * porMax;
 
-         console.log(valMinDes, valMaxDes, desMin, desMax);
-
          if(total > desMin && total < desMax && descuento > valMinDes){
            swal({
                  title: "Descuento mayor al " + (porMin * 100) + "%",
@@ -400,13 +442,13 @@
      $("#precio").priceFormat(
        {
          centsLimit:3,
-         clearPrefix: true
+         prefix: '$ '
        });
 
        $("#precioPorMayor").priceFormat(
          {
            centsLimit:3,
-           clearPrefix: true
+           prefix: '$ '
          });
    }
 
@@ -421,7 +463,7 @@
      $(".subtotal").priceFormat(
        {
          centsLimit:3,
-         clearPrefix: true
+         prefix: '$ '
        });
    }
 
@@ -461,7 +503,7 @@
            var precio = $("#precio").text();
          }
          var cantidad = $("#txtcantidad").val();
-         precio = precio.replace(".", "");
+         precio = precio.replace(".", "").replace("$", "");
          var precioGuardar = precio;
          var total = $("#total").val();
          var bandera = true;
@@ -527,12 +569,12 @@
          $("#total").priceFormat(
            {
              centsLimit:3,
-             clearPrefix: true
+             prefix: '$ '
            });
          $(".subtotal").priceFormat(
            {
              centsLimit:3,
-             clearPrefix: true
+             prefix: '$ '
            });
          }
        }
@@ -555,17 +597,17 @@
 
      $("#sub-total").priceFormat({
        centsLimit: 3,
-       clearPrefix: true
+       prefix: '$ '
      });
 
      $("#span-desc").priceFormat({
       centsLimit: 3,
-      clearPrefix: true
+      prefix: '$ '
      });
 
      $("#total").priceFormat({
       centsLimit: 3,
-      clearPrefix: true
+      prefix: '$ '
      });
     }
 
@@ -579,7 +621,7 @@
      $(".subtotal").priceFormat(
        {
          centsLimit: 3,
-         claearPrefix: true
+         prefix: '$ '
        }
      );
     }
@@ -695,7 +737,7 @@ function validarCantidad(){
       var totalCreditos = parseInt(cliente.attr("data-creditos"));
       if(totalCreditos > 0){
         swal({
-        title: "Este cliente ya tiene 2 créditos registrados en estado pendiente!",
+        title: "Este cliente ya tiene créditos registrados en estado pendiente!",
         type: "error",
         confirmButton: "#3CB371",
         confirmButtonText: "Aceptar",
@@ -763,7 +805,23 @@ function cancelar() {
         closeOnConfirm: false,
         closeOnCancel: false
       });
+      $("#tipoPersona").css("background", "#F2DEDE");
+      $("#documento").css("background", "#F2DEDE");
+      $("#campoId").css("background", "#F2DEDE");
+      $("#campoNombre").css("background", "#F2DEDE");
+      $("#campoApellido").css("background", "#F2DEDE");
+      $("#campoCelular").css("background", "#F2DEDE");
+      $("#genero").css("background", "#F2DEDE");
     }else {
+      // $("#tipoPersona").css("background", "#FFF");
+      // $("#documento").css("background", "#FFF");
+      // $("#campoId").css("background", "#FFF");
+      // $("#campoNombre").css("background", "#FFF");
+        $("#campoApellido").keydown(function(){
+        $("#campoApellido").removeAttr("backgroud");
+      });
+      // $("#campoCelular").css("background", "#FFF");
+      // $("#genero").css("background", "#FFF");
 
     $.ajax({
       type: 'post',
@@ -823,7 +881,7 @@ function cancelar() {
 
         // if(pago == "1"){
           $("#select-pago").attr("data-parsley-required", "true");
-          $("#txtplazo").attr("data-parsley-required", "true");
+          $("#txtplazo").attr("data-parsley-required", "false");
         // }else if(pago == "2"){
         //   $("#txtplazo").attr("data-parsley-required", "false");
         // }else{
@@ -847,4 +905,58 @@ function cancelar() {
     if(!is_string(tipoPer) || !is_string(tipoDocum) || !is_numeric(numeroDocum) || )
     }
 })
+</script>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $("#div_plazo_Credito").slideUp();
+    $("#dcto").slideDown();
+    $("#select-pago").change(function(){
+      var option = $("#select-pago").val();
+
+      if(option == 1){
+        $("#div_plazo_Credito").slideDown();
+        $("#dcto").slideDown();
+      }else if (option == 2) {
+        $("#div_plazo_Credito").slideUp();
+        $("#dcto").slideDown();
+      }else {
+          $("#dcto").slideDown();
+      }
+    })
+  })
+</script>
+
+<script type="text/javascript">
+
+function cancelar() {
+    swal({
+          title: "Los datos del registro no se guardarán",
+          type: "warning",
+          confirmButton: "#3CB371",
+          confirmButtonText: "btn-danger",
+          cancelButtonText: "Cancelar",
+          showCancelButton: true,
+          confirmButtonClass: "btn-danger",
+          confirmButtonText: "Aceptar",
+          closeOnConfirm: false,
+
+          },
+    function(isConfir){
+        if (isConfir) {
+          swal({
+            title: "Registro cancelado!",
+            type: "error",
+            confirmButton: "#3CB371",
+            confirmButtonText: "Aceptar",
+            // confirmButtonText: "Cancelar",
+            closeOnConfirm: false,
+            closeOnCancel: false
+          },
+          function(isConfir){
+            window.location.reload();
+          });
+        }
+        });
+     }
 </script>

@@ -85,9 +85,9 @@
    <div class="modal-dialog" role="document">
      <div class="modal-content">
        <div class="modal-header">
-         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+         <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
            <span aria-hidden="true">&times;</span>
-             </button>
+             </button> -->
                <center>
                  <h4 class="modal-title"  style="color: #337AB7" id="myModalLabel">Modificar Clientes (obligatorios *)</h4>
                </center>
@@ -98,20 +98,20 @@
                 <div class="row">
                   <div class="col-md-6">
                     <label for="">Número de documento</label>
-                    <input type="text" name="txtIdPersona" style="width: 100%"class="form-control" id="campoId" value="<?= $clientes['id_persona'] ?>" readonly="true">
+                    <input type="text" name="txtIdPersona" tabindex="1" style="width: 100%"class="form-control" id="campoId" value="<?= $clientes['id_persona'] ?>" readonly="true">
                   </div>
                 </div>
                 <br>
                 <div class="row">
                   <div class="col-md-6"  class="form-group">
-                  <label>Nombres *</label><br>
-                  <input type="text" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ@\-\.\\ \/$]+" minlength="3" maxlength="30" class="form-control" name="txtnombre" id="ejemplo_password_2"
+                  <label>Nombres <span class="obligatorio">*</span></label><br>
+                  <input type="text" tabindex="2" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ@\-\.\\ \/$]+" minlength="3" maxlength="30" class="form-control" name="txtnombre" id="ejemplo_password_2"
                   value="<?= $clientes['nombres'] ?>" data-parsley-required="true">
                 </div>
 
                   <div class="col-md-6">
-                    <label>Apellidos *</label><br>
-                      <input type="text" class="form-control" id="fecha" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ@\-\.\\ \/$]+" minlength="3" maxlength="30"
+                    <label>Apellidos <span class="obligatorio">*</span></label><br>
+                      <input type="text" tabindex="3" class="form-control" id="fecha" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ@\-\.\\ \/$]+" minlength="3" maxlength="30"
                          value="<?= $clientes['apellidos'] ?>" name="txtapell" onchange="(this)" data-parsley-required="true">
                   </div>
 
@@ -121,13 +121,13 @@
         <br>
         <div class="row">
                           <div class="col-md-6">
-                            <label>Celular *</label><br>
-                            <input type="text" class="form-control" id="ejemplo_password_2" maxlength="12" minlength="10" data-parsley-type="number"
+                            <label>Celular <span class="obligatorio">*</span></label><br>
+                            <input type="text" tabindex="4" class="form-control" id="ejemplo_password_2" maxlength="12" minlength="10" data-parsley-type="number"
                                    value="<?= $clientes['celular'] ?>" name="txtcel" data-parsley-required="true">
                            </div>
                          <div class="col-md-6">
                            <label>Email</label><br>
-                           <input type="email" class="form-control" id="ejemplo_password_2" data-parsley-type="email"
+                           <input type="email" tabindex="5" class="form-control" id="ejemplo_password_2" data-parsley-type="email"
                            value="<?= $clientes['email'] ?>" name="txtcorreo">
                          </div>
         </div>
@@ -135,28 +135,28 @@
         <div class="row">
                      <div class="col-md-6">
                        <label>Teléfono</label><br>
-                       <input type="text" class="form-control" id="ejemplo_password_2" maxlength="10" minlength="7" data-parsley-type="number"
+                       <input type="text" tabindex="6" class="form-control" id="ejemplo_password_2" maxlength="10" minlength="7" data-parsley-type="number"
                               value="<?= $clientes['telefono'] ?>" name="txttel" data-parsley-required="false">
                       </div>
                       <div class="col-md-6">
                         <label>Dirección</label><br>
-                          <input type="text" class="form-control" id="ejemplo_password_2" maxlength="40" minlength="3" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9!@#\$%\-\*\?_~\\ \\.\/$]+"
+                          <input type="text" tabindex="7" class="form-control" id="ejemplo_password_2" maxlength="40" minlength="3" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9!@#\$%\-\*\?_~\\ \\.\/$]+"
                              value="<?= $clientes['direccion'] ?>" name="txtdirecc" data-parsley-required="false">
                       </div>
         </div>
         <br>
         <div class="row">
                      <div class="col-md-6">
-                       <label>Género *</label>
-                       <select class="form-control" name="txtgener" pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+" data-parsley-required="true">
+                       <label>Género <span class="obligatorio">*</span></label>
+                       <select class="form-control" tabindex="8" name="txtgener" pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+" data-parsley-required="true">
                        <option value="Masculino" <?= $clientes['genero'] == 'Masculino'? 'selected="selected"' : '' ?> >Masculino</option>
                        <option value="Femenino" <?= $clientes['genero'] == 'Femenino'? 'selected="selected"' : '' ?>>Femenino</option>
                      </select>
                       </div>
 
                       <div class="col-md-6">
-                        <label>Tipo de Cliente *</label><br>
-                        <select class="form-control" id="selectCliente" name="txtTipoCliente" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9!@#\$%\-\*\?_~\\ \/$]+" data-parsley-required="true">
+                        <label>Tipo de Cliente <span class="obligatorio">*</span></label><br>
+                        <select class="form-control" tabindex="9" id="selectCliente" name="txtTipoCliente" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9!@#\$%\-\*\?_~\\ \/$]+" data-parsley-required="true">
                           <?php foreach($TipoCliente AS $tipo): ?>
                             <option value="<?= $tipo['idTbl_tipo_persona'] ?>" <?= $clientes['idTbl_tipo_persona'] == $tipo['idTbl_tipo_persona'] ? 'selected="selected"' : '' ?>>
                               <?= $tipo['Tbl_nombre_tipo_persona']?>
@@ -169,14 +169,23 @@
 
                       </div>
                        <div class="modal-footer">
-                         <button type="button" class="btn btn-secondary btn-md active"  data-dismiss="modal"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
-                         <button type="submit" name="btn-modificar-cliente" id="btnmodClientes"  class="btn btn-success btn-md"><i class="fa fa-floppy-o" aria-hidden="true">   Modificar</i></button>
+                         <button type="button" tabindex="10" class="btn btn-secondary btn-md active"  data-dismiss="modal"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
+                         <button type="submit" tabindex="11" name="btn-modificar-cliente" id="btnmodClientes"  class="btn btn-success btn-md"><i class="fa fa-floppy-o" aria-hidden="true">   Modificar</i></button>
+                         <input type="hidden" tabindex="12">
                        </div>
                      </form>
                   </div>
                 </div>
               </div>
 <?php endif; ?>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $("#btnmodClientes").blur(function(e){
+      $("#campoId").focus();
+    })
+  })
+</script>
 
 <script type="text/javascript">
 $(document).ready(function(){
@@ -204,7 +213,7 @@ $("#btnmodClientes").click(function(){
                   <div class="col-md-12">
                     <div class="panel panel-primary" >
                       <div class="panel-heading" stlyle="height: 70px; width: 100px">
-                          <center><span style="color: #fff; font-size: 20px" id="myModalLabel">Detalles de <?php echo $clientes['nombres'].' '.$clientes['apellidos']?></span></center>
+                          <center><span style="color: #fff; font-size: 20px" id="myModalLabel">Detalles de: <?php echo $clientes['id_persona']." - ".$clientes['nombres'].' '.$clientes['apellidos']?></span></center>
                       </div>
                           <div class="panel-body">
                             <div class="dataTable_wrapper">

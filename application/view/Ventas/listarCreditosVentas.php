@@ -30,8 +30,8 @@
               <?php foreach ($clientesCredito as $cliente): ?>
               <tr>
                 <td><?=  $cliente['id_persona'] ?></td>
-                <td><?=  $cliente['nombres'] ?></td>
-                <td><?=  $cliente['apellidos'] ?></td>
+                <td><?=  ucwords($cliente['nombres']) ?></td>
+                <td><?=  ucwords($cliente['apellidos']) ?></td>
                 <td><?=  $cliente['Tbl_nombre_tipo_persona'] ?></td>
                 <td><?php  if($cliente['estado_credito'] == 1): ?>
                   Pendiente
@@ -49,7 +49,7 @@
       </div>
 
 
-        <?php if($_SESSION['ROL'] == 1 || $_SESSION['ROL'] == 3): ?>
+        <!-- <?php if($_SESSION['ROL'] == 1 || $_SESSION['ROL'] == 3): ?>
             <div class="row">
              <div class="col-sm-12">
                <center>
@@ -59,7 +59,86 @@
              </center>
              </div>
            </div>
-       <?php endif; ?>
+       <?php endif; ?> -->
+
+       <?php if($_SESSION['ROL'] == 1 || $_SESSION['ROL'] == 3): ?>
+       <div class="col-md-6 col-lg-7 col-xs-12">
+         <a href="#" id="">
+           <button class="btn btn-primary pull-right" name="btnReporteCreditos" data-toggle="modal" data-target="#modal_reporte_creditos"><i class="fa fa-file-pdf-o" aria-hidden="true">&nbsp;&nbsp;Reporte Créditos</i></button>
+         </a>
+       </div>
+     <?php endif; ?>
+
+
+     <div class="modal fade" id="modal_reporte_creditos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static" style="display:none" style="width: 50px" action="<?= URL ?>Compras/registrarCompra">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="width: 800px">
+              <div class="modal-body">
+               <div class="row">
+                 <div class="col-lg-12">
+                   <div class="panel panel-primary">
+                       <div class="panel-heading" stlyle="height: 70px; width: 100px">
+                             <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 20px">Reporte de Créditos</center>
+                       </div>
+                     <div class="panel-body" id="panel_compras">
+                       <form id="formPdfCompras" action="<?= URL ?>Ventas/generarpdfCreditos" method="post" data-parsley-validate="" target="_blank">
+                       <div class="row">
+                         <br>
+                         <div class="row">
+                           <div class="col-md-1"></div>
+                           <div   class="col-md-4">
+                             <?php
+                               $hoy2 = Date("Y-m-d");
+                               $hoy1 = Date("Y-m-d");
+                               $nuevaFecha = strtotime('-3 month', strtotime($hoy1));
+                               $nuevaFecha = date('Y-m-d', $nuevaFecha);
+                              ?>
+                               <label for="">Fecha Inicial <span class="obligatorio">*</span></label>
+                               <div class="input-group date" data-provide="datepicker">
+                               <input type="text" tabindex="1" class="form-control" readonly="true" name="txtfechainicial1" id="txtfechainicial1" value="<?= $nuevaFecha ?>" data-parsley-required="true">
+                               <div class="input-group-addon">
+                               <span class="glyphicon glyphicon-th"></span>
+                             </div>
+                             </div>
+                             <input type="hidden" name="txtfechainicial2" id="txtfechainicial2" value="<?= $nuevaFecha ?>">
+                           </div>
+                           <div class="col-md-1"></div>
+                           <div   class="col-md-4">
+                               <label for="">Fecha Final <span class="obligatorio">*</span></label>
+                               <div class="input-group date" data-provide="datepicker">
+                               <input type="text" tabindex="2" class="form-control" name="txtfechafinal1" readonly="true" id="txtfechafinal1"  value="<?= $hoy1 ?>"data-parsley-required="true">
+                               <div class="input-group-addon">
+                               <span class="glyphicon glyphicon-th"></span>
+                             </div>
+                             </div>
+                             <input type="hidden" name="txtfechafinal2" id="txtfechafinal2" value="<?= $hoy2 ?>">
+                         </div>
+                       </div>
+                       <br><br>
+                       <div class="row">
+                         <div class="col-md-5"></div>
+                           <div class="col-md-4">
+                             <button type="submit" tabindex="3" class="btn btn-primary active" id="btn-pdf" name="btnconsultar" target="_blank"><i class="fa fa-file-pdf-o" aria-hidden="true">&nbsp;&nbsp;Generar Reporte</i></button>
+                           </div>
+                       </div>
+                       <br>
+                       </div>
+                       </div>
+                       </form>
+                     </div>
+                   </div>
+                 </div>
+                 <div class="row">
+                   <div class="col-md-6 col-xs-12 col-lg-11">
+                     <button type="button" tabindex="4" id="btn_cancelar" class="btn btn-secondary btn-md active pull-right"  data-dismiss="modal"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
+                     <input type="hidden" tabindex="5">
+                   </div>
+                 </div>
+                 <br>
+               </div>
+             </div>
+           </div>
+         </div>
 
             <div class="modal fade" id="mdListarCreditos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard ="false" data-backdrop = "static">
               <div class="modal-dialog" role="document" style="width: 96% !important">
@@ -151,12 +230,12 @@
                             <div class="col-xs-12 col-md-6">
                           <label >Total Crédito Venta</label><br>
                           <input type="text" class="form-control" name="txtresta" placeholder="" id="idvalorCreditoV" disabled="">
-                          <input type="hidden" name="txtva" id="idtruefalse" value="true">
+                          <input type="hidden" name="txtva" id="idtruefalse">
                       </div>
                       <div class="col-xs-12 col-md-6">
                           <label >Crédito Pendiente</label><br>
                           <input type="text" class="form-control" name="txtresta" placeholder="" id="totalCreditoPendiente" disabled="">
-                          <input type="hidden" name="txtva" id="idtruefalse" value="true">
+                          <input type="hidden" name="txtva" id="idtruefalse">
                      </div>
 
                      <div class="col-xs-12 col-md-6">
@@ -171,11 +250,11 @@
                   <br>
                     <div class="row">
                       <div class="col-xs-12 col-md-6 col-lg-9">
-                        <button type="button" class="btn btn-secondary btn-active pull-right"  data-dismiss="modal" style="float: left" onclick="abrirmodal()"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
+                        <button type="button" class="btn btn-secondary btn-active active pull-right"  data-dismiss="modal" style="float: left" onclick="abrirmodal()"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
                       </div>
 
                       <div class="col-xs-12 col-md-6 col-lg-3">
-                        <button type="submit" name="btnRegistrarAbono" onclick="return validarAbonoCreditoV()" class="btn btn-success btn-active" id="btn-Guardar-Abono" style="float: right"><i class="fa fa-floppy-o" aria-hidden="true">   Guardar</i></button>
+                        <button type="submit" name="btnRegistrarAbono" onclick="return validarAbonoCreditoV()" class="btn btn-success active" id="btn-Guardar-Abono" style="float: right"><i class="fa fa-floppy-o" aria-hidden="true">   Guardar</i></button>
                       </div>
                   </div>
                 </form>
@@ -218,7 +297,7 @@
                 </div>
 
                   <div class="row">
-                        <div class="col-xs-12 col-md-6 col-lg-8">
+                        <div class="col-xs-12 col-md-6 col-lg-7">
                           <button type="button" class="btn btn-secondary btn-active pull-right"  data-dismiss="modal" onclick="abrirmodal()"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
                         </div>
 
@@ -242,8 +321,8 @@ function abonosV(valor,id_ventas, valorCreditoPendienteV){
   $("#idvalorCreditoV").val(valor);
   $("#idprestamosCreditoV").val(id_ventas);
   $("#totalCreditoPendiente").val(valorCreditoPendienteV);
-  $("#totalCreditoPendiente").priceFormat({centsLimit: 3, clearPrefix: true});
-  $("#idvalorCreditoV").priceFormat({centsLimit: 3, clearPrefix: true});
+  // $("#totalCreditoPendiente").priceFormat({centsLimit: 3, prefix: '$ '});
+  // $("#idvalorCreditoV").priceFormat({centsLimit: 3, prefix: '$ '});
 }
 
 
@@ -273,7 +352,7 @@ function abonosV(valor,id_ventas, valorCreditoPendienteV){
       $('#cabecTab').append(respuesta.cabecera);
       //$("#cliente").text(respuesta.cliente);
       $('#mdListarCreditos').modal("show");
-      $(".price").priceFormat({centsLimit: 3, clearPrefix: true});
+      $(".price").priceFormat({centsLimit: 3, prefix: '$ '});
 
     var tabla = $('#listarDetalleV').DataTable({
     language: {
@@ -306,7 +385,7 @@ function abonosV(valor,id_ventas, valorCreditoPendienteV){
       $('#titulosCredV').append(respuesta.cabecera);
       $("#mdListarAbonosCreditosV").modal("show");
       $('#mdListarCreditos').modal('hide');
-      $(".price").priceFormat({centsLimit: 3, clearPrefix: true});
+      $(".price").priceFormat({centsLimit: 3, prefix: '$ '});
 
     var tabla = $('#listarAbonoCreditosVent').DataTable({
     language: {
@@ -327,9 +406,9 @@ function abonosV(valor,id_ventas, valorCreditoPendienteV){
 
 <script type="text/javascript">
  function validarAbonoCreditoV(){
-   var valorAbonoCV = parseInt($("#idabono").val());
-   var valorTotalCV = parseInt($("#idvalorCreditoV").val());
-   var valorPendienteCV = parseInt($("#totalCreditoPendiente").val().replace(".", ""));
+   var valorAbonoCV = parseInt($("#idabono").val().replace(".", ""). replace("$", ""));
+   var valorTotalCV = parseInt($("#idvalorCreditoV").val().replace(".", ""). replace("$", ""));
+   var valorPendienteCV = parseInt($("#totalCreditoPendiente").val().replace(".", ""). replace("$", ""));
         if(valorAbonoCV > valorPendienteCV){
           swal({
             title: "El valor del abono es superior al crédito pendiente! \n \n Crédito Pendiente = "+ valorPendienteCV + " pesos.",
@@ -517,7 +596,7 @@ function ModificarCreditos(id_ventas){
 }
 
 $("#idabono").keydown(function(e){
-  if(e.which === 189 || e.which === 69){
+  if(e.which === 189 || e.which === 69 || e.which === 190){
     e.preventDefault();
     //return false;
   }
@@ -525,9 +604,57 @@ $("#idabono").keydown(function(e){
 
 
 $("#diasPlazo").keydown(function(e){
-  if(e.which === 189 || e.which === 69){
+  if(e.which === 189 || e.which === 69 || e.which === 190){
     e.preventDefault();
     //return false;
+  }
+});
+</script>
+
+<script type="text/javascript">
+  $("#txtfechainicial1").change(function(){
+    var valor = $('#txtfechainicial1').val();
+    var valor2 = $('#txtfechainicial2').val();
+
+
+    if(valor < valor2){
+      swal({
+              title: "Fecha inválida, la fecha no puede ser menor a 3 meses!",
+              type: "error",
+              confirmButtonColor: "#86CCEB",
+              confirmButtonText: "Aceptar",
+              closeOnConfirm: true,
+
+              },
+              function(isConfirm){
+              if (isConfirm) {
+                  $('#txtfechainicial1').val(valor2);
+              }
+            })
+    }
+
+  });
+
+</script>
+<script type="text/javascript">
+$("#txtfechafinal1").change(function(){
+  var valor3 = $('#txtfechafinal1').val();
+  var valor4= $('#txtfechafinal2').val();
+  if(valor3 > valor4)
+  {
+    swal({
+            title: "Fecha inválida, esta fecha no puede ser mayor a la actual!",
+            type: "error",
+            confirmButtonColor: "#86CCEB",
+            confirmButtonText: "Aceptar",
+            closeOnConfirm: true,
+
+            },
+            function(isConfirm){
+            if (isConfirm) {
+                $('#txtfechafinal1').val(valor4);
+            }
+          })
   }
 });
 </script>

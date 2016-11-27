@@ -83,6 +83,7 @@
         }
 
       $proveedor = $this->mdlProveedor->listar();
+      $proveedorN = $this->mdlProveedor->listarNatural();
       $proveedorJ = $this->mdlProveedor->listarJuridico();
       $producto = $this->mdlProducto->listar();
       $categoria = $this->mdlProducto->listarca();
@@ -105,14 +106,8 @@
           {
 
             if(isset($_POST['btnconsultar'])){
-              $this->mdlCompras->__SET('fechainicial',date("Y-m-d",strtotime($_POST['txtfechainicial'])));
-              $fecha = $this->mdlCompras->validarFechaCompra();
-
-              $this->mdlCompras->__SET('fechafinal',date("Y-m-d",strtotime($_POST['txtfechafinal'])));
-              $fecha2 = $this->mdlCompras->validarFechaCompra();
-
-              $fi = new DateTime($_POST['txtfechainicial']);
-              $ff = new DateTime($_POST['txtfechafinal']);
+              $fi = new DateTime($_POST['txtfechainicial1']);
+              $ff = new DateTime($_POST['txtfechafinal1']);
 
               $fechaI = new DateTime($fi->format("Y-m-01"));
               $fechaF = new DateTime($ff->format("Y-m-t"));
@@ -135,27 +130,12 @@
               } else {
                 $rango = $primerMes['nombre_mes'] . " de " . $primerMes['anio'];;
               }
+              $this->mdlCompras->__SET('fechainicial',date("Y-m-d",strtotime($_POST['txtfechainicial1'])));
+              $this->mdlCompras->__SET('fechafinal',date("Y-m-d",strtotime($_POST['txtfechafinal1'])));
+              $ver = $this->mdlCompras->listarpdf();
+              $totalCompraFecha = $this->mdlCompras->totalPorFecha();
 
-              if($fecha == true && $fecha2 == true){
 
-                $this->mdlCompras->__SET('fechainicial',date("Y-m-d",strtotime($_POST['txtfechainicial'])));
-                $this->mdlCompras->__SET('fechafinal',date("Y-m-d",strtotime($_POST['txtfechafinal'])));
-                $ver = $this->mdlCompras->listarpdf();
-                $totalCompraFecha = $this->mdlCompras->totalPorFecha();
-
-                }else{
-                  $_SESSION['alerta'] = ' swal({
-                    title: "No existen registros en ese rango de fecha!",
-                    type: "error",
-                    confirmButton: "#3CB371",
-                    confirmButtonText: "Aceptar",
-                    // confirmButtonText: "Cancelar",
-                    closeOnConfirm: false,
-                    closeOnCancel: false
-                  }, function(isConfirm){ if(isConfirm){ window.close(); } })';
-                header("Location:".URL.'Compras/informeproducto');
-                exit();
-              }
             }
 
             require_once APP . 'libs/dompdf/autoload.inc.php';
@@ -184,7 +164,7 @@
             foreach ($detalles2 as $val) {
               $tabla2 .= '<tr>';
               $tabla2 .= '<td>' . $val['fecha_compra'] . '</td>';
-              $tabla2 .= '<td>' . $val['proveedor'] . '</td>';
+              $tabla2 .= '<td>' . ucwords($val['proveedor']) . '</td>';
               $tabla2 .= '<td> $ ' . number_format($val['valor_total'], "0", ".", ".") . '</td>';
               $tabla2 .= '</tr>';
             }
@@ -193,7 +173,7 @@
             $tabla = "";
             foreach ($detalles as $value) {
               $tabla .= '<tr>';
-              $tabla .= '<td>' . $value['nombre_producto'] . '</td>';
+              $tabla .= '<td>' . ucwords($value['nombre_producto']) . '</td>';
               $tabla .= '<td>' . $value['cantidad'] . ' unidades</td>';
               $tabla .= '<td>$ ' . number_format($value['valor_compra'], "0", ".", ".") . '</td>';
               $tabla .= '<td>$ ' . number_format($value['total'], "0", ".", ".") . '</td>';
@@ -221,7 +201,7 @@
       $error=false;
       $this->mdlCompras->__SET("codigo_proveedor", $_POST['ddlproveedor']);
       $this->mdlCompras->__SET("valor_total", $_POST['txttotal']);
-      $this->mdlCompras->__SET("empleado", $_POST['hdempleado']);
+      $this->mdlCompras->__SET("empleado", ucwords($_POST['hdempleado']));
       $C = $this->mdlCompras->insertarCompra();
 
       if($C){
@@ -364,7 +344,7 @@
       $html = "";
       foreach ($detalles as $key => $value) {
         $html .= '<tr>';
-        $html .= '<td>' . $value['nombre_producto'];
+        $html .= '<td>' . ucwords($value['nombre_producto']);
         $html .= '</td>';
 
         $html .= '<td>' . $value['cantidad'] . ' unidades</td>';
@@ -400,6 +380,18 @@
         $errorNombre = false;
        }else{
 
+         if($producto == true){
+
+           $_SESSION['alerta'] =  'swal({
+             title: "Guardado exitoso!",
+             type: "succes",
+             confirmButton: "#3CB371",
+             confirmButtonText: "Aceptar",
+             // confirmButtonText: "Cancelar",
+             closeOnConfirm: false,
+             closeOnCancel: false
+           })';
+
         header("Content-Type: application/json");
         echo json_encode([
           'error' => $producto? false : true,
@@ -408,5 +400,6 @@
           'codigo'=>$this->mdlProducto->codigo
         ]);
         }
+      }
     }
 }

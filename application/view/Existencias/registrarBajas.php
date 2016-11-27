@@ -1,12 +1,13 @@
 
 <form id="frmBajas" method="post"  action="<?= URL ?>producto/registrarBajas" data-parsley-validate="">
+  <br><br>
   <div class="panel panel-primary" style="margin-top: 5px">
+    <div class="panel-heading" stlyle="height: 70px; width: 100px">
+      <center><span style="text-align:center; color: #FFF; margin-top: 10px; margin-bottom: 10px; font-size: 25px">Registrar Bajas</span></center>
+    </div>
    <div class="row">
      <br>
 
-    <div class="panel-heading" stlyle="height: 70px; width: 100px">
-      <center><span style="text-align:center; color: #337AB7; margin-top: 10px; margin-bottom: 10px; font-size: 25px">Registrar Bajas</span></center>
-    </div>
 
     <div class="panel-body">
     <div class="col-sm-6">
@@ -17,8 +18,8 @@
 
         <div class="panel-body">
           <div class="form-group">
-            <label for="">Tipo de Baja</label>
-            <select id="txttipo" name="tipo_baja" id="baja" class="form-control" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ@\-\.\\ \/$]+" data-parsley-required="true">
+            <label for="">Tipo de Baja <span class="obligatorio">*</span></label>
+            <select id="txttipo" tabindex="1" name="tipo_baja" id="baja" class="form-control" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ@\-\.\\ \/$]+" data-parsley-required="true">
               <option value="">Seleccionar</option>
               <option value="Hurto">Hurto</option>
               <option value="Averia">Avería</option>
@@ -26,9 +27,8 @@
           </div>
           <hr>
           <div class="form-group">
-            <label for="">Producto</label>
-
-            <select class="form-control" id="cmb_producto" name="cmb_producto" data-parsley-type="alphanum" data-parsley-required="true">
+            <label for="">Producto <span class="obligatorio">*</span></label>
+            <select class="form-control" tabindex="2" id="cmb_producto" name="cmb_producto" data-parsley-type="alphanum" data-parsley-required="true">
               <option value="">Seleccionar</option>
               <?php foreach ($producto as $value): ?>
                 <?php if($value['estado'] == 1): ?>
@@ -40,15 +40,15 @@
             </select>
           </div>
           <div class="form-group" id="cantidad">
-            <label for="">Cantidad</label>
-            <input id="txt_cantidad" type="text" class="form-control" min="1" maxlength="4" data-parsley-type="number" data-parsley-required="true">
+            <label for="">Cantidad <span class="obligatorio">*</span></label>
+            <input id="txt_cantidad" tabindex="3" type="text" class="form-control" min="1" maxlength="4" data-parsley-type="number" data-parsley-required="true">
             <input type="hidden" value="" id="unidades-actuales">
               <input type="hidden" value="<?= $_SESSION['USUARIO_ID'] ?>" id="id-empleado" name="empleadoId">
           </div>
           <div class="form-group">
-            <button  type="button" class="btn btn-primary pull-right" id="btn-agregar"><i class="fa fa-plus plus"></i>   Agregar</button>
+            <button  type="button" tabindex="4" class="btn btn-primary pull-right" id="btn-agregar"><i class="fa fa-plus plus"></i>   Agregar</button>
+            <input type="hidden" tabindex="5">
           </div>
-
         </div>
       </div>
     </div>
@@ -66,13 +66,25 @@
         </tbody>
       </table>
     </div>
-      <div class="col-md-6 col-xs-12 col-lg-12">
-        <button class="btn btn-success pull-right" id="btn-guardarBajas" type="submit"  name="btn-agregar"><i class="fa fa-floppy-o" ></i>   Guardar</button>
-      </div>
+    <div class="col-md-6 col-xs-12 col-lg-10">
+      <button class="btn btn-success active pull-right" id="btn-guardarBajas" type="submit"  name="btn-agregar"><i class="fa fa-floppy-o" ></i>   Guardar</button>
     </div>
+      <div class="col-md-6 col-xs-12 col-lg-2">
+        <button class="btn btn-danger active pull-right" onclick="cancelar()" id="btn-cancelar" type="button"  name="btn-agregar"><i class="fa fa-remove" ></i>   Cancelar</button>
+      </div>
+  </div>
   </div>
 </div>
 </form>
+
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $("#btn-agregar").blur(function(e){
+      $("#txttipo").focus();
+    })
+  })
+</script>
 
 <input type="hidden" id="txtProductoS" focus="true" autocomplete="off" >
 <style media="screen">
@@ -330,4 +342,38 @@ $(document).ready(function(){
 
   }
 
+  </script>
+
+  <script type="text/javascript">
+
+  function cancelar() {
+      swal({
+            title: "Los datos del registro no se guardarán",
+            type: "warning",
+            confirmButton: "#3CB371",
+            confirmButtonText: "btn-danger",
+            cancelButtonText: "Cancelar",
+            showCancelButton: true,
+            confirmButtonClass: "btn-danger",
+            confirmButtonText: "Aceptar",
+            closeOnConfirm: false,
+
+            },
+      function(isConfir){
+          if (isConfir) {
+            swal({
+              title: "Registro cancelado!",
+              type: "error",
+              confirmButton: "#3CB371",
+              confirmButtonText: "Aceptar",
+              // confirmButtonText: "Cancelar",
+              closeOnConfirm: false,
+              closeOnCancel: false
+            },
+            function(isConfir){
+              window.location.reload();
+            });
+          }
+          });
+       }
   </script>

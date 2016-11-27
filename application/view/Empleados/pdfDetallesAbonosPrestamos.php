@@ -18,7 +18,7 @@
   Recibo de abono número: <strong><?= $val['idTbl_Abono_Prestamo'] ?></strong><br>
   Fecha: <?= $val['fecha_abono'];?>&nbsp;&nbsp;&nbsp;&nbsp;<?= date("H:i:s"); ?>
   <br><br>
-  Empleado: <strong><?= ucfirst($val['empleado']) ?></strong><br>
+  Empleado: <strong><?= ucwords($val['empleado']) ?></strong><br>
   Identificación: <strong><?= $val['id_persona'] ?></strong><br>
   <br>
   ----------------------------------------------------------<br>
@@ -32,7 +32,6 @@
         <th>Valor Abono</th>
         <th>Total Abonado</th>
         <th>Pendiente</th>
-
       </tr>
     </thead>
     <tbody>

@@ -91,9 +91,6 @@
      <div class="modal-dialog" role="document">
        <div class="modal-content">
          <div class="modal-header">
-           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-             <span aria-hidden="true">&times;</span>
-               </button>
                  <center>
                    <h4 class="modal-title"  style="color: #337AB7" id="myModalLabel">Modificar Usuarios/Empleados (obligatorios *)</h4>
                  </center>
@@ -112,29 +109,28 @@
 
         <div class="row">
                 <div class="col-md-6" class="form-group">
-                    <label>Nombres *</label><br>
-                    <input type="text" class="form-control" name="txtnombre" id="ejemplo_password_2"
+                    <label>Nombres <span class="obligatorio">*</span></label><br>
+                    <input type="text" tabindex="1" class="form-control" name="txtnombre" id="nombres"
                     value="<?= $persona['nombres'] ?>" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ@\-\.\\ \/$]+" minlength="3" maxlength="30" data-parsley-required="true">
                   </div>
 
                     <div class="col-md-6">
-                      <label>Apellidos *</label><br>
-                        <input type="text" class="form-control" id="fecha"
+                      <label>Apellidos <span class="obligatorio">*</span></label><br>
+                        <input type="text"  tabindex="2" class="form-control" id="fecha"
                            value="<?= $persona['apellidos'] ?>" name="txtapell" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ@\-\.\\ \/$]+" minlength="3" maxlength="30" onchange="(this)" data-parsley-required="true">
                     </div>
           </div>
           <br>
           <div class="row">
                        <div class="col-md-6">
-                         <label>Nombre Usuario *</label><br>
-                         <input type="text" class="form-control" id="txtusuario"
+                         <label>Nombre Usuario <span class="obligatorio">*</span></label><br>
+                         <input type="text"  tabindex="3" class="form-control" id="txtusuario"
                                 value="<?= $persona['nombre_usuario'] ?>" name="txtnombreusuario" maxlength="30" minlength="3" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9@#\-\_\\.\\ \/$]+" data-parsley-required="true">
                       </div>
                         <div class="col-md-6">
                           <?php if ($persona['id_usuarios'] != '1234567890'): ?>
-                          <label>Rol Usuario *</label><br>
-
-                          <select class="form-control" id="selectRol" name="txtrol" data-parsley-required="true">
+                          <label>Rol Usuario <span class="obligatorio">*</span></label><br>
+                          <select class="form-control"  tabindex="4" id="selectRol" name="txtrol" data-parsley-required="true">
                             <?php foreach($roles AS $rol): ?>
                               <option value="<?= $rol['id_rol'] ?>" <?= $persona['rol'] == $rol['id_rol'] ? 'selected="selected"' : '' ?>>
                                 <?= $rol['nombre_rol']?>
@@ -148,14 +144,14 @@
           <br>
           <div class="row">
                             <div class="col-md-6">
-                              <label>Celular *</label><br>
-                              <input type="text" class="form-control" id="ejemplo_password_2"
+                              <label>Celular <span class="obligatorio">*</span></label><br>
+                              <input type="text"  tabindex="5" class="form-control" id="ejemplo_password_2"
                                      value="<?= $persona['celular'] ?>" name="txtcel" maxlength="12" minlength="10" data-parsley-type="number" data-parsley-required="true">
                              </div>
 
                            <div class="col-md-6">
-                             <label>Email *</label><br>
-                             <input type="email" class="form-control" id="ejemplo_password_2"
+                             <label>Email <span class="obligatorio">*</span></label><br>
+                             <input type="email"  tabindex="6" class="form-control" id="ejemplo_password_2"
                              value="<?= $persona['email'] ?>" name="txtcorreo" ata-parsley-type="email" data-parsley-required="true">
                            </div>
           </div>
@@ -163,28 +159,28 @@
           <div class="row">
                        <div class="col-md-6">
                          <label>Teléfono</label><br>
-                         <input type="text" class="form-control" id="ejemplo_password_2"
+                         <input type="text"  tabindex="7" class="form-control" id="ejemplo_password_2"
                                 value="<?= $persona['telefono'] ?>" name="txttel" maxlength="10" minlength="7" data-parsley-type="number" data-parsley-required="false">
                         </div>
                         <div class="col-md-6">
                           <label>Dirección</label><br>
-                            <input type="text" class="form-control" id="ejemplo_password_2"
+                            <input type="text"  tabindex="8" class="form-control" id="ejemplo_password_2"
                                value="<?= $persona['direccion'] ?>" name="txtdirecc" maxlength="40" minlength="3" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9!@#\$%\-\*\?_~\\ \\.\/$]+" ata-parsley-required="false">
                         </div>
           </div>
           <br>
           <div class="row">
                        <div class="col-md-6">
-                         <label>Género *</label>
-                         <select class="form-control" name="txtgenero" pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+" data-parsley-required="true">
+                         <label>Género <span class="obligatorio">*</span></label>
+                         <select class="form-control"  tabindex="9" name="txtgenero" pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+" data-parsley-required="true">
                          <option value="Masculino" <?= $persona['genero'] == 'Masculino'? 'selected="selected"' : '' ?> >Masculino</option>
                          <option value="Femenino" <?= $persona['genero'] == 'Femenino'? 'selected="selected"' : '' ?>>Femenino</option>
                        </select>
                         </div>
 
                         <div class="col-md-6">
-                          <label>Tipo Empleado *</label><br>
-                          <select class="form-control" name="txtTipoEmpleado" id="Select-Empleado" data-parsley-type="alphanum" data-parsley-required="true">
+                          <label>Tipo Empleado <span class="obligatorio">*</span></label><br>
+                          <select class="form-control"  tabindex="10" name="txtTipoEmpleado" id="Select-Empleado" data-parsley-type="alphanum" data-parsley-required="true">
                               <!-- <option>Seleccione un rol</option> -->
                             <?php foreach($TipoEmpleado AS $tipo): ?>
                               <option value="<?= $tipo['idTbl_tipo_persona'] ?>" <?= $persona['idTbl_tipo_persona'] == $tipo['idTbl_tipo_persona'] ? 'selected="selected"' : '' ?>>
@@ -198,9 +194,9 @@
                           <?php if ($persona['Tbl_TipoPersona_idTbl_TipoPersona'] == 1): ?>
                         <div class="row">
                         <div id="conFechaContrato" style="" class="col-md-6">
-                            <label for="form-control">Fecha Contrato *</label>
+                            <label for="form-control">Fecha Contrato <span class="obligatorio">*</span></label>
                             <div class="input-group date" data-provide="datepicker" id="dataPicker">
-                            <input type="text" class="form-control" value="<?= $persona['fecha_Contrato'] ?>" name="txtfechac" readonly="true" id="campoFechaContrato" placeholder="Fecha Contrato" data-parsley-required="false">
+                            <input type="text"  tabindex="12" class="form-control" value="<?= $persona['fecha_Contrato'] ?>" name="txtfechac" readonly="true" id="campoFechaContrato" placeholder="Fecha Contrato" data-parsley-required="false">
                             <div class="input-group-addon">
                             <span class="glyphicon glyphicon-th"></span>
                           </div>
@@ -209,7 +205,7 @@
 
                         <div class="col-md-6" id="div-fechaTer">
                           <label>Fecha Terminación Contrato</label>
-                          <input class="form-control" name="fechaTerminacionC" id="fechaTer" readonly="true" value="<?= $persona['fecha_Terminacion_Contrato'] ?>">
+                          <input class="form-control"  tabindex="13"  name="fechaTerminacionC" id="fechaTer" readonly="true" value="<?= $persona['fecha_Terminacion_Contrato'] ?>">
                         </div>
                           </div>
                            <?php endif; ?>
@@ -217,9 +213,9 @@
                           <?php if ($persona['Tbl_TipoPersona_idTbl_TipoPersona'] == 2): ?>
                             <div class="row">
                             <div id="conFechaContrato" style="" class="col-md-6" style="display: none">
-                                <label for="" style="display: none" id="ftitulo">Fecha Contrato</label>
+                                <label for="" style="display: none" id="ftitulo">Fecha Contrato <span class="obligatorio">*</span></label>
                                 <div class="input-group date" data-provide="datepicker" id="dataPicker" style="display: none">
-                                <input type="text" class="form-control" value="" name="txtfechac" id="campoFechaContrato" readonly="true" data-parsley-required="false">
+                                <input type="text"  tabindex="12" class="form-control" value="" name="txtfechac" id="campoFechaContrato" readonly="true" data-parsley-required="false">
                                 <div class="input-group-addon">
                                 <span class="glyphicon glyphicon-th"></span>
                               </div>
@@ -229,15 +225,39 @@
                           <?php endif; ?>
                         </div>
                          <div class="modal-footer">
-                           <button type="button" class="btn btn-secondary btn-md active" id="btnguardarP"  data-dismiss="modal"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
-                           <button type="submit" name="btn-modificar" class="btn btn-success btn-md"><i class="fa fa-floppy-o" aria-hidden="true">   Modificar</i></button>
-
+                           <button type="button"  tabindex="14" class="btn btn-secondary btn-md active" id="btnguardarP"  data-dismiss="modal"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
+                           <button type="submit"  tabindex="15" name="btn-modificar" class="btn btn-success active btn-md" id="btn-modificar"><i class="fa fa-floppy-o" aria-hidden="true">   Modificar</i></button>
+                           <input type="hidden" tabindex="16">
                          </div>
                        </form>
                     </div>
                   </div>
 </div>
   <?php endif; ?>
+
+
+<!-- <script type="text/javascript">
+    $(document).ready(function(){
+      var fecha = $("#campoFechaContrato").val();
+      var id = $("#campoId").val();
+      $("#campoFechaContrato").change(function(){
+        $.ajax({
+          type: 'POST',
+          url: '<?= URL ?>/Personas/actualizarFechaFinContrato'
+          data: {fecha: 'fecha', id: 'id'}
+        })
+      })
+    });
+</script> -->
+
+
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $("#btn-modificar").blur(function(e){
+        $("#nombres").focus();
+      })
+    })
+  </script>
 
 
 <script type="text/javascript">
@@ -264,7 +284,7 @@
                     <div class="col-md-12">
                       <div class="panel panel-primary" >
                           <div class="panel-heading" stlyle="height: 70px; width: 100px">
-                            <center><span style="color: #fff; font-size: 20px" id="myModalLabel">Detalles de <?php echo $persona['nombres'].' '.$persona['apellidos']?></span></center>
+                            <center><span style="color: #fff; font-size: 20px" id="myModalLabel">Detalles de: <?php echo $persona['id_persona']." - ".$persona['nombres'].' '.$persona['apellidos']?></span></center>
                           </div>
                             <div class="panel-body">
                               <div class="dataTable_wrapper">
@@ -342,12 +362,12 @@
                       <div class="panel-body">
                           <div class="col-xs-12 col-md-6" id="conClave" >
                               <label for="inputPassword"  class="control-label">Nueva Contraseña *</label>
-                              <input type="password"  maxlength="12" minlength="3" name="txtnueva" class="form-control" id="campoClave" placeholder="Contraseña" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9!@#\$%\-\*\?_~\\.\\()\/$]+" data-parsley-required="true">
+                              <input type="password" tabindex="1"  maxlength="12" minlength="3" name="txtnueva" class="form-control" id="campoClave" placeholder="Contraseña" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9!@#\$%\-\*\?_~\\.\\()\/$]+" data-parsley-required="true">
                           </div>
 
                           <div class="col-xs-12 col-md-6" id="conConfirmar">
                                 <label for="">Confirmar Contraseña *</label>
-                                <input type="password" maxlength=12 minlength="3" name="txtConfClave" data-parsley-equalto="#campoClave" class="form-control" id="campoConfirmar" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9!@#\$%\-\*\?_~\\.\\()\/$]+" placeholder="Confirmar Contraseña" data-parsley-required="true">
+                                <input type="password" tabindex="2" maxlength=12 minlength="3" name="txtConfClave" data-parsley-equalto="#campoClave" class="form-control" id="campoConfirmar" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9!@#\$%\-\*\?_~\\.\\()\/$]+" placeholder="Confirmar Contraseña" data-parsley-required="true">
                           </div>
 
                         <div class="col-md-3">
@@ -358,15 +378,24 @@
               </div>
                        <div class="row">
                          <div class="col-xs-12 col-md-6 col-lg-9">
-                           <button type="button" class="btn btn-secondary btn-md active pull-right"  data-dismiss="modal"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
+                           <button type="button" tabindex="3" class="btn btn-secondary btn-md active pull-right"  data-dismiss="modal"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
                          </div>
                           <div class="col-xs-12 col-md-6 col-lg-3">
-                            <button type="submit" name="btn-modificar-clave" class="btn btn-success btn-md active"><i class="fa fa-floppy-o" aria-hidden="true">  Modificar</i></button>
+                            <button type="submit" tabindex="4" name="btn-modificar-clave" class="btn btn-success btn-md active" id="btn-contras"><i class="fa fa-floppy-o" aria-hidden="true">  Modificar</i></button>
+                            <input type="hidden" tabindex="5">
                          </div>
                       </div>
                       <br>
                 </div>
               </form>
+
+              <script type="text/javascript">
+                $(document).ready(function(){
+                  $("#btn-contras").blur(function(e){
+                    $("#campoClave").focus();
+                  })
+                })
+              </script>
 
   <script type="text/javascript">
     $(document).ready(function(){
