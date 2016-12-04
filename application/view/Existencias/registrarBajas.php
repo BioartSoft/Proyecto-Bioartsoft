@@ -46,7 +46,7 @@
               <input type="hidden" value="<?= $_SESSION['USUARIO_ID'] ?>" id="id-empleado" name="empleadoId">
           </div>
           <div class="form-group">
-            <button  type="button" tabindex="4" class="btn btn-primary pull-right" id="btn-agregar"><i class="fa fa-plus plus"></i>   Agregar</button>
+            <button  type="button" tabindex="4" class="btn btn-primary pull-right" id="btn-agregar" title="Agregar"><i class="fa fa-plus plus"></i>   Agregar</button>
             <input type="hidden" tabindex="5">
           </div>
         </div>
@@ -67,10 +67,10 @@
       </table>
     </div>
     <div class="col-md-6 col-xs-12 col-lg-10">
-      <button class="btn btn-success active pull-right" id="btn-guardarBajas" type="submit"  name="btn-agregar"><i class="fa fa-floppy-o" ></i>   Guardar</button>
+      <button class="btn btn-success active pull-right" id="btn-guardarBajas" type="submit"  name="btn-agregar" title="Guardar"><i class="fa fa-floppy-o" ></i>   Guardar</button>
     </div>
       <div class="col-md-6 col-xs-12 col-lg-2">
-        <button class="btn btn-danger active pull-right" onclick="cancelar()" id="btn-cancelar" type="button"  name="btn-agregar"><i class="fa fa-remove" ></i>   Cancelar</button>
+        <button class="btn btn-danger active pull-right" onclick="cancelar()" id="btn-cancelar" type="button"  name="btn-agregar" title="Cancelar"><i class="fa fa-remove" ></i>   Cancelar</button>
       </div>
   </div>
   </div>
@@ -238,7 +238,7 @@ $(document).ready(function(){
                 '<td class="cantidad2">' + cantidad + '</td>' +
                   '<td id="producto2">' +  tipo + '</td>'+
                 '<td>' +
-                  '<button class="btn btn-danger" onclick="eliminarfila($(this))">' +
+                  '<button class="btn btn-danger" onclick="eliminarfila($(this))" title="Eliminar">' +
                     '<i class="fa fa-trash"></i>' +
                   '</button>' +
                 '</td>' +
@@ -348,7 +348,7 @@ $(document).ready(function(){
 
   function cancelar() {
       swal({
-            title: "Los datos del registro no se guardarán",
+            title: "¿Realmente desea cancelar el registro?",
             type: "warning",
             confirmButton: "#3CB371",
             confirmButtonText: "btn-danger",

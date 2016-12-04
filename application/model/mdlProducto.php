@@ -394,6 +394,22 @@ public function validarCantidad(){
         return $this->db->lastInsertId();
     }
 
+    public function ultimoIdProducto(){
+      $sql = "CALL SP_Traer_Ultimo_producto()";
+      $stm = $this->db->prepare($sql);
+      $stm->execute();
+      return $stm->fetch(PDO::FETCH_ASSOC);
+    }
+
+
+    public function IdProdModificado(){
+      $sql = "CALL SP_Traer_Producto_Modificado(?)";
+      $stm = $this->db->prepare($sql);
+      $stm->bindParam(1, $this->id_producto);
+      $stm->execute();
+      return $stm->fetch(PDO::FETCH_ASSOC);
+    }
+
 }
 
  ?>

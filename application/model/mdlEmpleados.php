@@ -79,6 +79,7 @@
 
 		}
 
+
 		public function registrarPagoEmpleadoTemporal()
 		{
 		 	$sql = "CALL SP_registrarPagoEmpleadoTemporal(?,?,?,?)";
@@ -109,6 +110,7 @@
             return $stm->fetchAll(PDO::FETCH_ASSOC);
 		}
 
+
 		public function listarEmpleadoFijo()
 		{
 			$sql = "CALL SP_ListarEmpleadoFijo()";
@@ -116,6 +118,7 @@
             $stm->execute();
             return $stm->fetchAll(PDO::FETCH_ASSOC);
 		}
+
 
 		public function getDetallePagos($idPersona)
 		{
@@ -125,7 +128,6 @@
 			$stm->execute();
 			return $stm->fetchAll(2);
 		}
-
 
 
 		public function getEmpleado()
@@ -147,6 +149,7 @@
 			return $stm->fetchAll(2);
 		}
 
+
 		public function getNombreTipoEmpleado()
 		{
 			$sql = "CALL SP_NombreTipoPer()";
@@ -154,6 +157,7 @@
 			$stm->execute();
 			return $stm->fetchAll(2);
 		}
+
 
 		public function cambiarestado($codigo, $estado)
 		{
@@ -164,13 +168,15 @@
 			return $stm->execute();
 		}
 
+
 		public function ultimoPago()
 		{
-			$sql = "SELECT MAX(id_pago) as id_pago FROM tbl_pagoempleados";
+			$sql = "CALL SP_Ultimo_Pago()";
 			$stm = $this->db->prepare($sql);
 			$stm->execute();
 			return $stm->fetch();
 		}
+
 
 		public function registrarDetallepagoconfi()
 		{
@@ -182,6 +188,7 @@
 			return $stm->execute();
 		}
 
+
 		public function registrarDetallepagoconfiTemp()
 		{
 			$sql = "CALL SP_RegistrarDetallePagoConfiTemp(?,?,?)";
@@ -191,6 +198,7 @@
 			$stm->bindParam(3, $this->valorTotal);
 			return $stm->execute();
 		}
+
 
 		public function registrarPrestamo()
 		{
@@ -205,6 +213,7 @@
 			return $stm->execute();
 		}
 
+
 		public function actualizarAbono()
 		{
 			$sql = "CALL SP_actualizarValorPrestamo(?,?)";
@@ -213,6 +222,7 @@
 			$stm->bindParam(2, $valor_prestamo);
 			return $stm->execute();
 		}
+
 
 		public function registrarAbonoPrestamo()
 		{
@@ -234,6 +244,7 @@
 			return $stm->fetch();
 		}
 
+
 		public function modificarEstadoPre()
 		{
 			$sql = "CALL SP_ModificarEstadoPrestamoAbonoCero(?)";
@@ -241,6 +252,7 @@
 			$stm->bindParam(1, $this->id_prest);
 			return $stm->execute();
 		}
+
 
 		public function traerFechaDiaDespues()
 		{
@@ -250,6 +262,7 @@
 			$stm->execute();
 			return $stm->fetch();
 		}
+
 
 		public function ListarAbonos($id_prestamos)
 		{
@@ -261,7 +274,6 @@
 		}
 
 
-
 		public function modificarfechaLiquidacion()
 		{
 			$sql = "CALL SP_modificarFechadeliquidacion(?,?)";
@@ -270,6 +282,7 @@
 			$stm->bindParam(2, $this->fecha_liquidación);
 			return $stm->execute();
 		}
+
 
 		public function totalVentasEmpleado()
 		{
@@ -282,6 +295,7 @@
 			return $stm->fetch(2);
 		}
 
+
 		public function valicantipre()
 		{
 			$sql ="CALL SP_ValiPrestamo(?)";
@@ -290,6 +304,7 @@
 			$stm->execute();
 			return $stm->fetch(2);
 		}
+
 
 		public function prestamopendiente()
 		{
@@ -300,6 +315,7 @@
 			return $stm->fetchAll(2);
 		}
 
+
 		public function informacionprestamo()
 		{
 			$sql = "CALL SP_traerinfoprestamo(?)";
@@ -308,6 +324,7 @@
 			$stm->execute();
 			return $stm->fetch(PDO::FETCH_ASSOC);
 		}
+
 
 		public function modificarprestamos()
 		{
@@ -319,17 +336,16 @@
 			return $stm->execute();
 		}
 
+
 		public function cambiarestadoAbonos($codigo, $estado)
 		{
 			$sql ="CALL SP_anularAbonoPrestamos(?,?)";
-
-			//$this->db->beginTransaction();
-
 			$stm = $this->db->prepare($sql);
 			$stm->bindParam(1, $codigo);
 			$stm->bindParam(2, $estado);
 			return $stm->execute();
 		}
+
 
 		public function traerValorAbonoPorPrestamo($id_prestamos)
 		{
@@ -340,6 +356,7 @@
 			return $stm->fetch(2);
 		}
 
+
 		public function cambiarestadoPrestamo($codigo, $estado)
 		{
 			$sql ="CALL SP_AnularPrestamo(?,?)";
@@ -349,6 +366,7 @@
 			return $stm->execute();
 		}
 
+
 		public function nullEnAbonos()
 		{
 			$sql = "CALL SP_ValAbonoAnularPrestamo(?)";
@@ -357,6 +375,21 @@
 			$stm->execute();
 			return $stm->fetch(PDO::FETCH_ASSOC);
 		}
+
+
+		public function ultimoId(){
+        $sql = "SELECT max(id_pago) as ultimo_id FROM tbl_pagoempleados";
+        $stm = $this->db->prepare($sql);
+        $stm ->execute();
+        return $stm->fetch(PDO::FETCH_ASSOC);
+    }
+
+		public function ultimoAbonoPrestamo($id){
+        $sql = "SELECT max(idTbl_Abono_Prestamo) as ultimo_id FROM tbl_abono_prestamo WHERE Tbl_Prestamos_idprestamos = $id";
+        $stm = $this->db->prepare($sql);
+        $stm ->execute();
+        return $stm->fetch(PDO::FETCH_ASSOC);
+    }
 
 	}
  ?>

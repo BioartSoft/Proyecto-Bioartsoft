@@ -6,7 +6,8 @@
   }
 </style>
   <link href="<?php echo URL?>css/Estilos.css" rel="stylesheet">
-  <title>Recibo de abono</title>
+  <link href="<?php echo URL?>css/bootstrap.min.css" rel="stylesheet">
+  <title>Recibo de abono Crédito</title>
 </head>
 <body>
   <h2 style="text-align: center">BIOARTES</h2>
@@ -23,11 +24,11 @@
   Cliente: <strong><?= ucwords($val['cliente']) ?></strong><br>
   Identificación: <strong><?= $val['id_persona'] ?></strong><br>
   <br>
-  ----------------------------------------------------------<br>
-  ----------------------------------------------------------<br><br>
+  --------------------------------------------------------------------<br>
+  --------------------------------------------------------------------<br><br>
   <center><legend><h3>RECIBO DE ABONO</h3></legend></center>
   <br>
-  <table>
+  <table class="table table-striped">
     <thead>
       <tr>
         <th>Total Crédito</th>
@@ -41,10 +42,11 @@
     </tbody>
   </table>
   <br><br>
-  -----------------------------------------------------------<br>
-  -----------------------------------------------------------<br><br>
+  --------------------------------------------------------------------<br>
+  --------------------------------------------------------------------<br><br>
   <p>Recuerde cancelar antes del: <?= $val['fecha_limite_credito'] ?></p>
   <br><br>
   <p style="text-align: center"><strong>Gracias por su visita</strong></p>
+  <script src="<?php echo URL ?>js/bootstrap.min.js"></script>
 </body>
 </html>

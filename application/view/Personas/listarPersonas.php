@@ -90,11 +90,14 @@
   <div class="modal fade" id="modal-actualizar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard ="false" data-backdrop = "static">
      <div class="modal-dialog" role="document">
        <div class="modal-content">
+         <div class="modal-body">
          <div class="modal-header">
-                 <center>
-                   <h4 class="modal-title"  style="color: #337AB7" id="myModalLabel">Modificar Usuarios/Empleados (obligatorios *)</h4>
-                 </center>
-               </div>
+           <div class="row">
+             <div class="col-lg-12">
+               <div class="panel panel-primary">
+                 <div class="panel-heading" stlyle="height: 70px; width: 100px">
+                       <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 20px">Modificar Usuarios/Empleados (obligatorios *) </center>
+                 </div>
                <form method="POST"  id="form-2" role="form" action="<?= URL ?>Personas/listarPersonasEmpleados/<?= $persona['id_usuarios'] ?>" data-parsley-validate="">
                 <div class="modal-body">
                   <input type="hidden" name="idPersona" value="<?= $persona['id_persona'] ?>">
@@ -165,7 +168,7 @@
                         <div class="col-md-6">
                           <label>Dirección</label><br>
                             <input type="text"  tabindex="8" class="form-control" id="ejemplo_password_2"
-                               value="<?= $persona['direccion'] ?>" name="txtdirecc" maxlength="40" minlength="3" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9!@#\$%\-\*\?_~\\ \\.\/$]+" ata-parsley-required="false">
+                               value="<?= $persona['direccion'] ?>" name="txtdirecc" maxlength="50" minlength="3" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9!@#\$%\-\*\?_~\\ \\.\/$]+" data-parsley-required="false">
                         </div>
           </div>
           <br>
@@ -193,15 +196,26 @@
                         <br>
                           <?php if ($persona['Tbl_TipoPersona_idTbl_TipoPersona'] == 1): ?>
                         <div class="row">
+                          <?php
+                              $hoy = date("Y-m-d");
+                              $hoy1 = $persona['fecha_Contrato'];
+                              $nuevaFecha = strtotime('-3 month', strtotime($hoy1));
+                              $nuevaFecha = date('Y-m-d', $nuevaFecha);
+                              $nuevaFecha2 = strtotime('+3 month', strtotime($hoy1));
+                              $nuevaFecha2 = date('Y-m-d', $nuevaFecha2);
+                           ?>
                         <div id="conFechaContrato" style="" class="col-md-6">
                             <label for="form-control">Fecha Contrato <span class="obligatorio">*</span></label>
-                            <div class="input-group date" data-provide="datepicker" id="dataPicker">
+                            <div class="input-group date calendario" data-provide="datepicker" id="dataPicker">
                             <input type="text"  tabindex="12" class="form-control" value="<?= $persona['fecha_Contrato'] ?>" name="txtfechac" readonly="true" id="campoFechaContrato" placeholder="Fecha Contrato" data-parsley-required="false">
                             <div class="input-group-addon">
                             <span class="glyphicon glyphicon-th"></span>
                           </div>
                           </div>
                         </div>
+                        <input type="hidden" id="campoFechaContrato2" value="<?= $nuevaFecha ?>">
+                        <input type="hidden" id="campoFechaContrato3" value="<?= $nuevaFecha2 ?>">
+                        <input type="hidden" id="campoFechaContrato4" value="<?= $hoy1 ?>">
 
                         <div class="col-md-6" id="div-fechaTer">
                           <label>Fecha Terminación Contrato</label>
@@ -211,44 +225,50 @@
                            <?php endif; ?>
 
                           <?php if ($persona['Tbl_TipoPersona_idTbl_TipoPersona'] == 2): ?>
+                            <?php
+                                $hoy = date("Y-m-d");
+                                $nuevaFecha = strtotime('-3 month', strtotime($hoy));
+                                $nuevaFecha = date('Y-m-d', $nuevaFecha);
+                                $nuevaFecha2 = strtotime('+3 month', strtotime($hoy));
+                                $nuevaFecha2 = date('Y-m-d', $nuevaFecha2);
+                             ?>
                             <div class="row">
                             <div id="conFechaContrato" style="" class="col-md-6" style="display: none">
                                 <label for="" style="display: none" id="ftitulo">Fecha Contrato <span class="obligatorio">*</span></label>
-                                <div class="input-group date" data-provide="datepicker" id="dataPicker" style="display: none">
-                                <input type="text"  tabindex="12" class="form-control" value="" name="txtfechac" id="campoFechaContrato" readonly="true" data-parsley-required="false">
+                                <div class="input-group date calendario" data-provide="datepicker" id="dataPicker" style="display: none">
+                                <input type="text"  tabindex="12" class="form-control" value="<?= $hoy ?>" name="txtfechac" id="campoFechaContrato2" readonly="true" data-parsley-required="false">
                                 <div class="input-group-addon">
                                 <span class="glyphicon glyphicon-th"></span>
                               </div>
                               </div>
                             </div>
+                            <input type="hidden" id="campoFecha1" value="<?= $nuevaFecha ?>">
+                            <input type="hidden" id="campoFecha2" value="<?= $nuevaFecha2 ?>">
+                            <input type="hidden" id="campoFecha3" value="<?= $hoy ?>">
                               </div>
                           <?php endif; ?>
                         </div>
-                         <div class="modal-footer">
-                           <button type="button"  tabindex="14" class="btn btn-secondary btn-md active" id="btnguardarP"  data-dismiss="modal"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
+                        <br>
+                         <div class="row">
+                           <div class="col-md-6 col-xs-12 col-lg-9">
+                           <button type="button"  tabindex="14" class="btn btn-secondary btn-md active pull-right" id="btnguardarP"  data-dismiss="modal"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
+                         </div>
+                         <div class="col-md-6 col-xs-12 col-lg-3">
                            <button type="submit"  tabindex="15" name="btn-modificar" class="btn btn-success active btn-md" id="btn-modificar"><i class="fa fa-floppy-o" aria-hidden="true">   Modificar</i></button>
                            <input type="hidden" tabindex="16">
                          </div>
+                       </div>
+                       <br>
                        </form>
                     </div>
                   </div>
-</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
   <?php endif; ?>
-
-
-<!-- <script type="text/javascript">
-    $(document).ready(function(){
-      var fecha = $("#campoFechaContrato").val();
-      var id = $("#campoId").val();
-      $("#campoFechaContrato").change(function(){
-        $.ajax({
-          type: 'POST',
-          url: '<?= URL ?>/Personas/actualizarFechaFinContrato'
-          data: {fecha: 'fecha', id: 'id'}
-        })
-      })
-    });
-</script> -->
 
 
   <script type="text/javascript">
@@ -277,7 +297,6 @@
   <div class="modal fade" id="modal-detalles" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static">
        <div class="modal-dialog" style="width: 80%" role="document">
          <div class="modal-content" style="width: 100%">
-                 <!-- <form method="POST" action="<?= URL ?>Personas/listarPersonasEmpleados/<?=  $valor['id_usuarios'] ?>"> -->
                   <div class="modal-body">
                     <input type="hidden" name="idPersona" value="<?= $persona['id_persona'] ?>">
                     <div class="row">
@@ -519,3 +538,131 @@ function(isConfirm){
     });
   </script>
 <?php endif; ?>
+
+
+<script type="text/javascript">
+  $("#campoFechaContrato").change(function(){
+    var valor3 = $('#campoFechaContrato').val();
+    var valor4 = $('#campoFechaContrato2').val();
+    var valor5 = $('#campoFechaContrato4').val();
+
+    if(valor3 < valor4){
+      swal({
+              title: "Fecha inválida, la fecha no puede ser menor a 3 meses!",
+              type: "error",
+              confirmButtonColor: "#86CCEB",
+              confirmButtonText: "Aceptar",
+              closeOnConfirm: true,
+
+              },
+              function(isConfirm){
+              if (isConfirm) {
+                  $('#campoFechaContrato').val(valor5);
+              }
+            })
+          }
+
+  });
+
+</script>
+
+<script type="text/javascript">
+  $("#campoFechaContrato").change(function(){
+    var valor3 = $('#campoFechaContrato').val();
+    var valor4 = $('#campoFechaContrato2').val();
+    var valor5 = $('#campoFechaContrato4').val();
+
+    if(valor3 < valor4){
+      swal({
+              title: "Fecha inválida, la fecha no puede ser menor a 3 meses!",
+              type: "error",
+              confirmButtonColor: "#86CCEB",
+              confirmButtonText: "Aceptar",
+              closeOnConfirm: true,
+
+              },
+              function(isConfirm){
+              if (isConfirm) {
+                  $('#campoFechaContrato').val(valor5);
+              }
+            })
+          }
+
+  });
+
+</script>
+
+<script type="text/javascript">
+  $("#campoFechaContrato").change(function(){
+    var valor = $('#campoFechaContrato').val();
+    var valor2 = $('#campoFechaContrato3').val();
+    var valor3 = $('#campoFechaContrato4').val();
+
+    if(valor > valor2){
+      swal({
+              title: "Fecha inválida, la fecha no puede ser mayor a 3 meses!",
+              type: "error",
+              confirmButtonColor: "#86CCEB",
+              confirmButtonText: "Aceptar",
+              closeOnConfirm: true,
+
+              },
+              function(isConfirm){
+              if (isConfirm) {
+                  $('#campoFechaContrato').val(valor3);
+              }
+            })
+          }
+  });
+
+</script>
+
+<script type="text/javascript">
+  $("#campoFechaContrato2").change(function(){
+    var valor = $('#campoFechaContrato2').val();
+    var valor2 = $('#campoFecha2').val();
+    var valor3 = $('#campoFecha3').val();
+
+    if(valor > valor2){
+      swal({
+              title: "Fecha inválida, la fecha no puede ser mayor a 3 meses!",
+              type: "error",
+              confirmButtonColor: "#86CCEB",
+              confirmButtonText: "Aceptar",
+              closeOnConfirm: true,
+
+              },
+              function(isConfirm){
+              if (isConfirm) {
+                  $('#campoFechaContrato2').val(valor3);
+              }
+            })
+          }
+  });
+
+</script>
+
+<script type="text/javascript">
+  $("#campoFechaContrato2").change(function(){
+    var valor = $('#campoFechaContrato2').val();
+    var valor2 = $('#campoFecha1').val();
+    var valor3 = $('#campoFecha3').val();
+
+    if(valor < valor2){
+      swal({
+              title: "Fecha inválida, la fecha no puede ser menor a 3 meses!",
+              type: "error",
+              confirmButtonColor: "#86CCEB",
+              confirmButtonText: "Aceptar",
+              closeOnConfirm: true,
+
+              },
+              function(isConfirm){
+              if (isConfirm) {
+                  $('#campoFechaContrato2').val(valor3);
+              }
+            })
+          }
+  });
+
+</script>

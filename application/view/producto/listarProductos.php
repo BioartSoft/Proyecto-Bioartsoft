@@ -86,13 +86,13 @@
 </div>
 <div class="row">
 <div class="col-sm-2"></div>
-  <div class="col-sm-4">
+  <!-- <div class="col-sm-4">
     <center>
     <a href="<?= URL ?>producto/generarPdfCodigoProductos" target="_blank">
       <button class="btn btn-primary"><i class="fa fa-barcode" aria-hidden="true">   Generar Todos los códigos</i></button>
     </a>
   </center>
-  </div>
+  </div> -->
   <?php if($_SESSION['ROL'] == 1 || $_SESSION['ROL'] == 3): ?>
   <div class="col-sm-4">
     <center>
@@ -114,9 +114,7 @@
                   <div class="modal-dialog" role="document">
                     <div class="modal-content">
                       <div class="modal-header">
-                        <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                        </button> -->
+
                           <center><h4 class="modal-title" id="myModalLabel" style="color: #337AB7">Modificar Producto (obligatorios *)</h4></center>
                       </div>
                    <div class="modal-body">
@@ -148,24 +146,8 @@
                           <label id="lbltamanio">Descripción</label><br>
                           <textarea id="txttamano-input" tabindex="4"  name="txttamano" type="text" class="form-control" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ@\-\.\\ \/$]+" maxlength="20"></textarea>
                        </div>
-
-                    <!-- <div class="col-md-6" id="div-talla" name="txttalla">
-                        <label id="lbltalla">Talla <span class="obligatorio">*</span></label><br>
-                        <select id="txttalla" tabindex="3" name="txttalla" class="form-control" data-parsley-type="alphanum" maxlength="15">
-                          <option value="">Seleccionar Talla</option>
-                          <option>S</option>
-                          <option>M</option>
-                          <option>L</option>
-                          <option>XL</option>
-                          <option>XXL</option>
-                        </select>
-                    </div> -->
                   </div>
-                  <br>
-
-
-                   <br>
-
+                  <br><br>
                    <div class="row">
                      <div class="col-md-6">
                      <label>Precio Detal <span class="obligatorio">*</span></label><br>

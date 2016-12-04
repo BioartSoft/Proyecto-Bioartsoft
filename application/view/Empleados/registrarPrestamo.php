@@ -33,7 +33,7 @@
                               <?php else:  ?>
                                 Inhabilitado
                           <?php endif ?></td>
-                          <td><button type="button" class="btn btn-primary btn-circle btn-md" data-tipo = "<?= $empleado['Tbl_nombre_tipo_persona']?>" data-estadoE = "<?= $empleado['estado'] ?>" data-identi = "<?= $empleado['id_persona'] ?>" onclick="prestamosEmp('<?= $empleado['id_persona'] ?>',this)"><i class="fa fa-pencil" aria-hidden="true"></i></button></td>
+                          <td><button type="button" class="btn btn-primary btn-circle btn-md" data-tipo = "<?= $empleado['Tbl_nombre_tipo_persona']?>" data-estadoE = "<?= $empleado['estado'] ?>" data-identi = "<?= $empleado['id_persona'] ?>" onclick="prestamosEmp('<?= $empleado['id_persona'] ?>',this)" title="Registrar Préstamo"><i class="fa fa-pencil" aria-hidden="true"></i></button></td>
                         </tr>
                       <?php endforeach; ?>
                     </tbody>
@@ -79,25 +79,23 @@
                     </div>
                   </div>
 
+                  <?php $hoy = date("Y-m-d");
+                  $nuevafecha = strtotime ('+30 day' , strtotime($hoy)) ;
+                  $nuevafecha = date ('Y-m-d', $nuevafecha);
+                  ?>
+                  <?php $hoy2 = date("Y-m-d");
+                  $nuevafecha2 = strtotime ('+30 day' , strtotime($hoy2)) ;
+                  $nuevafecha2 = date ('Y-m-d', $nuevafecha2);
+                  ?>
                 <div class="col-xs-12 col-md-6" id="divFechapagolimite">
                   <label id="labelFechaLimite">Fecha Límite:</label>
-                  <div class="">
-                    <div class="input-group date" data-provide = "datepicker">
-                      <div class="input-group-addon" style="border-radius:5px;">
-                        <i class="fa fa-calendar"></i>
+                      <div class="input-group date calendario" data-provide="datepicker">
+                        <input type="text" class="form-control pull-right" name="txtfechalimite" onchange="validarfe()" required="" id="Flimite" step="1"  value="<?php echo $nuevafecha ?>" format="yyyy-mm-dd" readonly="true">
+                        <div class="input-group-addon">
+                        <span class="glyphicon glyphicon-th"></span>
                       </div>
-                        <?php $hoy = date("Y-m-d");
-                            $nuevafecha = strtotime ('+30 day' , strtotime($hoy)) ;
-                            $nuevafecha = date ('Y-m-d', $nuevafecha);
-                        ?>
-                        <?php $hoy2 = date("Y-m-d");
-                            $nuevafecha2 = strtotime ('+30 day' , strtotime($hoy2)) ;
-                            $nuevafecha2 = date ('Y-m-d', $nuevafecha2);
-                        ?>
-                      <input type="text" class="form-control pull-right" name="txtfechalimite" onchange="validarfe()" required="" id="Flimite" style="border-radius:5px;" step="1"  value="<?php echo $nuevafecha ?>" format="yyyy-mm-dd" readonly="">
                     </div>
-                      <input type="hidden" value="<?php echo $nuevafecha2 ?>" format="yyyy-mm-dd" id="limite">
-                  </div>
+                  <input type="hidden" value="<?php echo $nuevafecha2 ?>" format="yyyy-mm-dd" id="limite">
                 </div>
               </div>
 
@@ -118,10 +116,10 @@
 
         <div class="row">
           <div class="col-xs-12 col-md-6 col-lg-9">
-            <button type="button" class="btn btn-secondary btn-md active pull-right" data-dismiss="modal" id="btncancelar"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
+            <button type="button" class="btn btn-secondary btn-md active pull-right" data-dismiss="modal" id="btncancelar" title="Cerrar"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
           </div>
           <div class="col-xs-12 col-md-6 col-lg-3" id="btnGuardarPrestamo">
-            <button type="submit" class="btn btn-success btn-md active"  name="btnRegistrarPrestamo" id="btnguardarPrestamo"><i class="fa fa-floppy-o" aria-hidden="true">   Guardar</i></button>
+            <button type="submit" class="btn btn-success btn-md active"  name="btnRegistrarPrestamo" id="btnguardarPrestamo" title="Guardar"><i class="fa fa-floppy-o" aria-hidden="true">   Guardar</i></button>
           </div>
         </div>
 
@@ -131,6 +129,15 @@
 </div>
 </div>
 </form>
+
+<script type="text/javascript">
+$(document).ready(function() {
+  $('.calendario').datepicker({
+    pickTime: false,
+    autoclose: true
+  });
+});
+</script>
 
           <script type="text/javascript">
             $(document).ready(function(){
@@ -145,7 +152,7 @@
           <script type="text/javascript">
             function cancelarprestamo() {
               swal({
-      title: "Los datos del registro no se guardarán",
+      title: "¿Realmente desea cancelar el registro?",
       type: "warning",
       confirmButton: "#3CB371",
       confirmButtonText: "btn-danger",
@@ -159,7 +166,7 @@
     function(isConfir){
         if (isConfir) {
           swal({
-            title: "Registro de préstamo cancelado!",
+            title: "Registro cancelado!",
             type: "error",
             confirmButton: "#3CB371",
             confirmButtonText: "Aceptar",

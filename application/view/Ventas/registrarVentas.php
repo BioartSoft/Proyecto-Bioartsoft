@@ -225,7 +225,6 @@
                </div>
               </div>
             </div>
-          </div>
 
           <script>
             function soloLetras(e){
@@ -528,7 +527,7 @@
                var c = $(value).find("span.cantidad").text(cantAnt + cantAct);
                $("#cantidad-prod-"+productoCd).val(cantAnt + cantAct);
                $(value).find("p#cantidad").attr("data-cantidad", cantAnt + cantAct);
-               var subAnt = parseInt($(value).find("span.subtotal").text().replace(".","").replace(",","").replace(",",""));
+               var subAnt = parseInt($(value).find("span.subtotal").text().replace(".","").replace(",","").replace(",", "").replace("$",""));
                var p = $(value).find("span.subtotal").text(subAnt + parseInt(precio * cantidad));
                $(value).find("p#subtotal").attr("data-valor", subAnt + parseInt (precio * cantidad));
 
@@ -555,7 +554,7 @@
            html += '<input type="hidden" name="cantidad[]" id="cantidad-prod-'+productoCd+'" value="'+cantidad+'">';
            html += ' </div>';
            html += '  <div class="col-md-3 cta-button">';
-           html += '      <a href="#" onclick="quitar(this)" class="btn btn-md btn-danger" title="remover"><i class="fa fa-trash-o" title="remover"></i></a>';
+           html += '      <a href="#" onclick="quitar(this)" class="btn btn-md btn-danger" title="Remover"><i class="fa fa-trash-o" title="Remover"></i></a>';
            html += '    </div>';
            html += '  </div>';
            html += '</div>';
@@ -813,15 +812,13 @@ function cancelar() {
       $("#campoCelular").css("background", "#F2DEDE");
       $("#genero").css("background", "#F2DEDE");
     }else {
-      // $("#tipoPersona").css("background", "#FFF");
-      // $("#documento").css("background", "#FFF");
-      // $("#campoId").css("background", "#FFF");
-      // $("#campoNombre").css("background", "#FFF");
-        $("#campoApellido").keydown(function(){
-        $("#campoApellido").removeAttr("backgroud");
-      });
-      // $("#campoCelular").css("background", "#FFF");
-      // $("#genero").css("background", "#FFF");
+      $("#tipoPersona").css("background", "#DFF0D8");
+      $("#documento").css("background", "#DFF0D8");
+      $("#campoId").css("background", "#DFF0D8");
+      $("#campoNombre").css("background", "#DFF0D8");
+      $("#campoApellido").css("background", "#DFF0D8");
+      $("#campoCelular").css("background", "#DFF0D8");
+      $("#genero").css("background", "#DFF0D8");
 
     $.ajax({
       type: 'post',
@@ -877,34 +874,10 @@ function cancelar() {
 <script type="text/javascript">
   $(document).ready(function(){
     $("#btnGuardar").click(function(){
-      // var pago = $("#select-pago").val();
-
-        // if(pago == "1"){
           $("#select-pago").attr("data-parsley-required", "true");
           $("#txtplazo").attr("data-parsley-required", "false");
-        // }else if(pago == "2"){
-        //   $("#txtplazo").attr("data-parsley-required", "false");
-        // }else{
-        //
-        // }
     })
   })
-</script>
-
-<script type="text/javascript">
-  $(document).ready(function(){
-    function validarTipoDatos(){
-    var tipoPer = $("#tipoPersona").val();
-    var tipoDocum = $("#documento").val();
-    var numeroDocum = $("#campoId").val();
-    var nombresPer = $("#campoNombre").val();
-    var apellidosPer = $("#campoApellido").val();
-    var celularPer = $("#campoCelular").val();
-    var generoPer = $("#genero").val();
-
-    if(!is_string(tipoPer) || !is_string(tipoDocum) || !is_numeric(numeroDocum) || )
-    }
-})
 </script>
 
 <script type="text/javascript">
@@ -931,7 +904,7 @@ function cancelar() {
 
 function cancelar() {
     swal({
-          title: "Los datos del registro no se guardarán",
+          title: "¿Realmente desea cancelar el registro?",
           type: "warning",
           confirmButton: "#3CB371",
           confirmButtonText: "btn-danger",
@@ -959,4 +932,91 @@ function cancelar() {
         }
         });
      }
+</script>
+
+<script type="text/javascript">
+  $(function(){
+
+    $("#campoId").keydown(function(){
+
+      if($("#campoId").val() == 0){
+        $("#campoId").val("");
+      }
+    })
+
+    $("#campoId").change(function(){
+
+      var campoId = $("#campoId").val();
+
+      if(campoId == 0){
+        swal({
+              title: "Identificacion inválida!",
+              type: "error",
+              confirmButton: "#3CB371",
+              confirmButtonText: "Aceptar",
+              // confirmButtonText: "Cancelar",
+              closeOnConfirm: true,
+              closeOnCancel: false
+            },
+          function(isConfirm){
+            if(isConfirm){
+              $("#campoId").val("");
+            }
+          });
+      }else{
+        $.ajax({
+          url: url + 'Personas/validacion',
+          data:{'campoId': campoId},
+          type: 'post',
+          dataType:"text"
+        }).done(function(resut){
+
+          if(resut == "1"){
+            swal({
+                  title: "Identificación ya existe, no se puede registrar!",
+                  type: "error",
+                  confirmButton: "#3CB371",
+                  confirmButtonText: "Aceptar",
+                  // confirmButtonText: "Cancelar",
+                  closeOnConfirm: true,
+                  closeOnCancel: false
+                },
+              function(isConfirm){
+                if(isConfirm){
+                  $("#campoId").val("");
+                }
+              });
+          }
+
+        });
+      }
+
+    });
+
+  });
+</script>
+
+
+<?php if (isset($errorId) && $errorId == false): ?>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      swal({
+            title: "Identificación ya existe, no se puede registrar!",
+            type: "error",
+            confirmButton: "#3CB371",
+            confirmButtonText: "Aceptar",
+            // confirmButtonText: "Cancelar",
+            closeOnConfirm: false,
+            closeOnCancel: false
+          });
+    });
+  </script>
+<?php endif; ?>
+
+<script type="text/javascript">
+  $("#txt-campo-des").keydown(function(e){
+    if(e.which === 189 || e.which === 69){
+      e.preventDefault();
+    }
+  });
 </script>

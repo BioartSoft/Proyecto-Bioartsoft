@@ -31,7 +31,7 @@ use Dompdf\Dompdf;
       $dompdf = new Dompdf();
       $dompdf->loadHtml($html);
       // $dompdf->load_html_file($urlImagen);
-      $dompdf->setPaper('A4', 'landscape');
+      $dompdf->setPaper('A3', 'landscape');
       $dompdf->render();
       $dompdf->stream("Informe Proveedores.pdf", array("Attachment" => false, 'isRemoteEnabled' => true));
     }
@@ -50,7 +50,7 @@ use Dompdf\Dompdf;
       $dompdf = new Dompdf();
       $dompdf->loadHtml($html);
       // $dompdf->load_html_file($urlImagen);
-      $dompdf->setPaper('A4', 'landscape');
+      $dompdf->setPaper('A3', 'landscape');
       $dompdf->render();
       $dompdf->stream("Informe Clientes.pdf", array("Attachment" => false, 'isRemoteEnabled' => true));
     }
@@ -69,7 +69,7 @@ use Dompdf\Dompdf;
       $dompdf = new Dompdf();
       $dompdf->loadHtml($html);
       // $dompdf->load_html_file($urlImagen);
-      $dompdf->setPaper('A4', 'landscape');
+      $dompdf->setPaper('A3', 'landscape');
       $dompdf->render();
       $dompdf->stream("Informe Empleados.pdf", array("Attachment" => false, 'isRemoteEnabled' => true));
     }
@@ -175,15 +175,23 @@ use Dompdf\Dompdf;
     require APP . 'view/_templates/footer.php';
     }
 
-    // private function actualizarFechaFinContrato(){
-    //   $this->modeloP->__SET("idPersona", $_POST['id']);
-    //   $this->modeloP->__SET("fechaTerminacion", $_POST['fecha']);
-    //   $actualizar = $this->modeloP->actualizarFecha();
-    //
-    // }
+
+    private function actualizarFechaFinContrato(){
+      $this->modeloP->__SET("idPersona", $_POST['id']);
+      $this->modeloP->__SET("fechaContrato", $_POST['fecha']);
+      $actualizar = $this->modeloP->actualizarFecha();
+
+      if($actualizar == true)
+      {
+        echo json_encode(['v'=> 1]);
+      }else{
+        echo json_encode(['v'=> 0]);
+      }
+
+    }
+
 
     private function guardarEmpleadoFijo(){
-
       $this->modeloP->__SET("idPersona", $_POST['txtIdPersona']);
       $this->modeloP->__SET("nombres", ucwords($_POST['txtNombres']));
       $this->modeloP->__SET("apellidos", ucwords($_POST['txtApellidos']));

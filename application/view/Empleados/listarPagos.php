@@ -17,7 +17,7 @@
                 <th>Nombres</th>
                 <th>Apellidos</th>
                 <th>Tipo Empleado</th>
-                <th>Ver Detalle</th>
+                <th>Opciones</th>
               </tr>
             </thead>
             <tbody>
@@ -27,8 +27,8 @@
                   <td><?=  $empleado['nombres'] ?></td>
                   <td><?=  $empleado['apellidos'] ?></td>
                   <td><?=  $empleado['Tbl_nombre_tipo_persona'] ?></td>
-                  <td><button type="button" class="btn btn-primary btn-circle btn-md" data-toggle="modal" data-target="#myJhoan" data-tipop = "<?=  $empleado['Tbl_nombre_tipo_persona'] ?>" title="Generar Recibo" onclick="traerDetallePagos('<?=  $empleado['id_persona'] ?>')"><i class="fa fa-eye" aria-hidden="true"></i></button>
-                  <a href="<?= URL ?>Empleados/generarpdfPagos/<?= $empleado['id_persona'] ?>" target="_blank" id="pdfDetalPagos">
+                  <td><button type="button" class="btn btn-primary btn-circle btn-md" data-toggle="modal" data-target="#myJhoan" data-tipop = "<?=  $empleado['Tbl_nombre_tipo_persona'] ?>" title="Ver detalles" onclick="traerDetallePagos('<?=  $empleado['id_persona'] ?>')"><i class="fa fa-eye" aria-hidden="true"></i></button>
+                  <a href="<?= URL ?>Empleados/generarpdfPagos?id=<?= $empleado['id_persona'] ?>" target="_blank" id="pdfDetalPagos">
                       <button class="btn btn-success btn-circle btn-md" name="btnPdfPagos" title="Generar Pdf"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></button>
                   </a>
               <?php endforeach; ?>
@@ -55,7 +55,11 @@
                             </div>
                           </div>
                         </div>
-                          <button type="button" class="btn btn-secondary btn-active pull-rigth"  data-dismiss="modal" style="margin-left:80%"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
+                        <div class="row">
+                          <div class="col-md-6 col-xs-12 col-lg-11">
+                          <button type="button" class="btn btn-secondary btn-active pull-right"  data-dismiss="modal"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
+                        </div>
+                      </div>
                       </div>
                     </td>
                   </tr>

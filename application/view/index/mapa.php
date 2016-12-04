@@ -1,10 +1,10 @@
-
+<br><br>
 <div class="panel panel-primary" style="margin-top: 5px">
+  <div class="panel-heading" stlyle="height: 70px; width: 100px">
+    <center><span style="color: #FFF; margin-top: 10px; margin-bottom: 10px; font-size: 20px">Mapa Navegación</span></center>
+  </div>
   <div class="row">
     <br>
-  <div class="panel-heading" stlyle="height: 70px; width: 100px">
-  <center><span style="color: #337AB7; margin-top: 10px; margin-bottom: 10px; font-size: 20px">Mapa Navegación</span></center>
-  </div>
 
 <div class="panel-body">
 <ul class="list-group" style="margin-right: 5px; margin-left: 5px">

@@ -104,6 +104,17 @@ class producto extends Controller{
   }
 
 
+  public function validacionNombreProducto(){
+      $this->mdlproducto->__SET("nombre_producto", $_POST['nombreProd']);
+      $ValidarNombre = $this->mdlproducto->validarNombre();
+    
+        if ($ValidarNombre != false)
+          echo "1";
+        else
+          echo "0";
+    }
+
+
   public function validacionNombre2(){
     $this->mdlproducto->__SET("nombre_producto", $_POST['campoNombre']);
     $this->mdlproducto->__SET("nombre", $_POST['campoCateg']);

@@ -300,6 +300,10 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active){
   text-align: center;
 }
 
+#comprobante p{
+  text-align: center;
+}
+
 .center{
   text-align: center;
 }

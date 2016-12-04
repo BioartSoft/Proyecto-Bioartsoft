@@ -6,14 +6,15 @@
       width: 100%;
     }
   </style>
+  <link href="<?php echo URL?>css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 <img src="<?php echo URL ?>img/bio-artes.png" height="100" width="400">
 <br>
 <center><legend><h2>INFORME DE PRÉSTAMOS EN ESTADO PENDIENTE</h2></legend></center>
-    <h4>Informe de : <?= $rango ?> </h4>
+    <h4><strong>Informe de : <?= $rango ?> </strong></h4>
   <br>
-  <table border="1">
+  <table class="table table-striped">
     <thead>
       <tr>
        <th>Identificación Empleado</th>
@@ -52,5 +53,6 @@
   <?php foreach ($totalPrestamosFecha as $value): ?>
       <p style="text-align: right"><strong>Total Préstamos: <?= "$ ".number_format($value['total'], "0", ".", "."); ?></strong></p>
   <?php endforeach; ?>
+  <script src="<?php echo URL ?>js/bootstrap.min.js"></script>
 </body>
 </html>

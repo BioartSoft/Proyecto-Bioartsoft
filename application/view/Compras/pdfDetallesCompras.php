@@ -5,15 +5,16 @@
     width: 100%;
   }
 </style>
+  <link href="<?php echo URL?>css/bootstrap.min.css" rel="stylesheet">
   <title>Reporte Entradas</title>
 </head>
 <body>
-  <img src="<?php echo URL ?>img/BioartesV2.png" height="100" width="200">
+  <img src="<?php echo URL ?>img/bio-artes.png" height="100" width="400">
   <br>
-  <center><legend><h2>INFORME DE ENTRADA NÚMERO: <?= $val['id_compras'] ?></h2></legend></center>
+  <center><legend><h2>DETALLE DE ENTRADA NÚMERO: <?= $val['id_compras'] ?></h2></legend></center>
   <br>
   <p><strong>Fecha Informe: <?= ucwords(date("Y/m/d h:i:s"))?></strong></p>
-  <table border="1">
+  <table class="table table-striped">
     <thead>
       <tr>
         <th>Fecha Entrada</th>
@@ -28,7 +29,7 @@
   <br>
 
   <legend><h4>Productos</h4></legend>
-  <table border="1">
+  <table class="table table-striped">
     <thead>
       <tr>
         <th>Nombre Producto</th>
@@ -41,5 +42,6 @@
       <?= $tabla ?>
     </tbody>
   </table>
+  <script src="<?php echo URL ?>js/bootstrap.min.js"></script>
 </body>
 </html>

@@ -5,6 +5,7 @@
     width: 100%;
   }
 </style>
+<link href="<?php echo URL?>css/bootstrap.min.css" rel="stylesheet">
   <title>Reporte Préstamos</title>
 </head>
 <body>
@@ -13,7 +14,7 @@
   <center><legend><h2>INFORME DE PRÉSTAMOS DE: <?= $val['empleado'] ?></h2></legend></center>
   <br>
     <p><strong>Fecha Informe: <?= ucwords(date("Y/m/d h:i:s"))?></strong></p>
-  <table border="1">
+  <table class="table table-striped">
     <thead>
       <tr>
         <th>Identificación</th>
@@ -29,5 +30,6 @@
       <?= $tabla ?>
     </tbody>
   </table>
+  <script src="<?php echo URL ?>js/bootstrap.min.js"></script>
 </body>
 </html>

@@ -57,6 +57,14 @@ class mdlPersona
   }
 
 
+  public function listarNotificacionesPrestamos(){
+    $sql = "CALL SP_Notificacion_Prestamos_a_Vencer()";
+    $stm = $this->db->prepare($sql);
+    $stm->execute();
+    return $stm->fetchAll(PDO::FETCH_ASSOC);
+  }
+
+
   public function totalPorFecha()
  {
    $sql="CALL  SP_Total_Prestamos_Fecha(?,?)";
@@ -82,13 +90,24 @@ class mdlPersona
   }
 
 
-  public function listarPagosEmp()
+  public function listarPagosEmp($id)
   {
-    $sql = "CALL SP_Informe_Pagos()";
+    $sql = "CALL SP_Informe_Pagos(?)";
           $stm = $this->db->prepare($sql);
+          $stm->bindParam(1, $id);
           $stm->execute();
           return $stm->fetchAll(PDO::FETCH_ASSOC);
   }
+
+
+
+  // public function listarConfigPagos()
+  // {
+  //   $sql = "CALL SP_Listar_Configuracion_Pagos()";
+  //         $stm = $this->db->prepare($sql);
+  //         $stm->execute();
+  //         return $stm->fetchAll(PDO::FETCH_ASSOC);
+  // }
 
     public function ultimoId(){
         return $this->db->lastInsertId();
@@ -126,7 +145,6 @@ class mdlPersona
   }
 
 
-
   public function guardarPersona()
   {
     $sql="CALL SP_GuardarPersona(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -154,7 +172,6 @@ class mdlPersona
   }
 
   }
-
 
 
   public function registrarProveedorNatural()
@@ -208,18 +225,18 @@ class mdlPersona
       }
 
 
-      // public function actualizarFecha(){
-      //   $sql = "CALL SP_Actualizar_fecha_fin_contrato(?, ?)";
-      //   try {
-      //     $stm = $this->db->prepare($sql);
-      //     $stm->bindParam(1, $this->idPersona);
-      //     $stm->bindParam(2, $this->fechaTerminacion);
-      //     $resultado = $stm->execute();
-      //     return $resultado;
-      // } catch (Exception $e) {
-      //     $e->getMessage();
-      // }
-      // }
+      public function actualizarFecha(){
+        $sql = "CALL SP_Actualizar_fecha_fin_contrato(?, ?)";
+        try {
+          $stm = $this->db->prepare($sql);
+          $stm->bindParam(1, $this->idPersona);
+          $stm->bindParam(2, $this->fechaContrato);
+          $resultado = $stm->execute();
+          return $resultado;
+      } catch (Exception $e) {
+          $e->getMessage();
+      }
+      }
 
 
     public function insertarProveedor(){
@@ -304,12 +321,14 @@ class mdlPersona
     return $stm->fetchAll(PDO::FETCH_ASSOC);
   }
 
+
   public function ListarPersEmpleado(){
     $sql= "CALL SP_Listar_emple";
     $stm = $this->db->prepare($sql);
     $stm->execute();
     return $stm->fetchAll(PDO::FETCH_ASSOC);
   }
+
 
   public function ListarProveedor(){
     $sql= "CALL SP_listar_proveedor()";
@@ -361,12 +380,14 @@ public function tipoPersonaEmpleados(){
   return $stm->fetchAll(PDO::FETCH_ASSOC);
 }
 
+
 public function tipoPersonaProveedores(){
   $sql= "CALL SP_Listar_TipoPersona_Proveedores";
   $stm = $this->db->prepare($sql);
   $stm->execute();
   return $stm->fetchAll(PDO::FETCH_ASSOC);
 }
+
 
   public function ListarPersEmpleadoFijoID($id){
     $sql= "CALL SP_Listar_PersEmpleado_FijoID(?)";
@@ -403,6 +424,7 @@ public function tipoPersonaProveedores(){
     return $stm->fetch(PDO::FETCH_ASSOC);
   }
 
+
   public function ValidarEmail(){
     $sql = "CALL 	SP_Validar_Email(?,?)";
     $stm = $this->db->prepare($sql);
@@ -411,6 +433,7 @@ public function tipoPersonaProveedores(){
     $stm->execute();
     return $stm->fetch(PDO::FETCH_ASSOC);
   }
+
 
   public function ValidarEmail2(){
     $sql = "CALL SP_validar_email2(?)";
@@ -428,7 +451,6 @@ public function tipoPersonaProveedores(){
     $stm->execute();
     return $stm->fetch(PDO::FETCH_ASSOC);
 }
-
 
 
   public function ModificarEstadoProv($id){

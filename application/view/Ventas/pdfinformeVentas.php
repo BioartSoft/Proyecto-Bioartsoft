@@ -6,17 +6,18 @@
       width: 100%;
     }
   </style>
+    <link href="<?php echo URL?>css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
   <img src="<?php echo URL ?>img/bio-artes.png" height="100" width="400">
   <br>
   <center><legend><h2>INFORME DE VENTAS</h2></legend></center>
   <?php foreach ($ver as $valor): ?>
-      <h4>Informe de : <?= $rango ?> </h4>
+      <h4><strong>Informe de : <?= $rango ?> </strong></h4>
   <?php break; ?>
   <?php endforeach; ?>
   <br>
-  <table border="1">
+  <table class="table table-striped">
     <thead>
       <tr>
         <th>Código Venta</th>
@@ -45,9 +46,6 @@
   <?php foreach($totalVentasPorFecha as $total): ?>
       <p style="text-align: right"><strong>Total Ventas: <?= "$ ". number_format($total['total'], "0", ".", "."); ?></strong></p>
   <?php endforeach; ?>
+  <script src="<?php echo URL ?>js/bootstrap.min.js"></script>
 </body>
 </html>
-
-<script type="text/javascript">
-  $(".price").priceFormat({centsLimit: 3, prefix: '$ '});
-</script>

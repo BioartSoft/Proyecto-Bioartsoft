@@ -77,10 +77,10 @@
   <br><br><br>
   <div class="row">
     <div class="col-md-12 col-xs-12 col-lg-6">
-      <button  name="btnguardarpro" type="submit" tabindex="9" id="btn-guardar-producto" class="btn btn-success active pull-right"  ><i class="fa fa-floppy-o" aria-hidden="true">    Guardar</i></button>
+      <button  name="btnguardarpro" type="submit" tabindex="9" id="btn-guardar-producto" class="btn btn-success active pull-right" title="Guardar"><i class="fa fa-floppy-o" aria-hidden="true">    Guardar</i></button>
     </div>
     <div class="col-md-12 col-xs-12 col-lg-3">
-      <button type="reset" class="btn btn-danger active" tabindex="10" onclick="cancelar()" id="btn-Cancelar"><i class="fa fa-remove" aria-hidden="true">   Cancelar</i></button>
+      <button type="reset" class="btn btn-danger active" tabindex="10" onclick="cancelar()" id="btn-Cancelar" title="Cancelar"><i class="fa fa-remove" aria-hidden="true">   Cancelar</i></button>
       <input type="hidden" tabindex="11">
     </div>
 </div>
@@ -153,7 +153,7 @@ $("#btn-guardar-producto").click(function(){
 
 function cancelar() {
     swal({
-          title: "Los datos del registro no se guardarán",
+          title: "¿Realmente desea cancelar el registro?",
           type: "warning",
           confirmButton: "#3CB371",
           confirmButtonText: "btn-danger",
@@ -183,7 +183,7 @@ function cancelar() {
      }
 </script>
 
-<script type="text/javascript">
+<!-- <script type="text/javascript">
   $(function(){
 
     $("#campoCodigo").change(function(){
@@ -211,7 +211,7 @@ function cancelar() {
       });
     });
   });
-</script>
+</script> -->
 
 <script type="text/javascript">
   $("#txtpreciocompra").keydown(function(e){
@@ -255,7 +255,7 @@ function cancelar() {
 
         if(resut == "1"){
           swal({
-                title: "Nombre de Producto ya existe, no se puede registrar!",
+                title: "Nombre de Producto ya existe!",
                 type: "error",
                 confirmButton: "#3CB371",
                 confirmButtonText: "Aceptar",
@@ -270,32 +270,33 @@ function cancelar() {
 
 
 <script type="text/javascript">
-  $(function(){
+  $("#txtprecioalpormayor").change(function(){
+    var precio1 = parseInt($("#txtpreciocompra").val());
+    var precio2 = parseInt($("#txtprecioventa").val());
+    var precio3 = parseInt($("#txtprecioalpormayor").val());
 
-    $("#txttalla").change(function(){
+    if(precio1 <  precio2 && precio1 < precio3 && precio2 > precio3){
 
-      var campoTalla = $("#txttalla").val();
-      var campoNombre = $("#txtnombreproducto").val();
-      var campoCateg = $("#txtcategoria").val();
+        return true;
+    }else{
+      swal({
+            title: "Precios inválidos, verificar valores!",
+            type: "error",
+            confirmButton: "#3CB371",
+            confirmButtonText: "Aceptar",
+            // confirmButtonText: "Cancelar",
+            closeOnConfirm: true,
+            closeOnCancel: false
+          },
+        function (isConfirm){
+          if(isConfirm){
+            $("#txtpreciocompra").val("");
+            $("#txtprecioventa").val("");
+            $("#txtprecioalpormayor").val("");
 
-      $.ajax({
-        url: url + 'producto/validacionNombre2',
-        data:{'campoTalla': campoTalla, 'campoNombre': campoNombre, 'campoCateg': campoCateg},
-        type: 'post',
-        dataType:"text"
-      }).done(function(resut){
-
-        if(resut == "1"){
-          swal({
-                title: "Nombre de Producto ya existe, no se puede registrar!",
-                type: "error",
-                confirmButton: "#3CB371",
-                confirmButtonText: "Aceptar",
-                closeOnConfirm: false,
-                closeOnCancel: false
-              });
-        }
-      });
-    });
-  });
+          }
+        });
+      return false;
+    }
+  })
 </script>

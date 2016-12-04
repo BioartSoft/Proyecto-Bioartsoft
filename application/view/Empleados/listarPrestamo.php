@@ -70,7 +70,7 @@
                     <div class="panel-heading" stlyle="height: 70px; width: 100px">
                           <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 20px">Reporte de Préstamos</center>
                     </div>
-                  <div class="panel-body" id="panel_compras">
+                  <div class="panel-body">
                     <form id="formprestamos" action="<?= URL ?>Empleados/pdfPrestamos" method="post" data-parsley-validate="" target="_blank">
                     <div class="row">
                       <br>
@@ -84,7 +84,7 @@
                             $nuevaFecha = date('Y-m-d', $nuevaFecha);
                            ?>
                             <label for="">Fecha Inicial <span class="obligatorio">*</span></label>
-                            <div class="input-group date" data-provide="datepicker">
+                            <div class="input-group date calendario" data-provide="datepicker">
                             <input type="text" tabindex="1" class="form-control" readonly="true" name="txtfechainicial1" id="txtfechainicial1" value="<?= $nuevaFecha ?>" data-parsley-required="true">
                             <div class="input-group-addon">
                             <span class="glyphicon glyphicon-th"></span>
@@ -95,13 +95,14 @@
                         <div class="col-md-1"></div>
                         <div   class="col-md-4">
                             <label for="">Fecha Final <span class="obligatorio">*</span></label>
-                            <div class="input-group date" data-provide="datepicker">
+                            <div class="input-group date calendario" data-provide="datepicker">
                             <input type="text" tabindex="2" class="form-control" name="txtfechafinal1" readonly="true" id="txtfechafinal1"  value="<?= $hoy1 ?>"data-parsley-required="true">
                             <div class="input-group-addon">
                             <span class="glyphicon glyphicon-th"></span>
                           </div>
                           </div>
                           <input type="hidden" name="txtfechafinal2" id="txtfechafinal2" value="<?= $hoy2 ?>">
+                          <input type="hidden" name="txtfechafinal2" id="txtfechafinal3" value="<?= $nuevaFecha ?>">
                       </div>
                     </div>
                     <br><br>
@@ -120,7 +121,7 @@
               </div>
               <div class="row">
                 <div class="col-md-9">
-                  <button type="button" tabindex="4" id="btn_cancelar" class="btn btn-secondary btn-md active pull-right"  data-dismiss="modal"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
+                  <button type="button" tabindex="4" id="btn_cancelar" class="btn btn-secondary btn-md active pull-right"  data-dismiss="modal" title="Cerrar"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
                   <input type="hidden" tabindex="5">
                 </div>
               </div>
@@ -154,7 +155,7 @@
                   </div>
                   <div class="row">
                     <div class="col-xs-12 col-md-6 col-lg-12">
-                      <button type="button" class="btn btn-secondary btn-active pull-right"  data-dismiss="modal" style="margin-left:80%" onclick="abrirmodal()"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
+                      <button type="button" class="btn btn-secondary btn-active pull-right"  data-dismiss="modal" style="margin-left:80%" onclick="abrirmodal()" title="Cerrar"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
                   </div>
                 </div>
               </div>
@@ -192,10 +193,10 @@
                 </div>
                   <div class="row">
                         <div class="col-xs-12 col-md-6 col-lg-8">
-                          <button type="button" class="btn btn-secondary btn-active pull-right"  data-dismiss="modal" style="float: right;margin-right: 70px" onclick="abrirmodal()"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
+                          <button type="button" class="btn btn-secondary btn-active pull-right"  data-dismiss="modal" style="float: right;margin-right: 70px" onclick="abrirmodal()" title="Cerrar"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
                         </div>
                         <div class="col-xs-12 col-md-6 col-lg-4">
-                          <button type="submit" name="btnmodificarprestamo" class="btn btn-success btn-active" id="btnmodificarprestamo" style="float: left; margin-left: 70px"><i class="fa fa-floppy-o" aria-hidden="true">   Guardar</i></button>
+                          <button type="submit" name="btnmodificarprestamo" class="btn btn-success btn-active" id="btnmodificarprestamo" style="float: left; margin-left: 70px" title="Guardar"><i class="fa fa-floppy-o" aria-hidden="true">   Guardar</i></button>
                         </div>
                       </div>
                     </div>
@@ -233,9 +234,9 @@
 
                 <div class="row">
                   <div class="col-xs-12 col-md-8">
-                  <button type="button" class="btn btn-secondary btn-active"  data-dismiss="modal" style="margin-left:80%" onclick="abrirmodal()"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
+                  <button type="button" class="btn btn-secondary btn-active"  data-dismiss="modal" style="margin-left:80%" onclick="abrirmodal()" title="Cerrar"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
                 </div>
-              <?php if($_SESSION['ROL'] == 1 || $_SESSION['ROL'] == 3): ?>
+              <!-- <?php if($_SESSION['ROL'] == 1 || $_SESSION['ROL'] == 3): ?>
                   <div class="col-md-2">
                     <a href="<?= URL ?>Empleados/generarpdfDetalleAbonos" target="_blank" id="pdfDetaPrestamos">
                       <button class="btn btn-primary" name="btnComprasD"><i class="fa fa-file-pdf-o" aria-hidden="true">   Recibo de Abono</i></button>
@@ -243,7 +244,7 @@
                   </div>
               <?php else: ?>
 
-              <?php endif; ?>
+              <?php endif; ?> -->
                 </div>
                 <br>
             </div>
@@ -295,7 +296,6 @@
             </div>
           </div>
         </div>
-
 
         <script type="text/javascript">
           $("#txtfechainicial1").change(function(){
@@ -419,6 +419,9 @@
     }
 
     function traerDetalleAbonos(id_prestamos) {
+      var enlace = $("#pdfDetalAbono");
+      var nUrl = '<?= URL ?>generarpdfRecibo?id=' + id_prestamos;
+      enlace.attr("href", nUrl);
 
       $.ajax({
         url: url+'Empleados/ajaxDetalleAbonos',
@@ -707,4 +710,54 @@
          return true;
       }
     }
+  </script>
+
+  <script type="text/javascript">
+  $("#txtfechainicial1").change(function(){
+    var val = $('#txtfechainicial1').val();
+    var val2 = $('#txtfechafinal2').val();
+    var val3 = $('#txtfechafinal3').val();
+
+    if(val > val2)
+    {
+      swal({
+              title: "Fecha inválida, esta fecha no puede ser mayor a la fecha final!",
+              type: "error",
+              confirmButtonColor: "#86CCEB",
+              confirmButtonText: "Aceptar",
+              closeOnConfirm: true,
+
+              },
+              function(isConfirm){
+              if (isConfirm) {
+                  $('#txtfechainicial1').val(val3);
+              }
+            })
+    }
+  });
+  </script>
+
+  <script type="text/javascript">
+  $("#txtfechafinal1").change(function(){
+    var val = $('#txtfechafinal1').val();
+    var val2 = $('#txtfechafinal3').val();
+    var val3 = $('#txtfechafinal2').val();
+
+    if(val <= val2)
+    {
+      swal({
+              title: "Fecha inválida, esta fecha no puede ser menor o igual a la fecha inicial!",
+              type: "error",
+              confirmButtonColor: "#86CCEB",
+              confirmButtonText: "Aceptar",
+              closeOnConfirm: true,
+
+              },
+              function(isConfirm){
+              if (isConfirm) {
+                  $('#txtfechafinal1').val(val3);
+              }
+            })
+    }
+  });
   </script>

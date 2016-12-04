@@ -29,8 +29,13 @@
 
 .obligatorio{
   color: red;
+  font-size: 1.3em;
 }
 
 #asterisco{
   color: red;
+}
+
+#modal_reporte_creditos{
+  position: absolute;
 }

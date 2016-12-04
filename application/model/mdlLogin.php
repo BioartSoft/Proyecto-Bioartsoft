@@ -126,6 +126,7 @@ public function consultarUsuario(){
   return $stm->fetch(PDO::FETCH_ASSOC);
 }
 
+
 public function listarUsuario($id_U){
     $sql = "CALL	SP_ListarUsuario(?)";
     $stm = $this->db->prepare($sql);

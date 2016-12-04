@@ -43,7 +43,6 @@
                                     <button type="button" class="btn btn-primary btn-circle btn-md" data-toggle="modal" data-target="#myForm2" onclick="traerDetallesBaja(<?= $value['id_bajas'] ?>)" title="Ver Detalles"><i class="fa fa-eye" aria-hidden="true" title="Ver Detalles"></i></button></a>
                                 <?php } ?>
                                 <?php else: ?>
-                                  <!-- <button type="button" class="btn btn-danger btn-circle btn-md" onclick="cambiarEstado(<?= $value['id_bajas']?>, 0)" title="Anular"><i class="fa fa-remove" aria-hidden="true" title="Anular"></i></button> -->
                                   <button type="button" class="btn btn-primary btn-circle btn-md" data-toggle="modal" data-target="#myForm2" onclick="traerDetallesBaja(<?= $value['id_bajas'] ?>)" title="Ver Detalles"><i class="fa fa-eye" aria-hidden="true" title="Ver Detalles"></i></button></a>
                                 <?php endif; ?>
                              </td>
@@ -59,9 +58,7 @@
             <?php foreach ($bajas as $value): ?>
             <?php if($value['estado'] == 1): ?>
                 <center>
-                  <!-- <a href="<?= URL ?>Existencias/informbajas" target="_blank"> -->
                     <button class="btn btn-primary" data-toggle="modal" data-target="#modal-reporte_bajas"><i class="fa fa-file-pdf-o" aria-hidden="true">&nbsp;&nbsp;Reporte Bajas</i></button>
-                  <!-- </a> -->
                 </center>
                 <?php break; ?>
             <?php else: ?>
@@ -69,11 +66,8 @@
           <?php endforeach; ?>
             </div>
           </div>
-            <!-- /.panel-body -->
         </div>
-        <!-- /.panel -->
     </div>
-    <!-- /.col-lg-12 -->
 </div>
 
 <div class="modal fade" id="myForm2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static" style="display:none" style="width: 50px" action="<?= URL ?>producto/listarProductos">
@@ -107,7 +101,7 @@
                     </div>
                   </div>
                 </div>
-                <button type="button" class="btn btn-secondary btn-md active pull-right"  data-dismiss="modal"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
+                <button type="button" class="btn btn-secondary btn-md active pull-right"  data-dismiss="modal" title="Cerrar"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
               </div>
             </div>
           </div>
@@ -119,7 +113,6 @@
        <div class="modal-dialog" role="document">
          <div class="modal-content">
             <div class="modal-body">
-
                 <div class="row">
                   <div class="col-lg-12">
                     <div class="panel panel-primary">
@@ -141,7 +134,7 @@
                              ?>
                             <div   class="col-md-6 col-xs-12 col-lg-5">
                                 <label for="">Fecha Inicial <span class="obligatorio">*</span></label>
-                                <div class="input-group date" data-provide="datepicker">
+                                <div class="input-group date calendario" data-provide="datepicker">
                                 <input type="text" tabindex="1" class="form-control" readonly="true"name="txtfechainicial1" id="txtfechainicial1"  value="<?= $nuevaFecha ?>" data-parsley-required="true">
                                 <div class="input-group-addon">
                                 <span class="glyphicon glyphicon-th"></span>
@@ -152,14 +145,16 @@
 
                             <div   class="col-md-6 col-xs-12 col-lg-5">
                                 <label for="">Fecha Final <span class="obligatorio">*</span></label>
-                                <div class="input-group date" data-provide="datepicker">
+                                <div class="input-group date calendario" data-provide="datepicker">
                                 <input type="text" tabindex="2" class="form-control" name="txtfechafinal" readonly="true" id="txtfechafinal"  value="<?= $hoy1 ?>" data-parsley-required="true">
                                 <div class="input-group-addon">
                                 <span class="glyphicon glyphicon-th"></span>
                               </div>
                               </div>
 
-                            <input type="hidden"  name="txtfechafinal2"  id="txtfechafinal2"  value="<?= $hoy2 ?>" >
+                              <input type="hidden"  name="txtfechafinal2"  id="txtfechafinal2"  value="<?= $hoy2 ?>" >
+                              <input type="hidden"  name="txtfechafinal3"  id="txtfechafinal3"  value="<?= $nuevaFecha ?>" >
+                              <input type="hidden"  name="txtfechafinal4"  id="txtfechafinal4"  value="<?= $hoy2 ?>" >
                           </div>
                           <div class="col-md-1"></div>
                         </div>
@@ -175,7 +170,7 @@
                         </form>
                       </div>
                     </div>
-                    <button type="button" tabindex="4" class="btn btn-secondary btn-md active pull-right"  data-dismiss="modal" id="cerrar"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
+                    <button type="button" tabindex="4" class="btn btn-secondary btn-md active pull-right"  data-dismiss="modal" id="cerrar" title="Cerrar"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
                     <input type="hidden" tabindex="5">
                   </div>
                 </div>
@@ -307,15 +302,10 @@ function cambiarEstado(cod, est){
                   $('#txtfechainicial1').val(valor2);
               }
             })
-    }
-
-
-
-
-
+          }
   });
-
 </script>
+
 <script type="text/javascript">
 $("#txtfechafinal").change(function(){
   var valor3 = $('#txtfechafinal').val();
@@ -333,6 +323,56 @@ $("#txtfechafinal").change(function(){
             function(isConfirm){
             if (isConfirm) {
                 $('#txtfechafinal').val(valor4);
+            }
+          })
+  }
+});
+</script>
+
+<script type="text/javascript">
+$("#txtfechainicial1").change(function(){
+  var val = $('#txtfechainicial1').val();
+  var val2 = $('#txtfechafinal2').val();
+  var val3 = $('#txtfechafinal3').val();
+
+  if(val > val2)
+  {
+    swal({
+            title: "Fecha inválida, esta fecha no puede ser mayor a la fecha final!",
+            type: "error",
+            confirmButtonColor: "#86CCEB",
+            confirmButtonText: "Aceptar",
+            closeOnConfirm: true,
+
+            },
+            function(isConfirm){
+            if (isConfirm) {
+                $('#txtfechainicial1').val(val3);
+            }
+          })
+  }
+});
+</script>
+
+<script type="text/javascript">
+$("#txtfechafinal").change(function(){
+  var val = $('#txtfechafinal').val();
+  var val2 = $('#txtfechafinal3').val();
+  var val3 = $('#txtfechafinal4').val();
+
+  if(val <= val2)
+  {
+    swal({
+            title: "Fecha inválida, esta fecha no puede ser igual o menor a la fecha inicial!",
+            type: "error",
+            confirmButtonColor: "#86CCEB",
+            confirmButtonText: "Aceptar",
+            closeOnConfirm: true,
+
+            },
+            function(isConfirm){
+            if (isConfirm) {
+                $('#txtfechafinal').val(val3);
             }
           })
   }

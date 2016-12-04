@@ -66,6 +66,7 @@
    <div class="modal-dialog" role="document">
        <div class="modal-content" style="width: 900px">
          <div class="modal-body">
+           <div class="modal-header">
           <div class="row">
             <div class="col-lg-12">
               <div class="panel panel-primary">
@@ -114,7 +115,7 @@
             </div>
             <div class="row">
               <div class="col-md-6 col-xs-12 col-lg-9">
-                <button type="button" class="btn btn-secondary btn-md active pull-right"  data-dismiss="modal"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
+                <button type="button" class="btn btn-secondary btn-md active pull-right"  data-dismiss="modal" title="Cerrar"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
               </div>
 
               <?php if($_SESSION['ROL'] == 1 || $_SESSION['ROL'] == 3): ?>
@@ -133,9 +134,9 @@
   </div>
 </div>
 
-<div class="modal fade" id="modal_reportes" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static" style="display:none" style="width: 50px" action="<?= URL ?>Compras/registrarCompra">
+<div class="modal fade" id="modal_reportes" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static" style="display:none" action="<?= URL ?>Compras/registrarCompra">
    <div class="modal-dialog" role="document">
-       <div class="modal-content" style="width: 900px">
+       <div class="modal-content">
          <div class="modal-body">
           <div class="row">
             <div class="col-lg-12">
@@ -143,7 +144,7 @@
                   <div class="panel-heading" stlyle="height: 70px; width: 100px">
                         <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 20px">Reporte de Entradas</center>
                   </div>
-                <div class="panel-body" id="panel_compras">
+                <div class="panel-body">
                   <form id="formPdfCompras" action="<?= URL ?>Compras/pdfCompras" method="post" data-parsley-validate="" target="_blank">
                   <div class="row">
                     <br>
@@ -157,7 +158,7 @@
                           $nuevaFecha = date('Y-m-d', $nuevaFecha);
                          ?>
                           <label for="">Fecha Inicial <span class="obligatorio">*</span></label>
-                          <div class="input-group date" data-provide="datepicker">
+                          <div class="input-group date calendario" data-provide="datepicker">
                           <input type="text" tabindex="1" class="form-control" readonly="true" name="txtfechainicial1" id="txtfechainicial1" value="<?= $nuevaFecha ?>" data-parsley-required="true">
                           <div class="input-group-addon">
                           <span class="glyphicon glyphicon-th"></span>
@@ -168,7 +169,7 @@
                       <div class="col-md-1"></div>
                       <div   class="col-md-4">
                           <label for="">Fecha Final <span class="obligatorio">*</span></label>
-                          <div class="input-group date" data-provide="datepicker">
+                          <div class="input-group date calendario" data-provide="datepicker">
                           <input type="text" tabindex="2" class="form-control" name="txtfechafinal1" readonly="true" id="txtfechafinal1"  value="<?= $hoy1 ?>"data-parsley-required="true">
                           <div class="input-group-addon">
                           <span class="glyphicon glyphicon-th"></span>
@@ -192,8 +193,8 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-md-9">
-                <button type="button" tabindex="4" id="btn_cancelar" class="btn btn-secondary btn-md active pull-right"  data-dismiss="modal"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
+              <div class="col-md-6 col-xs-12 col-lg-12">
+                <button type="button" tabindex="4" id="btn_cancelar" class="btn btn-secondary btn-md active pull-right"  data-dismiss="modal" title="Cerrar"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
                 <input type="hidden" tabindex="5">
               </div>
             </div>
@@ -210,22 +211,6 @@
         $("#txtfechafinal").focus();
       })
     })
-  </script>
-
-  <script type="text/javascript">
-    $(document).ready(function(){
-       var fecha1 = $("#txtfechainicial").val();
-       var fechaActual = new Date("Y-m-d");
-
-        if(fecha1 < fechaActual){
-           alert("fecha inválida");
-        }
-      // var fecha2 = $("#txtfechainicial").val();
-      //
-      // if(fecha1 < 90 || fecha2 > 90){
-      //   alert("fecha inválida");
-      // }
-    });
   </script>
 
 
@@ -342,6 +327,61 @@ function cambiarEstado(cod, est){
   });
 
 </script>
+
+<script type="text/javascript">
+  $("#txtfechainicial1").change(function(){
+    var valor = $('#txtfechainicial1').val();
+    var valor2 = $('#txtfechafinal1').val();
+    var valor3 = $('#txtfechainicial2').val();
+
+
+    if(valor > valor2){
+      swal({
+              title: "Fecha inválida, esta fecha no puede ser mayor a la fecha final!",
+              type: "error",
+              confirmButtonColor: "#86CCEB",
+              confirmButtonText: "Aceptar",
+              closeOnConfirm: true,
+
+              },
+              function(isConfirm){
+              if (isConfirm) {
+                  $('#txtfechainicial1').val(valor3);
+              }
+            })
+    }
+
+  });
+
+</script>
+
+<script type="text/javascript">
+  $("#txtfechafinal1").change(function(){
+    var valor = $('#txtfechainicial1').val();
+    var valor2 = $('#txtfechafinal1').val();
+    var valor3 = $('#txtfechafinal2').val();
+
+
+    if(valor2 <= valor){
+      swal({
+              title: "Fecha inválida, esta fecha no puede ser menor o igual a la fecha inicial!",
+              type: "error",
+              confirmButtonColor: "#86CCEB",
+              confirmButtonText: "Aceptar",
+              closeOnConfirm: true,
+
+              },
+              function(isConfirm){
+              if (isConfirm) {
+                  $('#txtfechafinal1').val(valor3);
+              }
+            })
+    }
+
+  });
+
+</script>
+
 <script type="text/javascript">
 $("#txtfechafinal1").change(function(){
   var valor3 = $('#txtfechafinal1').val();

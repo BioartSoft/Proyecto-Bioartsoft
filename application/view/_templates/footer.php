@@ -61,7 +61,7 @@
                             $nuevaFecha = date('Y-m-d', $nuevaFecha);
                           ?>
                             <label for="">Fecha Inicial </label>
-                            <div class="input-group date" data-provide="datepicker">
+                            <div class="input-group date calendario" data-provide="datepicker">
                             <input type="text" class="form-control" name="txtfechainicial" value="<?= $nuevaFecha ?>" id="txtfechainicial" placeholder="Fecha Inicial" readonly="true" data-parsley-required="true">
 
                             <div class="input-group-addon">
@@ -73,7 +73,7 @@
                         <div class="col-md-1"></div>
                         <div   class="col-md-4">
                             <label for="">Fecha Final </label>
-                            <div class="input-group date" data-provide="datepicker">
+                            <div class="input-group date calendario" data-provide="datepicker">
                             <input type="text" class="form-control" name="txtfechafinal" value="<?= $hoy1 ?>" id="txtfechafinal1" readonly="true"  placeholder="Fecha final" data-parsley-required="true">
                             <div class="input-group-addon">
                             <span class="glyphicon glyphicon-th"></span>
@@ -81,6 +81,7 @@
                           </div>
                       </div>
                       <input type="hidden" class="form-control" name="txtfechafinal2" value="<?= $hoy2 ?>" id="txtfechafinal2">
+                      <input type="hidden" class="form-control" name="txtfechafinal3" value="<?= $nuevaFecha ?>" id="txtfechafinal3">
                     </div>
                     <br><br>
                     <div class="row">
@@ -165,6 +166,16 @@
 
 });
   </script>
+
+  <script type="text/javascript">
+  $(document).ready(function() {
+    $('.calendario').datepicker({
+      pickTime: false,
+      autoclose: true
+    });
+  });
+</script>
+
   <script type="text/javascript">
     $("#txtfechainicial").change(function(){
       var valor = $('#txtfechainicial').val();
@@ -586,31 +597,7 @@ function abrirModal(){
   function consultarGanancia() {
 
     var fecha1 = $("#txtfechainicial").val();
-    var fecha2 = $("#txtfechafinal").val();
-
-    if(fecha1 == "" && fecha2 == ""){
-      swal({
-        title: "No se ingresarón fechas!",
-        type: "error",
-        confirmButton: "#3CB371",
-        confirmButtonText: "Aceptar",
-        closeOnConfirm: false,
-        closeOnCancel: false,
-      },
-      function(isConfirm) {
-        if (isConfirm) {
-          swal({
-            title: "Por favor ingresar una fecha válida!",
-            type: "error",
-            confirmButton: "#3CB371",
-            confirmButtonText: "Aceptar",
-            closeOnConfirm: false,
-            closeOnCancel: false,
-          });
-          $("#modal-ganancias").modal('hide');
-    }
-  });
-  }else{
+    var fecha2 = $("#txtfechafinal1").val();
 
     $.ajax({
       url: url + 'Ventas/reporteGanancias',
@@ -631,12 +618,8 @@ function abrirModal(){
                               $(".price").priceFormat({centsLimit: 3, prefix: '$ '});
                             });
 
-                        }
                         $("#modal-money").modal("hide");
-
                     }
-
-
   </script>
 
   <?php if(isset($error) && $error == true): ?>
@@ -652,5 +635,56 @@ function abrirModal(){
   });
   </script>
   <?php endif; ?>
+
+  <script type="text/javascript">
+  $("#txtfechainicial").change(function(){
+    var val = $('#txtfechainicial').val();
+    var val2 = $('#txtfechafinal2').val();
+    var val3 = $('#txtfechafinal3').val();
+
+    if(val > val2)
+    {
+      swal({
+              title: "Fecha inválida, esta fecha no puede ser mayor a la fecha final!",
+              type: "error",
+              confirmButtonColor: "#86CCEB",
+              confirmButtonText: "Aceptar",
+              closeOnConfirm: true,
+
+              },
+              function(isConfirm){
+              if (isConfirm) {
+                  $('#txtfechainicial').val(val3);
+              }
+            })
+    }
+  });
+  </script>
+
+  <script type="text/javascript">
+  $("#txtfechafinal1").change(function(){
+    var val = $('#txtfechafinal1').val();
+    var val2 = $('#txtfechainicial').val();
+    var val3 = $('#txtfechafinal2').val();
+
+    if(val <=  val2)
+    {
+      swal({
+              title: "Fecha inválida, esta fecha no puede ser menor o igual a la fecha inicial!",
+              type: "error",
+              confirmButtonColor: "#86CCEB",
+              confirmButtonText: "Aceptar",
+              closeOnConfirm: true,
+
+              },
+              function(isConfirm){
+              if (isConfirm) {
+                  $('#txtfechafinal1').val(val3);
+              }
+            })
+    }
+  });
+  </script>
+
 </body>
 </html>

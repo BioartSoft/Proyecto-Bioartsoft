@@ -6,6 +6,7 @@
       width: 100%;
     }
   </style>
+  <link href="<?php echo URL?>css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 <img src="<?php echo URL ?>img/bio-artes.png" height="100" width="400">
@@ -13,7 +14,7 @@
 <center><legend><h2>INFORME  GENERAL DE EMPLEADOS HABILITADOS</h2></legend></center>
   <br>
   <p><strong>Fecha reporte: <?= ucwords(date("Y/m/d H:i:s")) ?></strong></p>
-  <table border="1">
+  <table class="table table-striped">
     <thead>
       <tr>
                                 <th >Tipo de Documento</th>
@@ -36,8 +37,8 @@
                                 <td style="width: 10%"><?= $valor['id_persona'] ?></td>
                                 <td><?=  ucwords($valor['nombres']) ?></td>
                                 <td><?=  ucwords($valor['apellidos']) ?></td>
-                                <td style="width: 15%"><?=  $valor['Tbl_nombre_tipo_persona'] ?></td>
-                                <td style="width: 10%"><?=  $valor['nombre_rol'] ?></td>
+                                <td><?=  $valor['Tbl_nombre_tipo_persona'] ?></td>
+                                <td><?=  $valor['nombre_rol'] ?></td>
                                 <td style="width: 8%"><?=  $valor['email'] ?></td>
                                 <td><?=  $valor['celular'] ?></td>
                                 <td><?=  $valor['telefono'] ?></td>
@@ -47,5 +48,6 @@
     <?php endforeach; ?>
     </tbody>
   </table>
+  <script src="<?php echo URL ?>js/bootstrap.min.js"></script>
 </body>
 </html>

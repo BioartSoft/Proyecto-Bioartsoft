@@ -140,7 +140,7 @@
                       </div>
                       <div class="col-md-6">
                         <label>Dirección</label><br>
-                          <input type="text" tabindex="7" class="form-control" id="ejemplo_password_2" maxlength="40" minlength="3" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9!@#\$%\-\*\?_~\\ \\.\/$]+"
+                          <input type="text" tabindex="7" class="form-control" id="ejemplo_password_2" maxlength="50" minlength="3" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9!@#\$%\-\*\?_~\\ \\.\/$]+"
                              value="<?= $clientes['direccion'] ?>" name="txtdirecc" data-parsley-required="false">
                       </div>
         </div>

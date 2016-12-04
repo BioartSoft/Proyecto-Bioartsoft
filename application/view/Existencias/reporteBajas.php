@@ -6,14 +6,15 @@
       width: 100%;
     }
   </style>
+  <link href="<?php echo URL?>css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
   <img src="<?php echo URL ?>img/bio-artes.png" height="100" width="400">
   <br>
-<center><legend><h2>INFORME DE BAJAS</h2></legend></center>
-    <h4>Informe de : <?= $rango ?> </h4>
+<center><legend><h2>INFORME DE BAJAS DE PRODUCTOS</h2></legend></center>
+    <h4><strong>Informe de : <?= $rango ?> </strong></h4>
   <br>
-  <table border="1">
+  <table class="table table-striped">
     <thead>
       <tr>
          <th>Código Producto</th>
@@ -37,5 +38,6 @@
                          <?php endforeach; ?>
     </tbody>
   </table>
+  <script src="<?php echo URL ?>js/bootstrap.min.js"></script>
 </body>
 </html>

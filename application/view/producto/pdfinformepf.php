@@ -6,6 +6,7 @@
       width: 100%;
     }
   </style>
+  <link href="<?php echo URL?>css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 <img src="<?php echo URL ?>img/bio-artes.png" height="100" width="400">
@@ -15,7 +16,7 @@
   <p>
     <strong>Fecha Reporte: <?= date("Y/m/d H:i:s")  ?></strong>
   </p>
-  <table border="1">
+  <table class="table table-striped">
     <thead>
       <tr>
        <th>Código Producto</th>
@@ -41,9 +42,6 @@
  <?php endforeach ?>
     </tbody>
   </table>
+  <script src="<?php echo URL ?>js/bootstrap.min.js"></script>
 </body>
 </html>
-
-<script type="text/javascript">
-  $(".price").priceFormat({centsLimit: 3, clearPrefix: true});
-</script>

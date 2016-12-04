@@ -39,7 +39,7 @@
                                 Inhabilitado
                               <?php endif ?>
                           </td>
-                          <td><button type="button" class="btn btn-primary btn-circle btn-md" data-tipo = "<?= $empleado['Tbl_nombre_tipo_persona']  ?>" data-identi = "<?= $empleado['id_persona'] ?>" data-fechafin = "<?=  $empleado['fecha_Terminacion_Contrato'] ?>" data-fechacontrato = "<?=  $empleado['fecha_Contrato'] ?>" data-fechaultipago ="<?= $empleado['Fechaulti'] ?>" data-fechaPagoPJunio = "<?= $empleado['fechaPPJunio'] ?>" data-estadoemp = "<?= $empleado['estado'] ?>"  data-nombre = "<?=  $empleado['nombres']. " ".$empleado['apellidos'] ?>" onclick="editar('<?= $empleado['id_persona'] ?>',this)"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+                          <td><button type="button" class="btn btn-primary btn-circle btn-md" title="Registrar Pago" data-tipo = "<?= $empleado['Tbl_nombre_tipo_persona']  ?>" data-identi = "<?= $empleado['id_persona'] ?>" data-fechafin = "<?=  $empleado['fecha_Terminacion_Contrato'] ?>" data-fechacontrato = "<?=  $empleado['fecha_Contrato'] ?>" data-fechaultipago ="<?= $empleado['Fechaulti'] ?>" data-fechaPagoPJunio = "<?= $empleado['fechaPPJunio'] ?>" data-estadoemp = "<?= $empleado['estado'] ?>"  data-nombre = "<?=  $empleado['nombres']. " ".$empleado['apellidos'] ?>" onclick="editar('<?= $empleado['id_persona'] ?>',this)"><i class="fa fa-pencil" aria-hidden="true"></i></button>
                           </td>
                         </tr>
                       <?php endforeach; ?>
@@ -148,10 +148,10 @@
                     <div class="col-xs-12 col-md-4" id="divvalorultipago">
                       <label>Total dias a pagar</label>
                       <div class="input-group">
-                        <span class="input-group-addon" id="basic-addon1">$</span> 
+                        <span class="input-group-addon" id="basic-addon1">$</span>
                         <input type="number" class="form-control" name="txtValorultipago" id="valor_pagoLi" value="0" min="0" readonly="">
                         <span class="input-group-btn">
-                          <button class="btn btn-default" type="button" id="idbotoncalcularpagoenliqui" onclick="calcularElPagoNormalEnLiquidacion()" style="background-color: #E0F8E0"> <b>Calcular</b></button>
+                          <button class="btn btn-default" type="button" id="idbotoncalcularpagoenliqui" onclick="calcularElPagoNormalEnLiquidacion()" style="background-color: #E0F8E0" title="Calcular Pago"> <b>Calcular</b></button>
                         </span>
                       </div>
                     </div>
@@ -203,17 +203,17 @@
                       <div class="input-group">
                         <input type="number" class="form-control" placeholder="Valor Prima" name="txtValorprimaServicios" id="valor_primaser" value="0" min="0" readonly="">
                         <span class="input-group-btn">
-                          <button class="btn btn-default" type="button" id="idbotonasociarprima" onclick="valorPrima1()" style="background-color: #E0F8E0"> <b>Calcular</b></button>
+                          <button class="btn btn-default" type="button" id="idbotonasociarprima" onclick="valorPrima1()" style="background-color: #E0F8E0" title="Calcular Pago"> <b>Calcular</b></button>
                         </span>
                       </div>
                     </div>
                     <div class="col-xs-12 col-md-4" id="divvalorpenditeprestamo">
-                      <label id="labelValorVentas">Pendiente de Préstamos</label>                               
+                      <label id="labelValorVentas">Pendiente de Préstamos</label>
                       <div class="input-group">
                         <span class="input-group-addon" id="basic-addon1">$</span>
                         <input type="number" class="form-control" placeholder="Valor Pendiente" name="txtValorprestamo" id="valor_penprestamos" readonly="" min="0" value="0">
                         <span class="input-group-btn">
-                          <button class="btn btn-default" type="button" id="idbotonprestamos" onclick="traervalorprestamopen();"><span class="fa fa-search-plus"></span></button><button type="button" class="btn btn-default" onclick="limpiarCampos();"><span class="fa fa-trash-o"></span></button>
+                          <button class="btn btn-default" type="button" id="idbotonprestamos" onclick="traervalorprestamopen();" title="Traer Préstamos"><span class="fa fa-search-plus"></span></button><button type="button" class="btn btn-default" onclick="limpiarCampos();"><span class="fa fa-trash-o"></span></button>
                         </span>
                       </div>
                     </div>
@@ -242,7 +242,7 @@
                             </div>
                           </div>
                           <div class="row">
-                            <button onclick="calcularSalario()" id="calcularFijos" type="button" class="btn btn-primary pull-right" style="margin-top: 10px; margin-right: 5%"><i class="fa fa-building" aria-hidden="true">  Calcular</i></button>
+                            <button onclick="calcularSalario()" id="calcularFijos" type="button" class="btn btn-primary pull-right" style="margin-top: 10px; margin-right: 5%" title="Calcular"><i class="fa fa-building" aria-hidden="true">  Calcular</i></button>
                           </div>
                         </div>
                       </div>
@@ -273,7 +273,7 @@
                             </div>
                           </div>
                           <div class="row">
-                            <button onclick="calcularSalario()" id="calcularFijos" type="button" class="btn btn-primary pull-right" style="margin-top: 10px; margin-right: 5%"><i class="fa fa-building" aria-hidden="true">   Calcular</i></button>
+                            <button onclick="calcularSalario()" id="calcularFijos" type="button" class="btn btn-primary pull-right" style="margin-top: 10px; margin-right: 5%" title="Calcular Pago"><i class="fa fa-building" aria-hidden="true">   Calcular</i></button>
                           </div>
                         </div>
                       </div>
@@ -293,7 +293,7 @@
                             </div>
                           </div>
                           <div class="row">
-                            <button onclick="calcularTemporal()" id="CalcularTemporal" type="button" class="btn btn-primary pull-right" style="margin-top: 10px; margin-right: 5%"><i class="fa fa-building" aria-hidden="true"> Calcular</i></button>
+                            <button onclick="calcularTemporal()" id="CalcularTemporal" type="button" class="btn btn-primary pull-right" style="margin-top: 10px; margin-right: 5%"><i class="fa fa-building" aria-hidden="true" title="Calcular Pago"> Calcular</i></button>
                           </div>
                         </div>
                       </div>
@@ -304,10 +304,10 @@
                     <div class="col-xs-1 col-md-3">
                     </div>
                       <div class="col-xs-5 col-md-3" id="btnGuardarPagoFijo">
-                        <button type="submit" class="btn btn-success btn-md active"  name="btnRegistrarPago" onclick="return validarTotales()" id="bguardar"><i class="fa fa-floppy-o" aria-hidden="true">   Guardar</i></button>
+                        <button type="submit" class="btn btn-success btn-md active"  name="btnRegistrarPago" onclick="return validarTotales()" id="bguardar" title="Guardar"><i class="fa fa-floppy-o" aria-hidden="true">   Guardar</i></button>
                       </div>
                       <div class="col-xs-5 col-md-3">
-                        <button type="button" class="btn btn-danger btn-md active" onclick="cancelar()" style="float: right;" id="bcancelar"><i class="fa fa-times" aria-hidden="true">   Cancelar</i> </button>
+                        <button type="button" class="btn btn-danger btn-md active" onclick="cancelar()" style="float: right;" id="bcancelar" title="Cancelar Registro"><i class="fa fa-times" aria-hidden="true">   Cancelar</i> </button>
                       </div>
                       <div class="col-md-3">
                       </div>
@@ -353,7 +353,7 @@
 	              }else if(respuesta.v == null){
 	              		var valor = respuesta.v;
                     swal({
-                    title: "El empleado no ha realizado ventas",
+                    title: "El empleado no tiene ventas registradas",
                     confirmButton: "#3CB371",
                     confirmButtonClass: "btn-danger",
                     confirmButtonText: "Aceptar",
@@ -405,7 +405,7 @@
                       $("#totaltemporales").html(0);
                       });
                       return false;
-          };  
+          };
 
           var fechaContrato = $("#fecha_Contrato").val();
 
@@ -850,7 +850,7 @@
                     var years = elemento[0];
                     var meses = elemento[1];
                     var dias = elemento[2];
-                    
+
                     if (meses == 12 && dias >= 15 && dias <=30 ) {
                           $("#divvalorprimaservicios").hide();
                       }
@@ -863,7 +863,7 @@
                     if (meses != 12) {
                           $("#divvalorprimaservicios").hide();
                       }
-                         
+
                     $("#divFechacontrato").removeAttr('style');
                     $("#divFechapagoliquidacion").removeAttr('style');
                     $("#divTipoPago").show();
@@ -943,7 +943,7 @@
           <script type="text/javascript">
             function cancelar() {
               swal({
-                title: "Los datos del registro no se guardarán",
+                title: "¿Realmente desea cancelar el registro?",
                 type: "warning",
                 confirmButton: "#3CB371",
                 confirmButtonText: "btn-danger",
@@ -957,7 +957,7 @@
               function(isConfir){
                   if (isConfir) {
                     swal({
-                      title: "Registro de pago cancelado!",
+                      title: "Registro cancelado!",
                       type: "error",
                       confirmButton: "#3CB371",
                       confirmButtonText: "Aceptar",
@@ -1149,7 +1149,7 @@
                   var id = valorp[i]["id_prestamos"];
                   var valor = valorp[i]["valor_prestamo"];
                   suma = suma + parseInt(valor);
-  
+
 
                   array.push(id);
                   valores.push(valor);
@@ -1307,10 +1307,9 @@
                   return false;
               }
           }
-      });  
+      });
         $(".price").priceFormat({
           clearPrefix:true,
           centsLimit: 3
         });
           </script>
-

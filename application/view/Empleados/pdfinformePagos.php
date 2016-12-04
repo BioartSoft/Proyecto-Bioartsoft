@@ -6,42 +6,42 @@
       width: 100%;
     }
   </style>
+    <link href="<?php echo URL?>css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<img src="<?php echo URL ?>img/BioartesV2.png" height="100" width="200">
+<img src="<?php echo URL ?>img/bio-artes.png" height="100" width="400">
 <br>
-<center><legend><h2>INFORME GENERAL DE PAGOS</h2></legend></center>
+<center><legend><h2>INFORME DE PAGOS DE: <?= $val['empleado']; ?></h2></legend></center>
   <br>
     <p><strong>Fecha Informe: <?= ucwords(date("Y/m/d h:i:s"))?></strong></p>
-  <table border="1">
+  <table class="table table-striped">
     <thead>
       <tr>
        <th>Identificación Empleado</th>
        <th>Nombres Empleado</th>
        <th>Tipo Empleado </th>
-       <th>Fecha Pago</th>
+    <?php if($val['Tbl_nombre_tipo_persona'] == "Empleado-temporal"): ?>
        <th>Tipo Pago</th>
-       <th>Valor Comisión</th>
+       <th>Fecha Pago</th>
        <th>Valor Día</th>
        <th>Total Días</th>
        <th>Total Pagado</th>
+     <?php else: ?>
+       <th>Tipo Pago</th>
+       <th>Fecha Pago</th>
+       <th>Valor Día</th>
+       <th>Valor Comisión</th>
+       <th>Valor Prima</th>
+       <th>Valor Cesantías</th>
+       <th>Valor Vacaciones</th>
+       <th>Total Pagado</th>
+     <?php endif; ?>
       </tr>
     </thead>
     <tbody>
-     <?php foreach ($listarPagos as $val) :  ?>
-     <tr>
-       <td><?= $val["id_persona"]  ?></td>
-       <td style="width: 15%"><?= ucwords($val["empleado"])?></td>
-       <td style="width: 15%"><?= $val["Tbl_nombre_tipo_persona"] ?></td>
-       <td style="width: 15%"><?= $val["fecha_pago"] ?></td>
-       <td style="width: 12%"><?= $val["tipo_pago"]  ?></td>
-       <td style="width: 15%"><?= "$ ". number_format($val["valorComision"], "0", ".",".")  ?></td>
-       <td><?= "$ ". number_format($val["valor_dia"], "0", ".", ".") ?></td>
-       <td><?= $val["cantidad_dias"] ?></td>
-       <td><?= "$ ". number_format($val["total_pago"], "0", ".", ".") ?></td>
-</tr>
- <?php endforeach ?>
+      <?= $tabla; ?>
     </tbody>
   </table>
+  <script src="<?php echo URL ?>js/bootstrap.min.js"></script>
 </body>
 </html>

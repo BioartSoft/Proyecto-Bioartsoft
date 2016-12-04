@@ -172,7 +172,7 @@
                                       $nuevaFecha = date('Y-m-d', $nuevaFecha);
                                        ?>
                                         <label for="">Fecha Inicial <span class="obligatorio">*</span></label>
-                                        <div class="input-group date" data-provide="datepicker">
+                                        <div class="input-group date calendario" data-provide="datepicker">
                                         <input type="text" tabindex="1" class="form-control" name="txtfechainicial1" id="txtfechainicial1" value="<?= $nuevaFecha ?>" readonly="true" data-parsley-required="true">
                                         <div class="input-group-addon">
                                         <span class="glyphicon glyphicon-th"></span>
@@ -183,13 +183,14 @@
                                     <div class="col-md-1"></div>
                                     <div   class="col-md-4">
                                         <label for="">Fecha Final <span class="obligatorio">*</span></label>
-                                        <div class="input-group date" data-provide="datepicker">
+                                        <div class="input-group date calendario" data-provide="datepicker">
                                         <input type="text" tabindex="2" class="form-control" name="txtfechafinal1" id="txtfechafinal1" readonly="true"  value="<?= $hoy1 ?>" data-parsley-required="true">
                                         <div class="input-group-addon">
                                         <span class="glyphicon glyphicon-th"></span>
                                       </div>
                                       </div>
                                       <input type="hidden"  name="txtfechafinal2" id="txtfechafinal2" value="<?= $hoy2 ?>">
+                                      <input type="hidden"  name="txtfechafinal2" id="txtfechafinal3" value="<?= $nuevaFecha ?>">
                                   </div>
                                 </div>
                                 <br><br>
@@ -312,11 +313,7 @@ function cambiarEstado(cod, est){
                   $('#txtfechainicial1').val(valor2);
               }
             })
-    }
-
-
-
-
+          }
 
   });
 
@@ -338,6 +335,56 @@ $("#txtfechafinal1").change(function(){
             function(isConfirm){
             if (isConfirm) {
                 $('#txtfechafinal1').val(valor4);
+            }
+          })
+  }
+});
+</script>
+
+</script>
+<script type="text/javascript">
+$("#txtfechainicial1").change(function(){
+  var valor = $('#txtfechainicial1').val();
+  var valor2 = $('#txtfechafinal2').val();
+
+  if(valor > valor2)
+  {
+    swal({
+            title: "Fecha inválida, esta fecha no puede ser mayor a la fecha final!",
+            type: "error",
+            confirmButtonColor: "#86CCEB",
+            confirmButtonText: "Aceptar",
+            closeOnConfirm: true,
+
+            },
+            function(isConfirm){
+            if (isConfirm) {
+                $('#txtfechainicial1').val(valor2);
+            }
+          })
+  }
+});
+</script>
+
+<script type="text/javascript">
+$("#txtfechafinal1").change(function(){
+  var valor = $('#txtfechafinal1').val();
+  var valor2 = $('#txtfechafinal3').val();
+  var valor3 = $('#txtfechafinal2').val();
+
+  if(valor <= valor2)
+  {
+    swal({
+            title: "Fecha inválida, esta fecha no puede ser mayor a la fecha final!",
+            type: "error",
+            confirmButtonColor: "#86CCEB",
+            confirmButtonText: "Aceptar",
+            closeOnConfirm: true,
+
+            },
+            function(isConfirm){
+            if (isConfirm) {
+                $('#txtfechafinal1').val(valor3);
             }
           })
   }

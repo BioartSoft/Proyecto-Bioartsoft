@@ -365,41 +365,45 @@
 
 
     public function registrarProducto(){
-      $errorNombre = true;
       $this->mdlProducto->__SET("nombre_producto", ucwords($_POST['nombreProd']));
-      $validarNombre = $this->mdlProducto->validarNombre();
       $this->mdlProducto->__SET("Tbl_Categoria_idcategoria", $_POST['categ']);
-      $this->mdlProducto->__SET("Talla", $_POST['talla']);
       $this->mdlProducto->__SET("precio_unitario", $_POST['precioUnit']);
       $this->mdlProducto->__SET("precio_detal", $_POST['precioDet']);
       $this->mdlProducto->__SET("precio_por_mayor", $_POST['precioMay']);
       $this->mdlProducto->__SET("stock", $_POST['stockMin']);
       $producto = $this->mdlProducto->guardar();
-
-      if($validarNombre != false){
-        $errorNombre = false;
-       }else{
-
-         if($producto == true){
-
-           $_SESSION['alerta'] =  'swal({
-             title: "Guardado exitoso!",
-             type: "succes",
-             confirmButton: "#3CB371",
-             confirmButtonText: "Aceptar",
-             // confirmButtonText: "Cancelar",
-             closeOnConfirm: false,
-             closeOnCancel: false
-           })';
+      $productoID = $this->mdlProducto->ultimoIdProducto();
 
         header("Content-Type: application/json");
         echo json_encode([
           'error' => $producto? false : true,
-          'id' => $this->mdlProducto->ultimoId(),
-          'nombre' => $this->mdlProducto->nombre_producto,
-          'codigo'=>$this->mdlProducto->codigo
+          'id' => $productoID['id_producto'],
+          'precioD' => $productoID['precio_detal'],
+          'precioM' => $productoID['precio_por_mayor'],
+          'precioU' => $productoID['precio_unitario'],
+          'idProducto' => $this->mdlProducto->id_producto,
+          'nombre' => $productoID['id_producto'] . " ".$this->mdlProducto->nombre_producto,
         ]);
         }
-      }
-    }
-}
+
+
+        public function modificarPrecios(){
+          $this->mdlCompras->__SET("Codigo_producto", $_POST['id']);
+          $this->mdlCompras->__SET("precio_unitario", $_POST['precioUnit']);
+          $this->mdlCompras->__SET("precio_detal", $_POST['precioDet']);
+          $this->mdlCompras->__SET("precio_por_mayor", $_POST['precioMay']);
+          $producto = $this->mdlCompras->modificarPrecios();
+          $this->mdlProducto->__SET("id_producto", $_POST['id']);
+          $productoID = $this->mdlProducto->IdProdModificado();
+
+            header("Content-Type: application/json");
+            echo json_encode([
+              'error' => $producto? false : true,
+              'idP' => $productoID['id_producto'],
+              'precio1' => $productoID['precio_detal'],
+              'precio2' => $productoID['precio_por_mayor'],
+              'precio3' => $productoID['precio_unitario'],
+              'nombreP' => $productoID['id_producto'] . " ".$productoID['nombre_producto'],
+            ]);
+            }
+  }

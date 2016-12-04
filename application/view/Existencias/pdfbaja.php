@@ -12,7 +12,7 @@
   <br>
 <center><legend><h2>INFORME DE BAJAS</h2></legend></center>
   <br>
-  <h4>Informe de : <?= $rango ?> </h4>
+  <h4><strong>Informe de : </strong><?= $rango ?> </h4>
   <table border="1">
     <thead>
       <tr>

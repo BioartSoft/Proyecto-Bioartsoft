@@ -161,13 +161,11 @@ public function generarpdfDetallesVentas2()
   $dompdf->loadHtml($html);
   // $dompdf->load_html_file($urlImagen);
   // $dompdf->setPaper('A4', 'landscape');
-  $dompdf->setPaper([0,0,350,841], 'portrait');
+  $dompdf->setPaper([0,0,380,830], 'portrait');
   $dompdf->render();
   $dompdf->stream("Informe Ventas.pdf", array("Attachment" => false, 'isRemoteEnabled' => true));
 }
 }
-
-
 
 
   public function generarpdfDetalleAbonos()
@@ -387,7 +385,7 @@ public function generarpdfDetallesVentas2()
                   confirmButtonColor: "#3CB371",
                   cancelButtonText: "No",
                   showCancelButton: true,
-                  confirmButtonText: "Si",
+                  confirmButtonText: "Sí",
                   closeOnConfirm: true,
 
                   },
@@ -612,7 +610,6 @@ private function validarAbonos($idVenta){
               } else if($val["estado_credito"] == 2){
                 $estado = "Condonado";
               }
-              // $estado = $val["estado"] == 1?"Pendiente":"Pagado";
 
               $html .= '<td>'.$estado.'</td>';
               $html .= '<td>';
@@ -626,7 +623,6 @@ private function validarAbonos($idVenta){
             if($_SESSION['ROL'] == 2){
             if($val['estado_credito'] == 1){
               $html .= '<button type="button" id="idAbonoCreditV_btn" class="btn btn-warning btn-circle btn-md" onclick="abonosV('.$val['total_venta'].','.$val['id_ventas'].','.$pendienteCredit.')" title="Abonar"><i class="fa fa-money" aria-hidden="true"></i></button>';
-              //$html .= ' <button  title="Modificar Fecha Crédito" type="button" class="btn btn-success btn-circle btn-md" data-toggle="modal" onclick="ModificarCreditos('.$val['id_ventas'].')"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>';
             }
             $html .= ' <button type="button" onclick="traerDetalleAbonosCreditosV('.$val["id_ventas"].')" class="btn btn-primary btn-circle btn-md" title="Ver Abonos"><i class="fa fa-eye" aria-hidden="true" ></i></button>';
           }
@@ -656,6 +652,42 @@ private function validarAbonos($idVenta){
 
 
 
+  public function generarReciboAbonos()
+  {
+    $id = $_GET['txtId'];
+
+    if(isset($id)){
+
+    $info = $this->mdlVentas->pdfDetallesAbono($id);
+    // var_dump($info);
+    // exit();
+
+    $tabla2 = "";
+    foreach ($info as $val) {
+      $tabla2 .= '<tr>';
+      $tabla2 .= '<td> $ ' . number_format($val['total_venta'], "0", ".", ".") . '</td>';
+      $tabla2 .= '<td> $ ' . number_format($val['valor_abono'], "0", ".", ".") . '</td>';
+      $tabla2 .= '<td> $ ' . number_format($val['total_abonado'], "0", ".", ".") . '</td>';
+      $tabla2 .= '<td> $ ' . number_format($val['pendiente'], "0", ".", ".") . '</td>';
+      $tabla2 .= '</tr>';
+    }
+
+    require_once APP . 'libs/dompdf/autoload.inc.php';
+    ob_start();
+    require APP . 'view/Ventas/pdfDetallesAbonos.php';
+    $html = ob_get_clean();
+    $dompdf = new Dompdf();
+    $dompdf->loadHtml($html);
+    // $dompdf->load_html_file($urlImagen);
+    // $dompdf->setPaper('A4', 'landscape');
+    $dompdf->setPaper([0,0,300,700], 'portrait');
+    $dompdf->render();
+    $dompdf->stream("Recibo Abono Créditos.pdf", array("Attachment" => false, 'isRemoteEnabled' => true));
+  }
+}
+
+
+
   public function registrarAbonoCreditoVen(){
 
     if (isset($_POST["txtva"])== 'true') {
@@ -666,21 +698,29 @@ private function validarAbonos($idVenta){
         $this->mdlVentas->__SET("codigoEmpleado", $_POST['empleadoAbonoVenta']);
         $consultaAbono = $this->mdlVentas->totalAbono($_POST['txtvalorabono']);
         if($consultaAbono['total'] !== null && $consultaAbono['total'] == 0){
-          //$this->mdlVentas->__SET("codigo_venta", $_POST['txtidprestamoCredV']);
           $this->mdlVentas->cambiarEstadoCredito(0);
         }
 
         if ($this->mdlVentas->insertarAbonoCreditoVen()) {
 
-          $_SESSION['alerta']=  'swal({
-            title: "Guardado exitoso!",
-            type: "success",
-            confirmButton: "#3CB371",
-            confirmButtonText: "Aceptar",
-            // confirmButtonText: "Cancelar",
-            closeOnConfirm: false,
-            closeOnCancel: false
-          })';
+          $ultAbono = $this->mdlVentas->ultimoIdAbono();
+
+          $_SESSION['alerta'] = 'swal({
+                  title: "Guardado exitoso!",
+                  text: "¿Desea imprimir el recibo de abono?",
+                  type: "success",
+                  confirmButtonColor: "#3CB371",
+                  cancelButtonText: "No",
+                  showCancelButton: true,
+                  confirmButtonText: "Sí",
+                  closeOnConfirm: true,
+
+                  },
+                  function(isConfirm){
+                  if (isConfirm) {
+                    window.open("'.URL.'Ventas/generarReciboAbonos?txtId='.$ultAbono["ultimo_id"].'");
+                  }
+                })';
           header("Location: ".URL."Ventas/listarVentasCredito");
           exit();
         }

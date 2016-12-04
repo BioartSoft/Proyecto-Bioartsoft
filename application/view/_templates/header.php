@@ -39,21 +39,12 @@ $notificaciones = mdlConfiguracionPago::getNotificaciones();
 
     <link rel="stylesheet" href="<?php echo URL ?>css/bootstrap-datepicker.css">
 
-
     <link rel="stylesheet" href="<?php echo URL ?>css/jquery.datepick.css">
-    <style type="text/css">
-      #myjhoanlopez .modal-dialog{
-          overflow-y: initial !important
-      }
-      #myjhoanlopez .modal-body{
-          height: 650px;
-          /* overflow-y: auto; */
-      }
-    </style>
 
     <script src="<?= URL ?>js/jquery-1.12.3.min.js"></script>
     <script src="<?= URL ?>js/parsley.min.js"></script>
     <script src="<?= URL ?>js/i18n/es.js"></script>
+      <script src="http://eternicode.github.io/bootstrap-datepicker/bootstrap-datepicker/js/locales/bootstrap-datepicker.es.js"></script>
     <link href="<?php echo URL?>css/estilosGenericos.css" rel="stylesheet">
 </head>
 
@@ -203,18 +194,17 @@ $notificaciones = mdlConfiguracionPago::getNotificaciones();
                                 <h4 class="modal-title" id="myModalLabel" style="color: #337AB7; text-align: center">Configuración Pagos</h4>
                             </div>
                             <div class="modal-body">
-                              <form class="" action="<?php echo URL?>Empleados/ListarConfiguraciones" method="post" id="myFormu" data-parsley-validate="">
-
+                              <form class="" action="<?php echo URL?>Empleados/ListarConfiguraciones" method="post" id="myFormu" data-parsley-validate="" onsubmit="return validarValores()">
                                 <?php foreach ($configuracion as $valor): ?>
 
                                 <div class="row">
 
                                   <div class="col-xs-12 col-md-6" id="divValorBa">
-                                    <label id="labelValorBase">Valor Base Liquidación *</label><br>
+                                    <label id="labelValorBase">Valor Base Liquidación <span class="obligatorio">*</span></label><br>
                                     <input type="number" class="form-control" name="txtvBase" placeholder="Valor Base" value="<?= $valor["valor_base"] ?>" readonly="" id="valorBase" data-parsley-type="integer" min="0" maxlength="7" data-parsley-required="true">
                                   </div>
                                   <div class="col-xs-12 col-md-6" id="divTiempoP">
-                                  <label id="labelTiempoPago">Período de Pago *</label>
+                                  <label id="labelTiempoPago">Período de Pago <span class="obligatorio">*</span></label>
                                     <select class="form-control" disabled="" id="selectperiodo" name="txttiemPago" data-parsley-required="true" data-parsley-type="alphanum">
                                     <?php
                                       $tiempo = $valor["tiempo_pago"];
@@ -236,7 +226,7 @@ $notificaciones = mdlConfiguracionPago::getNotificaciones();
                                 <br>
                                 <div class="row">
                                   <div class="col-xs-12 col-md-6" id="divPorcent">
-                                    <label id="labelPorcentaje">Porcentaje Comisión *</label><br>
+                                    <label id="labelPorcentaje">Porcentaje Comisión <span class="obligatorio">*</span></label><br>
                                     <select class="form-control" id="comision" name="txtporComision" data-parsley-required="true" disabled="" value="<?= $valor["porcentaje_comision"] ?>">
                                     <?php
                                       $tiempo = $valor["porcentaje_comision"];
@@ -348,7 +338,7 @@ $notificaciones = mdlConfiguracionPago::getNotificaciones();
                                   <div class="col-xs-12 col-md-3">
                                   </div>
                                   <div class="col-xs-12 col-md-6" id="divValorBa">
-                                    <label id="labelValorBase">Valor Día *</label><br>
+                                    <label id="labelValorBase">Valor Día <span class="obligatorio">*</span></label><br>
                                     <input type="number" class="form-control" name="txtvalordia" placeholder="Valor Día" value="<?= $valor["Valor_dia"] ?>" readonly="" id="valordia" data-parsley-type="integer" min="0" maxlength="7" data-parsley-required="true">
                                   </div>
                                 </div>
@@ -361,9 +351,9 @@ $notificaciones = mdlConfiguracionPago::getNotificaciones();
                                 <br>
                                 <div class="row">
 
-                                    <button type="submit" class="btn btn-success btn-md active" style="float: left; margin-left: 25%"  name="btnmodificarconfi" id="idbtn" disabled="true"><i class="fa fa-floppy-o" aria-hidden="true">   Guardar</i></button>
+                                    <button type="submit" class="btn btn-success btn-md active" style="float: left; margin-left: 25%"  name="btnmodificarconfi" id="idbtn" disabled="true" title="Guardar"><i class="fa fa-floppy-o" aria-hidden="true">   Guardar</i></button>
 
-                                    <button type="button" class="btn btn-primary btn-md active" onclick="habilitar()" style="float: right; margin-right: 25%" id="btnhabilitar" ><i class="fa fa-pencil-square-o" aria-hidden="true">   Modificar</i></button>
+                                    <button type="button" class="btn btn-primary btn-md active" onclick="habilitar()" style="float: right; margin-right: 25%" id="btnhabilitar" title="Modificar"><i class="fa fa-pencil-square-o" aria-hidden="true">   Modificar</i></button>
 
                                 </div>
                               </form>
@@ -382,27 +372,27 @@ $notificaciones = mdlConfiguracionPago::getNotificaciones();
               <h4 class="modal-title" id="myModalLabel" style="color: #337AB7; text-align: center">Configuración Ventas</h4>
             </div>
             <div class="modal-body">
-              <form class="" action="<?php echo URL?>Ventas/index" id="FormConfigVentas" method="post" data-parsley-validate="">
+              <form class="" action="<?php echo URL?>Ventas/index" id="FormConfigVentas" method="post" data-parsley-validate="" onsubmit="return validarValoresConfVentas()">
                 <?php foreach ($listarConfiguracionVentas as  $lisven): ?>
 
                   <div class="row">
                     <div class="col-xs-12 col-md-6">
-                      <label>Valor Mínimo Subtotal *</label><br>
+                      <label>Valor Mínimo Subtotal <span class="obligatorio">*</span></label><br>
                       <input type="number" class="form-control" id="valorMinimoSub" name="txtvalorminimo" readonly="" value="<?= $lisven["Valor_Subtotal_Minimo"] ?>" min="1" data-parsley-type="integer" data-parsley-required="true">
                     </div>
                     <div class="col-xs-12 col-md-6">
-                      <label>Porcentaje Mínimo Descuento *</label><br>
+                      <label>Porcentaje Mínimo Descuento <span class="obligatorio">*</span></label><br>
                       <input type="number" class="form-control" id="porcentajeMinimoDesc" name="txtporcentajeminimo"  readonly="" value="<?= $lisven["Porcentaje_Minimo_Dcto"]?>" min="0" data-parsley-type="number" data-parsley-required="true">
                     </div>
                   </div>
                   <br>
                   <div class="row">
                     <div class="col-xs-12 col-md-6">
-                      <label>Valor Máximo Subtotal *</label><br>
+                      <label>Valor Máximo Subtotal <span class="obligatorio">*</span></label><br>
                       <input type="number" class="form-control" id="valorMaximoSub" name="txtvalormaximo" readonly="" value="<?= $lisven["Valor_Subtotal_Maximo"]?>" min="1" data-parsley-type="integer" data-parsley-required="true">
                     </div>
                     <div class="col-xs-12 col-md-6">
-                      <label>Porcentaje Máximo Descuento *</label><br>
+                      <label>Porcentaje Máximo Descuento <span class="obligatorio">*</span></label><br>
                       <input type="number" class="form-control" id="porcentajeMaximoDesc" name="txtporcentajemaximo"  readonly="" value="<?= $lisven["Porcentaje_Maximo_Dcto"]?>" min="0" data-parsley-type="number" data-parsley-required="true">
                     </div>
                   </div>
@@ -428,6 +418,64 @@ $notificaciones = mdlConfiguracionPago::getNotificaciones();
         </div>
       </div>
     </div>
+
+
+    <script type="text/javascript">
+        function validarValores(){
+          var valBase = parseInt($("#valorBase").val());
+          var valDia = parseInt($("#valordia").val());
+
+          if(valDia > valBase){
+            swal({
+                  title: "El valor día no puede ser mayor al valor base!",
+                  type: "error",
+                  confirmButton: "#3CB371",
+                  confirmButtonText: "Aceptar",
+                  // confirmButtonText: "Cancelar",
+                  closeOnConfirm: true,
+                  closeOnCancel: false
+                });
+                return false;
+          }else{
+            return true;
+          }
+        }
+    </script>
+
+    <script type="text/javascript">
+        function validarValoresConfVentas(){
+          var valMinSub = parseInt($("#valorMinimoSub").val());
+          var valMaxSub = parseInt($("#valorMaximoSub").val());
+          var porMinSub = parseInt($("#porcentajeMinimoDesc").val());
+          var porMaxSub = parseInt($("#porcentajeMaximoDesc").val());
+
+          if(valMinSub > valMaxSub){
+            swal({
+                  title: "El valor mínimo subtotal no puede ser mayor al valor máximo subtotal!",
+                  type: "error",
+                  confirmButton: "#3CB371",
+                  confirmButtonText: "Aceptar",
+                  // confirmButtonText: "Cancelar",
+                  closeOnConfirm: true,
+                  closeOnCancel: false
+                });
+                return false;
+          }else if(porMinSub > porMaxSub){
+            swal({
+                  title: "El porcentage mínimo descuento no puede ser mayor al porcentage máximo descuento!",
+                  type: "error",
+                  confirmButton: "#3CB371",
+                  confirmButtonText: "Aceptar",
+                  // confirmButtonText: "Cancelar",
+                  closeOnConfirm: true,
+                  closeOnCancel: false
+                });
+                return false;
+          }else{
+            return true;
+          }
+        }
+    </script>
 
 <script type="text/javascript">
 
@@ -517,13 +565,13 @@ $notificaciones = mdlConfiguracionPago::getNotificaciones();
 
 <script type="text/javascript">
     $("#valorBase").keydown(function(e){
-      if(e.which === 189 || e.which === 69){
+      if(e.which === 189 || e.which === 69 || e.which === 190){
         e.preventDefault();
       }
   });
 
   $("#valordia").keydown(function(e){
-    if(e.which === 189 || e.which === 69){
+    if(e.which === 189 || e.which === 69 || e.which === 190){
       e.preventDefault();
     }
 
@@ -532,13 +580,13 @@ $notificaciones = mdlConfiguracionPago::getNotificaciones();
 
 <script type="text/javascript">
     $("#valorMinimoSub").keydown(function(e){
-      if(e.which === 189 || e.which === 69){
+      if(e.which === 189 || e.which === 69 || e.which === 190){
         e.preventDefault();
       }
   });
 
   $("#porcentajeMinimoDesc").keydown(function(e){
-    if(e.which === 189 || e.which === 69){
+    if(e.which === 189 || e.which === 69 || e.which === 190){
       e.preventDefault();
     }
 
@@ -546,14 +594,14 @@ $notificaciones = mdlConfiguracionPago::getNotificaciones();
 
 
 $("#valorMaximoSub").keydown(function(e){
-  if(e.which === 189 || e.which === 69){
+  if(e.which === 189 || e.which === 69 || e.which === 190){
     e.preventDefault();
   }
 
 });
 
 $("#porcentajeMaximoDesc").keydown(function(e){
-  if(e.which === 189 || e.which === 69){
+  if(e.which === 189 || e.which === 69 || e.which === 190){
     e.preventDefault();
   }
 

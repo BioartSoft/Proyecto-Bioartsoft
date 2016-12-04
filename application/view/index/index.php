@@ -13,7 +13,7 @@
                     <div class="row">
                         <div class="col-xs-3">
                           <?php foreach ($ventasDia AS $valor): ?>
-                              <i class="fa fa-usd fa-4x">&nbsp;<span class="ventas"><?= $valor ?></span></i>
+                              <i class="fa fa-usd fa-4x">&nbsp;<span><?= number_format($valor, "0", ".", ".") ?></span></i>
                               <p>Ventas Día</p>
                           <?php endforeach; ?>
                         </div>
@@ -68,7 +68,7 @@
                     <div class="row">
                           <div class="col-xs-3">
                             <?php foreach ($comprasDia as $compras): ?>
-                                <i class="fa fa-shopping-cart fa-4x" style="color: #fff">&nbsp;<span class="compras"><?= $compras ?></span></i>
+                                <i class="fa fa-shopping-cart fa-4x" style="color: #fff">&nbsp;<span><?= number_format($compras, "0", ".", ".") ?></span></i>
                                 <p style="color: #fff">Entradas Día</p>
                               <?php endforeach; ?>
                           </div>
@@ -76,7 +76,7 @@
                             <?php foreach ($comprasMes as $CompraMes): ?>
                                 <div class="huge"></div>
                                 <p style="color: #fff">Entradas Mes:</p>
-                                <span class="compras" style="color: #fff"><?= $CompraMes ?></span>
+                                <span class="compras" style="color: #fff"><?= $pesos ?><?= $CompraMes ?></span>
                             <?php endforeach; ?>
                           </div>
                     </div>

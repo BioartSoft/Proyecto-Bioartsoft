@@ -65,7 +65,7 @@
 		if(count($resultado) > 0){
 			$notificaciones[] = [
 				'icono' => 'fa fa-money',
-				'url' => URL . 'Ventas/listarVentasCredito',
+				'url' => URL . 'Empleados/listarPrestamosVencer',
 				'texto' => 'Hay Préstamos a punto de vencer ',
 			];
 		}

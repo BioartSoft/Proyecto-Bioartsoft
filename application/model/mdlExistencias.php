@@ -86,7 +86,6 @@ class mdlExistencias
 
 
   public function ultimaBaja(){
-    //$sql = "SELECT MAX(id_bajas) ultimo_id FROM tbl_bajas";
 		$sql = "CALL SP_UltimaBaja";
 		try {
 			$stm = $this->db->prepare($sql);
@@ -126,6 +125,7 @@ class mdlExistencias
 		} catch (Exception $e) {
 		}
 	}
+
 
 	public function pdfBajas()
 	{
@@ -185,13 +185,13 @@ class mdlExistencias
 		  return $stm->execute();
 		}
 
+
 		public function getDetallesBajas($idBaja){
 			$sql = "CALL SP_DetallesBajas(?)";
 			$stm = $this->db->prepare($sql);
 			$stm->bindParam(1, $idBaja);
 			$stm->execute();
 			return $stm->fetchAll(2);
-
 		}
 
 

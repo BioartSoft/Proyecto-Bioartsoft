@@ -26,9 +26,9 @@
 
                   <?php endif; ?>
                 <?php endforeach; ?>
-                <?php foreach($proveedorJ as $val): ?>
+                <?php foreach($proveedorJ as $value): ?>
                   <?php if($value['estado'] == 1): ?>
-                    <option value="<?= $val['id_persona'] ?>"><?= $val['id_persona']. " ".$val['nombres']." (".$val['empresa'].")" ?></option>
+                    <option value="<?= $value['id_persona'] ?>"><?= $value['id_persona']. " ".$value['nombres']." (".$value['empresa'].")" ?></option>
                   <?php else: ?>
 
                   <?php endif; ?>
@@ -81,7 +81,7 @@
             <label for="">Cantidad <span class="obligatorio">*</span></label>
             <input type="text" tabindex="5" id="txtcantidad" min="1" maxlength="4" name="txtcantidad" class="form-control" data-parsley-type="number" data-parsley-required="true">
           </div>
-          <button type="button" tabindex="6" onclick="agregarProducto()" class="btn btn-primary active pull-right" id="btn-Agregar"><i class="fa fa-plus plus"></i>   Agregar</button>
+          <button type="button" tabindex="6" onclick="agregarProducto()" class="btn btn-primary active pull-right" id="btn-Agregar" title="Agregar"><i class="fa fa-plus plus"></i>   Agregar</button>
       </div>
     </div>
 </div>
@@ -101,10 +101,10 @@
     </div>
     <div class="row">
       <div class="col-md-6 col-xs-12 col-lg-9">
-      <button type="submit" tabindex="7" class="btn btn-success active pull-right" id="btnguardarC" name="btn-guardar-compra" ><i class="fa fa-floppy-o"></i>   Guardar</button>
+      <button type="submit" tabindex="7" class="btn btn-success active pull-right" id="btnguardarC" name="btn-guardar-compra" title="Guardar"><i class="fa fa-floppy-o"></i>   Guardar</button>
     </div>
     <div class="col-md-6 col-xs-12 col-lg-3">
-      <button type="reset" tabindex="8" class="btn btn-danger active pull-right" onclick="cancelar()" id="btncancelar" name="btn-cancelar-compra" ><i class="fa fa-remove"></i>   Cancelar</button>
+      <button type="reset" tabindex="8" class="btn btn-danger active pull-right" onclick="cancelar()" id="btncancelar" name="btn-cancelar-compra" title="Cancelar"><i class="fa fa-remove"></i>   Cancelar</button>
       <input type="hidden" tabindex="9">
     </div>
   </div>
@@ -115,7 +115,7 @@
 </form>
 <input type="hidden" id="txtProductoS" focus="true" autocomplete="off" >
 
-<form action="<?= URL ?>Compras/index" method="POST" id="form-modificar" data-parsley-validate="">
+
 <div class="modal fade" id="modal-registroProducto" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static">
    <div class="modal-dialog" role="document">
      <div class="modal-content">
@@ -139,47 +139,44 @@
                             <?php endforeach; ?>
                           </select>
                     </div>
+                    <div class="col-md-4">
+                       <label for="txtPrecioUnitario">Precio Unitario <span class="obligatorio">*</span></label>
+                       <input type="text" name="txtPrecioUnitario" onkeypress="return soloNumeros(event)" maxlenght="8" style="width: 100%"class="form-control" id="precioUnitario" data-parsley-type="integer" min="0" max="100000" step="10" class="form-control" placeholder="Precio Unitario" data-parsley-required="true">
+                   </div>
                   </div>
                   <br><br>
 
                   <div class="row">
-                    <div class="col-md-4">
-                       <label for="txtPrecioUnitario">Precio Unitario <span class="obligatorio">*</span></label>
-                       <input type="text" name="txtPrecioUnitario" maxlenght="8" style="width: 100%"class="form-control" id="precioUnitario" data-parsley-type="integer" min="0" max="100000" step="10" class="form-control" placeholder="Precio Unitario" data-parsley-required="true">
-                   </div>
-                    <div class="col-md-4">
 
+                    <div class="col-md-4">
                         <label for="txtPrecioDetal">Precio Detal <span class="obligatorio">*</span></label>
-                         <input type="text" maxlenght="8" name="txtPrecioDetal" class="form-control" style="width: 100%" id="precioDetal" data-parsley-type="integer" min="0" step="10" max="100000" placeholder="Precio Detal" data-parsley-required="true">
+                         <input type="text" maxlenght="8" onkeypress="return soloNumeros(event)" name="txtPrecioDetal" class="form-control" style="width: 100%" id="precioDetal" data-parsley-type="integer" min="0" step="10" max="100000" placeholder="Precio Detal" data-parsley-required="true">
                    </div>
 
                     <div class="col-md-4">
                         <label for="txtPorMayor">Precio Por Mayor <span class="obligatorio">*</span></label>
-                          <input type="text" maxlenght="8" name="txtPorMayor"  class="form-control" id="precioMayor" data-parsley-type="integer" min="0" step="10" max="100000" placeholder="Precio por Mayor" data-parsley-required="true">
+                          <input type="text" maxlenght="8" onkeypress="return soloNumeros(event)" name="txtPorMayor"  class="form-control" id="precioMayor" data-parsley-type="integer" min="0" step="10" max="100000" placeholder="Precio por Mayor" data-parsley-required="true">
+                      </div>
+                      <div class="col-md-4">
+                          <label for="txtStock">Stock Mínimo <span class="obligatorio">*</span></label>
+                          <input type="text" maxlenght="8" onkeypress="return soloNumeros(event)" name="txtStock" class="form-control" id="stock" data-parsley-type="number" min="1" type="number"  max="50" placeholder="Stock Mínimo" data-parsley-required="true">
                       </div>
                   </div>
-                  <br><br>
-                  <div class="row">
-                    <div class="col-md-4">
-                        <label for="txtStock">Stock Mínimo <span class="obligatorio">*</span></label>
-                        <input type="text" maxlenght="8" name="txtStock" class="form-control" id="stock" data-parsley-type="number" min="1" type="number"  max="50" placeholder="Stock Mínimo" data-parsley-required="true">
-                    </div>
-                  </div>
+                  <br>
                    <hr>
                   </div>
                       <div class="row">
-                         <div class="col-md-6 col-xs-12 col-lg-8">
-                           <button type="reset" class="btn btn-secondary active pull-right" data-dismiss="modal"><i class="fa fa-remove" aria-hidden="true">  Cerrar</i></button>
+                         <div class="col-md-6 col-xs-12 col-lg-9">
+                           <button type="reset" class="btn btn-secondary active pull-right" data-dismiss="modal" title="Cerrar"><i class="fa fa-remove" aria-hidden="true">  Cerrar</i></button>
                         </div>
-                        <div class="col-md-6 col-xs-12 col-lg-4">
-                          <button type="submit" name="btnguardarProducto" id="btn-guardar" class="btn btn-success active" onclick="registrarProducto()"><i class="fa fa-floppy-o" aria-hidden="true">  Guardar</i></button>
+                        <div class="col-md-6 col-xs-12 col-lg-3">
+                          <button type="submit" name="btnguardarProducto" id="btn-guardar" onclick="ValidarNombreProducto()" class="btn btn-success active" title="Guardar"><i class="fa fa-floppy-o" aria-hidden="true">  Guardar</i></button>
                         </div>
                       </div>
                       <br>
                     </div>
                   </div>
                 </div>
-              </form>
 
               <script type="text/javascript">
                 $(document).ready(function(){
@@ -189,13 +186,12 @@
                 })
               </script>
 
-           <form action="<?= URL ?>Compras/index" method="POST" id="form-modificar" data-parsley-validate="" onsubmit="return validarPreciosCompra()">
            <div class="modal fade" id="modal-modificarPrecios" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static">
              <div id="modal-mod-prod" method="post" data-parsley-validate="">
                              <div class="modal-dialog" role="document">
                                <div class="modal-content">
                                  <div class="modal-body">
-                                   <button type="button" data-toggle="modal" data-target="#mod_ayuda_precios">
+                                   <button type="button" class="btn btn-primary btn-circle btn-md" data-toggle="modal" data-target="#mod_ayuda_precios">
                                      <i class="fa fa-question" aria-hidden="true" title="Ayuda"></i>
                                    </button>
                                    <br><br>
@@ -236,7 +232,7 @@
                         <button type="button" class="btn btn-secondary btn-md active pull-right"  data-dismiss="modal"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
                    </div>
                    <div class="col-md-6 col-xs-12 col-lg-3">
-                     <button id="btn-modificar" type="submit" name="btn-modificar" class="btn btn-success btn-md active"><i class="fa fa-floppy-o" aria-hidden="true">   Modificar</i></button>
+                     <button id="btn-modificar" type="button" name="btn-modificar" onclick="validarPreciosCompra()" class="btn btn-success btn-md active"><i class="fa fa-floppy-o" aria-hidden="true">   Modificar</i></button>
                    </div>
                  </div>
              </div>
@@ -244,7 +240,7 @@
          </div>
        </div>
      </div>
-  </form>
+  <!-- </form> -->
 
   <div class="modal fade" id="mod_ayuda_precios" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static">
                     <div class="modal-dialog" role="document" style="width: 50%">
@@ -417,7 +413,6 @@
        }
      );
 
-
      $("#precio2").text(precio2);
      $("#precio2").priceFormat(
        {
@@ -469,9 +464,18 @@
      precioGuardar = precio.replace(".","").replace("$", "");
      var total = $("#total").val();
 
+
+
       var bandera = true;
       $(".datos").each(function(key, value){
          var v = $(value).find("input[id='txtProducto']").val();
+
+         var cantV = parseInt($("#cantV").val());
+         var TotalV = parseInt($("#operacion").val());
+         var id = $("#txtProducto").val();
+         var id2 = $("#ddlproducto").val();
+
+
 
          if(v == productoCd){
            var cantAnt = parseInt($(value).find("span.cantidad").text());
@@ -481,15 +485,16 @@
            $(value).find("p#cantidad").attr("data-cantidad", cantAnt + cantAct);
            $(value).find("p#cantidad").attr("data-cantidad", cantAnt + cantAct);
 
-           var subAnt = parseInt($(value).find("span.subtotal").text().replace(".","").replace(",", ""));
+           var subAnt = parseInt($(value).find("span.subtotal").text().replace(".","").replace(",", "").replace("$", ""));
            var p = $(value).find("span.subtotal").text( subAnt + parseInt(precio * cantidad) );
            $(value).find("p#subtotal").attr("data-valor", subAnt + parseInt(precio * cantidad));
            bandera = false;
          }
       });
 
+
       if(bandera == true){
-        var html = '<div class="row datos" data-producto="true" ><div class="col-md-9 cta-contents">';
+        var html = '<div id="contenedor-prod-' + productoCd + '" class="row datos" data-producto="true" ><div class="col-md-9 cta-contents">';
         html += '      <h3 class="cta-title">'+productoText+'</h3>';
         html += '        <div class="cta-desc">';
         html += '           <p data-cantidad="'+cantidad+'" id="cantidad" required value="">Cantidad: <span class="cantidad"> '+cantidad+'</span></p>';
@@ -563,38 +568,88 @@
    }//Fin método sumar Subtotal
  </script>
 
+<script type="text/javascript">
+
+function ValidarNombreProducto(){
+
+    var nombreProd = $("#nombreProd").val();
+
+    $.ajax({
+      url: url + 'producto/validacionNombreProducto',
+      data:{'nombreProd': nombreProd},
+      type: 'post',
+      dataType:"text"
+    }).done(function(resut){
+
+      if(resut == 1){
+        swal({
+              title: "Nombre de Producto ya existe, no se puede registrar!",
+              type: "error",
+              confirmButton: "#3CB371",
+              confirmButtonText: "Aceptar",
+              closeOnConfirm: true,
+              closeOnCancel: false
+            },
+          function isConfirm(){
+            if(isConfirm){
+
+              $("#nombreProd").val("");
+            }
+          });
+
+      }else{
+          registrarProducto();
+      }
+    });
+
+};
+</script>
+
 
  <script type="text/javascript">
    function registrarProducto(){
 
+     var band1 = 0;
+     var band2 = 0;
+     var band3 = 0;
+
      var nombreProd = $("#nombreProd").val();
      var categ = $("#categoria").val();
-     var talla = $("#txttalla").val();
      var precioUnit = $("#precioUnitario").val();
      var precioDet = $("#precioDetal").val();
      var precioMay = $("#precioMayor").val();
      var stockMin = $("#stock").val();
 
-     if(nombreProd == "" || categ == "" || precioUnit == "" || precioDet == "" || precioMay == "" || stockMin == ""){
+     if(nombreProd == "" || categ == "" || precioUnit == "" || precioUnit == "" || precioMay == "" || stockMin == "" ){
        swal({
          title: "Hay campos vacíos, no se puede guardar!",
          type: "error",
          confirmButton: "#3CB371",
          confirmButtonText: "Aceptar",
+         // confirmButtonText: "Cancelar",
          closeOnConfirm: false,
          closeOnCancel: false
        });
+       $("#nombreProd").css("background", "#F2DEDE");
+       $("#categoria").css("background", "#F2DEDE");
+       $("#precioUnitario").css("background", "#F2DEDE");
+       $("#precioDetal").css("background", "#F2DEDE");
+       $("#precioMayor").css("background", "#F2DEDE");
+       $("#stock").css("background", "#F2DEDE");
      }else {
+       $("#nombreProd").css("background", "#DFF0D8");
+       $("#categoria").css("background", "#DFF0D8");
+       $("#precioUnitario").css("background", "#DFF0D8");
+       $("#precioDetal").css("background", "#DFF0D8");
+       $("#precioMayor").css("background", "#DFF0D8");
+       $("#stock").css("background", "#DFF0D8");
 
-        // return validarNombre();
-
-     $.ajax({
+       $.ajax({
        type: 'post',
        url: '<?= URL ?>/Compras/registrarProducto',
        data: {
          nombreProd: nombreProd,
          categ: categ,
-         talla: talla,
          precioUnit: precioUnit,
          precioDet: precioDet,
          precioMay: precioMay,
@@ -613,14 +668,18 @@
          });
        } else if(data.error == false){
          var select = $("#ddlproducto");
-         var option = $("<option/>").html(data.nombre);
-         //select.select2("destroy");
+         var option = $("<option/>", {value: data.id, Precio: data.precioU, Precio2: data.precioD, Precio3: data.precioM }).html(data.idProducto).html(data.nombre);
+         select.select2("destroy");
+         select.find("option[value='" + data.id +  "']").remove();
          select.prepend(option);
          select.select2({
-           width: "100%",
+           width: "85%",
          });
+
+
          $("#modal-registroProducto").modal("hide");
          select.select2('open');
+         select.change();
          swal({
            title: "Guardado exitoso!",
            type: "success",
@@ -629,21 +688,14 @@
            // confirmButtonText: "Cancelar",
            closeOnConfirm: false,
            closeOnCancel: false
-         },
-         function(isConfirm){
-             if (isConfirm) {
-                 window.location.reload();
-               }else {
-                  window.location.reload();
-               }
-               });
-       } else {
+          });
+        } else {
 
-       }
+        }
 
-       });
-     }
- }
+        });
+      }
+  }
  </script>
 
 
@@ -719,10 +771,10 @@
               closeOnConfirm: false,
               closeOnCancel: false
             });
-            return true;
-            window.location.reload("Compras/index");
+            return false;
       }else{
-        return false;
+        return true;
+        funcionValidar();
       }
     });
   }
@@ -744,7 +796,7 @@
 
          if(resut == "1"){
            swal({
-                 title: "Nombre de Producto ya existe, no se puede registrar!",
+                 title: "Nombre de Producto ya existe!",
                  type: "error",
                  confirmButton: "#3CB371",
                  confirmButtonText: "Aceptar",
@@ -775,11 +827,14 @@
 
  <script type="text/javascript">
    function validarPreciosCompra(){
-     var precioUnit = $("#txtpreciocompra").val();
-     var precioDet = $("#txtprecioventa").val();
-     var precioMay = $("#txtprecioalpormayor").val();
+     var precioUnit = parseInt($("#txtpreciocompra").val());
+     var precioDet = parseInt($("#txtprecioventa").val());
+     var precioMay = parseInt($("#txtprecioalpormayor").val());
 
-     if((precioUnit >  precioDet && precioUnit > precioMay) || precioDet < precioMay || precioMay < precioUnit){
+     if(precioUnit <  precioDet && precioUnit < precioMay && precioDet > precioMay){
+       modificarPreciosProductos();
+       return true;
+     }else{
        swal({
              title: "Precios inválidos, verificar valores!",
              type: "error",
@@ -790,19 +845,29 @@
              closeOnCancel: false
            });
            return false;
-     }else{
-       return true;
      }
    }
  </script>
 
  <script type="text/javascript">
    function validarPreciosCompra2(){
-     var precioUnit = $("#precioUnitario").val();
-     var precioDet = $("#precioDetal").val();
-     var precioMay = $("#precioMayor").val();
 
-     if((precioUnit >  precioDet && precioUnit > precioMay) || precioDet < precioMay || precioMay < precioUnit){
+     var precioUnit = parseInt($("#precioUnitario").val());
+     var precioDet = parseInt($("#precioDetal").val());
+     var precioMay = parseInt($("#precioMayor").val());
+
+     if(precioUnit <  precioDet && precioUnit < precioMay && precioDet > precioMay){
+      //  swal({
+      //        title: "Precios inválidos, verificar valores!",
+      //        type: "error",
+      //        confirmButton: "#3CB371",
+      //        confirmButtonText: "Aceptar",
+      //        // confirmButtonText: "Cancelar",
+      //        closeOnConfirm: false,
+      //        closeOnCancel: false
+      //      });
+           return true;
+     }else{
        swal({
              title: "Precios inválidos, verificar valores!",
              type: "error",
@@ -812,9 +877,14 @@
              closeOnConfirm: false,
              closeOnCancel: false
            });
-           return false;
-     }else{
-       return true;
+       return false;
+       funcionValidar();
+     }
+   }
+
+   function funcionValidar() {
+     if (validarNombre()==true && validarPreciosCompra2()==true) {
+       registrarProducto();
      }
    }
  </script>
@@ -823,7 +893,7 @@
 
  function cancelar() {
      swal({
-           title: "Los datos del registro no se guardarán",
+           title: "¿Realmente desea cancelar el registro?",
            type: "warning",
            confirmButton: "#3CB371",
            confirmButtonText: "btn-danger",
@@ -851,4 +921,138 @@
          }
          });
       }
+ </script>
+
+ <script type="text/javascript">
+     $("#precioMayor").change(function(){
+       var campounitario = parseInt($("#precioUnitario").val());
+       var campodetal = parseInt($("#precioDetal").val());
+       var campopormayor = parseInt($("#precioMayor").val());
+
+      if((campounitario >  campodetal && campounitario > campopormayor) || campodetal < campopormayor || campopormayor < campounitario){
+        swal({
+              title: "Precios inválidos, verificar valores!",
+              type: "error",
+              confirmButton: "#3CB371",
+              confirmButtonText: "Aceptar",
+              // confirmButtonText: "Cancelar",
+              closeOnConfirm: false,
+              closeOnCancel: false
+            });
+            $("#precioUnitario").val("");
+            $("#precioDetal").val("");
+            $("#precioMayor").val("");
+            return false;
+      }else{
+        return true;
+      }
+    });
+ </script>
+
+ <script type="text/javascript">
+   function modificarPreciosProductos(){
+
+     var band1 = 0;
+     var band2 = 0;
+     var band3 = 0;
+
+     var precioUnit = parseInt($("#txtpreciocompra").val());
+     var precioDet = parseInt($("#txtprecioventa").val());
+     var precioMay = parseInt($("#txtprecioalpormayor").val());
+     var id = parseInt($("#txtcodigo").val());
+
+     if(precioUnit == "" || precioDet == "" || precioMay == ""){
+       swal({
+         title: "Hay campos vacíos, no se puede guardar!",
+         type: "error",
+         confirmButton: "#3CB371",
+         confirmButtonText: "Aceptar",
+         // confirmButtonText: "Cancelar",
+         closeOnConfirm: false,
+         closeOnCancel: false
+       });
+       $("#nombreProd").css("background", "#F2DEDE");
+       $("#categoria").css("background", "#F2DEDE");
+       $("#precioUnitario").css("background", "#F2DEDE");
+       $("#precioDetal").css("background", "#F2DEDE");
+       $("#precioMayor").css("background", "#F2DEDE");
+       $("#stock").css("background", "#F2DEDE");
+     }else {
+       $("#nombreProd").css("background", "#DFF0D8");
+       $("#categoria").css("background", "#DFF0D8");
+       $("#precioUnitario").css("background", "#DFF0D8");
+       $("#precioDetal").css("background", "#DFF0D8");
+       $("#precioMayor").css("background", "#DFF0D8");
+       $("#stock").css("background", "#DFF0D8");
+
+       $.ajax({
+       type: 'post',
+       url: '<?= URL ?>/Compras/modificarPrecios',
+       data: {
+
+         precioUnit: precioUnit,
+         precioDet: precioDet,
+         precioMay: precioMay,
+         id: id,
+       }
+     }).done(function(data){
+       if(data.error == true){
+         swal({
+           title: "Ocurrio un error!",
+           type: "error",
+           confirmButton: "#3CB371",
+           confirmButtonText: "Aceptar",
+           // confirmButtonText: "Cancelar",
+           closeOnConfirm: false,
+           closeOnCancel: false
+         });
+       } else if(data.error == false){
+         var select = $("#ddlproducto");
+         var option = $("<option/>", {value: data.idP, Precio: data.precio3, Precio2: data.precio1, Precio3: data.precio2 }).html(data.idP).html(data.nombreP);
+         select.select2("destroy");
+         select.find("option[value='" + data.idP +  "']").remove();
+         select.prepend(option);
+         select.val(data.idP);
+         select.select2({
+           width: "85%",
+         });
+         $("#modal-modificarPrecios").modal("hide");
+         // buscar los productos agregados y cambiarles el id
+         var productoAgregado = $("#contenedor-prod-" + data.idP);
+         if(productoAgregado != undefined){
+           var inputPrecio = productoAgregado.find("input[name='precioProducto[]']");
+           var inputCant = productoAgregado.find("input[name='cantidad[]']");
+           inputPrecio.val(precioUnit);
+
+           var valor = productoAgregado.find("[data-valor]");
+           var subTotal = parseInt(inputPrecio.val())  * parseInt(inputCant.val());
+           valor.attr("data-valor", subTotal);
+           calcularTotal();
+           valor.find(".subtotal").html(subTotal);
+           $(".subtotal").priceFormat(
+             {
+               centsLimit: 3,
+               prefix: '$ '
+             }
+           );
+         }
+
+         select.select2('open');
+         select.change();
+         swal({
+           title: "Guardado exitoso!",
+           type: "success",
+           confirmButton: "#3CB371",
+           confirmButtonText: "Aceptar",
+           // confirmButtonText: "Cancelar",
+           closeOnConfirm: false,
+           closeOnCancel: false
+          });
+        } else {
+
+        }
+
+        });
+      }
+  }
  </script>

@@ -5,35 +5,67 @@
     width: 100%;
   }
 </style>
-  <title>Reporte Pagos</title>
+<link href="<?php echo URL?>css/Estilos.css" rel="stylesheet">
+  <link href="<?php echo URL?>css/bootstrap.min.css" rel="stylesheet">
+  <title>Comprobante de Pago</title>
 </head>
 <body>
-  <img src="<?php echo URL ?>img/bio-artes.png" height="100" width="400">
+  <h2 style="text-align: center">BIOARTES</h2>
+  <div id="comprobante">
+    <p>Nit: </p>
+    <p>Centro Comercial Cisneros</p>
+    <p>Teléfono: 513-10-12</p>
+    <p>Cra. 51 N° 44 – 69, Local 144 B - Medellín</p>
+  </div>
+  Comprobante de pago número: <strong><?= $val['id_pago'] ?></strong><br>
+  Fecha: <?= $val['fecha_pago'];?>&nbsp;&nbsp;&nbsp;&nbsp;<?= date("H:i:s"); ?>
+  <br><br>
+  Empleado: <strong><?= ucwords($val['empleado']) ?></strong><br>
+  Identificación: <strong><?= $val['id_persona'] ?></strong><br>
+  Tipo Empleado: <strong><?= $val['Tbl_nombre_tipo_persona'] ?></strong><br>
+  Tiempo Pago: <strong><?= $val['tipo_pago'] == "Pago Normal"?"Quincenal":"Anual" ?></strong><br>
   <br>
-  <center><legend><h2>INFORME DE PAGOS DE: <?= ucwords($val['empleado']) ?></h2></legend></center>
+  ------------------------------------------------------------------------------
+  ------------------------------------------------------------------------------
+  ---------------------------------------------------------------------------------<br>
+  ------------------------------------------------------------------------------
+  ------------------------------------------------------------------------------
+  ---------------------------------------------------------------------------------<br><br>
+  <center><legend><h3>DETALLES PAGO</h3></legend></center>
   <br>
-    <p><strong>Fecha Informe: <?= ucwords(date("Y/m/d h:i:s"))?></strong></p>
-  <table border="1">
+  <table class="table table-striped">
     <thead>
       <tr>
-        <th>Identificación</th>
-        <th>Nombre Empleado</th>
-        <th>Tipo Empleado</th>
-        <th>Fecha Pago</th>
-        <th>Tipo de Pago Pago</th>
-      <?php if($val['Tbl_nombre_tipo_persona'] == "Empleado-temporal"): ?>
-        <th>Días Laborados</th>
-      <?php else: ?>
-
-      <?php endif; ?>
-        <th>Valor Día</th>
+        <th>Concepto</th>
+        <?php if($val['tipo_pago'] == "Pago Final"): ?>
+        <th>Valor Ventas</th>
         <th>Valor Comisión</th>
-        <th>Total Pago</th>
+        <th>Vacaciones</th>
+        <th>Cesantías</th>
+        <th>Prima</th>
+      <?php else: ?>
+        <th>Valor Día</th>
+        <th>Valor en Ventas</th>
+        <th>Valor Comisión</th>
+      <?php endif; ?>
       </tr>
     </thead>
     <tbody>
       <?= $tabla ?>
     </tbody>
   </table>
+  <br><br>
+
+  ------------------------------------------------------------------------------
+  ------------------------------------------------------------------------------
+  ---------------------------------------------------------------------------------<br>
+  ------------------------------------------------------------------------------
+  ------------------------------------------------------------------------------
+  ---------------------------------------------------------------------------------<br><br>
+    <p>Valor total a pagar: $ <strong><?= number_format($val['total_pago'], "0", ".", "."); ?></p>
+    <br><br>
+    <br>
+   <p>Recibído:&nbsp; -----------------------------------------------------------------------------------</p>
+    <script src="<?php echo URL ?>js/bootstrap.min.js"></script>
 </body>
 </html>

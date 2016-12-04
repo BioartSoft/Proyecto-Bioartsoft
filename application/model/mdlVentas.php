@@ -73,6 +73,14 @@ class mdlVentas
 }
 
 
+    public function ultimoIdAbono(){
+        $sql = "SELECT max(idabono) as ultimo_id FROM tbl_abono_ventas";
+        $stm = $this->db->prepare($sql);
+        $stm ->execute();
+        return $stm->fetch(PDO::FETCH_ASSOC);
+    }
+
+
     public function listarCreditosFecha()
     {
      $sql="CALL SP_listar_Creditos_Fecha(?,?)";
@@ -446,7 +454,7 @@ class mdlVentas
   }
 
   public function getAbonos($idVenta){
-    $sql = "SELECT COUNT(*) AS total FROM tbl_abono_ventas WHERE Tbl_Ventas_idventas = ? AND estado_abono = 1";
+    $sql = "CALL SP_get_Abonos(?)";
     $stm = $this->db->prepare($sql);
     $stm->bindParam(1, $idVenta);
     $stm->execute();
@@ -460,8 +468,9 @@ class mdlVentas
       return $stm->fetchAll(PDO::FETCH_ASSOC);
     }
 
+
     public function ultimoId(){
-        $sql = "SELECT max(id_ventas) as ultimo_id FROM tbl_ventas";
+        $sql = "CALL SP_Ultimo_id()";
         $stm = $this->db->prepare($sql);
         $stm ->execute();
         return $stm->fetch(PDO::FETCH_ASSOC);

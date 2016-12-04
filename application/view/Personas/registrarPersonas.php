@@ -128,7 +128,7 @@
               </div>
               <div class="col-md-3">
                     <label for="">Dirección</label>
-                     <input type="text" tabindex="10" name="txtDireccion" maxlength="22" minlength="3" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9@#\-\_\\.\\ \/$]+" class="form-control" id="campoDireccion" placeholder="Dirección" data-parsley-required="false">
+                     <input type="text" tabindex="10" name="txtDireccion" maxlength="50" minlength="3" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9@#\-\_\\.\\ \/$]+" class="form-control" id="campoDireccion" placeholder="Dirección" data-parsley-required="false">
                 </div>
 
                 <?php
@@ -141,7 +141,7 @@
 
               <div id="conFechaContrato" style="display: none" class="col-md-3">
                   <label for="">Fecha Contrato <span class="obligatorio">*</span></label>
-                  <div class="input-group date" data-provide="datepicker">
+                  <div class="input-group date calendario" data-provide="datepicker">
                   <input type="text" tabindex="11" class="form-control" name="txtFechaContrato" id="campoFechaContrato" value="<?= $hoy1 ?>" readonly="true" placeholder="Fecha Contrato" data-parsley-requred="true">
                   <div class="input-group-addon">
                   <span class="glyphicon glyphicon-th"></span>
@@ -207,12 +207,12 @@
 
               <div class="row">
                  <div class="col-md-6 col-xs-12 col-lg-6">
-                     <button type="submit" tabindex="19" name="btnGuardarPersona" id="btn-enviar" class="btn btn-success active pull-right"><i class="fa fa-floppy-o" aria-hidden="true">  Guardar</i></button>
+                     <button type="submit" tabindex="19" name="btnGuardarPersona" id="btn-enviar" class="btn btn-success active pull-right" title="Guardar"><i class="fa fa-floppy-o" aria-hidden="true">  Guardar</i></button>
                  </div>
                    <div class="col-md-1 col-xs-12 col-lg-1">
                    </div>
                  <div class="col-md-6 col-xs-12 col-lg-3">
-                   <button type="reset" tabindex="20" class="btn btn-danger active" onclick="cancelar()" id="btn-Cancel"><i class="fa fa-remove" aria-hidden="true">  Cancelar</i></button>
+                   <button type="reset" tabindex="20" class="btn btn-danger active" onclick="cancelar()" id="btn-Cancel" title="Cancelar"><i class="fa fa-remove" aria-hidden="true">  Cancelar</i></button>
                 </div>
               <input type="hidden" tabindex="21">
              <div class="col-md-2">
@@ -432,6 +432,13 @@
 <script type="text/javascript">
   $(function(){
 
+    $("#campoId").keydown(function(){
+
+      if($("#campoId").val() == 0){
+        $("#campoId").val("");
+      }
+    })
+
     $("#campoId").change(function(){
 
       var campoId = $("#campoId").val();
@@ -458,7 +465,7 @@
 
           if(resut == "1"){
             swal({
-                  title: "Identificación ya existe, no se puede registrar!",
+                  title: "Identificación ya existe!",
                   type: "error",
                   confirmButton: "#3CB371",
                   confirmButtonText: "Aceptar",
@@ -470,7 +477,6 @@
 
         });
       }
-
 
     });
 
@@ -493,7 +499,7 @@
 
         if(resut == "1"){
           swal({
-                title: "Correo ya existe, no se puede registrar!",
+                title: "Correo ya existe!",
                 type: "error",
                 confirmButton: "#3CB371",
                 confirmButtonText: "Aceptar",
@@ -523,7 +529,7 @@
 
         if(resut == "1"){
           swal({
-                title: "Nombre de usuario ya existe, no se puede registrar!",
+                title: "Nombre de usuario ya existe!",
                 type: "error",
                 confirmButton: "#3CB371",
                 confirmButtonText: "Aceptar",
@@ -561,7 +567,7 @@ $(document).ready(function(){
 
 function cancelar() {
     swal({
-          title: "Los datos del registro no se guardarán",
+          title: "¿Realmente desea cancelar el registro?",
           type: "warning",
           confirmButton: "#3CB371",
           confirmButtonText: "btn-danger",

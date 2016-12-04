@@ -6,6 +6,7 @@
   }
 </style>
   <link href="<?php echo URL?>css/Estilos.css" rel="stylesheet">
+  <link href="<?php echo URL?>css/bootstrap.min.css" rel="stylesheet">
   <title>Recibo de caja</title>
 </head>
 <body>
@@ -23,11 +24,11 @@
   Cliente: <strong><?= ucwords($info['cliente']) ?></strong><br>
   Identificación: <strong><?= $info['id_persona'] ?></strong><br>
   <br>
-  ------------------------------------------------------------------------<br>
-  ------------------------------------------------------------------------<br><br>
+  -----------------------------------------------------------------------------------------<br>
+  -----------------------------------------------------------------------------------------<br><br>
   <center><legend><h3>DETALLES VENTA</h3></legend></center>
   <br>
-  <table>
+  <table class="table table-striped">
     <thead>
       <tr>
         <th>Código</th>
@@ -43,13 +44,13 @@
   </table>
   <br><br>
 
-    ------------------------------------------------------------------------<br>
-    ------------------------------------------------------------------------<br><br>
+  -----------------------------------------------------------------------------------------<br>
+  -----------------------------------------------------------------------------------------<br><br>
     <p>Tipo de pago: <strong><?= $info['tipo_de_pago'] == 1? "Crédito" : "Contado";  ?></strong></p>
     <p>Descuento: $ <strong><?= number_format($info['descuento'], "0", ".", "."); ?></p>
     <p>Valor total a pagar: $ <strong><?= number_format($info['total'], "0", ".", "."); ?></p>
-    <br><br>
-    <p style="text-align: center"><strong>Gracias por su visita</strong></p>
-
+    <br><br><br><br>
+    <p style="text-align: center"><strong>Gracias por su compra</strong></p>
+    <script src="<?php echo URL ?>js/bootstrap.min.js"></script>
 </body>
 </html>

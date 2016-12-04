@@ -24,10 +24,10 @@
        <br>
        <div class="row">
           <div class="col-md-6 col-xs-12 col-lg-8">
-              <button type="submit" tabindex="2" class="btn btn-success active pull-right" id="btn-guardar" name="btn-ca"><i class="fa fa-floppy-o" aria-hidden="true">   Guardar</i></button>
+              <button type="submit" tabindex="2" class="btn btn-success active pull-right" id="btn-guardar" name="btn-ca" title="Guardar"><i class="fa fa-floppy-o" aria-hidden="true">   Guardar</i></button>
           </div>
           <div class="col-md-6 col-xs-12 col-lg-3">
-              <button type="reset" tabindex="3" class="btn btn-danger active" onclick="cancelar()" id="btnCancelar"><i class="fa fa-remove" aria-hidden="true">   Cancelar</i></button>
+              <button type="reset" tabindex="3" class="btn btn-danger active" onclick="cancelar()" id="btnCancelar" title="Cancelar"><i class="fa fa-remove" aria-hidden="true">   Cancelar</i></button>
               <input type="hidden" tabindex="4">
           </div>
          </div>
@@ -67,7 +67,7 @@
        <td><?= $value['id_categoria']  ?></td>
        <td><?= $value['nombre'] ?></td>
        <td>
-          <button type="button" class="btn btn-success btn-circle btn-md" onclick="Traerdatoscategoria('<?= $value['id_categoria']?>')" data-toggle="modal" data-target="#myForm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+          <button type="button" class="btn btn-success btn-circle btn-md" onclick="Traerdatoscategoria('<?= $value['id_categoria']?>')" data-toggle="modal" data-target="#myForm" title="Modificar"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
 
   </td>
      </tr>
@@ -112,10 +112,10 @@
         </div>
         <div class="row">
           <div class="col-xs-12 col-md-6 col-lg-9">
-            <button type="button" tabindex="3" class="btn btn-secondary btn-md active pull-right"  data-dismiss="modal"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
+            <button type="button" tabindex="3" class="btn btn-secondary btn-md active pull-right"  data-dismiss="modal" title="Cerrar"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
           </div>
           <div class="col-xs-12 col-md-6 col-lg-3">
-            <button type="submit" tabindex="4" id="btn-modica" name="btn-modificar-categoria" class="btn btn-success btn-md active"><i class="fa fa-floppy-o" aria-hidden="true">   Modificar</i></button>
+            <button type="submit" tabindex="4" id="btn-modica" name="btn-modificar-categoria" class="btn btn-success btn-md active" title="Modificar"><i class="fa fa-floppy-o" aria-hidden="true">   Modificar</i></button>
             <input type="hidden" tabindex="5">
           </div>
         </div>
@@ -159,7 +159,7 @@ $(document).ready(function(){
 
 function cancelar() {
     swal({
-          title: "Los datos del registro no se guardarán",
+          title: "¿Realmente desea cancelar el registro?",
           type: "warning",
           confirmButton: "#3CB371",
           confirmButtonText: "btn-danger",
@@ -206,7 +206,7 @@ function cancelar() {
 
         if(resut == "1"){
           swal({
-                title: "Nombre de categoría ya existe, no se puede registrar!",
+                title: "Nombre de categoría ya existe!",
                 type: "error",
                 confirmButton: "#3CB371",
                 confirmButtonText: "Aceptar",
@@ -237,7 +237,7 @@ function cancelar() {
 
         if(resut == "1"){
           swal({
-                title: "Nombre de categoría ya existe, no se puede registrar!",
+                title: "Nombre de categoría ya existe!",
                 type: "error",
                 confirmButton: "#3CB371",
                 confirmButtonText: "Aceptar",
@@ -304,66 +304,6 @@ function cancelar() {
     });
   </script>
 <?php endif; ?>
-
-<!-- <script type="text/javascript">
-  function guardarCategorias(){
-    var categoria =  $("#txtnombrec").val();
-    $.ajax({
-      url: url + 'producto/registrarCategoria',
-      data: {'categoria': categoria},
-      type: 'POST',
-      dataType: 'text'
-    }).done(function(result){
-      if(result == true){
-        swal({
-              title: "Guardado exitoso!",
-              type: "success",
-              confirmButton: "#3CB371",
-              confirmButtonText: "Aceptar",
-              // confirmButtonText: "Cancelar",
-              closeOnConfirm: false,
-              closeOnCancel: false
-            },
-            function(isConfirm){
-              if(isConfirm){
-                  window.location.reload();
-              }else{
-                  window.location.reload();
-              }
-            }
-          );
-
-      }else{
-        swal({
-              title: "Error en el registro!",
-              //text: "Nombre de categoria ya existe o campo vacío",
-              type: "error",
-              confirmButton: "#3CB371",
-              confirmButtonText: "Aceptar",
-              // confirmButtonText: "Cancelar",
-              closeOnConfirm: false,
-              closeOnCancel: false
-            },
-            function(isConfirm){
-              if(isConfirm){
-                swal({
-                      title: "Nombre de categoría ya existe o campo vacío",
-                      type: "error",
-                      confirmButton: "#3CB371",
-                      confirmButtonText: "Aceptar",
-                      // confirmButtonText: "Cancelar",
-                      closeOnConfirm: false,
-                      closeOnCancel: false
-                    })
-              }else{
-                  window.location.reload();
-              }
-            }
-          );
-      }
-    })
-  }
-</script> -->
 
 <?php if(isset($guarda) && $guarda == true): ?>
 <script type="text/javascript">
