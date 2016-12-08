@@ -18,7 +18,7 @@ $notificaciones = mdlConfiguracionPago::getNotificaciones();
     <meta name="author" content="">
 
     <title>Bioartsoft</title>
-
+  <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
     <!-- Bootstrap Core CSS -->
     <link href="<?php echo URL?>css/bootstrap.min.css" rel="stylesheet">
 
@@ -46,6 +46,14 @@ $notificaciones = mdlConfiguracionPago::getNotificaciones();
     <script src="<?= URL ?>js/i18n/es.js"></script>
       <script src="http://eternicode.github.io/bootstrap-datepicker/bootstrap-datepicker/js/locales/bootstrap-datepicker.es.js"></script>
     <link href="<?php echo URL?>css/estilosGenericos.css" rel="stylesheet">
+    <script type="text/javascript">
+      $(".price").priceFormat(
+                {
+                centsLimit: 3,
+                prefix: '$ '
+                }
+                );
+    </script>
 </head>
 
 <body style="background-color: #FFF">
@@ -62,11 +70,13 @@ $notificaciones = mdlConfiguracionPago::getNotificaciones();
 
             <ul class="nav navbar-top-links navbar-right">
 
+          <?php if($_SESSION['ROL'] == 3): ?>
               <li>
                   <a  href="#" title="Ganancias">
                       <i class="fa fa-bar-chart" aria-hidden="true" style="color: #fff; font-size: 20px" title="Ganancias" data-toggle="modal" data-target="#modal-money"></i>
                   </a>
                 </li>
+          <?php endif; ?>
 
               <li>
                   <a  href="#" title="Acerca de">
@@ -186,41 +196,45 @@ $notificaciones = mdlConfiguracionPago::getNotificaciones();
         </nav>
 
             <div class="modal fade" id="my" onload="campos()" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                          <div class="modal-content">
-                            <div class="modal-header">
-                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span></button>
-                                <h4 class="modal-title" id="myModalLabel" style="color: #337AB7; text-align: center">Configuración Pagos</h4>
-                            </div>
-                            <div class="modal-body">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel" style="color: #337AB7; text-align: center"></h4>
+                          </div>
+                          <div class="row">
+                              <div class="col-md-12">
+                              <div class="panel panel-primary">
+                                  <div class="panel-heading" stlyle="height: 70px; width: 100px">
+                                      <center><span style="text-align:center; color: #fff; font-size: 16px"><b>CONFIGURACIÓN PAGOS</b></span></center>
+                                  </div>
+                                  <div class="panel-body">
                               <form class="" action="<?php echo URL?>Empleados/ListarConfiguraciones" method="post" id="myFormu" data-parsley-validate="" onsubmit="return validarValores()">
                                 <?php foreach ($configuracion as $valor): ?>
-
                                 <div class="row">
-
                                   <div class="col-xs-12 col-md-6" id="divValorBa">
-                                    <label id="labelValorBase">Valor Base Liquidación <span class="obligatorio">*</span></label><br>
-                                    <input type="number" class="form-control" name="txtvBase" placeholder="Valor Base" value="<?= $valor["valor_base"] ?>" readonly="" id="valorBase" data-parsley-type="integer" min="0" maxlength="7" data-parsley-required="true">
+                                      <label id="labelValorBase">Valor Base Liquidación <span class="obligatorio">*</span></label><br>
+                                      <input type="number" class="form-control" name="txtvBase" placeholder="Valor Base" value="<?= $valor["valor_base"] ?>" readonly="" id="valorBase" data-parsley-type="integer" min="1000" maxlength="7" data-parsley-required="true">
                                   </div>
                                   <div class="col-xs-12 col-md-6" id="divTiempoP">
-                                  <label id="labelTiempoPago">Período de Pago <span class="obligatorio">*</span></label>
-                                    <select class="form-control" disabled="" id="selectperiodo" name="txttiemPago" data-parsley-required="true" data-parsley-type="alphanum">
-                                    <?php
-                                      $tiempo = $valor["tiempo_pago"];
-                                     ?>
-                                      <option><?php echo $tiempo ?></option>
-                                     <?php if ($tiempo == 'Mensual'): ?>
-                                      <option>Quincenal</option>
-                                     <?php endif ?>
-                                     <?php if ($tiempo == 'Quincenal'): ?>
-                                      <option>Mensual</option>
-                                     <?php endif ?>
-                                    </select>
-                                    <input type="hidden" name="txtidconfiguracion" value="<?= $valor["idTbl_Configuracion"] ?>">
+                                      <label id="labelTiempoPago">Período de Pago <span class="obligatorio">*</span></label>
+                                        <select class="form-control" disabled="" id="selectperiodo" name="txttiemPago" data-parsley-required="true" data-parsley-type="alphanum">
+                                        <?php
+                                          $tiempo = $valor["tiempo_pago"];
+                                         ?>
+                                          <option><?php echo $tiempo ?></option>
+                                         <?php if ($tiempo == 'Mensual'): ?>
+                                          <option>Quincenal</option>
+                                         <?php endif ?>
+                                         <?php if ($tiempo == 'Quincenal'): ?>
+                                          <option>Mensual</option>
+                                         <?php endif ?>
+                                        </select>
+                                        <input type="hidden" name="txtidconfiguracion" value="<?= $valor["idTbl_Configuracion"] ?>">
                                   </div>
                                   <div class="col-xs-12 col-md-6" style="">
-
                                   </div>
                                 </div>
                                 <br>
@@ -338,8 +352,13 @@ $notificaciones = mdlConfiguracionPago::getNotificaciones();
                                   <div class="col-xs-12 col-md-3">
                                   </div>
                                   <div class="col-xs-12 col-md-6" id="divValorBa">
-                                    <label id="labelValorBase">Valor Día <span class="obligatorio">*</span></label><br>
-                                    <input type="number" class="form-control" name="txtvalordia" placeholder="Valor Día" value="<?= $valor["Valor_dia"] ?>" readonly="" id="valordia" data-parsley-type="integer" min="0" maxlength="7" data-parsley-required="true">
+                                    <label id="labelValorBase">Valor día empleado fijo <span class="obligatorio">*</span></label><br>
+                                    <input type="number" class="form-control" name="txtvalordia" placeholder="Valor Día" value="<?= $valor["Valor_dia"] ?>" readonly="" id="valordia" data-parsley-type="integer" min="1000" maxlength="7"  data-parsley-required="true">
+                                    <br>
+                                  </div>
+                                    <div class="col-xs-12 col-md-6" id="valortemporal">
+                                    <label>Valor día empleado temporal <span class="obligatorio">*</span></label><br>
+                                    <input type="number" class="form-control" name="txtvalordiaTemporal" value="<?= $valor["valor_dia_temporal"] ?>" readonly="" id="valordiaTemporal" data-parsley-type="integer" min="1000" maxlength="7" data-parsley-required="true">
                                   </div>
                                 </div>
                                 <br>
@@ -349,32 +368,46 @@ $notificaciones = mdlConfiguracionPago::getNotificaciones();
 
                                 <?php endforeach; ?>
                                 <br>
-                                <div class="row">
 
-                                    <button type="submit" class="btn btn-success btn-md active" style="float: left; margin-left: 25%"  name="btnmodificarconfi" id="idbtn" disabled="true" title="Guardar"><i class="fa fa-floppy-o" aria-hidden="true">   Guardar</i></button>
-
-                                    <button type="button" class="btn btn-primary btn-md active" onclick="habilitar()" style="float: right; margin-right: 25%" id="btnhabilitar" title="Modificar"><i class="fa fa-pencil-square-o" aria-hidden="true">   Modificar</i></button>
-
-                                </div>
-                              </form>
-                            </div>
                           </div>
                         </div>
+
+                        <div class="row">
+                          <div class="col-md-6 col-xs-12 col-lg-9">
+                            <button type="submit" class="btn btn-success btn-md active pull-right" style="float: left; margin-left: 25%"  name="btnmodificarconfi" id="idbtn" disabled="true" title="Guardar"><i class="fa fa-floppy-o" aria-hidden="true">   Guardar</i></button>
+                          </div>
+                          <div class="col-md-6 col-xs-12 col-lg-3">
+                            <button type="button" class="btn btn-primary btn-md active" onclick="habilitar()" style="float: right; margin-right: 25%" id="btnhabilitar" title="Modificar"><i class="fa fa-pencil-square-o" aria-hidden="true">   Modificar</i></button>
+                        </div>
                       </div>
+
+                      </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
 
         <div class="modal fade" id="myjohnatan" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document" style="height:100% !important">
           <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-body">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
-              <h4 class="modal-title" id="myModalLabel" style="color: #337AB7; text-align: center">Configuración Ventas</h4>
+            <div class="modal-header">
             </div>
-            <div class="modal-body">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="panel panel-primary">
+                  <div class="panel-heading" stlyle="height: 70px; width: 100px">
+                      <center><span style="text-align:center; color: #fff; font-size: 16px"><b>CONFIGURACIÓN VENTAS</b></span></center>
+                  </div>
+            <div class="panel-body">
               <form class="" action="<?php echo URL?>Ventas/index" id="FormConfigVentas" method="post" data-parsley-validate="" onsubmit="return validarValoresConfVentas()">
                 <?php foreach ($listarConfiguracionVentas as  $lisven): ?>
-
                   <div class="row">
                     <div class="col-xs-12 col-md-6">
                       <label>Valor Mínimo Subtotal <span class="obligatorio">*</span></label><br>
@@ -398,36 +431,36 @@ $notificaciones = mdlConfiguracionPago::getNotificaciones();
                   </div>
                 <?php endforeach; ?>
                 <br>
-                <div class="row">
-                <div class="col-xs-1 col-md-2">
-                </div>
 
-                <div class="col-xs-5 col-md-3">
-                  <button type="submit" class="btn btn-success" id="guardarConfiguracion" data-toggle="modal" name="btnRegistrarConfig" disabled="" title="Guardar Configuración"><i class="fa fa-floppy-o" aria-hidden="true" title="Guardar Configuración">   Guardar</i></button>
-                </div>
-
-                <div class="col-xs-12 col-md-3">
-                </div>
-
-                <div class="col-xs-5 col-md-4">
-                  <button type="button" class="btn btn-primary" id="idhabilitar" onclick="habilitarven()" name="btnModificarConfiVen" title="Modificar Configuración"><i class="fa fa-pencil-square-o" aria-hidden="true" title="Modificar Configuración">   Modificar</i></button>
-                </div>
-              </div>
-            </form>
           </div>
         </div>
+        <div class="row">
+        <div class="col-xs-12 col-md-6 col-lg-9">
+          <button type="submit" class="btn btn-success active pull-right" id="guardarConfiguracion" data-toggle="modal" name="btnRegistrarConfig" disabled="" title="Guardar Configuración"><i class="fa fa-floppy-o" aria-hidden="true" title="Guardar Configuración">   Guardar</i></button>
+        </div>
+
+        <div class="col-xs-12 col-md-6 col-lg-3">
+          <button type="button" class="btn btn-primary active" id="idhabilitar" onclick="habilitarven()" name="btnModificarConfiVen" title="Modificar Configuración"><i class="fa fa-pencil-square-o" aria-hidden="true" title="Modificar Configuración">   Modificar</i></button>
+        </div>
+      </div>
+      </form>
       </div>
     </div>
+  </div>
+</div>
+</div>
+</div>
 
 
     <script type="text/javascript">
         function validarValores(){
           var valBase = parseInt($("#valorBase").val());
           var valDia = parseInt($("#valordia").val());
+          var valDiaTemporal = parseInt($("#valordiaTemporal").val());
 
-          if(valDia > valBase){
+          if(valDia > valBase || valDiaTemporal > valBase){
             swal({
-                  title: "El valor día no puede ser mayor al valor base!",
+                  title: "Valores incorrectos, verifique que los valores del día no sean mayor al valor base!",
                   type: "error",
                   confirmButton: "#3CB371",
                   confirmButtonText: "Aceptar",
@@ -460,9 +493,9 @@ $notificaciones = mdlConfiguracionPago::getNotificaciones();
                   closeOnCancel: false
                 });
                 return false;
-          }else if(porMinSub > porMaxSub){
+          }else if(porMinSub >= porMaxSub){
             swal({
-                  title: "El porcentage mínimo descuento no puede ser mayor al porcentage máximo descuento!",
+                  title: "El porcentage mínimo descuento no puede ser mayor o igual al porcentage máximo descuento!",
                   type: "error",
                   confirmButton: "#3CB371",
                   confirmButtonText: "Aceptar",
@@ -494,7 +527,7 @@ $notificaciones = mdlConfiguracionPago::getNotificaciones();
 <script type="text/javascript">
     $(document).ready(function()
     {
-      $(".price").priceFormat({centsLimit: 3, clearPrefix: true});
+      $(".price").priceFormat({centsLimit: 3, prefix: '$ '});
 
       $("#guardarConfiguracion").click(function()
       {
@@ -510,25 +543,13 @@ $notificaciones = mdlConfiguracionPago::getNotificaciones();
                 $("#inputTipopago").removeAttr('readonly');
                 $("#inputTiempoPago").removeAttr('readonly');
                 $("#valordia").removeAttr('readonly');
-                $("#comision").removeAttr('readonly');
-                $("#valorBase").removeAttr('readonly');
-                $("#btnhabilitar").attr('disabled','true');
-                $("#selectperiodo").removeAttr('disabled');
-
-              }
-            </script>
-
-            <script type="text/javascript">
-              function habilitar() {
-                $("#idbtn").removeAttr('disabled');
-                $("#inputTipopago").removeAttr('readonly');
-                $("#inputTiempoPago").removeAttr('readonly');
-                $("#valordia").removeAttr('readonly');
                 $("#comision").removeAttr('disabled');
                 $("#valorBase").removeAttr('readonly');
+                $("#valordiaTemporal").removeAttr('readonly');
                 $("#btnhabilitar").attr('disabled','true');
                 $("#selectperiodo").removeAttr('disabled');
-
+                $("#valorBase").removeClass('price');
+                $("#valordia").removeClass('price');
               }
             </script>
 

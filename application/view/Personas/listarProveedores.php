@@ -5,7 +5,7 @@
     <div class="col-lg-12">
         <div class="panel panel-primary" >
               <div class="panel-heading" stlyle="height: 70px; width: 100px">
-                  <center><span style="color: #fff; margin-top: 10px; margin-bottom: 10px; font-size: 20px">Listar Proveedores</span></center>
+                  <center><span style="color: #fff; margin-top: 10px; margin-bottom: 10px; font-size: 16px"><b>LISTAR PROVEEDORES</b></span></center>
               </div>
               <div class="panel-body">
                 <div class="dataTable_wrapper">
@@ -64,13 +64,21 @@
                     </table>
                 </div>
                  <div class="row">
-                  <div class="col-sm-12">
-                    <center>
-                    <a href="<?= URL ?>Personas/generarpdfproveedor" target="_blank">
-                      <button class="btn btn-primary"><i class="fa fa-file-pdf-o" aria-hidden="true">   Reporte PDF de Proveedores</i></button>
-                    </a>
-                  </center>
-                  </div>
+                <?php foreach ($listarP as $value): ?>
+                <?php if($_SESSION['ROL'] == 1 || $_SESSION['ROL'] == 3): ?>
+                <?php if($value['estado'] == 1): ?>
+                      <div class="col-sm-12">
+                        <center>
+                        <a href="<?= URL ?>Personas/generarpdfproveedor" target="_blank">
+                          <button class="btn btn-primary"><i class="fa fa-file-pdf-o" aria-hidden="true">   Reporte PDF de Proveedores</i></button>
+                        </a>
+                      </center>
+                      </div>
+                <?php break; ?>
+                <?php else: ?>
+                <?php endif; ?>
+                <?php endif; ?>
+                <?php endforeach; ?>
                 </div>
               </div>
             </div>
@@ -87,22 +95,25 @@
 <div class="modal fade" id="modal-actualizar-prov" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static">
    <div class="modal-dialog" role="document">
      <div class="modal-content">
+       <div class="modal-body">
        <div class="modal-header">
-         <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-           <span aria-hidden="true">&times;</span>
-             </button> -->
-               <center>
-                 <h4 class="modal-title"  style="color: #337AB7" id="myModalLabel">Modificar Proveedores (obligatorios *)</h4>
-               </center>
-             </div>
-             <form method="POST"  id="form-2" role="form" action="<?= URL ?>Personas/listarProveedores/<?=  $id  ?>" data-parsley-validate="">
+         <div class="row">
+           <div class="col-lg-12">
+             <div class="panel panel-primary">
+               <div class="panel-heading" stlyle="height: 70px; width: 100px">
+                     <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 16px"><b>MODIFICAR PROVEEDOR (Obligatorios *)</b></center>
+               </div>
+             <form method="POST"  id="form-2" role="form" action="<?= URL ?>Personas/listarProveedores/<?= $proveedor['id_persona'] ?>" data-parsley-validate="">
               <div class="modal-body">
                 <input type="hidden" name="txtidPersona" value="<?= $proveedor['id_persona'] ?>">
-
                 <div class="row">
                   <div class="col-md-6">
                     <label for="">Número de documento</label>
                     <input type="text" tabindex="1" name="txtIdPersona" style="width: 100%"class="form-control" id="campoId" readonly="true" value="<?= $proveedor['id_persona'] ?>">
+                  </div>
+                  <div class="col-md-6">
+                        <label for="">Tipo de documento</label>
+                        <input type="text" name="txttipoCedula" value="<?= $proveedor['tipo_documento'] ?>" style="width: 100%"class="form-control" id="campoId2" readonly="true">
                   </div>
                 </div>
                   <br>
@@ -152,7 +163,6 @@
                    <div class="col-md-6">
                      <label>Tipo Proveedor <span class="obligatorio">*</span></label><br>
                      <select class="form-control" tabindex="8" name="txtTipoEmpleado" id="select-proveedor" data-parsley-type="alphanum" data-parsley-required="true">
-                         <!-- <option>Seleccione un rol</option> -->
                        <?php foreach($TipoProveedor AS $tipo): ?>
                          <option value="<?= $tipo['idTbl_tipo_persona'] ?>" <?= $proveedor['Tbl_TipoPersona_idTbl_TipoPersona'] == $tipo['idTbl_tipo_persona'] ? 'selected="selected"' : '' ?>>
                            <?= $tipo['Tbl_nombre_tipo_persona']?>
@@ -191,7 +201,7 @@
                       <div class="row">
                                   <div class="" style="display: none" id="div-titulo">
                                     <center>
-                                      <h4 class="modal-title"  style="color: #337AB7" id="ftitulo">Datos de empresa a ingresar</h4>
+                                      <h4 class="modal-title"  style="color: #337AB7" id="ftitulo"><b>DATOS DE EMPRESA A INGRESAR</b></h4>
                                     </center>
 
                                   </div>
@@ -215,17 +225,28 @@
                       </div>
                       <?php endif; ?>
                       <br>
-                       <div class="modal-footer">
-                         <button type="button" tabindex="15" class="btn btn-secondary btn-md active"  data-dismiss="modal"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
-                         <button type="submit" tabindex="16" name="btn-modificar-prov" id="btn-guardar-Mod-Prov" class="btn btn-success btn-md"><i class="fa fa-floppy-o" aria-hidden="true">   Modificar</i></button>
-                         <input type="hidden" tabindex="17">
-                       </div>
-                     </form>
                   </div>
                 </div>
+                <div class="row">
+                <div class="col-xs-12 col-md-6 col-lg-3" style="margin-left: 25%">
+                  <button type="submit" tabindex="16" name="btn-modificar-prov" id="btn-guardar-Mod-Prov" class="btn btn-success btn-md active"><i class="fa fa-floppy-o" aria-hidden="true">   Modificar</i></button>
+                  <input type="hidden" tabindex="17">
+                </div>
+                  <div class="col-xs-5 col-md-3">
+                    <button type="button" class="btn btn-danger btn-md active" onclick="cancelarModProveedor()" style="float: right;" id="btnmodificarProveedor" title="Cancelar Registro"><i class="fa fa-times" aria-hidden="true">   Cancelar</i> </button>
+                  </div>
+              </div>
+            </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
- <?php endif; ?>
 
+
+ <?php endif; ?>
  <script type="text/javascript">
    $(document).ready(function(){
      $("#btn-guardar-Mod-Prov").blur(function(e){
@@ -245,7 +266,7 @@
                   <div class="col-md-12">
                     <div class="panel panel-primary" >
                         <div class="panel-heading" stlyle="height: 70px; width: 100px">
-                            <center><span style="color: #fff; font-size: 20px" id="myModalLabel">Detalles de: <?php echo $proveedor['id_persona']." - ".$proveedor['nombres'].' '.$proveedor['apellidos']?></span></center>
+                            <center><span style="color: #fff; font-size: 16px;text-transform: uppercase; " id="myModalLabel"><b>DETALLES DE: C.C: <?php echo $proveedor['id_persona']." - ".$proveedor['nombres'].' '.$proveedor['apellidos']?></b></span></center>
                         </div>
                           <div class="panel-body">
                             <div class="dataTable_wrapper">
@@ -272,11 +293,11 @@
                           <td><?=  $proveedor['telefono'] ?></td>
                           <td><?=  $proveedor['email'] ?></td>
                           <td><?=  $proveedor['direccion'] ?></td>
-                          <?php if ( $proveedor['Tbl_TipoPersona_idTbl_TipoPersona'] == 4): ?>
-                            <td><?=  $proveedorJ['nit'] ?></td>
-                            <td><?=  $proveedorJ['empresa'] ?></td>
-                            <td><?=  $proveedorJ['telefono_empresa'] ?></td>
-                          <?php endif; ?>
+                      <?php if ( $proveedor['Tbl_TipoPersona_idTbl_TipoPersona'] == 4): ?>
+                          <td><?=  $proveedorJ['nit'] ?></td>
+                          <td><?=  $proveedorJ['empresa'] ?></td>
+                          <td><?=  $proveedorJ['telefono_empresa'] ?></td>
+                      <?php endif; ?>
                         </tr>
 
                       </tbody>
@@ -312,6 +333,36 @@
    });
 
  });
+
+  function  cancelarModProveedor(){
+    swal({
+    title: "¿Cancelar la modificación?",
+    type: "warning",
+    confirmButton: "#3CB371",
+    confirmButtonText: "btn-danger",
+    cancelButtonText: "Cancelar",
+    showCancelButton: true,
+    confirmButtonClass: "btn-danger",
+    confirmButtonText: "Aceptar",
+    closeOnConfirm: false,
+
+    },
+  function(isConfir){
+      if (isConfir) {
+        swal({
+          title: "Modificación cancelada!",
+          type: "error",
+          confirmButton: "#3CB371",
+          confirmButtonText: "Aceptar",
+          closeOnConfirm: false,
+          closeOnCancel: false
+        },
+        function(isConfir){
+          window.location = url + "Personas/listarProveedores";
+        });
+      }
+      });
+  }
 </script>
 
 <script type="text/javascript">
@@ -470,5 +521,6 @@ $("#select-proveedor").change(function(){
             closeOnCancel: false
           });
     });
+
   </script>
 <?php endif; ?>

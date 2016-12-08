@@ -5,7 +5,7 @@
     <div class="col-lg-12">
         <div class="panel panel-primary">
             <div class="panel-heading" stlyle="height: 70px; width: 100px">
-              <center><span style="color: #fff; margin-top: 10px; margin-bottom: 10px; font-size: 20px">Listar Clientes</span></center>
+              <center><span style="color: #fff; margin-top: 10px; margin-bottom: 10px; font-size: 16px"><b>LISTAR CLIENTES</b></span></center>
             </div>
               <div class="panel-body">
                 <div class="dataTable_wrapper">
@@ -63,17 +63,23 @@
                         </tbody>
                     </table>
                 </div>
+                <?php foreach ($listarClientes as $value): ?>
                 <?php if($_SESSION['ROL'] == 1 || $_SESSION['ROL'] == 3): ?>
-                <div class="row">
-                 <div class="col-sm-12">
-                   <center>
-                   <a href="<?= URL ?>Personas/generarpdfClientes" target="_blank">
-                     <button class="btn btn-primary"><i class="fa fa-file-pdf-o" aria-hidden="true">   Reporte PDF de Clientes</i></button>
-                   </a>
-                 </center>
-                 </div>
-               </div>
-             <?php endif; ?>
+                <?php if($value['estado'] == 1): ?>
+                    <div class="row">
+                     <div class="col-sm-12">
+                       <center>
+                       <a href="<?= URL ?>Personas/generarpdfClientes" target="_blank">
+                         <button class="btn btn-primary"><i class="fa fa-file-pdf-o" aria-hidden="true">   Reporte PDF de Clientes</i></button>
+                       </a>
+                     </center>
+                     </div>
+                   </div>
+               <?php break; ?>
+               <?php else: ?>
+               <?php endif; ?>
+               <?php endif; ?>
+               <?php endforeach; ?>
               </div>
             </div>
           </div>
@@ -84,21 +90,25 @@
 <div class="modal fade" id="modal-actualizar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static">
    <div class="modal-dialog" role="document">
      <div class="modal-content">
+       <div class="modal-body">
        <div class="modal-header">
-         <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-           <span aria-hidden="true">&times;</span>
-             </button> -->
-               <center>
-                 <h4 class="modal-title"  style="color: #337AB7" id="myModalLabel">Modificar Clientes (obligatorios *)</h4>
-               </center>
-             </div>
+         <div class="row">
+           <div class="col-lg-12">
+             <div class="panel panel-primary">
+               <div class="panel-heading" stlyle="height: 70px; width: 100px">
+                     <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 16px"><b>MODIFICAR CLIENTE (Obligatorios *) </b></center>
+               </div>
+               <div class="modal-body">
              <form method="POST"  id="form-2" role="form" action="<?= URL ?>Personas/listarPersonasClientes/<?= $clientes['id_persona'] ?>" data-parsley-validate="">
-              <div class="modal-body">
                 <input type="hidden" name="idPersona" value="<?= $clientes['id_persona'] ?>">
                 <div class="row">
                   <div class="col-md-6">
                     <label for="">Número de documento</label>
                     <input type="text" name="txtIdPersona" tabindex="1" style="width: 100%"class="form-control" id="campoId" value="<?= $clientes['id_persona'] ?>" readonly="true">
+                  </div>
+                  <div class="col-md-6">
+                    <label for="">Tipo de documento</label>
+                    <input type="text" name="txttipoCedula" value="<?= $clientes['tipo_documento'] ?>" style="width: 100%"class="form-control" id="campoId2" readonly="true">
                   </div>
                 </div>
                 <br>
@@ -166,19 +176,28 @@
                       </div>
                     </div>
                       <br>
-
-                      </div>
-                       <div class="modal-footer">
-                         <button type="button" tabindex="10" class="btn btn-secondary btn-md active"  data-dismiss="modal"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
-                         <button type="submit" tabindex="11" name="btn-modificar-cliente" id="btnmodClientes"  class="btn btn-success btn-md"><i class="fa fa-floppy-o" aria-hidden="true">   Modificar</i></button>
-                         <input type="hidden" tabindex="12">
-                       </div>
-                     </form>
                   </div>
                 </div>
+                <div class="row">
+                <div class="col-xs-12 col-md-6 col-lg-3" style="margin-left: 25%">
+                  <button type="submit" tabindex="11" name="btn-modificar-cliente" id="btnmodClientes"  class="btn btn-success btn-md active"><i class="fa fa-floppy-o" aria-hidden="true">   Modificar</i></button>
+                  <input type="hidden" tabindex="12">
+                </div>
+                  <div class="col-xs-5 col-md-3">
+                    <button type="button" class="btn btn-danger btn-md active" onclick="cancelarModCliente()" style="float: right;" id="btnmodificarCliente" title="Cancelar Registro"><i class="fa fa-times" aria-hidden="true">   Cancelar</i> </button>
+                  </div>
               </div>
-<?php endif; ?>
+            </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
+
+<?php endif; ?>
 <script type="text/javascript">
   $(document).ready(function(){
     $("#btnmodClientes").blur(function(e){
@@ -199,6 +218,36 @@ $("#btnmodClientes").click(function(){
 })
 
   });
+
+  function  cancelarModCliente(){
+    swal({
+    title: "¿Cancelar la modificación?",
+    type: "warning",
+    confirmButton: "#3CB371",
+    confirmButtonText: "btn-danger",
+    cancelButtonText: "Cancelar",
+    showCancelButton: true,
+    confirmButtonClass: "btn-danger",
+    confirmButtonText: "Aceptar",
+    closeOnConfirm: false,
+
+    },
+  function(isConfir){
+      if (isConfir) {
+        swal({
+          title: "Modificación cancelada!",
+          type: "error",
+          confirmButton: "#3CB371",
+          confirmButtonText: "Aceptar",
+          closeOnConfirm: false,
+          closeOnCancel: false
+        },
+        function(isConfir){
+          window.location = url + "Personas/listarPersonasClientes";
+        });
+      }
+      });
+  }
  </script>
 
 
@@ -206,14 +255,13 @@ $("#btnmodClientes").click(function(){
   <div class="modal fade" id="modal-detalles" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard ="false" data-backdrop = "static">
      <div class="modal-dialog" style="width: 80%" role="document">
        <div class="modal-content" style="width: 100%">
-          <!-- <form method="POST" action="<?= URL ?>Personas/listarPersonasClientes/<?=  $valor['id_persona'] ?>"> -->
                 <div class="modal-body">
                   <input type="hidden" name="idPersona" value="<?= $clientes['id_persona'] ?>">
                   <div class="row">
                   <div class="col-md-12">
                     <div class="panel panel-primary" >
                       <div class="panel-heading" stlyle="height: 70px; width: 100px">
-                          <center><span style="color: #fff; font-size: 20px" id="myModalLabel">Detalles de: <?php echo $clientes['id_persona']." - ".$clientes['nombres'].' '.$clientes['apellidos']?></span></center>
+                          <center><span style="color: #fff; font-size: 16px;text-transform: uppercase; " id="myModalLabel"><b>DETALLE DE: C.C: <?php echo $clientes['id_persona']." - ".$clientes['nombres'].' '.$clientes['apellidos']?></b></span></center>
                       </div>
                           <div class="panel-body">
                             <div class="dataTable_wrapper">

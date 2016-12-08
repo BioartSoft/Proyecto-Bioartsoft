@@ -15,7 +15,7 @@ swal('El estado fue cambiado!', 'Presione ok para salir!', 'success');
 }
 
 function mensaje5(){
-  sweetAlert("El empleado tiene dos préstamos registrados en estado pendiente");
+  sweetAlert("El empleado tiene un préstamo registrado en estado pendiente");
 }
 
 function mensaje6(){

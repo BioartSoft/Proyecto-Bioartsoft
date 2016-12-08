@@ -7,7 +7,7 @@
     <div class="col-lg-12">
         <div class="panel panel-primary">
             <div class="panel-heading" stlyle="height: 70px; width: 100px">
-                <center> <span style="text-align:center; color: #fff; margin-top: 10px; margin-bottom: 10px; font-size: 20px">Listar Categorías</span></center>
+                <center> <span style="text-align:center; color: #fff; margin-top: 10px; margin-bottom: 10px; font-size: 16px">Listar Categorías</span></center>
             </div>
             <!-- /.panel-heading -->
       <div class="panel-body">

@@ -4,7 +4,7 @@
   <br><br>
   <div class="panel panel-primary" style="margin-top: 5px">
     <div class="panel-heading" stlyle="height: 70px; width: 100px">
-      <center><span style="color: #FFF; margin-top: 10px; margin-bottom: 10px; font-size: 25px">Registrar Productos (obligatorios * )</span></center>
+      <center><span style="color: #FFF; margin-top: 10px; margin-bottom: 10px; font-size: 16px"><b>REGISTRAR PRODUCTOS (Obligatorios * )</b></span></center>
     </div>
   <div class="row">
     <br>

@@ -8,6 +8,7 @@
 		private $porcentaje_comision;
 		private $valor_base;
 		private $Valor_dia;
+		private $valor_dia_temporal;
 		private $idTbl_Configuracion;
 		private $db;
 
@@ -31,7 +32,11 @@
 
 			self::consultaStock($notificaciones, $db);
 			self::consultaCreditos($notificaciones, $db);
-			self::consultaPrestamos($notificaciones, $db);
+			if($_SESSION['ROL'] == 3){
+				self::consultaPrestamos($notificaciones, $db);
+			}else{
+				
+			}
 
 			return $notificaciones;
 		}
@@ -144,12 +149,13 @@
 
 		public function modificarConfiguracion()
 		{
-			$sql = "CALL SP_Modificar_Configuracion(?, ?, ?, ?)";
+			$sql = "CALL SP_Modificar_Configuracion(?, ?, ?, ?, ?)";
 			$stm = $this->db->prepare($sql);
 			$stm->bindParam(1, $this->tiempo_pago);
 			$stm->bindParam(2, $this->Valor_dia);
-			$stm->bindParam(3, $this->porcentaje_comision);
-			$stm->bindParam(4, $this->valor_base);
+			$stm->bindParam(3, $this->valor_dia_temporal);
+			$stm->bindParam(4, $this->porcentaje_comision);
+			$stm->bindParam(5, $this->valor_base);
 			return $stm->execute();
 		}
 

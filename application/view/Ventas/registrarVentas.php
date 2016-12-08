@@ -3,7 +3,7 @@
   <br><br>
   <div class="panel panel-primary" style="margin-top: 5px">
     <div class="panel-heading" stlyle="height: 70px; width: 100px">
-      <center><span style="color: #FFF; margin-top: 10px; margin-bottom: 10px; font-size: 25px">Registrar Ventas</span></center>
+      <center><span style="color: #FFF; margin-top: 10px; margin-bottom: 10px; font-size: 16px"><b>REGISTRAR VENTAS</b></span></center>
     </div>
    <div class="row">
     <br>
@@ -12,7 +12,7 @@
        <div class="col-md-5">
         <div class="panel panel-primary">
           <div class="panel-heading">
-            <h3 class="panel-title"><strong>Cliente</strong></h3>
+            <h3 class="panel-title"><strong>CLIENTE</strong></h3>
           </div>
           <div class="panel-body" id="cliente">
               <div class="form-group">
@@ -33,7 +33,7 @@
           </div>
 
       <div class="panel-heading">
-        <h3 class="panel-title"><strong>Producto</strong></h3>
+        <h3 class="panel-title"><strong>PRODUCTO</strong></h3>
       </div>
       <div class="panel-body" id="panel"  style="height: 280px">
           <div class="form-group" id="productos">
@@ -82,7 +82,7 @@
   <div class="col-md-7">
     <div class="panel panel-primary detVenta">
       <div class="panel-heading">
-        <h3 class="panel-title"><strong>Detalles Venta</strong></h3>
+        <h3 class="panel-title"><strong>DETALLE VENTA</strong></h3>
       </div>
       <div class="panel-body" id="detalleV">
         Seleccione para agregar
@@ -151,11 +151,14 @@
  <div class="modal fade" id="modal-registroCliente" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
+        <div class="modal-body">
         <div class="modal-header">
-                <center>
-                  <h4 class="modal-title"  style="color: #337AB7" id="myModalLabel">Registrar Clientes (obligatorios *)</h4>
-                </center>
-              </div>
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="panel panel-primary">
+                <div class="panel-heading" stlyle="height: 70px; width: 100px">
+                      <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 20px">REGISTRAR CLIENTE (Obligatorios *) </center>
+                </div>
                <div class="modal-body">
                  <div class="row">
                    <div class="col-md-4">
@@ -177,7 +180,7 @@
                        </select>
                      </div>
                       <div class="col-md-4">
-                         <label for="">Número de documento <span class="obligatorio">*</label>
+                         <label for="">Documento <span class="obligatorio">*</label>
                          <input type="text" onkeypress="return soloNumeros(event)" maxlength="15" name="txtIdPersona" style="width: 100%" class="form-control" id="campoId" placeholder="Número Documento">
                      </div>
                    </div>
@@ -210,21 +213,25 @@
                      </select>
                    </div>
                      </div>
-                     <br><br>
-                    <hr>
+                     <br>
                    </div>
-                       <div class="row">
-                          <div class="col-md-6 col-xs-12 col-lg-9">
-                            <button type="button" class="btn btn-secondary active pull-right" data-dismiss="modal"><i class="fa fa-remove" aria-hidden="true">  Cerrar</i></button>
-                         </div>
-                         <div class="col-md-6 col-xs-12 col-lg-3">
-                           <button type="button" name="btnGuardarPersona" id="btn-guardar" class="btn btn-success active" onclick="registrarCliente()"><i class="fa fa-floppy-o" aria-hidden="true">  Guardar</i></button>
-                         </div>
-                 </div>
                  <br>
+               </div>
+               <div class="row">
+                  <div class="col-md-6 col-xs-12 col-lg-9">
+                    <button type="button" class="btn btn-secondary active pull-right" data-dismiss="modal"><i class="fa fa-remove" aria-hidden="true">  Cerrar</i></button>
+                 </div>
+                 <div class="col-md-6 col-xs-12 col-lg-3">
+                   <button type="button" name="btnGuardarPersona" id="btn-guardar" class="btn btn-success active" onclick="registrarCliente()"><i class="fa fa-floppy-o" aria-hidden="true">  Guardar</i></button>
+                 </div>
                </div>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
           <script>
             function soloLetras(e){
@@ -312,6 +319,12 @@
    $("body").attr("tabindex", "10");
 
    $("#ddlproveedor").change(function(){
+     setTimeout(function(){
+       $("body").focus();
+     }, 200);
+   });
+
+   $("#ddlproducto").change(function(){
      setTimeout(function(){
        $("body").focus();
      }, 200);
@@ -849,7 +862,7 @@ function cancelar() {
         select.select2("destroy");
         select.prepend(option);
         select.select2({
-          width: "100%",
+          width: "85%",
         });
         $("#modal-registroCliente").modal("hide");
         select.select2('open');
@@ -973,7 +986,7 @@ function cancelar() {
 
           if(resut == "1"){
             swal({
-                  title: "Identificación ya existe, no se puede registrar!",
+                  title: "Identificación ya existe!",
                   type: "error",
                   confirmButton: "#3CB371",
                   confirmButtonText: "Aceptar",

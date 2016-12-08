@@ -6,7 +6,7 @@
     <div class="col-lg-12">
         <div class="panel panel-primary">
             <div class="panel-heading" stlyle="height: 70px; width: 100px">
-                <center><span style="text-align:center; color: #fff; margin-top:10px; margin-bottom: 10px; font-size: 20px">Productos en Stock Mínimo</span></center>
+                <center><span style="text-align:center; color: #fff; margin-top:10px; margin-bottom: 10px; font-size: 16px"><b>PRODUCTOS EN STOCK MÍMINO</b></span></center>
             </div>
       <div class="panel-body">
         <div class="dataTable_wrapper">

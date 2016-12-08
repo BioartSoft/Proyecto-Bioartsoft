@@ -3,7 +3,7 @@
   <br><br>
   <div class="panel panel-primary" style="margin-top: 5px">
     <div class="panel-heading" stlyle="height: 70px; width: 100px">
-      <center><span style="color: #FFF; margin-top: 10px; margin-bottom: 10px; font-size: 25px">Registrar Entradas</span></center>
+      <center><span style="color: #FFF; margin-top: 10px; margin-bottom: 10px; font-size: 17px"><b>REGISTRAR ENTRADAS</b></span></center>
     </div>
    <div class="row">
      <br>
@@ -13,7 +13,7 @@
         <div class="panel panel-primary">
           <div class="panel-heading">
             <input type="hidden" name="hdempleado" value="<?= $_SESSION['USUARIO_ID'] ?>">
-            <h3 class="panel-title"><strong>Proveedor</strong></h3>
+            <h3 class="panel-title"><strong>PROVEEDOR</strong></h3>
           </div>
           <div class="panel-body" class="panel-proveedor">
               <div class="form-group">
@@ -37,7 +37,7 @@
               </div>
           </div>
       <div class="panel-heading">
-        <h3 class="panel-title"><strong>Producto</strong></h3>
+        <h3 class="panel-title"><strong>PRODUCTO</strong></h3>
       </div>
       <div class="panel-body">
           <div class="form-group">
@@ -89,7 +89,7 @@
   <div class="col-md-7">
     <div class="panel panel-primary detComp">
       <div class="panel-heading">
-        <h3 class="panel-title"><strong>Detalles Entrada</strong></h3>
+        <h3 class="panel-title"><span style="font-size: 16px;"><b>DETALLE ENTRADA</b></span></h3>
       </div>
       <div class="panel-body" id="detalle">
         <strong>Seleccione para agregar</strong>
@@ -119,11 +119,14 @@
 <div class="modal fade" id="modal-registroProducto" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static">
    <div class="modal-dialog" role="document">
      <div class="modal-content">
+       <div class="modal-body">
        <div class="modal-header">
-               <center>
-                 <h4 class="modal-title"  style="color: #337AB7" id="myModalLabel">Registrar Producto (obligatorios *)</h4>
-               </center>
-             </div>
+         <div class="row">
+           <div class="col-lg-12">
+             <div class="panel panel-primary">
+               <div class="panel-heading" stlyle="height: 70px; width: 100px">
+                     <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 20px">REGISTRAR PRODUCTO (Obligatorios *) </center>
+               </div>
               <div class="modal-body">
                 <div class="row">
                   <div class="col-md-4">
@@ -131,7 +134,7 @@
                     <input type="text" name="txtnombreProd" onkeypress="return soloLetras(event)" style="width: 100%" class="form-control" id="nombreProd" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ@\-\.\\ \/$]+" maxlength="50" class="form-control"  placeholder="Nombre Producto" data-parsley-required="true">
                   </div>
                   <div class="col-md-4">
-                      <label for="txtCategoria">Seleccionar Categoría <span class="obligatorio">*</span></label>
+                      <label for="txtCategoria">Categoría <span class="obligatorio">*</span></label>
                           <select name="txtCategoria" class="form-control" id="categoria" style="width: 100%" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9!@#\$%\-\.\?_~\\ \\()\/$]+" maxlength="20" data-parsley-required="true">
                               <option value="">Seleccionar</option>
                               <?php foreach($categoria as $categ): ?>
@@ -165,18 +168,23 @@
                   <br>
                    <hr>
                   </div>
-                      <div class="row">
-                         <div class="col-md-6 col-xs-12 col-lg-9">
-                           <button type="reset" class="btn btn-secondary active pull-right" data-dismiss="modal" title="Cerrar"><i class="fa fa-remove" aria-hidden="true">  Cerrar</i></button>
-                        </div>
-                        <div class="col-md-6 col-xs-12 col-lg-3">
-                          <button type="submit" name="btnguardarProducto" id="btn-guardar" onclick="ValidarNombreProducto()" class="btn btn-success active" title="Guardar"><i class="fa fa-floppy-o" aria-hidden="true">  Guardar</i></button>
-                        </div>
-                      </div>
                       <br>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6 col-xs-12 col-lg-7">
+                        <button type="submit" name="btnguardarProducto" id="btn-guardar" onclick="ValidarNombreProducto()" class="btn btn-success active pull-right" title="Guardar"><i class="fa fa-floppy-o" aria-hidden="true">  Guardar</i></button>
+                      </div>
+                      <div class="col-md-6 col-xs-12 col-lg-3">
+                        <button type="button" class="btn btn-danger active" onclick="cancelarRegistroProducto()" title="Cancelar"><i class="fa fa-remove" aria-hidden="true">  Cancelar</i></button>
+                      </div>
                     </div>
                   </div>
                 </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
               <script type="text/javascript">
                 $(document).ready(function(){
@@ -199,7 +207,7 @@
                               <div class="col-xs-12 col-md-6 col-lg-12">
                                 <div class="panel panel-primary">
                                   <div class="panel-heading" stlyle="height: 70px; width: 100px">
-                                        <center><span class="modal-title" id="myModalLabel" style="color: #FFF; font-size: 20px">Modificar Precios Productos (obligatorios *)</span></center>
+                                        <center><span class="modal-title" id="myModalLabel" style="color: #FFF; font-size: 20px">MODIFICAR PRECIOS (Obligatorios *)</span></center>
                                   </div>
                                   <div class="panel-body">
                               <input id="txtcodigo" name="txtcodigo" type="hidden">
@@ -228,11 +236,11 @@
                       </div>
                    </div>
                    <div class="row">
-                     <div class="col-md-6 col-xs-12 col-lg-9">
-                        <button type="button" class="btn btn-secondary btn-md active pull-right"  data-dismiss="modal"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
+                   <div class="col-md-6 col-xs-12 col-lg-7">
+                     <button id="btn-modificar" type="button" name="btn-modificar" onclick="validarPreciosCompra()" class="btn btn-success btn-md active pull-right"><i class="fa fa-floppy-o" aria-hidden="true">   Modificar</i></button>
                    </div>
                    <div class="col-md-6 col-xs-12 col-lg-3">
-                     <button id="btn-modificar" type="button" name="btn-modificar" onclick="validarPreciosCompra()" class="btn btn-success btn-md active"><i class="fa fa-floppy-o" aria-hidden="true">   Modificar</i></button>
+                     <button type="button" class="btn btn-danger btn-md active" onclick="cancelarModificacion()"><i class="fa fa-times" aria-hidden="true">   Cancelar</i></button>
                    </div>
                  </div>
              </div>
@@ -250,7 +258,7 @@
                      <div class="col-xs-12 col-md-6 col-lg-12">
                        <div class="panel panel-primary">
                          <div class="panel-heading" stlyle="height: 70px; width: 100px">
-                               <center><span class="modal-title" id="myModalLabel" style="color: #FFF; font-size: 20px">Modificación Precios</span></center>
+                               <center><span class="modal-title" id="myModalLabel" style="color: #FFF; font-size: 20px">MODIFICACIÓN PRECIOS</span></center>
                          </div>
                          <div class="panel-body">
                              <p>Tener en cuenta para la modificación de los precios lo siguiente:</p>
@@ -354,6 +362,12 @@
      $("body").attr("tabindex", "10");
 
      $("#ddlproveedor").change(function(){
+       setTimeout(function(){
+         $("body").focus();
+       }, 200);
+     });
+
+     $("#ddlproducto").change(function(){
        setTimeout(function(){
          $("body").focus();
        }, 200);
@@ -615,9 +629,9 @@ function ValidarNombreProducto(){
 
      var nombreProd = $("#nombreProd").val();
      var categ = $("#categoria").val();
-     var precioUnit = $("#precioUnitario").val();
-     var precioDet = $("#precioDetal").val();
-     var precioMay = $("#precioMayor").val();
+     var precioUnit = parseInt($("#precioUnitario").val());
+     var precioDet = parseInt($("#precioDetal").val());
+     var precioMay = parseInt($("#precioMayor").val());
      var stockMin = $("#stock").val();
 
      if(nombreProd == "" || categ == "" || precioUnit == "" || precioUnit == "" || precioMay == "" || stockMin == "" ){
@@ -636,7 +650,19 @@ function ValidarNombreProducto(){
        $("#precioDetal").css("background", "#F2DEDE");
        $("#precioMayor").css("background", "#F2DEDE");
        $("#stock").css("background", "#F2DEDE");
-     }else {
+     }else if((precioUnit > precioDet && precioUnit > precioMay) || precioMay > precioDet) {
+       swal({
+         title: "Precios inválidos, verificar valores!",
+         type: "error",
+         confirmButton: "#3CB371",
+         confirmButtonText: "Aceptar",
+         // confirmButtonText: "Cancelar",
+         closeOnConfirm: false,
+         closeOnCancel: false
+       });
+       return false;
+     }else{
+
        $("#nombreProd").css("background", "#DFF0D8");
        $("#categoria").css("background", "#DFF0D8");
        $("#precioUnitario").css("background", "#DFF0D8");
@@ -857,15 +883,15 @@ function ValidarNombreProducto(){
      var precioMay = parseInt($("#precioMayor").val());
 
      if(precioUnit <  precioDet && precioUnit < precioMay && precioDet > precioMay){
-      //  swal({
-      //        title: "Precios inválidos, verificar valores!",
-      //        type: "error",
-      //        confirmButton: "#3CB371",
-      //        confirmButtonText: "Aceptar",
-      //        // confirmButtonText: "Cancelar",
-      //        closeOnConfirm: false,
-      //        closeOnCancel: false
-      //      });
+       //swal({
+          //    title: "Precios inválidos, verificar valores!",
+          //    type: "error",
+          //    confirmButton: "#3CB371",
+          //    confirmButtonText: "Aceptar",
+          //    // confirmButtonText: "Cancelar",
+          //    closeOnConfirm: false,
+          //    closeOnCancel: false
+          //  });
            return true;
      }else{
        swal({
@@ -1055,4 +1081,68 @@ function ValidarNombreProducto(){
         });
       }
   }
+ </script>
+
+ <script type="text/javascript">
+ function  cancelarRegistroProducto(){
+   swal({
+   title: "¿Realmente desea cancelar el registro?",
+   type: "warning",
+   confirmButton: "#3CB371",
+   confirmButtonText: "btn-danger",
+   cancelButtonText: "Cancelar",
+   showCancelButton: true,
+   confirmButtonClass: "btn-danger",
+   confirmButtonText: "Aceptar",
+   closeOnConfirm: false,
+
+   },
+ function(isConfir){
+     if (isConfir) {
+       swal({
+         title: "Registro cancelado!",
+         type: "error",
+         confirmButton: "#3CB371",
+         confirmButtonText: "Aceptar",
+         closeOnConfirm: false,
+         closeOnCancel: false
+       },
+       function(isConfir){
+         window.location = url + "Compras/index";
+       });
+     }
+     });
+ }
+ </script>
+
+ <script type="text/javascript">
+ function  cancelarModificacion(){
+   swal({
+   title: "¿Cancelar la modificación?",
+   type: "warning",
+   confirmButton: "#3CB371",
+   confirmButtonText: "btn-danger",
+   cancelButtonText: "Cancelar",
+   showCancelButton: true,
+   confirmButtonClass: "btn-danger",
+   confirmButtonText: "Aceptar",
+   closeOnConfirm: false,
+
+   },
+ function(isConfir){
+     if (isConfir) {
+       swal({
+         title: "Modificación cancelada!",
+         type: "error",
+         confirmButton: "#3CB371",
+         confirmButtonText: "Aceptar",
+         closeOnConfirm: false,
+         closeOnCancel: false
+       },
+       function(isConfir){
+         window.location = url + "Compras/index";
+       });
+     }
+     });
+ }
  </script>

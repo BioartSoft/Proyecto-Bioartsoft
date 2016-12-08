@@ -7,7 +7,7 @@
     <div class="col-lg-12">
         <div class="panel panel-primary">
           <div class="panel-heading" stlyle="height: 70px; width: 100px">
-            <center><span style="text-align:center; color: #fff; margin-top: 10px; margin-bottom: 10px; font-size: 20px">Listar Bajas</span></center>
+            <center><span style="text-align:center; color: #fff; margin-top: 10px; margin-bottom: 10px; font-size: 16px"><b>LISTAR BAJAS</b></span></center>
           </div>
             <div class="panel-body">
                 <div class="dataTable_wrapper">
@@ -55,13 +55,15 @@
               </div>
 
             <div class="col-sm-12">
-            <?php foreach ($bajas as $value): ?>
-            <?php if($value['estado'] == 1): ?>
+          <?php foreach ($bajas as $value): ?>
+          <?php if($_SESSION['ROL'] == 1 || $_SESSION['ROL'] == 3): ?>
+          <?php if($value['estado'] == 1): ?>
                 <center>
                     <button class="btn btn-primary" data-toggle="modal" data-target="#modal-reporte_bajas"><i class="fa fa-file-pdf-o" aria-hidden="true">&nbsp;&nbsp;Reporte Bajas</i></button>
                 </center>
                 <?php break; ?>
-            <?php else: ?>
+          <?php else: ?>
+          <?php endif; ?>
           <?php endif; ?>
           <?php endforeach; ?>
             </div>
@@ -79,7 +81,7 @@
               <div class="col-lg-12">
                 <div class="panel panel-primary">
                   <div class="panel-heading" stlyle="height: 70px; width: 100px">
-                      <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 20px">Detalle de Baja Número: <span id="baja"><span></center>
+                      <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 16px"><b>DETALLE DE BAJA CÓDIGO: <span id="baja"><span></b></center>
                   </div>
                   <div class="panel-body">
                     <div class="dataTable_wrapper">
@@ -117,7 +119,7 @@
                   <div class="col-lg-12">
                     <div class="panel panel-primary">
                       <div class="panel-heading" stlyle="height: 70px; width: 100px">
-                          <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 20px">Reporte de Bajas</center>
+                          <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 20px">REPORTE BAJAS</center>
                       </div>
                       <div class="panel-body">
                         <form id="formPdfBajas" action="<?= URL ?>producto/pdfBajas" method="post" data-parsley-validate="" target="_blank">

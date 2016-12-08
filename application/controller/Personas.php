@@ -571,6 +571,7 @@ use Dompdf\Dompdf;
           $proveedorJ = $this->modeloP->ListarProveedoresJurID($id);
         }
       }
+      $proveedor = $this->modeloP->ListarProveedorID($id);
       $TipoProveedor = $this->modeloP->tipoPersonaProveedores();
       $tipoProveedores = $this->modeloP->tipoPersonaProveedor();
       $listarP= $this->modeloP->ListarProveedor();

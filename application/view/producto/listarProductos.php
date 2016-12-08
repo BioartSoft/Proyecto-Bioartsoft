@@ -6,7 +6,7 @@
     <div class="col-lg-12">
         <div class="panel panel-primary">
             <div class="panel-heading" stlyle="height: 70px; width: 100px">
-              <center> <span style="color: #fff; margin-top: 10px; margin-bottom: 10px; font-size: 20px">Listar Productos</span></center>
+              <center> <span style="color: #fff; margin-top: 10px; margin-bottom: 10px; font-size: 16px"><b>LISTAR PRODUCTOS</b></span></center>
             </div>
       <div class="panel-body">
         <div class="dataTable_wrapper">
@@ -60,23 +60,28 @@
                  <i class="fa fa-barcode" title="Generar Código de Barras"></i>
                </button>
              </a>
+
          <button type="button" class="btn btn-danger btn-circle btn-md" onclick="cambiarestado('<?= $val['id_producto']?>')" title="Cambiar Estado"><span class="glyphicon glyphicon-refresh" aria-hidden="true" title="Cambiar Estado"></span></button>
        <?php else : ?>
              <button type="button" class="btn btn-primary btn-circle btn-md" data-toggle="modal" data-target="#myForm2"
              onclick="traerDetallesProducto(<?= $val['id_producto'] ?>)" title="Ver Detalles"><i class="fa fa-eye"
              aria-hidden="true" title="Ver Detalles"></i></button>
 
-             <a href="<?= URL ?>producto/generarPdfCodigo?id=<?= $val['id_producto'] ?>" target="_blank">
-               <button class="btn btn-warning btn-circle btn-md" title="Generar Código de Barras">
+             <a href="" target="_blank" data-toggle="modal" data-target="#myForm3">
+               <button class="btn btn-warning btn-circle btn-md" title="Generar Código de Barras" onclick="traerDetallesProducto('<?= $val['id_producto']?>')">
                  <i class="fa fa-barcode" title="Generar Código de Barras"></i>
                </button>
              </a>
 
         <?php endif; ?>
         <?php else:  ?>
+          <?php if($_SESSION['ROL'] == 2):?>
+          <button type="button" class="btn btn-primary btn-circle btn-md" data-toggle="modal" data-target="#myForm2" onclick="traerDetallesProducto(<?= $val['id_producto'] ?>)" title="Ver Detalles"><i class="fa fa-eye" aria-hidden="true" title="Ver Detalles"></i></button></a>
+        <?php else: ?>
           <button type="button" class="btn btn-primary btn-circle btn-md" data-toggle="modal" data-target="#myForm2" onclick="traerDetallesProducto(<?= $val['id_producto'] ?>)" title="Ver Detalles"><i class="fa fa-eye" aria-hidden="true" title="Ver Detalles"></i></button></a>
           <button type="button" class="btn btn-danger btn-circle btn-md" onclick="cambiarestado('<?= $val['id_producto']?>')"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span></button>
         <?php endif ?>
+        <?php endif; ?>
       </td>
 </tr>
  <?php endforeach ?>
@@ -93,7 +98,9 @@
     </a>
   </center>
   </div> -->
+  <?php foreach ($abrirpro as $values) :  ?>
   <?php if($_SESSION['ROL'] == 1 || $_SESSION['ROL'] == 3): ?>
+    <?php if($values['estado'] == 1): ?>
   <div class="col-sm-4">
     <center>
     <a href="<?= URL ?>producto/informefproducto" target="_blank">
@@ -101,7 +108,11 @@
     </a>
   </center>
   </div>
+<?php break; ?>
+<?php else: ?>
 <?php endif; ?>
+<?php endif; ?>
+<?php endforeach; ?>
 </div>
 </form>
 </div>
@@ -110,13 +121,16 @@
 <form action="" method="POST" id="form-modificar" data-parsley-validate="" onsubmit="return validarPreciosModificacion()">
 <div class="modal fade" id="actualizar-producto" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static">
   <div id="modal-mod-prod" method="post" data-parsley-validate="">
-
                   <div class="modal-dialog" role="document">
                     <div class="modal-content">
+                      <div class="modal-body">
                       <div class="modal-header">
-
-                          <center><h4 class="modal-title" id="myModalLabel" style="color: #337AB7">Modificar Producto (obligatorios *)</h4></center>
-                      </div>
+                        <div class="row">
+                          <div class="col-lg-12">
+                            <div class="panel panel-primary">
+                              <div class="panel-heading">
+                                    <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 16px"><b>MODIFICAR PRODUCTO (Obligatorios *)</b> </center>
+                              </div>
                    <div class="modal-body">
                        <div class="row">
                          <div class="col-md-6">
@@ -150,9 +164,9 @@
                   <br><br>
                    <div class="row">
                      <div class="col-md-6">
-                     <label>Precio Detal <span class="obligatorio">*</span></label><br>
-                      <input id="txtprecioventa" tabindex="5" name="txtprecioventa" type="number" class="form-control"  data-parsley-type="integer" min="0" maxlength="10" step="50" data-parsley-required="true">
-                   </div>
+                       <label>Precio Unitario <span class="obligatorio">*</span></label><br>
+                        <input type="number" id="txtpreciocompra" tabindex="5" name="txtpreciocompra" class="form-control" data-parsley-type="integer" min="0" maxlength="10" step="50" data-parsley-required="true">
+                     </div>
 
                      <div class="col-md-6" >
                        <label>Precio al por Mayor <span class="obligatorio">*</span></label><br>
@@ -163,28 +177,40 @@
 
                  <div class="row">
                    <div class="col-md-6">
-                     <label>Precio Unitario <span class="obligatorio">*</span></label><br>
-                      <input type="number" id="txtpreciocompra" tabindex="7" name="txtpreciocompra" class="form-control" data-parsley-type="integer" min="0" maxlength="10" step="50" data-parsley-required="true">
-                   </div>
+                   <label>Precio Detal <span class="obligatorio">*</span></label><br>
+                    <input id="txtprecioventa" tabindex="7" name="txtprecioventa" type="number" class="form-control"  data-parsley-type="integer" min="0" maxlength="10" step="50" data-parsley-required="true">
+                 </div>
 
                    <div class="col-md-6">
                      <label >Stock Mínimo <span class="obligatorio">*</span></label><br>
-                      <input type="number" id="txtstock" name="txtstock" class="form-control" data-parsley-type="number" min="1" maxlength="3" step="1" data-parsley-required="true">
+                      <input tabindex="8" type="number" id="txtstock" name="txtstock" class="form-control" data-parsley-type="number" min="1" maxlength="3" step="1" data-parsley-required="true">
                    </div>
                    </div>
                  </div>
                    <br>
-
-                 <div class="modal-footer">
-                   <button type="button" tabindex="8" class="btn btn-secondary btn-md active"  data-dismiss="modal"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
-                   <button id="btn-modificar" tabindex="9" type="submit" name="btn-modificar" class="btn btn-success btn-md active"><i class="fa fa-floppy-o" aria-hidden="true">   Modificar</i></button>
-                   <input type="hidden" tabindex="10">
-                </div>
                </div>
+               <div class="row">
+               <div class="col-xs-12 col-md-6 col-lg-7" >
+                 <button id="btn-modificar" tabindex="9" type="submit" name="btn-modificar" class="btn btn-success btn-md active pull-right"><i class="fa fa-floppy-o" aria-hidden="true">   Modificar</i></button>
+               </div>
+                 <div class="col-xs-12 col-md-6 col-lg-3">
+                    <button type="button" tabindex="10" class="btn btn-danger btn-md active" onclick="cancelarModProducto()"><i class="fa fa-times" aria-hidden="true">   Cancelar</i></button>
+                    <input type="hidden" tabindex="11">
+               </div>
+             </div>
            </div>
-        </div>
-  </div>
-</form>
+         </div>
+       </div>
+     </form>
+   </div>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
 
 <script type="text/javascript">
   $(document).ready(function(){
@@ -203,7 +229,7 @@
   <div class="col-lg-12">
     <div class="panel panel-primary">
         <div class="panel-heading" stlyle="height: 70px; width: 100px">
-            <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 20px">Detalles de: <span id="producto"></span> (<span id="producto3"></span>)</center>
+            <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 16px"><b>DETALLE DE: </b><b><span id="producto" style="text-transform: uppercase; "></span> - CÓDIGO: <span id="producto3"></span></b></center>
         </div>
       <div class="panel-body">
         <div class="dataTable_wrapper">
@@ -243,7 +269,7 @@
               <div class="col-lg-12">
                 <div class="panel panel-primary">
                     <div class="panel-heading" stlyle="height: 70px; width: 100px">
-                        <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 20px">Producto: <span id="productoid"> </span> - <span id="producto2"></span></span></center>
+                        <center><span id="myModalLabel" style= "text-align:center; color: #fff; font-size: 16px; text-transform: uppercase; "><b>PRODUCTO: <span id="producto2"> </span> - CÓDIGO: <span id="productoid"> </span></span></b></center>
                     </div>
                   <div class="panel-body">
                     <div class="dataTable_wrapper">
@@ -436,4 +462,36 @@ function traerDetallesProducto(id){
       e.preventDefault();
     }
   })
+</script>
+
+<script type="text/javascript">
+function  cancelarModProducto(){
+  swal({
+  title: "¿Cancelar la modificación?",
+  type: "warning",
+  confirmButton: "#3CB371",
+  confirmButtonText: "btn-danger",
+  cancelButtonText: "Cancelar",
+  showCancelButton: true,
+  confirmButtonClass: "btn-danger",
+  confirmButtonText: "Aceptar",
+  closeOnConfirm: false,
+
+  },
+function(isConfir){
+    if (isConfir) {
+      swal({
+        title: "Modificación cancelada!",
+        type: "error",
+        confirmButton: "#3CB371",
+        confirmButtonText: "Aceptar",
+        closeOnConfirm: false,
+        closeOnCancel: false
+      },
+      function(isConfir){
+        window.location = url + "producto/listarProductos";
+      });
+    }
+    });
+}
 </script>

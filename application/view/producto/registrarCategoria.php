@@ -3,7 +3,7 @@
   <br><br>
 <div class="panel panel-primary" style="margin-top: 5px">
   <div class="panel-heading" stlyle="height: 70px; width: 100px">
-    <center><span style="text-align:center; color: #FFF; margin-top: 10px; margin-bottom:10px; font-size: 25px">Gestionar Categorías</span></center>
+    <center><span style="text-align:center; color: #FFF; margin-top: 10px; margin-bottom:10px; font-size: 16px"><b>GESTIONAR CATEGORÍAS</b></span></center>
   </div>
 <div class="row">
   <br>
@@ -12,7 +12,7 @@
     <div class="col-md-6 col-xs-12 col-lg-5">
       <div class="panel panel-primary">
         <div class="panel-heading">
-          <h3 class="panel-title"><strong>Registrar Categoría</strong></h3>
+          <h3 class="panel-title"><strong style="font-size: 16px;">REGISTRAR CATEGORÍA</strong></h3>
         </div>
         <div class="panel-body">
           <div class="row">
@@ -47,7 +47,7 @@
   <div class="col-md-6 col-xs-12 col-lg-7">
     <div class="panel panel-primary">
       <div class="panel-heading">
-        <h3 class="panel-title"><strong>Listar Categorías</strong></h3>
+        <h3 class="panel-title"><strong style="font-size: 16px;">LISTAR CATEGORÍAS</strong></h3>
       </div>
       <div class="panel-body" id="panel_categorias">
         <div class="dataTable_wrapper">
@@ -94,7 +94,7 @@
                 <div class="row">
                     <div class="panel panel-primary" style="margin-left: 2%; margin-right: 2%">
                      <div class="panel-heading" stlyle="height: 70px; width: 100px">
-                       <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 20px">Modificar Categoría</span></center>
+                       <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 16px"><b>MODIFICAR CATEGORÍA</b></span></center>
                      </div>
                      <div class="panel-body">
                        <div class="col-md-6">
@@ -214,6 +214,7 @@ function cancelar() {
                 closeOnConfirm: false,
                 closeOnCancel: false
               });
+              $("#txtnombrec").val("");
         }
 
       });
@@ -245,6 +246,7 @@ function cancelar() {
                 closeOnConfirm: false,
                 closeOnCancel: false
               });
+              $("#txtnombrec").val("");
         }
 
       });

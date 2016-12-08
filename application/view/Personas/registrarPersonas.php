@@ -3,7 +3,7 @@
   <br><br>
   <div class="panel panel-primary" style="margin-top: 5px">
     <div class="panel-heading" stlyle="height: 70px; width: 100px">
-      <center><span style="text-align:center; color: #FFF; margin-top: 10px; margin-bottom: 10px; font-size: 25px">Registrar Personas (obligatorios * )</span></center>
+      <center><span style="text-align:center; color: #FFF; margin-top: 10px; margin-bottom: 10px; font-size: 16px"><b>REGISTRAR PERSONAS (Obligatorios * )</b></span></center>
     </div>
     <div class="row">
       <br>
@@ -54,8 +54,8 @@
               <label for="">Seleccionar tipo de documento <span class="obligatorio">*</span></label>
               <select name="txtTipoDocumento" tabindex="2" class="form-control" id="documento" style="width: 100%" data-parsley-required="true" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9!@#\$%\-\.\?_~\\ \\()\/$]+">
                   <option value="">Seleccionar</option>
-                  <option value="Cedula">Cédula</option>
-                  <option value="Cedula_Extranjera">Documento de  Extranjería</option>
+                  <option value="Cédula">Cédula</option>
+                  <option value="Cédula Extranjera">Documento de  Extranjería</option>
               </select>
             </div>
              <div class="col-md-3">

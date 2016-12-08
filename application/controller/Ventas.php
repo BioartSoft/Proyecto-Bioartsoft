@@ -124,7 +124,7 @@ class Ventas extends controller
     $dompdf->loadHtml($html);
     // $dompdf->load_html_file($urlImagen);
     // $dompdf->setPaper('A4', 'landscape');
-    $dompdf->setPaper([0,0,350,841], 'portrait');
+    $dompdf->setPaper([0,0,380,841], 'portrait');
     $dompdf->render();
     $dompdf->stream("Recibo de Caja.pdf", array("Attachment" => false, 'isRemoteEnabled' => true));
   }
@@ -172,7 +172,7 @@ public function generarpdfDetallesVentas2()
   {
     $id = $_GET['id'];
 
-    $info = $this->mdlVentas->pdfDetallesAbono($id);
+    $info = $this->mdlVentas->pdfDetallesAbono2($id);
 
     $tabla2 = "";
     foreach ($info as $val) {
@@ -359,7 +359,6 @@ public function generarpdfDetallesVentas2()
               for ($i=0; $i < count($_POST['producto']); $i++) {
                 $this->mdlVentas-> insertarDetalleVenta($_POST['producto'][$i], $_POST['cantidad'][$i], $_POST['precioProducto'][$i], $_POST['precioUnitario'][$i]);
               }
-              $ultVenta = $this->mdlVentas->ultimoId();
               // var_dump($ultVenta);
               // exit();
             }else{
@@ -377,6 +376,7 @@ public function generarpdfDetallesVentas2()
               return false;
             }
           }
+          $ultVenta = $this->mdlVentas->ultimoId();
 
           $_SESSION['alerta'] = 'swal({
                   title: "Guardado exitoso!",
@@ -397,7 +397,6 @@ public function generarpdfDetallesVentas2()
 
                 header("Location: ".URL."Ventas/index");
                 exit();
-
       }
 
       $cliente = $this->mdlCliente->listar();
@@ -659,8 +658,6 @@ private function validarAbonos($idVenta){
     if(isset($id)){
 
     $info = $this->mdlVentas->pdfDetallesAbono($id);
-    // var_dump($info);
-    // exit();
 
     $tabla2 = "";
     foreach ($info as $val) {
@@ -756,7 +753,9 @@ private function validarAbonos($idVenta){
   public function ajaxDetalleAbonosCreditosV()
   {
     $detalle = $this->mdlVentas->listarAbonosCreditosV($_POST["id_ventas"]);
-
+    $id_Credito = $_POST["id_ventas"];
+    // var_dump($id_Credito);
+    // exit();
       $html = "";
           foreach ($detalle as $val) {
             $html .= '<tr>';
@@ -770,10 +769,14 @@ private function validarAbonos($idVenta){
             $fechaActual = date("Y-m-d");
             if ($val["estado_abono"] == 1) {
               if($val['fechaAbono'] == $fechaActual){
-
             $html .= ' <button  title="Anular" type="button" class="btn btn-success btn-circle btn-md" data-toggle="modal" id="btnbotoncheck" onclick="cambiarestado('.$val["idabono"].',0)"><i class="fa fa-check" aria-hidden="true"></i></button>';
+            $html .= ' <a href="generarpdfDetalleAbonos?id='.$id_Credito.'" target="_blank" id="pdfDetalAbono">
+                        <button class="btn btn-primary btn-circle btn-md" name="btnPdfPagos" title="Generar Pdf"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></button>
+                        </a>';
           }else{
-
+            $html .= ' <a href="generarpdfDetalleAbonos?id='.$id_Credito.'" target="_blank" id="pdfDetalAbono">
+                        <button class="btn btn-primary btn-circle btn-md" name="btnPdfPagos" title="Generar Pdf"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></button>
+                        </a>';
           }
 
           }
@@ -789,7 +792,7 @@ private function validarAbonos($idVenta){
               $cabecera .= '<th>'.'Valor Abono'.'</th>';
               $cabecera .= '<th>'.'Total Abonado'.'</th>';
               $cabecera .= '<th>'.'Responsable Abono'.'</th>';
-              $cabecera .= '<th>'.'Estado Abono'.'</th>';
+              $cabecera .= '<th>'.'Opciones'.'</th>';
               $cabecera .= '</tr>';
 
               echo json_encode([

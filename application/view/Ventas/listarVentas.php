@@ -6,7 +6,7 @@
     <div class="col-lg-12">
         <div class="panel panel-primary">
             <div class="panel-heading" stlyle="height: 70px; width: 100px">
-                <center> <span style="text-align:center; color: #fff; margin-top: 10px; margin-bottom: 10px; font-size: 20px">Listar Ventas</span></center>
+                <center> <span style="text-align:center; color: #fff; margin-top: 10px; margin-bottom: 10px; font-size: 16px"><b>LISTAR VENTAS</b></span></center>
             </div>
             <!-- /.panel-heading -->
       <div class="panel-body">
@@ -46,6 +46,7 @@
         <button type="button" class="btn btn-primary btn-circle btn-md" data-toggle="modal" data-target="#myForm2" onclick="traerDetallesVenta(<?= $value['id_ventas'] ?>)" title="Detalles venta"><i class="fa fa-eye" aria-hidden="true" title="Detalles venta"></i></button></a>
 
         <?php if($value['fecha_venta'] == $fechaActual): ?>
+
          <?php if(($value['estado'] == 1) && ($_SESSION['ROL'] == 1 || $_SESSION['ROL'] == 3)) { ?>
              <button type="button" class="btn btn-danger btn-circle btn-md" onclick="cambiarEstado(<?= $value['id_ventas']?>, 0)" title="Anular venta"><i class="fa fa-remove" aria-hidden="true" title="Anular venta"></i></button>
            <?php }else {?>
@@ -64,13 +65,13 @@
 </div>
 
     <?php if($_SESSION['ROL'] == 1 || $_SESSION['ROL'] == 3): ?>
-        <div class="row">
-         <div class="col-sm-12">
-           <center>
-             <button class="btn btn-primary" data-toggle="modal" data-target="#modalReporteVentas"><i class="fa fa-file-pdf-o" aria-hidden="true">   Reporte de ventas </i></button>
-         </center>
+          <div class="row">
+           <div class="col-sm-12">
+             <center>
+               <button class="btn btn-primary" data-toggle="modal" data-target="#modalReporteVentas"><i class="fa fa-file-pdf-o" aria-hidden="true">   Reporte de ventas </i></button>
+           </center>
+           </div>
          </div>
-       </div>
     <?php endif; ?>
 
 </div>
@@ -82,7 +83,7 @@
                   <div class="col-lg-12">
                     <div class="panel panel-primary">
                         <div class="panel-heading" stlyle="height: 70px; width: 100px">
-                            <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 20px">Detalle de Venta Número: <span id="codigo-venta"></span></center>
+                            <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 16px"><b>DETALLE DE VENTA CÓDIGO: <span id="codigo-venta"></b></span></center>
                         </div>
                       <div class="panel-body" id="panel_ventas">
                           <h5><strong>Venta realizada por: <span id="empleado"></span></strong></h5>
@@ -132,11 +133,17 @@
                       <button type="button" class="btn btn-secondary btn-md active pull-right"  data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"> Cerrar</span></button>
                     </div>
                 <?php if($_SESSION['ROL'] == 1 || $_SESSION['ROL'] == 3): ?>
-                    <div class="col-md-2">
-                      <a href="<?= URL ?>Ventas/generarpdfDetallesVentas2" target="_blank" id="pdfDeta">
-                        <button class="btn btn-primary" name="btnComprasD"><i class="fa fa-file-pdf-o" aria-hidden="true">   Recibo de Caja</i></button>
-                      </a>
-                    </div>
+                  <?php foreach($Ventas as $val): ?>
+                    <?php if($val['estado'] == 1): ?>
+                      <div class="col-md-2">
+                        <a href="<?= URL ?>Ventas/generarpdfDetallesVentas2" target="_blank" id="pdfDeta">
+                          <button class="btn btn-primary" name="btnComprasD"><i class="fa fa-file-pdf-o" aria-hidden="true">   Recibo de Caja</i></button>
+                        </a>
+                      </div>
+                    <?php break; ?>
+                    <?php else: ?>
+                    <?php endif; ?>
+                  <?php endforeach; ?>
                 <?php endif; ?>
                   </div>
                 </div>
@@ -149,13 +156,13 @@
 
         <div class="modal fade" id="modalReporteVentas" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static" style="display:none" action="<?= URL ?>Ventas/index">
            <div class="modal-dialog" role="document">
-               <div class="modal-content" style="">
+               <div class="modal-content">
                      <div class="modal-body">
                         <div class="row">
                           <div class="col-lg-12">
                             <div class="panel panel-primary">
                                 <div class="panel-heading" stlyle="height: 70px; width: 100px">
-                                    <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 20px">Reporte Ventas</center>
+                                    <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 20px">REPORTE VENTAS</center>
                                 </div>
                               <div class="panel-body" id="panel_ventas">
                                 <form id="formPdfVentas" action="<?= URL ?>Ventas/pdfVentas" method="post" data-parsley-validate="" target="_blank">

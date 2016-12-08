@@ -97,9 +97,7 @@ use Dompdf\Dompdf;
         $listarPagos = $this->modeloP->listarPagosEmp();
 
       require_once APP . 'libs/dompdf/autoload.inc.php';
-        // $urlImagen = URL . 'producto/generarcodigo?id=';
-        // $productos = $this->mdlproducto->listar();
-          $listarPagos = $this->modeloP->listarPagosEmp();
+        $listarPagos = $this->modeloP->listarPagosEmp();
         ob_start();
         require APP . 'view/Empleados/pdfinformePagos.php';
         $html = ob_get_clean();
@@ -118,22 +116,15 @@ use Dompdf\Dompdf;
 
         $modelo = $this->loadModel("mdlEmpleados");
         $listarPrestamos = $modelo->pdfDetallesAbono($id);
-        // var_dump($listarPrestamos);
-        // exit();
 
         $tabla2 = "";
         foreach ($listarPrestamos as $val) {
           $tabla2 .= '<tr>';
-          // $tabla2 .= '<td>' . $val['id_persona'] . '</td>';
-          // $tabla2 .= '<td>' . $val['cliente'] . '</td>';
           $tabla2 .= '<td style="text-align: center"> $ ' . number_format($val['valor_prestamo'], "0", ".", ".") . '</td>';
           $tabla2 .= '<td style="text-align: center"> $ ' . number_format($val['valor'], "0", ".", ".") . '</td>';
           $tabla2 .= '<td style="text-align: center"> $ ' . number_format($val['abonado'], "0", ".", ".") . '</td>';
           $tabla2 .= '<td style="text-align: center"> $ ' . number_format($val['pendiente'], "0", ".", ".") . '</td>';
           $tabla2 .= '</tr>';
-          // echo "<pre>";
-          // var_dump($tabla2);
-          // exit();
         }
 
         require_once APP . 'libs/dompdf/autoload.inc.php';
@@ -156,15 +147,12 @@ use Dompdf\Dompdf;
         $listarPrestamos = $this->modeloP->listarInformePrestamos();
 
       require_once APP . 'libs/dompdf/autoload.inc.php';
-        // $urlImagen = URL . 'producto/generarcodigo?id=';
-        // $productos = $this->mdlproducto->listar();
       $listarPrestamos = $this->modeloP->listarInformePrestamos();
         ob_start();
         require APP . 'view/Empleados/pdfinformePrestamos.php';
         $html = ob_get_clean();
         $dompdf = new Dompdf();
         $dompdf->loadHtml($html);
-        // $dompdf->load_html_file($urlImagen);
         $dompdf->setPaper('A4', 'landscape');
         $dompdf->render();
         $dompdf->stream("Informe Préstamos.pdf", array("Attachment" => false, 'isRemoteEnabled' => true));
@@ -174,10 +162,7 @@ use Dompdf\Dompdf;
       public function generarpdfPagos()
       {
         $id = $_GET['id'];
-        // var_dump($id);
-        // exit();
         $this->modeloP->__SET("idPersona", $id);
-
         $listarPagos = $this->modeloP->listarPagosPorEmp();
 
         $tabla = "";
@@ -189,7 +174,7 @@ use Dompdf\Dompdf;
           if($val['Tbl_nombre_tipo_persona'] == "Empleado-temporal"){
           $tabla .= '<td>' . $val['tipo_pago'] . '</td>';
           $tabla .= '<td>' . $val['fecha_pago'] . '</td>';
-          $tabla .= '<td>' . number_format($val['valor_dia'], "0", ".", ".") . '</td>';
+          $tabla .= '<td> $ ' . number_format($val['valor_dia'], "0", ".", ".") . '</td>';
           $tabla .= '<td>' . $val['cantidad_dias'] . '</td>';
           $tabla .= '<td> $ ' . number_format($val['total_pago'], "0", ".", ".") . '</td>';
           }else{
@@ -217,8 +202,6 @@ use Dompdf\Dompdf;
         $dompdf->render();
         $dompdf->stream("Informe Pagos.pdf", array("Attachment" => false, 'isRemoteEnabled' => true));
       }
-
-
 
       public function generarpdfPrestamos($id)
       {
@@ -273,10 +256,10 @@ use Dompdf\Dompdf;
           $tabla2 .= '<tr>';
           // $tabla2 .= '<td>' . $val['id_persona'] . '</td>';
           // $tabla2 .= '<td>' . $val['cliente'] . '</td>';
-          $tabla2 .= '<td style="text-align: center"> $ ' . number_format($val['valor_prestamo'], "0", ".", ".") . '</td>';
-          $tabla2 .= '<td style="text-align: center"> $ ' . number_format($val['valor'], "0", ".", ".") . '</td>';
-          $tabla2 .= '<td style="text-align: center"> $ ' . number_format($val['abonado'], "0", ".", ".") . '</td>';
-          $tabla2 .= '<td style="text-align: center"> $ ' . number_format($val['pendiente'], "0", ".", ".") . '</td>';
+          $tabla2 .= '<td> $ ' . number_format($val['valor_prestamo'], "0", ".", ".") . '</td>';
+          $tabla2 .= '<td> $ ' . number_format($val['valor'], "0", ".", ".") . '</td>';
+          $tabla2 .= '<td> $ ' . number_format($val['abonado'], "0", ".", ".") . '</td>';
+          $tabla2 .= '<td> $ ' . number_format($val['pendiente'], "0", ".", ".") . '</td>';
           $tabla2 .= '</tr>';
           // echo "<pre>";
           // var_dump($tabla2);
@@ -325,8 +308,6 @@ use Dompdf\Dompdf;
                   $modelo->modificarEstadoPre();
                 }
                 $idP = $_POST["txtidprestamo"];
-                // var_dump($idP);
-                // exit();
                 $ultimoAbonoPrestamo = $modelo->ultimoAbonoPrestamo($idP);
 
                 $_SESSION['alerta'] = 'swal({
@@ -469,22 +450,21 @@ use Dompdf\Dompdf;
         //$this->modeloP->__SET("idPersona", $id);
 
         $listarPagos = $this->modeloP->listarPagosEmp($id);
-        //$configPago = $this->modeloP->listarConfigPagos();
-
-        // foreach ($configPago as $value) {
-        //
-        // }
 
         $tabla = "";
         foreach ($listarPagos as $val) {
+
           $tabla .= '<tr>';
           $tabla .= '<td>' . ucwords($val['tipo_pago']) . '</td>';
-          if($val['Tbl_nombre_tipo_persona'] == "Empleado-temporal"){
+          if($val['Tbl_nombre_tipo_persona'] == "Empleado-temporal" && $val['tipo_pago'] == "Pago Normal"){
             $tabla .= '<td>' . $val['cantidad_dias'] . '</td>';
-          }else{
-
+            $tabla .= '<td> $ ' . number_format($val['valor_dia_temporal'], "0", ".", ".") . '</td>';
+          }elseif($val['Tbl_nombre_tipo_persona'] == "Empleado-fijo" && $val['tipo_pago'] == "Pago Normal"){
+            $tabla .= '<td> $ ' . number_format($val['Valor_dia'], "0", ".", ".") . '</td>';
+            $tabla .= '<td> $ ' . number_format($val['valorVentas'], "0", ".", ".") . '</td>';
+            $tabla .= '<td> $ ' . number_format($val['valorComision'], "0", ".", ".") . '</td>';
           }
-          if($val['tipo_pago'] == "Pago Final"){
+          elseif($val['tipo_pago'] == "Pago Final" && $val['Tbl_nombre_tipo_persona'] == "Empleado-fijo"){
             $tabla .= '<td> $ ' . number_format($val['valorVentas'], "0", ".", ".") . '</td>';
             $tabla .= '<td> $ ' . number_format($val['valorComision'], "0", ".", ".") . '</td>';
             $tabla .= '<td> $ ' . number_format($val['valor_vacaciones'], "0", ".", ".") . '</td>';
@@ -569,7 +549,6 @@ use Dompdf\Dompdf;
                           }
                         }
                             $modelo->modificarEstadoPre();
-
                       }
                     }
                 $modelo->__SET("id_pago", implode("", $idpa));
@@ -632,15 +611,24 @@ use Dompdf\Dompdf;
               $modelo->__SET("valorTotal", $_POST["txtvalortemporales"]);
               $modelo->registrarDetallepagoconfiTemp();
 
-              $_SESSION['jhoan'] = ' swal({
-                  title: "Guardado exitoso!",
-                  type: "success",
-                  confirmButton: "#3CB371",
-                  confirmButtonText: "Aceptar",
-                  // confirmButtonText: "Cancelar",
-                  closeOnConfirm: false,
-                  closeOnCancel: false
-                })';
+              $ultPago = $modelo->ultimoId();
+
+              $_SESSION['alerta'] = 'swal({
+                        title: "Guardado exitoso!",
+                        text: "¿Desea imprimir el comprobante de pago?",
+                        type: "success",
+                        confirmButtonColor: "#3CB371",
+                        cancelButtonText: "No",
+                        showCancelButton: true,
+                        confirmButtonText: "Sí",
+                        closeOnConfirm: true,
+
+                        },
+                        function(isConfirm){
+                        if (isConfirm) {
+                          window.open("'.URL.'Empleados/generarComprobantePagos?txtId='.$ultPago['ultimo_id'].'");
+                        }
+                      })';
 
                 header("Location: ".URL."Empleados/registrarPagos");
                 exit();
@@ -687,6 +675,7 @@ use Dompdf\Dompdf;
 
           $modelo->__SET("tiempo_pago",$_POST["txttiemPago"]);
           $modelo->__SET("Valor_dia",$_POST["txtvalordia"]);
+          $modelo->__SET("valor_dia_temporal",$_POST["txtvalordiaTemporal"]);
           $modelo->__SET("porcentaje_comision",$_POST["txtporComision"]);
           $modelo->__SET("valor_base",$_POST["txtvBase"]);
 
@@ -821,7 +810,7 @@ use Dompdf\Dompdf;
 
                 if($value['Tbl_nombre_tipo_persona'] == "Empleado-temporal"){
                   $fijo = false;
-                  $html .= '<td class="price">'.$value['cantidad_Dias'].'</td>';
+                  $html .= '<td>'.$value['cantidad_Dias'].'</td>';
                   $html .= '<td class="price">'.$value['valor_dia'].'</td>';
                   $html .= '<td class="price">'.$value['total_pago'].'</td>';
                 }
@@ -832,9 +821,9 @@ use Dompdf\Dompdf;
                   // </button>';
                 $fechaActual = date("Y-m-d");
                 if($value['fecha_pago'] != $fechaActual && $value["estado"] == 1){
-                    $html .= ' <button  disabled ="" title="Anular" type="button" class="btn btn-danger btn-circle btn-md" data-toggle="modal" onclick="cambiarestado('.$value["id_pago"].', 0, '.$value['Tbl_Persona_id_persona'].' , \''.$value['tipo_pago'].'\' )"><i class="fa fa-remove" aria-hidden="true"></i></button>';
+                    $html .= ' <button  disabled ="" title="Anular" type="button" class="btn btn-danger btn-circle btn-md" data-toggle="modal" onclick="cambiarestado('.$value["id_pago"].', 0, '.$value['Tbl_Persona_id_persona'].', '.$value['id_abono'].', \''.$value['tipo_pago'].'\' )"><i class="fa fa-remove" aria-hidden="true"></i></button>';
                 }else if($value['fecha_pago'] == $fechaActual && $value["estado"] == 1){
-                    $html .= ' <button title="Anular" type="button" class="btn btn-danger btn-circle btn-md" data-toggle="modal" onclick="cambiarestado('.$value["id_pago"].', 0, '.$value['Tbl_Persona_id_persona'].' , \''.$value['tipo_pago'].'\' )"><i class="fa fa-remove" aria-hidden="true"></i></button>';
+                    $html .= ' <button title="Anular" type="button" class="btn btn-danger btn-circle btn-md" data-toggle="modal" onclick="cambiarestado('.$value["id_pago"].', 0, '.$value['Tbl_Persona_id_persona'].' , '.$value['id_abono'].', '.$value['id_prestamo'].', \''.$value['tipo_pago'].'\' )"><i class="fa fa-remove" aria-hidden="true"></i></button>';
                 }
                 if ($value["estado"]==0) {
                   $html .= ' <button  disabled="" title="Cambiar Estado" type="button" class="btn btn-danger btn-circle btn-md" data-toggle="modal"><i class="fa fa-ban" aria-hidden="true"></i></button>';
@@ -912,7 +901,7 @@ use Dompdf\Dompdf;
                     $html .= '<td>'.$val['descripcion'].'</td>';
                     $estado = $val["estado_prestamo"] == 0?"Pagado":"Pendiente";
                     $estado1 = $val["estado_prestamo"] == 1?"Pendiente":"Pagado";
-                    $estado3 = $val["estado_prestamo"] == 3?"Anulado":"Pendiente";
+                    $estado3 = $val["estado_prestamo"] == 3?"Condonado":"Pendiente";
 
 
                     // $html .= '<td>'.$value['valorTotal'].'</td>';
@@ -940,7 +929,7 @@ use Dompdf\Dompdf;
                     $html .= ' <button  title="Cambiar Estado" type="button" class="btn btn-danger btn-circle btn-md" data-toggle="modal" id="btnbotoncheck" onclick="cambiarestadoprestamo('.$val['id_prestamos'].',3 )"><i class="fa fa-refresh" aria-hidden="true"></i></button>';
                     $html .= '</td></tr>';
                   }else{
-
+                        $html .= ' <button type="button" onclick="traerDetalleAbonos('.$val["id_prestamos"].')" class="btn btn-primary btn-circle btn-md"   title="Ver Abonos"><i class="fa fa-eye" aria-hidden="true" ></i></button>';
                   }
               }
                     $cabecera = '<tr>';
@@ -991,7 +980,9 @@ use Dompdf\Dompdf;
                                 </a>';
                   }
                 }else{
-
+                  $html .= ' <a href="generarpdfDetalleAbonos?id='.$id_prestam.'" target="_blank" id="pdfDetalAbono">
+                              <button class="btn btn-primary btn-circle btn-md" name="btnPdfPagos" title="Generar Pdf"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></button>
+                              </a>';
                 }
 
                   if ($val["estado_abono"] == 0) {
@@ -1170,7 +1161,7 @@ use Dompdf\Dompdf;
       }
 
 	public function retornarAbono()
-      {
+ 	{
         $modelo = $this->loadModel("mdlEmpleados");
         $modelo->__SET('valor_abono',$_POST["valorAbono"]);
         $modelo->__SET('id_prestamos',$_POST["id_prestam"]);

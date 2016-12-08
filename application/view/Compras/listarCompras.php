@@ -5,7 +5,7 @@
     <div class="col-lg-12">
         <div class="panel panel-primary">
           <div class="panel-heading" stlyle="height: 70px; width: 100px">
-                <center><span style="text-align:center; color: #fff; margin-top: 10px; margin-bottom: 10px; font-size: 20px">Listar Entradas</span></center>
+                <center><span style="text-align:center; color: #fff; margin-top: 10px; margin-bottom: 10px; font-size: 16px"><b>LISTAR ENTRADAS</b></span></center>
           </div>
       <div class="panel-body">
         <div class="dataTable_wrapper">
@@ -71,7 +71,7 @@
             <div class="col-lg-12">
               <div class="panel panel-primary">
                   <div class="panel-heading" stlyle="height: 70px; width: 100px">
-                        <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 20px">Detalles de Entrada Número: <span id="codigoC"></span></center>
+                        <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 16px"><b>DETALLE DE ENTRADA CÓDIGO: <span id="codigoC"></span></b></center>
                   </div>
                 <div class="panel-body" id="panel_compras">
                   <h5><strong>Entrada realizada por: <span id="empleado"></span></strong></h5>

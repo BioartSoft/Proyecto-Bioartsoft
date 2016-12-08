@@ -5,7 +5,7 @@
     <div class="col-lg-12">
         <div class="panel panel-primary">
           <div class="panel-heading" stlyle="height: 70px; width: 100px">
-                <center><span style="text-align:center; color: #fff; margin-top: 10px; margin-bottom: 10px; font-size: 20px">Registrar Préstamos</span></center>
+                <center><span style="text-align:center; color: #fff; margin-top: 10px; margin-bottom: 10px; font-size: 16px"><b>REGISTRAR PRÉSTAMOS</b></span></center>
             </div>
             <div class="panel-body">
               <div class="dataTable_wrapper">
@@ -55,7 +55,7 @@
                 <input type="hidden"  id="estadoempleado">
                 <div class="panel panel-primary" style="margin-left: 2%; margin-right: 2%">
                     <div class="panel-heading" stlyle="height: 70px; width: 100px">
-                          <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 20px">Registrar Préstamo</span></center>
+                          <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 16px"><b>REGISTRAR PRÉSTAMO</b></span></center>
                     </div>
                     <div class="panel-body">
                       <div class="row">
@@ -79,30 +79,33 @@
                     </div>
                   </div>
 
-                  <?php $hoy = date("Y-m-d");
-                  $nuevafecha = strtotime ('+30 day' , strtotime($hoy)) ;
-                  $nuevafecha = date ('Y-m-d', $nuevafecha);
-                  ?>
-                  <?php $hoy2 = date("Y-m-d");
-                  $nuevafecha2 = strtotime ('+30 day' , strtotime($hoy2)) ;
-                  $nuevafecha2 = date ('Y-m-d', $nuevafecha2);
-                  ?>
                 <div class="col-xs-12 col-md-6" id="divFechapagolimite">
                   <label id="labelFechaLimite">Fecha Límite:</label>
-                      <div class="input-group date calendario" data-provide="datepicker">
-                        <input type="text" class="form-control pull-right" name="txtfechalimite" onchange="validarfe()" required="" id="Flimite" step="1"  value="<?php echo $nuevafecha ?>" format="yyyy-mm-dd" readonly="true">
-                        <div class="input-group-addon">
-                        <span class="glyphicon glyphicon-th"></span>
+                  <div class="">
+                    <div class="input-group date calendario" data-provide = "datepicker">
+                      <div class="input-group-addon" style="border-radius:5px;">
+                        <i class="fa fa-calendar"></i>
                       </div>
+                        <?php $hoy = date("Y-m-d");
+                            $nuevafecha = strtotime ('+30 day' , strtotime($hoy)) ;
+                            $nuevafecha = date ('Y-m-d', $nuevafecha);
+                        ?>
+                        <?php $hoy2 = date("Y-m-d");
+                            $nuevafecha2 = strtotime ('+30 day' , strtotime($hoy2)) ;
+                            $nuevafecha2 = date ('Y-m-d', $nuevafecha2);
+                        ?>
+                      <input type="text" class="form-control pull-right" name="txtfechalimite" onchange="validarfe()" required="" id="Flimite" style="border-radius:5px;" step="1"  value="<?php echo $nuevafecha ?>" format="yyyy-mm-dd" readonly="">
                     </div>
-                  <input type="hidden" value="<?php echo $nuevafecha2 ?>" format="yyyy-mm-dd" id="limite">
+                      <input type="hidden" value="<?php echo $nuevafecha2 ?>" format="yyyy-mm-dd" id="limite">
+                  </div>
                 </div>
               </div>
 
                 <div class="row">
                 <div class="col-xs-12 col-md-6" id="divvalorprestamo">
                   <br>
-                  <label>Valor Préstamo</label>
+                  <label>Valor Préstamo <span class="obligatorio">*</span></label>
+		  <input type="hidden" name="txtTope" value="1000000" id="tope">
                   <input type="number" min ="1000" id="valorpres" maxlength="8" name="txtvalorprestamo" size="4" class="form-control" data-parsley-type="integer" data-parsley-required="true">
                 </div>
                 <div class="col-xs-12 col-md-6" id="divdescripcion">
@@ -115,11 +118,11 @@
         </div>
 
         <div class="row">
-          <div class="col-xs-12 col-md-6 col-lg-9">
-            <button type="button" class="btn btn-secondary btn-md active pull-right" data-dismiss="modal" id="btncancelar" title="Cerrar"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
+          <div class="col-xs-12 col-md-3 col-lg-3" id="btnGuardarPrestamo" style="margin-left: 20%">
+            <button type="submit" class="btn btn-success btn-md active" name="btnRegistrarPrestamo" id="btnguardarPrestamo" title="Guardar"><i class="fa fa-floppy-o" aria-hidden="true">   Guardar</i> </button>
           </div>
-          <div class="col-xs-12 col-md-6 col-lg-3" id="btnGuardarPrestamo">
-            <button type="submit" class="btn btn-success btn-md active"  name="btnRegistrarPrestamo" id="btnguardarPrestamo" title="Guardar"><i class="fa fa-floppy-o" aria-hidden="true">   Guardar</i></button>
+          <div class="col-xs-12 col-md-3 col-lg-3">
+            <button type="button" class="btn btn-danger btn-md active" onclick="cancelarRegPrestamo()" style="margin-left: 70%" id="bcancelarRegPrest" title="Cancelar Registro"><i class="fa fa-times" aria-hidden="true">   Cancelar</i> </button>
           </div>
         </div>
 
@@ -233,6 +236,23 @@ function validarfe() {
   var felimite = $("#Flimite").val();
   var feli = $("#limite").val();
   var valorpre = $("#valorpres").val();
+  var tope = parseInt($("#tope").val());
+  var valor = parseInt($("#valorpres").val());
+  if (valor > tope) {
+    swal({
+      title: "Valor superior a 1.000.000",
+      type: "warning",
+      confirmButton: "#3CB371",
+      confirmButtonText: "btn-danger",
+      confirmButtonClass: "btn-danger",
+      confirmButtonText: "Aceptar",
+      closeOnConfirm: true,
+      },
+      function(isConfir){
+        $("#valorpres").val(10000);
+        });
+      return false;
+  };
   if (felimite < feli) {
     swal({
       title: "La fecha no puede ser menor a la fecha límite!",
@@ -255,4 +275,34 @@ function validarfe() {
     return true;
   }
 }
+
+    function cancelarRegPrestamo() {
+      swal({
+      title: "¿Realmente desea cancelar el registro?",
+      type: "warning",
+      confirmButton: "#3CB371",
+      confirmButtonText: "btn-danger",
+      cancelButtonText: "Cancelar",
+      showCancelButton: true,
+      confirmButtonClass: "btn-danger",
+      confirmButtonText: "Aceptar",
+      closeOnConfirm: false,
+
+      },
+    function(isConfir){
+        if (isConfir) {
+          swal({
+            title: "Registro cancelado!",
+            type: "error",
+            confirmButton: "#3CB371",
+            confirmButtonText: "Aceptar",
+            closeOnConfirm: false,
+            closeOnCancel: false
+          },
+          function(isConfir){
+            window.location.reload();
+          });
+        }
+        });
+    }
 </script>

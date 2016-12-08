@@ -5,7 +5,7 @@
       <div class="col-lg-12">
           <div class="panel panel-primary" >
               <div class="panel-heading" stlyle="height: 70px; width: 100px">
-                  <center><span style="color: #fff; margin-top: 10px; margin-bottom: 10px; font-size: 20px">Listar Usuarios/Empleados</span></center>
+                  <center><span style="color: #fff; margin-top: 10px; margin-bottom: 10px; font-size: 16px"><b>LISTAR USUARIOS EMPLEADOS</b></span></center>
               </div>
                 <div class="panel-body">
                   <div class="dataTable_wrapper">
@@ -72,13 +72,18 @@
                       </table>
                   </div>
                   <div class="row">
-                   <div class="col-sm-12">
-                     <center>
-                     <a href="<?= URL ?>Personas/generarpdfEmpleados" target="_blank">
-                       <button class="btn btn-primary"><i class="fa fa-file-pdf-o" aria-hidden="true">   Reporte PDF de Empleados</i></button>
-                     </a>
-                   </center>
-                   </div>
+                    <?php if($_SESSION['ROL'] == 1 || $_SESSION['ROL'] == 3): ?>
+                          <?php if($valor['estado'] == 1): ?>
+                       <div class="col-sm-12">
+                         <center>
+                         <a href="<?= URL ?>Personas/generarpdfEmpleados" target="_blank">
+                           <button class="btn btn-primary"><i class="fa fa-file-pdf-o" aria-hidden="true">   Reporte PDF de Empleados</i></button>
+                         </a>
+                       </center>
+                       </div>
+                 <?php else: ?>
+                 <?php endif; ?>
+                 <?php endif; ?>
                  </div>
                 </div>
               </div>
@@ -96,7 +101,7 @@
              <div class="col-lg-12">
                <div class="panel panel-primary">
                  <div class="panel-heading" stlyle="height: 70px; width: 100px">
-                       <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 20px">Modificar Usuarios/Empleados (obligatorios *) </center>
+                       <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 16px"><b>MODIFICAR EMPLEADOS USUARIOS (Obligatorios *)</b></center>
                  </div>
                <form method="POST"  id="form-2" role="form" action="<?= URL ?>Personas/listarPersonasEmpleados/<?= $persona['id_usuarios'] ?>" data-parsley-validate="">
                 <div class="modal-body">
@@ -106,6 +111,10 @@
                       <div class="col-md-6">
                         <label for="">Número de documento</label>
                         <input type="text" name="txtIdPersona" value="<?= $persona['id_persona'] ?>" style="width: 100%"class="form-control" id="campoId" readonly="true">
+                      </div>
+                      <div class="col-md-6">
+                        <label for="">Tipo de documento</label>
+                        <input type="text" name="txtTipocedula" value="<?= $persona['tipo_documento'] ?>" style="width: 100%"class="form-control" id="campoId1" readonly="true">
                       </div>
                   </div>
                   <br>
@@ -250,13 +259,13 @@
                         </div>
                         <br>
                          <div class="row">
-                           <div class="col-md-6 col-xs-12 col-lg-9">
-                           <button type="button"  tabindex="14" class="btn btn-secondary btn-md active pull-right" id="btnguardarP"  data-dismiss="modal"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
-                         </div>
-                         <div class="col-md-6 col-xs-12 col-lg-3">
+                         <div class="col-md-6 col-xs-12 col-lg-3" style="margin-left: 25%">
                            <button type="submit"  tabindex="15" name="btn-modificar" class="btn btn-success active btn-md" id="btn-modificar"><i class="fa fa-floppy-o" aria-hidden="true">   Modificar</i></button>
                            <input type="hidden" tabindex="16">
                          </div>
+                         <div class="col-xs-5 col-md-3">
+                          <button type="button" class="btn btn-danger btn-md active" onclick="cancelarMod()" style="float: right;" id="btnguardarP" title="Cancelar Registro"><i class="fa fa-times" aria-hidden="true">   Cancelar</i> </button>
+                        </div>
                        </div>
                        <br>
                        </form>
@@ -303,7 +312,7 @@
                     <div class="col-md-12">
                       <div class="panel panel-primary" >
                           <div class="panel-heading" stlyle="height: 70px; width: 100px">
-                            <center><span style="color: #fff; font-size: 20px" id="myModalLabel">Detalles de: <?php echo $persona['id_persona']." - ".$persona['nombres'].' '.$persona['apellidos']?></span></center>
+                            <center><span style="color: #fff; font-size: 16px; text-transform: uppercase; " id="myModalLabel"><b>DETALLE DE:  C.C: <?php echo $persona['id_persona']." - ".$persona['nombres'].' '.$persona['apellidos']?></b></span></center>
                           </div>
                             <div class="panel-body">
                               <div class="dataTable_wrapper">
@@ -375,7 +384,7 @@
                 <div class="row">
                     <div class="panel panel-primary" style="margin-left: 2%; margin-right: 2%">
                       <div class="panel-heading" stlyle="height: 70px; width: 100px">
-                        <center><span style="color: #fff; font-size: 20px" id="myModalLabel">Cambiar contraseña de <?= $persona['nombres'].' '.$persona['apellidos']?></span></center>
+                        <center><span style="color: #fff; font-size: 16px; text-transform: uppercase; " id="myModalLabel"><b>CAMBIAR CONTRASEÑA DE: <?= $persona['nombres'].' '.$persona['apellidos']?></b></span></center>
                       </div>
 
                       <div class="panel-body">
@@ -664,5 +673,35 @@ function(isConfirm){
             })
           }
   });
+
+  function  cancelarMod() {
+    swal({
+    title: "¿Cancelar la modificación?",
+    type: "warning",
+    confirmButton: "#3CB371",
+    confirmButtonText: "btn-danger",
+    cancelButtonText: "Cancelar",
+    showCancelButton: true,
+    confirmButtonClass: "btn-danger",
+    confirmButtonText: "Aceptar",
+    closeOnConfirm: false,
+
+    },
+  function(isConfir){
+      if (isConfir) {
+        swal({
+          title: "Modificación cancelada!",
+          type: "error",
+          confirmButton: "#3CB371",
+          confirmButtonText: "Aceptar",
+          closeOnConfirm: false,
+          closeOnCancel: false
+        },
+        function(isConfir){
+          window.location= url + 'Personas/listarPersonasEmpleados';
+        });
+      }
+      });
+  }
 
 </script>

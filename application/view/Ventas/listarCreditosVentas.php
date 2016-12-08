@@ -10,7 +10,7 @@
 <div class="col-lg-12">
   <div class="panel panel-primary">
   <div class="panel-heading" stlyle="height: 70px; width: 100px">
-      <center><span style="text-align:center; color: #fff; margin-top: 10px; margin-bottom: 10px; font-size: 20px">Listar Créditos Ventas</span></center>
+      <center><span style="text-align:center; color: #fff; margin-top: 10px; margin-bottom: 10px; font-size: 16px"><b>LISTAR CRÉDITOS VENTAS</b></span></center>
   </div>
     <div class="panel-body">
       <div class="dataTable_wrapper">
@@ -70,7 +70,7 @@
      <?php endif; ?>
 
 
-     <div class="modal fade" id="modal_reporte_creditos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static" style="display:none" style="width: 50px" action="<?= URL ?>Compras/registrarCompra">
+     <div class="modal fade" id="modal_reporte_creditos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static" style="display:none" action="<?= URL ?>Compras/registrarCompra">
         <div class="modal-dialog" role="document">
             <div class="modal-content" style="width: 800px">
               <div class="modal-body">
@@ -78,9 +78,9 @@
                  <div class="col-lg-12">
                    <div class="panel panel-primary">
                        <div class="panel-heading" stlyle="height: 70px; width: 100px">
-                             <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 20px">Reporte de Créditos</center>
+                             <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 20px">REPORTE CRÉDITOS</center>
                        </div>
-                     <div class="panel-body" id="panel_compras">
+                     <div class="panel-body">
                        <form id="formPdfCompras" action="<?= URL ?>Ventas/generarpdfCreditos" method="post" data-parsley-validate="" target="_blank">
                        <div class="row">
                          <br>
@@ -148,7 +148,7 @@
                     <div class="col-md-12">
                       <div class="panel panel-primary">
                         <div class="panel-heading" stlyle="height: 70px; width: 100px">
-                            <center><span id="creditosClientModal" style="text-align:center; color: #fff; font-size: 20px">Detalles de Crédito de: <span id="cliente"></span> </center>
+                            <center><span id="creditosClientModal" style="text-align:center; color: #fff; font-size: 16px; text-transform: uppercase;"><b>DETALLES CRÉDITO DE: <span id="cliente"></b></span> </center>
                         </div>
                         <div class="panel-body">
                           <div class="dataTable_wrapper">
@@ -176,7 +176,7 @@
                     <div class="col-md-12">
                       <div class="panel panel-primary" >
                         <div class="panel-heading" stlyle="height: 70px; width: 100px">
-                            <center><span id="creditosClientModal" style="text-align:center; color: #fff; font-size: 20px">Detalles Abonos de: <span id="cliente-DetallesAbonos"><span></center>
+                            <center><span id="creditosClientModal" style="text-align:center; color: #fff; font-size: 16px; text-transform: uppercase;"><b>DETALLES ABONO DE: <span id="cliente-DetallesAbonos"><span></b></center>
                         </div>
                         <div class="panel-body" id="panelAb">
                           <div class="dataTable_wrapper">
@@ -197,7 +197,7 @@
                 <div class="col-xs-12 col-md-8">
                 <button type="button" class="btn btn-secondary btn-active"  data-dismiss="modal" style="margin-left:80%" onclick="abrirmodal()"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
               </div>
-            <?php if($_SESSION['ROL'] == 1 || $_SESSION['ROL'] == 3): ?>
+            <!-- <?php if($_SESSION['ROL'] == 1 || $_SESSION['ROL'] == 3): ?>
                 <div class="col-md-2">
                   <a href="<?= URL ?>Ventas/generarpdfDetalleAbonos" target="_blank" id="pdfDeta">
                     <button class="btn btn-primary" name="btnComprasD"><i class="fa fa-file-pdf-o" aria-hidden="true">   Recibo de Abono</i></button>
@@ -205,9 +205,9 @@
                 </div>
             <?php else: ?>
 
-            <?php endif; ?>
+            <?php endif; ?> -->
               </div>
-              <br><br>
+              <br>
           </div>
         </div>
       </div>
@@ -223,7 +223,7 @@
 
                       <div class="panel panel-primary" style="margin-left: 2%; margin-right: 2%">
                           <div class="panel-heading" stlyle="height: 70px; width: 100px">
-                              <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 20px">Abono a Créditos de: <span id="cliente-abonos"></span></center>
+                              <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 16px; text-transform: uppercase;"><b>ABONO A CRÉDITOS DE: <span id="cliente-abonos"></span></b></center>
                           </div>
 
                           <div class="panel-body">
@@ -273,7 +273,7 @@
                   <div class="col-md-12">
                     <div class="panel panel-primary">
                       <div class="panel-heading" stlyle="height: 70px; width: 100px">
-                          <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 20px"> Modificar Fecha Límite Crédito<span id=""></span></center>
+                          <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 16px"><b> MODIFICAR FECHA LÍMITE CRÉDITO<span id=""></span></b></center>
                       </div>
                     <div class="panel-body">
                       <input type="hidden" name="txthiddenCredito" id="idCredito">

@@ -5,7 +5,7 @@
   <div class="col-lg-12">
     <div class="panel panel-primary">
     <div class="panel-heading" stlyle="height: 70px; width: 100px">
-        <center><span style="text-align:center; color: #fff; margin-top: 10px; margin-bottom: 10px; font-size: 20px">Listar Pagos</span></center>
+        <center><span style="text-align:center; color: #fff; margin-top: 10px; margin-bottom: 10px; font-size: 16px"><b>LISTAR PAGOS</b></span></center>
     </div>
       <div class="panel-body">
         <div class="dataTable_wrapper">
@@ -41,7 +41,7 @@
                           <div class="col-md-12">
                             <div class="panel panel-primary" >
                             <div class="panel-heading" stlyle="height: 70px; width: 100px">
-                                  <center><span style="text-align:center; color: #fff; font-size: 20px">Detalles de Pago de: <span id="empleadoId"></span> - <span id="empleado"></span></center>
+                                  <center><span style="text-align:center; color: #fff; font-size: 16px; text-transform: uppercase; "><b>DETALLES DE PAGO DE: C.C <span id="empleadoId"></span> - <span id="empleado"></span></b></center>
                               </div>
                               <div class="panel-body">
                                 <div class="dataTable_wrapper">
@@ -55,6 +55,7 @@
                             </div>
                           </div>
                         </div>
+                        <!-- <input type="text" name="" id="empleadoId2"> -->
                         <div class="row">
                           <div class="col-md-6 col-xs-12 col-lg-11">
                           <button type="button" class="btn btn-secondary btn-active pull-right"  data-dismiss="modal"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
@@ -91,9 +92,9 @@
 
   <script type="text/javascript">
     function traerDetallePagos(id) {
-      var enlace = $("#pdfDetalPagos");
-      var nUrl = '<?= URL ?>Empleados/generarpdfPagos?id=' + id;
-      enlace.attr("href", nUrl);
+      // var enlace = $("#pdfDetalPagos");
+      // var nUrl = '<?= URL ?>Empleados/generarpdfPagos?id=' + id;
+      // enlace.attr("href", nUrl);
 
       traerNombreEmpleado(id);
 
@@ -128,9 +129,11 @@
     }
   </script>
   <script type="text/javascript">
-    function cambiarestado(cod, est, iden, tipo){
-      if (tipo == "Pago Final") {
+    function cambiarestado(cod, est, iden, idabono, idprestamo, tipo){
+      if (tipo == "Pago Final"){
         cambiarEstadoAlAnularLiquidacion(iden);
+        cambiarestadoabonoDesdeLiquidacion(idabono,0);
+        cambiarEstadoPrestamoDesdeLiquidacion(idprestamo,0);
       };
       swal({
         title: "¿Realmente desea anular el pago?",
@@ -174,7 +177,6 @@
         }
         });
 }
-
   </script>
 
 
@@ -190,6 +192,7 @@
     }).done(function(respuesta){
       $("#empleado").text(respuesta.html);
       $("#empleadoId").text(respuesta.id);
+      $("#empleadoId2").val(respuesta.id);
 
     });
   }
@@ -203,5 +206,28 @@
     })
     .done(function() {
     });
+  }
+
+  function cambiarestadoabonoDesdeLiquidacion(idpres, est)
+  {
+      $.ajax({
+          url: url+'Empleados/modificarestadoAbonos',
+          type: 'post',
+          dataType: 'json',
+          data: {id:idpres, estado:est},
+        })
+        .done(function() {
+        });        
+  }
+
+  function cambiarEstadoPrestamoDesdeLiquidacion(cod, est){
+    $.ajax({
+      dataType:'json',
+      type:'post',
+      url:url+"Empleados/modificarestadoPrestamo",
+      data:{id:cod, estado:est}
+    }).done(function(respuesta){
+  
+    })
   }
   </script>

@@ -8,7 +8,7 @@
             <div class="col-md-12">
               <div class="panel panel-primary" >
               <div class="panel-heading" stlyle="height: 70px; width: 100px">
-                    <center><span style="text-align:center; color: #fff; font-size: 20px">BIOARTSOFT</span></center>
+                    <center><span style="text-align:center; color: #fff; font-size: 16px"><b>BIOARTSOFT</b></span></center>
                 </div>
                 <div class="panel-body">
                   <p>&copy; SENA. Todos los derechos reservados</p>
@@ -39,12 +39,11 @@
     <div class="modal-dialog modal-lg" role="document" style="width: 50% !important">
       <div class="modal-content">
         <div class="modal-body">
-          <form class="" action="" method="post">
             <div class="row">
               <div class="col-md-12">
                 <div class="panel panel-primary" >
                 <div class="panel-heading" stlyle="height: 70px; width: 100px">
-                      <center><span style="text-align:center; color: #fff; font-size: 20px">GANANCIAS</span></center>
+                      <center><span style="text-align:center; color: #fff; font-size: 16px"><b>GANANCIAS</b></span></center>
                   </div>
                   <div class="panel-body">
                     <form id="formGanancias" action="<?= URL ?>Ventas/reporteGanancias" method="post" data-parsley-validate="">
@@ -111,7 +110,7 @@
              <div class="col-md-12">
                <div class="panel panel-primary" >
                  <div class="panel-heading" stlyle="height: 70px; width: 100px">
-                   <center><span style="color: #fff; font-size: 20px" id="myModalLabel">Detalles Promedio de Ganancias</span></center>
+                   <center><span style="color: #fff; font-size: 20px" id="myModalLabel">DETALLES PROMEDIO GANANCIAS</span></center>
                  </div>
                  <div class="panel-body">
                    <div class="dataTable_wrapper">
@@ -203,7 +202,7 @@
   <script type="text/javascript">
   $("#txtfechafinal1").change(function(){
     var valor3 = $('#txtfechafinal1').val();
-    var valor4= $('#txtfechafinal2').val();
+    var valor4 = $('#txtfechafinal2').val();
     if(valor3 > valor4)
     {
       swal({
@@ -361,7 +360,7 @@ function abrirModal(){
                       $("#btnGuardartempo").hide();
                       // $("#divvalorpenditeprestamo").hide();
                       $("#divvalorultipago").hide();
-                      // $("#divvalorprimaservicios").hide();
+                      $("#divvalorprimaservicios").hide();
                       var datee = fechaactual2;
                       var elemm = datee.split('-');
                       var yearr = elemm[0];
@@ -429,8 +428,7 @@ function abrirModal(){
               data: {identidad: identidad},
             })
             .done(function(respuesta) {
-              if(respuesta.v != null && respuesta.v == 2){
-                  // alert("No se puede");
+              if(respuesta.v != null && respuesta.v == 1){
                   mensaje5();
                   setTimeout(function(){
 
@@ -540,7 +538,7 @@ function abrirModal(){
       function cancelarregiconfiguracion() {
 
               swal({
-      title: "Los datos del registro no se guardaran",
+      title: "¿Realmente desea cancelar el registro?",
       type: "warning",
       confirmButton: "#3CB371",
       confirmButtonText: "btn-danger",
@@ -554,7 +552,7 @@ function abrirModal(){
     function(isConfir){
         if (isConfir) {
           swal({
-            title: "Registro de configuración cancelado!",
+            title: "Registro cancelado!",
             type: "error",
             confirmButton: "#3CB371",
             confirmButtonText: "Aceptar",

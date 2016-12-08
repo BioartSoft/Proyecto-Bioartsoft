@@ -23,7 +23,10 @@
   Empleado: <strong><?= ucwords($val['empleado']) ?></strong><br>
   Identificación: <strong><?= $val['id_persona'] ?></strong><br>
   Tipo Empleado: <strong><?= $val['Tbl_nombre_tipo_persona'] ?></strong><br>
+  <?php if($val['Tbl_nombre_tipo_persona'] == "Empleado-fijo"): ?>
   Tiempo Pago: <strong><?= $val['tipo_pago'] == "Pago Normal"?"Quincenal":"Anual" ?></strong><br>
+<?php else: ?>
+<?php endif; ?>
   <br>
   ------------------------------------------------------------------------------
   ------------------------------------------------------------------------------
@@ -37,17 +40,21 @@
     <thead>
       <tr>
         <th>Concepto</th>
-        <?php if($val['tipo_pago'] == "Pago Final"): ?>
+        <?php if($val['tipo_pago'] == "Pago Final" && $val['Tbl_nombre_tipo_persona'] == "Empleado-fijo"): ?>
         <th>Valor Ventas</th>
         <th>Valor Comisión</th>
         <th>Vacaciones</th>
         <th>Cesantías</th>
         <th>Prima</th>
-      <?php else: ?>
+      <?php elseif($val['tipo_pago'] == "Pago Normal" && $val['Tbl_nombre_tipo_persona'] == "Empleado-fijo"): ?>
         <th>Valor Día</th>
         <th>Valor en Ventas</th>
         <th>Valor Comisión</th>
-      <?php endif; ?>
+      <?php elseif($val['tipo_pago'] == "Pago Normal" && $val['Tbl_nombre_tipo_persona'] == "Empleado-temporal"): ?>
+      <th>Cantidad Días</th>
+      <th>Valor Día</th>
+
+    <?php endif; ?>
       </tr>
     </thead>
     <tbody>

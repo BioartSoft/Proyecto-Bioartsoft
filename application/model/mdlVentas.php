@@ -74,8 +74,9 @@ class mdlVentas
 
 
     public function ultimoIdAbono(){
-        $sql = "SELECT max(idabono) as ultimo_id FROM tbl_abono_ventas";
+        $sql = "SELECT max(idabono) as ultimo_id FROM tbl_abono_ventas WHERE Tbl_Ventas_idventas = ?";
         $stm = $this->db->prepare($sql);
+        $stm->bindParam(1, $this->codigo_venta);
         $stm ->execute();
         return $stm->fetch(PDO::FETCH_ASSOC);
     }
@@ -292,6 +293,15 @@ class mdlVentas
 
   public function pdfDetallesAbono($id){
     $sql = "CALL SP_Pdf_Detalles_Abono(?)";
+    $stm = $this->db->prepare($sql);
+    $stm->bindParam(1, $id);
+    $stm->execute();
+    return $stm->fetchAll(2);
+  }
+
+
+  public function pdfDetallesAbono2($id){
+    $sql = "CALL SP_Pdf_Detalles_Abono2(?)";
     $stm = $this->db->prepare($sql);
     $stm->bindParam(1, $id);
     $stm->execute();
