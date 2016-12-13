@@ -6,7 +6,7 @@
     <div class="col-lg-12">
         <div class="panel panel-primary">
             <div class="panel-heading" stlyle="height: 70px; width: 100px">
-              <center> <span style="color: #fff; margin-top: 10px; margin-bottom: 10px; font-size: 16px"><b>LISTAR PRODUCTOS</b></span></center>
+              <center> <span style="color: #fff; margin-top: 10px; margin-bottom: 10px; font-size: 18px"><strong>Listar productos</strong></span></center>
             </div>
       <div class="panel-body">
         <div class="dataTable_wrapper">
@@ -91,17 +91,10 @@
 </div>
 <div class="row">
 <div class="col-sm-2"></div>
-  <!-- <div class="col-sm-4">
-    <center>
-    <a href="<?= URL ?>producto/generarPdfCodigoProductos" target="_blank">
-      <button class="btn btn-primary"><i class="fa fa-barcode" aria-hidden="true">   Generar Todos los códigos</i></button>
-    </a>
-  </center>
-  </div> -->
   <?php foreach ($abrirpro as $values) :  ?>
   <?php if($_SESSION['ROL'] == 1 || $_SESSION['ROL'] == 3): ?>
     <?php if($values['estado'] == 1): ?>
-  <div class="col-sm-4">
+  <div class="col-sm-4 col-xs-12 col-lg-8">
     <center>
     <a href="<?= URL ?>producto/informefproducto" target="_blank">
       <button class="btn btn-primary"><i class="fa fa-file-pdf-o" aria-hidden="true">   Reporte PDF Productos</i></button>
@@ -124,12 +117,15 @@
                   <div class="modal-dialog" role="document">
                     <div class="modal-content">
                       <div class="modal-body">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
                       <div class="modal-header">
                         <div class="row">
                           <div class="col-lg-12">
                             <div class="panel panel-primary">
                               <div class="panel-heading">
-                                    <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 16px"><b>MODIFICAR PRODUCTO (Obligatorios *)</b> </center>
+                                    <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 18px"><strong>Modificar Producto (Obligatorios *)</strong></center>
                               </div>
                    <div class="modal-body">
                        <div class="row">
@@ -229,7 +225,7 @@
   <div class="col-lg-12">
     <div class="panel panel-primary">
         <div class="panel-heading" stlyle="height: 70px; width: 100px">
-            <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 16px"><b>DETALLE DE: </b><b><span id="producto" style="text-transform: uppercase; "></span> - CÓDIGO: <span id="producto3"></span></b></center>
+            <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 18px"><strong>Detalle de: </strong><strong><span id="producto"></span> - Código: <span id="producto3"></span></strong></center>
         </div>
       <div class="panel-body">
         <div class="dataTable_wrapper">
@@ -269,7 +265,7 @@
               <div class="col-lg-12">
                 <div class="panel panel-primary">
                     <div class="panel-heading" stlyle="height: 70px; width: 100px">
-                        <center><span id="myModalLabel" style= "text-align:center; color: #fff; font-size: 16px; text-transform: uppercase; "><b>PRODUCTO: <span id="producto2"> </span> - CÓDIGO: <span id="productoid"> </span></span></b></center>
+                        <center><span id="myModalLabel" style= "text-align:center; color: #fff; font-size: 18px"><strong>Producto: <span id="producto2"> </span> - Código: <span id="productoid"> </span></span></strong></center>
                     </div>
                   <div class="panel-body">
                     <div class="dataTable_wrapper">
@@ -410,9 +406,9 @@ function traerDetallesProducto(id){
 
 <script type="text/javascript">
   function validarPreciosModificacion(){
-    var precioUnit = $("#txtpreciocompra").val();
-    var precioDet = $("#txtprecioventa").val();
-    var precioMay = $("#txtprecioalpormayor").val();
+    var precioUnit = parseInt($("#txtpreciocompra").val());
+    var precioDet = parseInt($("#txtprecioventa").val());
+    var precioMay = parseInt($("#txtprecioalpormayor").val());
 
     if((precioUnit >  precioDet && precioUnit > precioMay) || precioDet < precioMay || precioMay < precioUnit){
       swal({

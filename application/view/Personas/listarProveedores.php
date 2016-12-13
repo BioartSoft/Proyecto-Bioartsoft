@@ -5,7 +5,7 @@
     <div class="col-lg-12">
         <div class="panel panel-primary" >
               <div class="panel-heading" stlyle="height: 70px; width: 100px">
-                  <center><span style="color: #fff; margin-top: 10px; margin-bottom: 10px; font-size: 16px"><b>LISTAR PROVEEDORES</b></span></center>
+                  <center><span style="color: #fff; margin-top: 10px; margin-bottom: 10px; font-size: 18px"><strong>Listar Proveedores</strong></span></center>
               </div>
               <div class="panel-body">
                 <div class="dataTable_wrapper">
@@ -88,7 +88,6 @@
     </div>
   </div>
 </div>
-<!-- </form> -->
 
 <?php if ($id!= "" && $tipo == 1): ?>
 
@@ -96,12 +95,15 @@
    <div class="modal-dialog" role="document">
      <div class="modal-content">
        <div class="modal-body">
+         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+           <span aria-hidden="true">&times;</span>
+         </button>
        <div class="modal-header">
          <div class="row">
            <div class="col-lg-12">
              <div class="panel panel-primary">
                <div class="panel-heading" stlyle="height: 70px; width: 100px">
-                     <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 16px"><b>MODIFICAR PROVEEDOR (Obligatorios *)</b></center>
+                     <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 18px"><strong>Modificar Proveedor (Obligatorios *)</strong></center>
                </div>
              <form method="POST"  id="form-2" role="form" action="<?= URL ?>Personas/listarProveedores/<?= $proveedor['id_persona'] ?>" data-parsley-validate="">
               <div class="modal-body">
@@ -201,7 +203,7 @@
                       <div class="row">
                                   <div class="" style="display: none" id="div-titulo">
                                     <center>
-                                      <h4 class="modal-title"  style="color: #337AB7" id="ftitulo"><b>DATOS DE EMPRESA A INGRESAR</b></h4>
+                                      <h4 class="modal-title"  style="color: #337AB7" id="ftitulo"><b>Datos de Empresa a Ingresar</b></h4>
                                     </center>
 
                                   </div>
@@ -266,7 +268,7 @@
                   <div class="col-md-12">
                     <div class="panel panel-primary" >
                         <div class="panel-heading" stlyle="height: 70px; width: 100px">
-                            <center><span style="color: #fff; font-size: 16px;text-transform: uppercase; " id="myModalLabel"><b>DETALLES DE: C.C: <?php echo $proveedor['id_persona']." - ".$proveedor['nombres'].' '.$proveedor['apellidos']?></b></span></center>
+                            <center><span style="color: #fff; font-size: 18px" id="myModalLabel"><strong>Detalle de: <?= $proveedor['tipo_documento'] == "Cédula"? "C.C" : "C.E"  ?>: <?php echo $proveedor['id_persona']." - ".$proveedor['nombres'].' '.$proveedor['apellidos']?></strong></span></center>
                         </div>
                           <div class="panel-body">
                             <div class="dataTable_wrapper">

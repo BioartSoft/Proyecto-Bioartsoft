@@ -890,6 +890,7 @@ use Dompdf\Dompdf;
                     $valorpres = $val['valor_prestamo'];
                   $valorPen = $valorpres - $abono;
                   $html .= '<tr>';
+                  $html .= '<td>'.$val['tipo_documento'].'</td>';
                   $html .= '<td>'.$val['id_persona'].'</td>';
                   $html .= '<td>'.$val['fecha_prestamo'].'</td>';
 
@@ -933,7 +934,8 @@ use Dompdf\Dompdf;
                   }
               }
                     $cabecera = '<tr>';
-                    $cabecera .= '<th>'.'Identidad'.'</th>';
+                    $cabecera .= '<th>'.'Tipo de Documento'.'</th>';
+                    $cabecera .= '<th>'.'Identificación'.'</th>';
                     $cabecera .= '<th>'.'Fecha Préstamo'.'</th>';
                     $cabecera .= '<th>'.'Fecha Límite'.'</th>';
                     $cabecera .= '<th>'.'Valor del Préstamo'.'</th>';
@@ -957,6 +959,8 @@ use Dompdf\Dompdf;
         $modelo = $this->loadModel("mdlEmpleados");
         $detalle = $modelo->ListarAbonos($_POST["id_prestamos"]);
         $id_prestam = $_POST["id_prestamos"];
+        $ultimoAbono = $modelo->traerUltimoAbono($_POST["id_prestamos"]);
+
           $html = "";
               foreach ($detalle as $val) {
                 $html .= '<tr>';
@@ -975,14 +979,20 @@ use Dompdf\Dompdf;
                   if($val['fecha_abono'] == $fechaActual){
                   if ($val["estado_abono"] == 1) {
                     $html .= ' <button  title="Anular" type="button" class="btn btn-success btn-circle btn-md" data-toggle="modal" id="btnbotoncheck" onclick="cambiarestadoabono('.$val["idTbl_Abono_Prestamo"].',0); devolverAbono('.$val['valor'].','.$id_prestam.');"><i class="fa fa-check" aria-hidden="true"></i></button>';
-                    $html .= ' <a href="generarpdfDetalleAbonos?id='.$id_prestam.'" target="_blank" id="pdfDetalAbono">
-                                <button class="btn btn-primary btn-circle btn-md" name="btnPdfPagos" title="Generar Pdf"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></button>
-                                </a>';
+                    if($val['idTbl_Abono_Prestamo'] == $ultimoAbono['ultimo']){
+                      $html .= ' <a href="generarpdfDetalleAbonos?id='.$id_prestam.'" target="_blank" id="pdfDetalAbono">
+                      <button class="btn btn-primary btn-circle btn-md" name="btnPdfPagos" title="Generar Pdf"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></button>
+                      </a>';
+                    }else{
+
+                    }
                   }
                 }else{
+                    if($val['idTbl_Abono_Prestamo'] == $ultimoAbono['ultimo']){
                   $html .= ' <a href="generarpdfDetalleAbonos?id='.$id_prestam.'" target="_blank" id="pdfDetalAbono">
                               <button class="btn btn-primary btn-circle btn-md" name="btnPdfPagos" title="Generar Pdf"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></button>
                               </a>';
+                }
                 }
 
                   if ($val["estado_abono"] == 0) {

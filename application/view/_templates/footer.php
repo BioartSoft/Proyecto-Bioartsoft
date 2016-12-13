@@ -8,7 +8,7 @@
             <div class="col-md-12">
               <div class="panel panel-primary" >
               <div class="panel-heading" stlyle="height: 70px; width: 100px">
-                    <center><span style="text-align:center; color: #fff; font-size: 16px"><b>BIOARTSOFT</b></span></center>
+                    <center><span style="text-align:center; color: #fff; font-size: 18px"><b>BIOARTSOFT</b></span></center>
                 </div>
                 <div class="panel-body">
                   <p>&copy; SENA. Todos los derechos reservados</p>
@@ -43,7 +43,7 @@
               <div class="col-md-12">
                 <div class="panel panel-primary" >
                 <div class="panel-heading" stlyle="height: 70px; width: 100px">
-                      <center><span style="text-align:center; color: #fff; font-size: 16px"><b>GANANCIAS</b></span></center>
+                      <center><span style="text-align:center; color: #fff; font-size: 18px"><strong>Ganancias</strong></span></center>
                   </div>
                   <div class="panel-body">
                     <form id="formGanancias" action="<?= URL ?>Ventas/reporteGanancias" method="post" data-parsley-validate="">
@@ -110,7 +110,7 @@
              <div class="col-md-12">
                <div class="panel panel-primary" >
                  <div class="panel-heading" stlyle="height: 70px; width: 100px">
-                   <center><span style="color: #fff; font-size: 20px" id="myModalLabel">DETALLES PROMEDIO GANANCIAS</span></center>
+                   <center><span style="color: #fff; font-size: 18px" id="myModalLabel"><strong>Detalle Promedio Ganancias</strong></span></center>
                  </div>
                  <div class="panel-body">
                    <div class="dataTable_wrapper">

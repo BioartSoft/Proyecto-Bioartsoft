@@ -93,6 +93,17 @@
 		}
 
 
+		public function traerUltimoAbono($id)
+		{
+			$sql = "CALL SP_Ultimo_Abono_Prestamo_Recibo(?)";
+
+			$stm= $this->db->prepare($sql);
+			$stm->bindParam(1, $id);
+			$stm->execute();
+			return $stm->fetch(2);
+		}
+
+
 		public function pdfDetallesAbono($id){
 	    $sql = "CALL SP_Pdf_Detalles_Abono_Prestamo(?)";
 	    $stm = $this->db->prepare($sql);

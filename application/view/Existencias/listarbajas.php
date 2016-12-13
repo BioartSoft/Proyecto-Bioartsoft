@@ -7,7 +7,7 @@
     <div class="col-lg-12">
         <div class="panel panel-primary">
           <div class="panel-heading" stlyle="height: 70px; width: 100px">
-            <center><span style="text-align:center; color: #fff; margin-top: 10px; margin-bottom: 10px; font-size: 16px"><b>LISTAR BAJAS</b></span></center>
+            <center><span style="text-align:center; color: #fff; margin-top: 10px; margin-bottom: 10px; font-size: 18px"><strong>Listar Bajas</strong></span></center>
           </div>
             <div class="panel-body">
                 <div class="dataTable_wrapper">
@@ -81,7 +81,7 @@
               <div class="col-lg-12">
                 <div class="panel panel-primary">
                   <div class="panel-heading" stlyle="height: 70px; width: 100px">
-                      <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 16px"><b>DETALLE DE BAJA CÓDIGO: <span id="baja"><span></b></center>
+                      <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 18px"><strong>Detalle de Baja Código: <span id="baja"><span></strong></center>
                   </div>
                   <div class="panel-body">
                     <div class="dataTable_wrapper">
@@ -119,7 +119,7 @@
                   <div class="col-lg-12">
                     <div class="panel panel-primary">
                       <div class="panel-heading" stlyle="height: 70px; width: 100px">
-                          <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 20px">REPORTE BAJAS</center>
+                          <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 18px"><strong>Reporte Bajas</strong></center>
                       </div>
                       <div class="panel-body">
                         <form id="formPdfBajas" action="<?= URL ?>producto/pdfBajas" method="post" data-parsley-validate="" target="_blank">

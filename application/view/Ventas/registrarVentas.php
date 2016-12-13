@@ -3,7 +3,7 @@
   <br><br>
   <div class="panel panel-primary" style="margin-top: 5px">
     <div class="panel-heading" stlyle="height: 70px; width: 100px">
-      <center><span style="color: #FFF; margin-top: 10px; margin-bottom: 10px; font-size: 16px"><b>REGISTRAR VENTAS</b></span></center>
+      <center><span style="color: #FFF; margin-top: 10px; margin-bottom: 10px; font-size: 18px"><strong>Registrar Ventas</strong></span></center>
     </div>
    <div class="row">
     <br>
@@ -12,7 +12,7 @@
        <div class="col-md-5">
         <div class="panel panel-primary">
           <div class="panel-heading">
-            <h3 class="panel-title"><strong>CLIENTE</strong></h3>
+            <h3 class="panel-title"><strong>Cliente</strong></h3>
           </div>
           <div class="panel-body" id="cliente">
               <div class="form-group">
@@ -33,7 +33,7 @@
           </div>
 
       <div class="panel-heading">
-        <h3 class="panel-title"><strong>PRODUCTO</strong></h3>
+        <h3 class="panel-title"><strong>Producto</strong></h3>
       </div>
       <div class="panel-body" id="panel"  style="height: 280px">
           <div class="form-group" id="productos">
@@ -82,7 +82,7 @@
   <div class="col-md-7">
     <div class="panel panel-primary detVenta">
       <div class="panel-heading">
-        <h3 class="panel-title"><strong>DETALLE VENTA</strong></h3>
+        <h3 class="panel-title"><strong>Detalle Venta</strong></h3>
       </div>
       <div class="panel-body" id="detalleV">
         Seleccione para agregar
@@ -152,12 +152,15 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-body">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         <div class="modal-header">
           <div class="row">
             <div class="col-lg-12">
               <div class="panel panel-primary">
                 <div class="panel-heading" stlyle="height: 70px; width: 100px">
-                      <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 20px">REGISTRAR CLIENTE (Obligatorios *) </center>
+                      <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 18px"><strong>Registrar Cliente (Obligatorios *)</strong></center>
                 </div>
                <div class="modal-body">
                  <div class="row">
@@ -176,7 +179,6 @@
                            <option value="">Seleccionar tipo de documento</option>
                            <option value="Cedula">Cédula</option>
                            <option value="Cédula_Extranjera">Documento de  Extranjería</option>
-                           <option value="Otro">Otro</option>
                        </select>
                      </div>
                       <div class="col-md-4">
@@ -218,12 +220,12 @@
                  <br>
                </div>
                <div class="row">
-                  <div class="col-md-6 col-xs-12 col-lg-9">
-                    <button type="button" class="btn btn-secondary active pull-right" data-dismiss="modal"><i class="fa fa-remove" aria-hidden="true">  Cerrar</i></button>
+                 <div class="col-md-6 col-xs-12 col-lg-6">
+                   <button type="button" name="btnGuardarPersona" id="btn-guardar" class="btn btn-success active pull-right" onclick="registrarCliente()"><i class="fa fa-floppy-o" aria-hidden="true">  Guardar</i></button>
                  </div>
                  <div class="col-md-6 col-xs-12 col-lg-3">
-                   <button type="button" name="btnGuardarPersona" id="btn-guardar" class="btn btn-success active" onclick="registrarCliente()"><i class="fa fa-floppy-o" aria-hidden="true">  Guardar</i></button>
-                 </div>
+                   <button type="button" class="btn btn-danger active" onclick="cancelarRegistro()"><i class="fa fa-remove" aria-hidden="true">  Cancelar</i></button>
+                </div>
                </div>
               </div>
             </div>
@@ -318,7 +320,7 @@
 
    $("body").attr("tabindex", "10");
 
-   $("#ddlproveedor").change(function(){
+   $("#ddlcliente").change(function(){
      setTimeout(function(){
        $("body").focus();
      }, 200);
@@ -381,17 +383,17 @@
 
          var desMin = parseInt($("#vlr-min").val());
          var desMax = parseInt($("#vlr-max").val());
-         var porMax = parseFloat($("#porc-max").val()) / 100;
-         var porMin = parseFloat($("#porc-min").val()) / 100;
-         var descuento = parseFloat(obj.val());
+         var porMax = parseInt($("#porc-max").val()) / 100;
+         var porMin = parseInt($("#porc-min").val()) / 100;
+         var descuento = parseInt(obj.val());
          var total = parseFloat($("#txttotal").val());
 
-         var valMinDes = total * porMin;
-         var valMaxDes = total * porMax;
+         var valMinDes = parseInt(total * porMin);
+         var valMaxDes = parseInt(total * porMax);
 
-         if(total > desMin && total < desMax && descuento > valMinDes){
+         if(total >= desMin && total < desMax && descuento > valMinDes){
            swal({
-                 title: "Descuento mayor al " + (porMin * 100) + "%",
+                 title: "Descuento mayor al " + parseInt((porMin * 100)) + "%",
                  type: "error",
                  confirmButton: "#3CB371",
                  confirmButtonText: "Aceptar",
@@ -400,9 +402,9 @@
                });
 
            $("#txt-campo-des").val(valMinDes);
-         } else if(total > desMax && descuento > valMaxDes){
+         } else if(total >= desMax && descuento > valMaxDes){
            swal({
-                 title: "Descuento mayor al " + (porMax * 100) + "%",
+                 title: "Descuento mayor al " + parseInt((porMax * 100)) + "%",
                  type: "error",
                  confirmButton: "#3CB371",
                  confirmButtonText: "Aceptar",
@@ -1032,4 +1034,37 @@ function cancelar() {
       e.preventDefault();
     }
   });
+</script>
+
+<script type="text/javascript">
+function  cancelarRegistro() {
+  swal({
+  title: "¿Cancelar el registro?",
+  type: "warning",
+  confirmButton: "#3CB371",
+  confirmButtonText: "btn-danger",
+  cancelButtonText: "Cancelar",
+  showCancelButton: true,
+  confirmButtonClass: "btn-danger",
+  confirmButtonText: "Aceptar",
+  closeOnConfirm: false,
+
+  },
+function(isConfir){
+    if (isConfir) {
+      swal({
+        title: "Registro cancelado!",
+        type: "error",
+        confirmButton: "#3CB371",
+        confirmButtonText: "Aceptar",
+        closeOnConfirm: false,
+        closeOnCancel: false
+      },
+      function(isConfir){
+        window.location= url + 'Ventas/index';
+      });
+    }
+    });
+}
+
 </script>

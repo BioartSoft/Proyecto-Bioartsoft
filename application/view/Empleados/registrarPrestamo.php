@@ -5,7 +5,7 @@
     <div class="col-lg-12">
         <div class="panel panel-primary">
           <div class="panel-heading" stlyle="height: 70px; width: 100px">
-                <center><span style="text-align:center; color: #fff; margin-top: 10px; margin-bottom: 10px; font-size: 16px"><b>REGISTRAR PRÉSTAMOS</b></span></center>
+                <center><span style="text-align:center; color: #fff; margin-top: 10px; margin-bottom: 10px; font-size: 18px"><strong>Registrar Préstamos</strong></span></center>
             </div>
             <div class="panel-body">
               <div class="dataTable_wrapper">
@@ -49,13 +49,17 @@
       <div class="modal-dialog" role="document" style="width: 40% !important" id="modalcss" >
         <div class="modal-content">
           <div class="modal-body" style="margin: 0 auto">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <br><br>
                 <form class="" action="<?php echo URL?>Empleados/registrarPrestamo" method="post" id="myFor" onsubmit="return validarfe()" data-parsley-validate="">
                   <input type="hidden" name="tipoEmpl" id="tipoEmpl" value="">
                 <div class="row">
                 <input type="hidden"  id="estadoempleado">
                 <div class="panel panel-primary" style="margin-left: 2%; margin-right: 2%">
                     <div class="panel-heading" stlyle="height: 70px; width: 100px">
-                          <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 16px"><b>REGISTRAR PRÉSTAMO</b></span></center>
+                          <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 18px"><strong>Registrar Préstamo</strong></span></center>
                     </div>
                     <div class="panel-body">
                       <div class="row">
@@ -118,11 +122,11 @@
         </div>
 
         <div class="row">
-          <div class="col-xs-12 col-md-3 col-lg-3" id="btnGuardarPrestamo" style="margin-left: 20%">
-            <button type="submit" class="btn btn-success btn-md active" name="btnRegistrarPrestamo" id="btnguardarPrestamo" title="Guardar"><i class="fa fa-floppy-o" aria-hidden="true">   Guardar</i> </button>
+          <div class="col-xs-12 col-md-3 col-lg-6" id="btnGuardarPrestamo">
+            <button type="submit" class="btn btn-success btn-md active pull-right" name="btnRegistrarPrestamo" id="btnguardarPrestamo" title="Guardar"><i class="fa fa-floppy-o" aria-hidden="true">   Guardar</i> </button>
           </div>
           <div class="col-xs-12 col-md-3 col-lg-3">
-            <button type="button" class="btn btn-danger btn-md active" onclick="cancelarRegPrestamo()" style="margin-left: 70%" id="bcancelarRegPrest" title="Cancelar Registro"><i class="fa fa-times" aria-hidden="true">   Cancelar</i> </button>
+            <button type="button" class="btn btn-danger btn-md active" onclick="cancelarRegPrestamo()" id="bcancelarRegPrest" title="Cancelar Registro"><i class="fa fa-times" aria-hidden="true">   Cancelar</i> </button>
           </div>
         </div>
 
@@ -240,7 +244,7 @@ function validarfe() {
   var valor = parseInt($("#valorpres").val());
   if (valor > tope) {
     swal({
-      title: "Valor superior a 1.000.000",
+      title: "Valor máximo permitido 1.000.000",
       type: "warning",
       confirmButton: "#3CB371",
       confirmButtonText: "btn-danger",

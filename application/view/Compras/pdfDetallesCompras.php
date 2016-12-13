@@ -11,8 +11,13 @@
 <body>
   <img src="<?php echo URL ?>img/bio-artes.png" height="100" width="400">
   <br>
-  <center><legend><h2>DETALLE DE ENTRADA NÚMERO: <?= $val['id_compras'] ?></h2></legend></center>
+  <center><legend><h2>DETALLE DE ENTRADA CÓDIGO: <?= $val['id_compras'] ?></h2></legend></center>
   <br>
+<?php if($val['estado'] == 0): ?>
+  <h3>Esta entrada fue anulada</h3>
+<?php else: ?>
+<?php endif; ?>
+<br>
   <p><strong>Fecha Informe: <?= ucwords(date("Y/m/d h:i:s"))?></strong></p>
   <table class="table table-striped">
     <thead>

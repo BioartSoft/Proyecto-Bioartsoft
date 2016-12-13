@@ -5,7 +5,7 @@
   <div class="col-lg-12">
     <div class="panel panel-primary">
     <div class="panel-heading" stlyle="height: 70px; width: 100px">
-        <center><span style="text-align:center; color: #fff; margin-top: 10px; margin-bottom: 10px; font-size: 16px"><b>LISTAR PAGOS</b></span></center>
+        <center><span style="text-align:center; color: #fff; margin-top: 10px; margin-bottom: 10px; font-size: 18px"><strong>Listar Pagos</strong></span></center>
     </div>
       <div class="panel-body">
         <div class="dataTable_wrapper">
@@ -41,7 +41,7 @@
                           <div class="col-md-12">
                             <div class="panel panel-primary" >
                             <div class="panel-heading" stlyle="height: 70px; width: 100px">
-                                  <center><span style="text-align:center; color: #fff; font-size: 16px; text-transform: uppercase; "><b>DETALLES DE PAGO DE: C.C <span id="empleadoId"></span> - <span id="empleado"></span></b></center>
+                                  <center><span style="text-align:center; color: #fff; font-size: 18px"><b>Detalle de Pago de: <?= $empleado['tipo_documento'] == "Cédula"? "C.C" : "C.E"  ?>: <span id="empleadoId"></span> - <span id="empleado"></span></b></center>
                               </div>
                               <div class="panel-body">
                                 <div class="dataTable_wrapper">
@@ -217,7 +217,7 @@
           data: {id:idpres, estado:est},
         })
         .done(function() {
-        });        
+        });
   }
 
   function cambiarEstadoPrestamoDesdeLiquidacion(cod, est){
@@ -227,7 +227,7 @@
       url:url+"Empleados/modificarestadoPrestamo",
       data:{id:cod, estado:est}
     }).done(function(respuesta){
-  
+
     })
   }
   </script>

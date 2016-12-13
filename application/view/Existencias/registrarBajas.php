@@ -3,7 +3,7 @@
   <br><br>
   <div class="panel panel-primary" style="margin-top: 5px">
     <div class="panel-heading" stlyle="height: 70px; width: 100px">
-      <center><span style="text-align:center; color: #FFF; margin-top: 10px; margin-bottom: 10px; font-size: 16px"><b>REGISTRAR BAJAS</b></span></center>
+      <center><span style="text-align:center; color: #FFF; margin-top: 10px; margin-bottom: 10px; font-size: 18px"><strong>Registrar Bajas</strong></span></center>
     </div>
    <div class="row">
      <br>
@@ -13,7 +13,7 @@
     <div class="col-sm-6">
       <div class="panel panel-primary">
         <div class="panel-heading">
-          <h3 class="panel-title"><strong style="text-transform: uppercase; ">Información de la Baja</strong></h3>
+          <h3 class="panel-title"><strong>Información de la Baja</strong></h3>
         </div>
 
         <div class="panel-body">

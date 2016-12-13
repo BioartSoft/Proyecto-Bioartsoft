@@ -37,9 +37,12 @@ class Login extends Controller
         }else{
 
         $persona = $this->modelo->buscarUsuario();
+        // echo "<pre>";
+        // var_dump($persona);
+        // exit();
         $contrasenia = trim(decrypt($persona['clave']));
 
-          if ($persona['nombre_usuario'] == $_POST['txtPersona'] && $contrasenia == $_POST['txtContras']) {
+          if ($persona['nombre_usuario'] == $_POST['txtPersona'] && $contrasenia == $_POST['txtContras'] && $persona['estado'] == 1) {
             $_SESSION['SESION INICIADA'] = true;
             $_SESSION['USUARIO_ID'] = $persona['id_usuarios'];
             $_SESSION['ROL'] = $persona['rol'];

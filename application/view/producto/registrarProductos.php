@@ -4,7 +4,7 @@
   <br><br>
   <div class="panel panel-primary" style="margin-top: 5px">
     <div class="panel-heading" stlyle="height: 70px; width: 100px">
-      <center><span style="color: #FFF; margin-top: 10px; margin-bottom: 10px; font-size: 16px"><b>REGISTRAR PRODUCTOS (Obligatorios * )</b></span></center>
+      <center><span style="color: #FFF; margin-top: 10px; margin-bottom: 10px; font-size: 18px"><strong>Registrar Productos (Obligatorios * )</strong></span></center>
     </div>
   <div class="row">
     <br>
@@ -183,35 +183,6 @@ function cancelar() {
      }
 </script>
 
-<!-- <script type="text/javascript">
-  $(function(){
-
-    $("#campoCodigo").change(function(){
-
-      var campoCodigo = $("#campoCodigo").val();
-
-      $.ajax({
-        url: url + 'producto/validacion',
-        data:{'campoCodigo': campoCodigo},
-        type: 'post',
-        dataType:"text"
-      }).done(function(resut){
-
-        if(resut == "1"){
-          swal({
-                title: "Código ya existe, no se puede registrar!",
-                type: "error",
-                confirmButton: "#3CB371",
-                confirmButtonText: "Aceptar",
-                // confirmButtonText: "Cancelar",
-                closeOnConfirm: false,
-                closeOnCancel: false
-              });
-        }
-      });
-    });
-  });
-</script> -->
 
 <script type="text/javascript">
   $("#txtpreciocompra").keydown(function(e){

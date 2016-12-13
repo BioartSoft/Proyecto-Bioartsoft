@@ -73,6 +73,21 @@ class mdlVentas
 }
 
 
+public function ultimoAbonoVentas($id)
+{
+ $sql="CALL SP_ultimo_Abono_Ventas_Recibo(?)";
+ try {
+  $ca = $this->db->prepare($sql);
+  $ca->bindParam(1,$id);
+ $ca->execute();
+  return $ca->fetch(PDO::FETCH_ASSOC);
+ } catch (Exception $e) {
+
+ }
+
+}
+
+
     public function ultimoIdAbono(){
         $sql = "SELECT max(idabono) as ultimo_id FROM tbl_abono_ventas WHERE Tbl_Ventas_idventas = ?";
         $stm = $this->db->prepare($sql);
@@ -452,14 +467,12 @@ class mdlVentas
   }
 
 
-  public function cambiarestadoAbonos($codigo, $estado)
+  public function cambiarestadoAbonos($codigo, $id_venta)
   {
     $sql ="CALL SP_anularAbonoCreditos(?,?)";
-    // var_dump($codigo, $estado);
-    // exit();
     $stm = $this->db->prepare($sql);
     $stm->bindParam(1, $codigo);
-    $stm->bindParam(2, $estado);
+    $stm->bindParam(2, $id_venta);
     return $stm->execute();
   }
 

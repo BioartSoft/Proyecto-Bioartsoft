@@ -10,7 +10,7 @@
 <div class="col-lg-12">
   <div class="panel panel-primary">
     <div class="panel-heading" stlyle="height: 70px; width: 100px">
-        <center><span style="text-align:center; color: #fff; margin-top: 10px; margin-bottom: 10px; font-size: 16px"><b>LISTAR PRÉSTAMOS EMPLEADOS</b></span></center>
+        <center><span style="text-align:center; color: #fff; margin-top: 10px; margin-bottom: 10px; font-size: 18px"><b>Listar Préstamos Empleados</b></span></center>
     </div>
     <div class="panel-body">
       <div class="dataTable_wrapper">
@@ -55,7 +55,7 @@
             <div class="col-lg-12">
               <div class="panel panel-primary">
                   <div class="panel-heading" stlyle="height: 70px; width: 100px">
-                        <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 20px">Reporte de Préstamos</center>
+                        <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 18px">Reporte de Préstamos</center>
                   </div>
                 <div class="panel-body" id="panel_compras">
                   <form id="formprestamos" action="<?= URL ?>Empleados/pdfPrestamos" method="post" data-parsley-validate="" target="_blank">
@@ -125,7 +125,7 @@
                     <div class="col-md-12">
                       <div class="panel panel-primary" >
                         <div class="panel-heading" stlyle="height: 70px; width: 100px">
-                              <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 20px">Detalles de Préstamos de: <span id="empleado-prestamo"></span></span></center>
+                              <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 18px">Detalle de Préstamos de: <span id="empleado-prestamo"></span></span></center>
                         </div>
                         <div class="panel-body">
                           <div class="dataTable_wrapper">
@@ -158,7 +158,7 @@
                 <div class="col-md-12">
                   <div class="panel panel-primary">
                     <div class="panel-heading" stlyle="height: 70px; width: 100px">
-                          <center><span  id="myModalLabel" style="text-align:center; color: #fff; font-size: 20px"> Modificar Fecha Límite<span id=""></span></span></center>
+                          <center><span  id="myModalLabel" style="text-align:center; color: #fff; font-size: 18px"> Modificar Fecha Límite</span></center>
                     </div>
                   <div class="panel-body">
                     <div class="row">
@@ -201,7 +201,7 @@
                     <div class="col-md-12">
                       <div class="panel panel-primary" >
                         <div class="panel-heading" stlyle="height: 70px; width: 100px">
-                              <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 20px">Detalles de Abonos de: <span id="empleado-det-abonos"></span></span></center>
+                              <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 18px">Detalle de Abonos de: <span id="empleado-det-abonos"></span></span></center>
                         </div>
                         <div class="panel-body">
                           <div class="dataTable_wrapper">
@@ -248,7 +248,7 @@
 
                   <div class="panel panel-primary" style="margin-left: 2%; margin-right: 2%">
                     <div class="panel-heading" stlyle="height: 70px; width: 100px">
-                          <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 20px">Abono de Préstamos de <span id="empleado"></span></span></center>
+                          <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 18px">Abono de Préstamos de: <span id="empleado"></span></span></center>
                     </div>
                     <div class="panel-body">
                     <div class="col-xs-12 col-md-6">

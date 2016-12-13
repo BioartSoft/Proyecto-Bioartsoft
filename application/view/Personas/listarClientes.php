@@ -5,7 +5,7 @@
     <div class="col-lg-12">
         <div class="panel panel-primary">
             <div class="panel-heading" stlyle="height: 70px; width: 100px">
-              <center><span style="color: #fff; margin-top: 10px; margin-bottom: 10px; font-size: 16px"><b>LISTAR CLIENTES</b></span></center>
+              <center><span style="color: #fff; margin-top: 10px; margin-bottom: 10px; font-size: 18px"><strong>Listar Clientes</strong></span></center>
             </div>
               <div class="panel-body">
                 <div class="dataTable_wrapper">
@@ -91,12 +91,15 @@
    <div class="modal-dialog" role="document">
      <div class="modal-content">
        <div class="modal-body">
+         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+           <span aria-hidden="true">&times;</span>
+         </button>
        <div class="modal-header">
          <div class="row">
            <div class="col-lg-12">
              <div class="panel panel-primary">
                <div class="panel-heading" stlyle="height: 70px; width: 100px">
-                     <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 16px"><b>MODIFICAR CLIENTE (Obligatorios *) </b></center>
+                     <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 18px"><strong>Modificar Cliente (Obligatorios *) </strong></center>
                </div>
                <div class="modal-body">
              <form method="POST"  id="form-2" role="form" action="<?= URL ?>Personas/listarPersonasClientes/<?= $clientes['id_persona'] ?>" data-parsley-validate="">
@@ -261,7 +264,7 @@ $("#btnmodClientes").click(function(){
                   <div class="col-md-12">
                     <div class="panel panel-primary" >
                       <div class="panel-heading" stlyle="height: 70px; width: 100px">
-                          <center><span style="color: #fff; font-size: 16px;text-transform: uppercase; " id="myModalLabel"><b>DETALLE DE: C.C: <?php echo $clientes['id_persona']." - ".$clientes['nombres'].' '.$clientes['apellidos']?></b></span></center>
+                          <center><span style="color: #fff; font-size: 18px" id="myModalLabel"><strong>Detalle de: <?= $clientes['tipo_documento'] == "Cédula"? "C.C" : "C.E"  ?>: <?php echo $clientes['id_persona']." - ".$clientes['nombres'].' '.$clientes['apellidos']?></strong></span></center>
                       </div>
                           <div class="panel-body">
                             <div class="dataTable_wrapper">

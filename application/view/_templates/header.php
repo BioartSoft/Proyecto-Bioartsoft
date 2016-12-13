@@ -63,8 +63,7 @@ $notificaciones = mdlConfiguracionPago::getNotificaciones();
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0; background-color: #337AB7;">
             <div class="navbar-header">
              <center>
-               <!-- <i class="fa fa-bars" aria-hidden="true"></i> -->
-              <img src="<?php echo URL ?>img/LOGOv3.png" alt="" style="width: 150px; height: 35px; margin-left:42px; margin-top: 8px"/>
+                <img src="<?php echo URL ?>img/LOGOv3.png" alt="" style="width: 150px; height: 35px; margin-left:42px; margin-top: 8px"/>
             </center>
             </div>
 
@@ -106,7 +105,6 @@ $notificaciones = mdlConfiguracionPago::getNotificaciones();
                         <li>
                           <button type="button" style="width: 100%;" class="btn-link" data-toggle="modal" id="configurarVenta" data-target="#myjohnatan" aria-hidden="true" onclick="inhabilitarboton()">Configurar Ventas</button>
                         <form action="<?php echo URL?>Empleados/ListarConfiguraciones" method="POST">
-                        <!-- <button type="button" style="width: 100%;" class="btn-link" data-toggle="modal" data-target="#mylopez" aria-hidden="true" name="btnMostrar">Ver Configuración Ventas</button> -->
                           <?php if($_SESSION['ROL'] == 3): ?>
                             <form action="<?php echo URL?>Empleados/ListarConfiguraciones" method="POST">
                             <button type="button" style="width: 100%;" class="btn-link" data-toggle="modal" data-target="#my" aria-hidden="true" name="btnMostrar">Configuración de Pago</button>
@@ -148,7 +146,7 @@ $notificaciones = mdlConfiguracionPago::getNotificaciones();
                     </a>
                     <ul class="dropdown-menu dropdown-user">
                         <li><i class="fa fa-user fa-fw"></i><?= $_SESSION['NOMBRE_ROL'] ?></li>
-                        <li><i class="fa fa-user fa-fw"></i> <?= $_SESSION['USUARIO']. " ".   $_SESSION['USUARIO-APE'] ?></li>
+                        <li><i class="fa fa-user-o"></i> <?= $_SESSION['USUARIO']. " ".   $_SESSION['USUARIO-APE'] ?></li>
                         <li class="divider"></li>
                         <li><a href="<?Php echo URL ?>login/cerrarsesion"><i class="fa fa-sign-out fa-fw"></i> Cerrar sesión</a>
                         </li>
@@ -199,16 +197,17 @@ $notificaciones = mdlConfiguracionPago::getNotificaciones();
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-body">
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
                         <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span></button>
                             <h4 class="modal-title" id="myModalLabel" style="color: #337AB7; text-align: center"></h4>
                           </div>
                           <div class="row">
                               <div class="col-md-12">
                               <div class="panel panel-primary">
                                   <div class="panel-heading" stlyle="height: 70px; width: 100px">
-                                      <center><span style="text-align:center; color: #fff; font-size: 16px"><b>CONFIGURACIÓN PAGOS</b></span></center>
+                                      <center><span style="text-align:center; color: #fff; font-size: 18px"><strong>Configuración Pagos</strong></span></center>
                                   </div>
                                   <div class="panel-body">
                               <form class="" action="<?php echo URL?>Empleados/ListarConfiguraciones" method="post" id="myFormu" data-parsley-validate="" onsubmit="return validarValores()">
@@ -365,22 +364,19 @@ $notificaciones = mdlConfiguracionPago::getNotificaciones();
                                 <div class="row">
                                 </div>
                                 <br>
-
                                 <?php endforeach; ?>
                                 <br>
-
                           </div>
                         </div>
 
                         <div class="row">
-                          <div class="col-md-6 col-xs-12 col-lg-9">
+                          <div class="col-md-6 col-xs-12 col-lg-6">
                             <button type="submit" class="btn btn-success btn-md active pull-right" style="float: left; margin-left: 25%"  name="btnmodificarconfi" id="idbtn" disabled="true" title="Guardar"><i class="fa fa-floppy-o" aria-hidden="true">   Guardar</i></button>
                           </div>
                           <div class="col-md-6 col-xs-12 col-lg-3">
                             <button type="button" class="btn btn-primary btn-md active" onclick="habilitar()" style="float: right; margin-right: 25%" id="btnhabilitar" title="Modificar"><i class="fa fa-pencil-square-o" aria-hidden="true">   Modificar</i></button>
                         </div>
                       </div>
-
                       </form>
                       </div>
                     </div>
@@ -403,7 +399,7 @@ $notificaciones = mdlConfiguracionPago::getNotificaciones();
               <div class="col-md-12">
                 <div class="panel panel-primary">
                   <div class="panel-heading" stlyle="height: 70px; width: 100px">
-                      <center><span style="text-align:center; color: #fff; font-size: 16px"><b>CONFIGURACIÓN VENTAS</b></span></center>
+                      <center><span style="text-align:center; color: #fff; font-size: 18px"><strong>Configuración Ventas</strong></span></center>
                   </div>
             <div class="panel-body">
               <form class="" action="<?php echo URL?>Ventas/index" id="FormConfigVentas" method="post" data-parsley-validate="" onsubmit="return validarValoresConfVentas()">
@@ -435,7 +431,7 @@ $notificaciones = mdlConfiguracionPago::getNotificaciones();
           </div>
         </div>
         <div class="row">
-        <div class="col-xs-12 col-md-6 col-lg-9">
+        <div class="col-xs-12 col-md-6 col-lg-6">
           <button type="submit" class="btn btn-success active pull-right" id="guardarConfiguracion" data-toggle="modal" name="btnRegistrarConfig" disabled="" title="Guardar Configuración"><i class="fa fa-floppy-o" aria-hidden="true" title="Guardar Configuración">   Guardar</i></button>
         </div>
 
@@ -460,7 +456,7 @@ $notificaciones = mdlConfiguracionPago::getNotificaciones();
 
           if(valDia > valBase || valDiaTemporal > valBase){
             swal({
-                  title: "Valores incorrectos, verifique que los valores del día no sean mayor al valor base!",
+                  title: "Valores incorrectos, verifique que los valores del día no sean mayores al valor base!",
                   type: "error",
                   confirmButton: "#3CB371",
                   confirmButtonText: "Aceptar",

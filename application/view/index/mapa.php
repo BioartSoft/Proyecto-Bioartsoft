@@ -1,7 +1,7 @@
 <br><br>
 <div class="panel panel-primary" style="margin-top: 5px">
   <div class="panel-heading" stlyle="height: 70px; width: 100px">
-    <center><span style="color: #FFF; margin-top: 10px; margin-bottom: 10px; font-size: 16px"><b>MAPA NAVEGACIÓN</span></b></center>
+    <center><span style="color: #FFF; margin-top: 10px; margin-bottom: 10px; font-size: 18px"><strong>Mapa Navegación</span></strong></center>
   </div>
   <div class="row">
     <br>

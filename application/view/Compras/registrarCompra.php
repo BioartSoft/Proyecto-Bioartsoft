@@ -3,7 +3,7 @@
   <br><br>
   <div class="panel panel-primary" style="margin-top: 5px">
     <div class="panel-heading" stlyle="height: 70px; width: 100px">
-      <center><span style="color: #FFF; margin-top: 10px; margin-bottom: 10px; font-size: 17px"><b>REGISTRAR ENTRADAS</b></span></center>
+      <center><span style="color: #FFF; margin-top: 10px; margin-bottom: 10px; font-size: 18px"><strong>Registrar Entradas</strong></span></center>
     </div>
    <div class="row">
      <br>
@@ -13,7 +13,7 @@
         <div class="panel panel-primary">
           <div class="panel-heading">
             <input type="hidden" name="hdempleado" value="<?= $_SESSION['USUARIO_ID'] ?>">
-            <h3 class="panel-title"><strong>PROVEEDOR</strong></h3>
+            <h3 class="panel-title"><strong>Proveedor</strong></h3>
           </div>
           <div class="panel-body" class="panel-proveedor">
               <div class="form-group">
@@ -37,7 +37,7 @@
               </div>
           </div>
       <div class="panel-heading">
-        <h3 class="panel-title"><strong>PRODUCTO</strong></h3>
+        <h3 class="panel-title"><strong>Producto</strong></h3>
       </div>
       <div class="panel-body">
           <div class="form-group">
@@ -89,7 +89,7 @@
   <div class="col-md-7">
     <div class="panel panel-primary detComp">
       <div class="panel-heading">
-        <h3 class="panel-title"><span style="font-size: 16px;"><b>DETALLE ENTRADA</b></span></h3>
+        <h3 class="panel-title"><span style="font-size: 18px;"><strong>Detalle Entrada</strong></span></h3>
       </div>
       <div class="panel-body" id="detalle">
         <strong>Seleccione para agregar</strong>
@@ -120,12 +120,15 @@
    <div class="modal-dialog" role="document">
      <div class="modal-content">
        <div class="modal-body">
+         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+           <span aria-hidden="true">&times;</span>
+         </button>
        <div class="modal-header">
          <div class="row">
            <div class="col-lg-12">
              <div class="panel panel-primary">
                <div class="panel-heading" stlyle="height: 70px; width: 100px">
-                     <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 20px">REGISTRAR PRODUCTO (Obligatorios *) </center>
+                     <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 18px"><strong>Registrar Producto (Obligatorios *)</strong></center>
                </div>
               <div class="modal-body">
                 <div class="row">
@@ -199,6 +202,9 @@
                              <div class="modal-dialog" role="document">
                                <div class="modal-content">
                                  <div class="modal-body">
+                                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                     <span aria-hidden="true">&times;</span>
+                                   </button>
                                    <button type="button" class="btn btn-primary btn-circle btn-md" data-toggle="modal" data-target="#mod_ayuda_precios">
                                      <i class="fa fa-question" aria-hidden="true" title="Ayuda"></i>
                                    </button>
@@ -207,7 +213,7 @@
                               <div class="col-xs-12 col-md-6 col-lg-12">
                                 <div class="panel panel-primary">
                                   <div class="panel-heading" stlyle="height: 70px; width: 100px">
-                                        <center><span class="modal-title" id="myModalLabel" style="color: #FFF; font-size: 20px">MODIFICAR PRECIOS (Obligatorios *)</span></center>
+                                        <center><span class="modal-title" id="myModalLabel" style="color: #FFF; font-size: 18px"><strong>Modificar Precios (Obligatorios *)</strong></span></center>
                                   </div>
                                   <div class="panel-body">
                               <input id="txtcodigo" name="txtcodigo" type="hidden">
@@ -258,7 +264,7 @@
                      <div class="col-xs-12 col-md-6 col-lg-12">
                        <div class="panel panel-primary">
                          <div class="panel-heading" stlyle="height: 70px; width: 100px">
-                               <center><span class="modal-title" id="myModalLabel" style="color: #FFF; font-size: 20px">MODIFICACIÓN PRECIOS</span></center>
+                               <center><span class="modal-title" id="myModalLabel" style="color: #FFF; font-size: 18px"><strong>Modificación Precios</strong></span></center>
                          </div>
                          <div class="panel-body">
                              <p>Tener en cuenta para la modificación de los precios lo siguiente:</p>
@@ -632,7 +638,7 @@ function ValidarNombreProducto(){
      var precioUnit = parseInt($("#precioUnitario").val());
      var precioDet = parseInt($("#precioDetal").val());
      var precioMay = parseInt($("#precioMayor").val());
-     var stockMin = $("#stock").val();
+     var stockMin = parseInt($("#stock").val());
 
      if(nombreProd == "" || categ == "" || precioUnit == "" || precioUnit == "" || precioMay == "" || stockMin == "" ){
        swal({
@@ -883,15 +889,6 @@ function ValidarNombreProducto(){
      var precioMay = parseInt($("#precioMayor").val());
 
      if(precioUnit <  precioDet && precioUnit < precioMay && precioDet > precioMay){
-       //swal({
-          //    title: "Precios inválidos, verificar valores!",
-          //    type: "error",
-          //    confirmButton: "#3CB371",
-          //    confirmButtonText: "Aceptar",
-          //    // confirmButtonText: "Cancelar",
-          //    closeOnConfirm: false,
-          //    closeOnCancel: false
-          //  });
            return true;
      }else{
        swal({

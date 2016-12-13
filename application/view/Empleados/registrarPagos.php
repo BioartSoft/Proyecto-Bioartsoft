@@ -5,7 +5,7 @@
     <div class="col-lg-12">
         <div class="panel panel-primary">
             <div class="panel-heading" stlyle="height: 70px; width: 100px">
-              <center><span style="text-align:center; color: #fff; margin-top: 10px; margin-bottom: 10px; font-size: 16px"><b>REGISTRAR PAGOS</b></span></center>
+              <center><span style="text-align:center; color: #fff; margin-top: 10px; margin-bottom: 10px; font-size: 18px"><strong>Registrar Pagos</strong></span></center>
             </div>
             <div class="panel-body">
               <div class="dataTable_wrapper">
@@ -64,7 +64,7 @@
                   <div class="col-lg-12">
                     <div class="panel panel-primary">
                       <div class="panel-heading" stlyle="height: 70px; width: 100px">
-                            <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 16px"><b>REGISTRAR PAGO </b></center>
+                            <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 18px"><strong>Registrar Pago</strong></center>
                       </div>
               <div class="modal-body" style="margin: 0 auto">
                 <form class="" action="<?php echo URL?>Empleados/registrarPagos" method="post" id="myForm" data-parsley-validate="">
@@ -157,7 +157,7 @@
                     <div class="col-xs-12 col-md-4" id="divvalorultipago">
                       <label>Total dias a pagar</label>
                       <div class="input-group">
-                        <span class="input-group-addon" id="basic-addon1">$</span> 
+                        <span class="input-group-addon" id="basic-addon1">$</span>
                         <input type="number" class="form-control" name="txtValorultipago" id="valor_pagoLi" value="0" min="0" readonly="">
                         <span class="input-group-btn">
                           <button class="btn btn-default" type="button" id="idbotoncalcularpagoenliqui" onclick="calcularElPagoNormalEnLiquidacion()" style="background-color: #E0F8E0" title="Calcular Pago"> <b>Calcular</b></button>
@@ -217,7 +217,7 @@
                       </div>
                     </div>
                     <div class="col-xs-12 col-md-4" id="divvalorpenditeprestamo">
-                      <label id="labelValorVentas">Pendiente de Préstamos</label>                               
+                      <label id="labelValorVentas">Pendiente de Préstamos</label>
                       <div class="input-group">
                         <span class="input-group-addon" id="basic-addon1">$</span>
                         <input type="number" class="form-control" placeholder="Valor Pendiente" name="txtValorprestamo" id="valor_penprestamos" readonly="" min="0" value="0">
@@ -506,7 +506,7 @@
               var valorDia = parseInt($("#valorDia").val().replace('.',''));
               var CantidaddeDias = parseInt($("#idDia").val());
               var pagoNormalCalculadoLiqui = parseInt($("#valor_pagoLi").val());
-              var ventas = $("#valor_Ventas").val();
+              var ventas = $("#valor_Ventas").val().replace(',','');
               var comision = $("#comision").val();
               var resulcomision = Math.round(ventas * comision);
               $("#valorcomi").val(resulcomision);
@@ -607,7 +607,7 @@
                var salarioBase = $("#valorBase").val();
                var valorDia = $("#valor_Dia").val();
                var CantidaddeDias = $("#idDia").val();
-               var valorVentas = parseInt($("#valor_Ventas").val());
+               var valorVentas = parseInt($("#valor_Ventas").val().replace(',',''));
                var valorComision = parseInt($("#comision").val());
 
                $("[data-valor]").each(function(key, value){
@@ -663,7 +663,7 @@
                 var valorvacacionestot = 0;
                 var valortotliquidacion = 0;
                 var salarioBase = $("#valorBase").val();
-                var valorVentas = $("#valor_Ventas").val();
+                var valorVentas = $("#valor_Ventas").val().replace(',','');
                 var valorComision = $("#comision").val();
                 var valorvacaprima = $("#vacaprima").val();
                 var cesantias = $("#valorcesantias").val();
@@ -951,7 +951,6 @@
               $("#valorcesantias").val("");
               $("#valortotliquidacion").val("");
               $("#valortotaltempo").val("");
-              $("#valorDiatemporal").val("");
               $("#dias_laborados").val("");
               $("#valor_penprestamos").val("");
               $("#selectTipoPago").select2("destroy");

@@ -595,6 +595,7 @@ private function validarAbonos($idVenta){
             $abonoCredit = $val['total_abonado'];
             $pendienteCredit = $totalCredit - $abonoCredit;
             $html .= '<tr>';
+            $html .= '<td>'.$val['tipo_documento'].'</td>';
             $html .= '<td>'.$val['id_persona'].'</td>';
             $html .= '<td>'.$val['id_ventas'].'</td>';
             $html .= '<td>'.$val['fecha_venta'].'</td>';
@@ -633,6 +634,7 @@ private function validarAbonos($idVenta){
               $html .= '</td></tr>';         //traerDetalleAbonosCreditosV()
           }
               $cabecera = '<tr>';
+              $cabecera .= '<th>'.'Tipo de Documento'.'</th>';
               $cabecera .= '<th>'.'Identificación Cliente'.'</th>';
               $cabecera .= '<th>'.'Código Venta'.'</th>';
               $cabecera .= '<th>'.'Fecha Venta'.'</th>';
@@ -754,8 +756,7 @@ private function validarAbonos($idVenta){
   {
     $detalle = $this->mdlVentas->listarAbonosCreditosV($_POST["id_ventas"]);
     $id_Credito = $_POST["id_ventas"];
-    // var_dump($id_Credito);
-    // exit();
+    $ultimoAbonoVentas = $this->mdlVentas->ultimoAbonoVentas($_POST["id_ventas"]);
       $html = "";
           foreach ($detalle as $val) {
             $html .= '<tr>';
@@ -769,15 +770,21 @@ private function validarAbonos($idVenta){
             $fechaActual = date("Y-m-d");
             if ($val["estado_abono"] == 1) {
               if($val['fechaAbono'] == $fechaActual){
+                if($val['idabono'] == $ultimoAbonoVentas['ultimo']){
+                  $html .= ' <a href="generarpdfDetalleAbonos?id='.$id_Credito.'" target="_blank" id="pdfDetalAbono">
+                  <button class="btn btn-primary btn-circle btn-md" name="btnPdfPagos" title="Generar Pdf"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></button>
+                  </a>';
+                }else{
+
+                }
             $html .= ' <button  title="Anular" type="button" class="btn btn-success btn-circle btn-md" data-toggle="modal" id="btnbotoncheck" onclick="cambiarestado('.$val["idabono"].',0)"><i class="fa fa-check" aria-hidden="true"></i></button>';
-            $html .= ' <a href="generarpdfDetalleAbonos?id='.$id_Credito.'" target="_blank" id="pdfDetalAbono">
-                        <button class="btn btn-primary btn-circle btn-md" name="btnPdfPagos" title="Generar Pdf"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></button>
-                        </a>';
           }else{
+            if($val['idabono'] == $ultimoAbonoVentas['ultimo']){
             $html .= ' <a href="generarpdfDetalleAbonos?id='.$id_Credito.'" target="_blank" id="pdfDetalAbono">
                         <button class="btn btn-primary btn-circle btn-md" name="btnPdfPagos" title="Generar Pdf"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></button>
                         </a>';
           }
+        }
 
           }
 

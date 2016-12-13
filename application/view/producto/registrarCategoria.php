@@ -3,7 +3,7 @@
   <br><br>
 <div class="panel panel-primary" style="margin-top: 5px">
   <div class="panel-heading" stlyle="height: 70px; width: 100px">
-    <center><span style="text-align:center; color: #FFF; margin-top: 10px; margin-bottom:10px; font-size: 16px"><b>GESTIONAR CATEGORÍAS</b></span></center>
+    <center><span style="text-align:center; color: #FFF; margin-top: 10px; margin-bottom:10px; font-size: 18px"><strong>Gestionar Categorías</strong></span></center>
   </div>
 <div class="row">
   <br>
@@ -12,7 +12,7 @@
     <div class="col-md-6 col-xs-12 col-lg-5">
       <div class="panel panel-primary">
         <div class="panel-heading">
-          <h3 class="panel-title"><strong style="font-size: 16px;">REGISTRAR CATEGORÍA</strong></h3>
+          <h3 class="panel-title"><strong style="font-size: 18px;"><strong>Registrar Categoría</strong></strong></h3>
         </div>
         <div class="panel-body">
           <div class="row">
@@ -23,7 +23,7 @@
        </div>
        <br>
        <div class="row">
-          <div class="col-md-6 col-xs-12 col-lg-8">
+          <div class="col-md-6 col-xs-12 col-lg-6">
               <button type="submit" tabindex="2" class="btn btn-success active pull-right" id="btn-guardar" name="btn-ca" title="Guardar"><i class="fa fa-floppy-o" aria-hidden="true">   Guardar</i></button>
           </div>
           <div class="col-md-6 col-xs-12 col-lg-3">
@@ -47,7 +47,7 @@
   <div class="col-md-6 col-xs-12 col-lg-7">
     <div class="panel panel-primary">
       <div class="panel-heading">
-        <h3 class="panel-title"><strong style="font-size: 16px;">LISTAR CATEGORÍAS</strong></h3>
+        <h3 class="panel-title"><strong style="font-size: 18px;">Listar Categorías</strong></h3>
       </div>
       <div class="panel-body" id="panel_categorias">
         <div class="dataTable_wrapper">
@@ -94,7 +94,7 @@
                 <div class="row">
                     <div class="panel panel-primary" style="margin-left: 2%; margin-right: 2%">
                      <div class="panel-heading" stlyle="height: 70px; width: 100px">
-                       <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 16px"><b>MODIFICAR CATEGORÍA</b></span></center>
+                       <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 18px"><strong>Modificar Categoría</strong></span></center>
                      </div>
                      <div class="panel-body">
                        <div class="col-md-6">
@@ -111,12 +111,12 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-xs-12 col-md-6 col-lg-9">
-            <button type="button" tabindex="3" class="btn btn-secondary btn-md active pull-right"  data-dismiss="modal" title="Cerrar"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
+          <div class="col-xs-12 col-md-6 col-lg-6">
+            <button type="submit" tabindex="4" id="btn-modica" name="btn-modificar-categoria" class="btn btn-success btn-md active  pull-right" title="Modificar"><i class="fa fa-floppy-o" aria-hidden="true">   Modificar</i></button>
+            <input type="hidden" tabindex="5">
           </div>
           <div class="col-xs-12 col-md-6 col-lg-3">
-            <button type="submit" tabindex="4" id="btn-modica" name="btn-modificar-categoria" class="btn btn-success btn-md active" title="Modificar"><i class="fa fa-floppy-o" aria-hidden="true">   Modificar</i></button>
-            <input type="hidden" tabindex="5">
+            <button type="button" tabindex="3" class="btn btn-secondary btn-md active"  data-dismiss="modal" title="Cerrar"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
           </div>
         </div>
    </div>
@@ -271,7 +271,7 @@ function cancelar() {
 
         if(resut == "1"){
           swal({
-                title: "Nombre de categoría ya existe, no se puede registrar!",
+                title: "Nombre de categoría ya existe!",
                 type: "error",
                 confirmButton: "#3CB371",
                 confirmButtonText: "Aceptar",
@@ -279,8 +279,6 @@ function cancelar() {
                 closeOnConfirm: false,
                 closeOnCancel: false
               });
-
-              $("#txtnombreca").val("");
         }
 
       });

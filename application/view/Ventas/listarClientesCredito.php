@@ -10,7 +10,7 @@
 <div class="col-lg-12">
   <div class="panel panel-primary">
     <div class="panel-heading" stlyle="height: 70px; width: 100px">
-        <center><span style="text-align:center; color: #fff; margin-top: 10px; margin-bottom: 10px; font-size: 16px"><b>LISTAR CRÉDITOS VENTAS</b></span></center>
+        <center><span style="text-align:center; color: #fff; margin-top: 10px; margin-bottom: 10px; font-size: 18px"><b>Listar Crédito Ventas</b></span></center>
     </div>
     <div class="panel-body">
       <div class="dataTable_wrapper">
@@ -49,7 +49,7 @@
                     <div class="col-md-12">
                       <div class="panel panel-primary">
                       <div class="panel-heading" stlyle="height: 70px; width: 100px">
-                            <center><span id="creditosClientModal" style="text-align:center; color: #fff; font-size: 20px">Detalles de Crédito de: <span id="cliente"></span></center>
+                            <center><span id="creditosClientModal" style="text-align:center; color: #fff; font-size: 18px">Detalle de Crédito de: <span id="cliente"></span></center>
                       </div>
                         <div class="panel-body">
                           <div class="dataTable_wrapper">
@@ -83,7 +83,7 @@
                     <div class="col-md-12">
                       <div class="panel panel-primary">
                       <div class="panel-heading" stlyle="height: 70px; width: 100px">
-                        <center><span id="creditosClientModal" style="text-align:center; color: #fff; font-size: 20px">Detalles Abonos de: <span id="cliente-DetallesAbonos"><span></center>
+                        <center><span id="creditosClientModal" style="text-align:center; color: #fff; font-size: 18px">Detalle Abonos de: <span id="cliente-DetallesAbonos"><span></center>
                       </div>
                         <div class="panel-body" id="panelAb">
                           <div class="dataTable_wrapper">
@@ -133,7 +133,7 @@
 
                 <div class="panel panel-primary" style="margin-left: 2%; margin-right: 2%">
                     <div class="panel-heading" stlyle="height: 70px; width: 100px">
-                        <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 20px">Abono a Créditos de: <span id="cliente-abonos"></span></center>
+                        <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 18px">Abono a Créditos de: <span id="cliente-abonos"></span></center>
                     </div>
 
                     <div class="panel-body">
@@ -183,7 +183,7 @@
           <div class="col-md-12">
             <div class="panel panel-primary">
               <div class="panel-heading" stlyle="height: 70px; width: 100px">
-                  <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 20px"> Modificar Fecha Límite Crédito<span id=""></span></center>
+                  <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 18px">Modificar Fecha Límite Crédito</center>
               </div>
             <div class="panel-body">
               <input type="hidden" name="txthiddenCredito" id="idCredito">

@@ -10,6 +10,10 @@
   <title>Recibo de caja</title>
 </head>
 <body>
+  <?php if($value['estado'] == 0): ?>
+    <h4>Esta venta fue anulada</h4>
+  <?php else: ?>
+  <?php endif; ?>
   <h2 style="text-align: center">BIOARTES</h2>
   <div id="reciboVenta">
     <p>Nit: </p>
