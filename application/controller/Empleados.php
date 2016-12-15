@@ -168,6 +168,7 @@ use Dompdf\Dompdf;
         $tabla = "";
         foreach ($listarPagos as $val) {
           $tabla .= '<tr>';
+          $tabla .= '<td>' . $val['tipo_documento'] . '</td>';
           $tabla .= '<td>' . $val['id_persona'] . '</td>';
           $tabla .= '<td>' . ucwords($val['empleado']) . '</td>';
           $tabla .= '<td>' . $val['Tbl_nombre_tipo_persona'] . '</td>';
@@ -461,6 +462,7 @@ use Dompdf\Dompdf;
             $tabla .= '<td> $ ' . number_format($val['valor_dia_temporal'], "0", ".", ".") . '</td>';
           }elseif($val['Tbl_nombre_tipo_persona'] == "Empleado-fijo" && $val['tipo_pago'] == "Pago Normal"){
             $tabla .= '<td> $ ' . number_format($val['Valor_dia'], "0", ".", ".") . '</td>';
+            $tabla .= '<td> ' .$val["cantidad_dias"] . '</td>';
             $tabla .= '<td> $ ' . number_format($val['valorVentas'], "0", ".", ".") . '</td>';
             $tabla .= '<td> $ ' . number_format($val['valorComision'], "0", ".", ".") . '</td>';
           }
@@ -472,6 +474,7 @@ use Dompdf\Dompdf;
             $tabla .= '<td> $ ' . number_format($val['valor_prima'], "0", ".", ".") . '</td>';
           }else{
             $tabla .= '<td> $ ' . number_format($val['Valor_dia'], "0", ".", ".") . '</td>';
+            $tabla .= '<td> ' .$val["cantidad_dias"] . '</td>';
             $tabla .= '<td> $ ' . number_format($val['valorVentas'], "0", ".", ".") . '</td>';
             $tabla .= '<td> $ ' . number_format($val['valorComision'], "0", ".", ".") . '</td>';
           }
@@ -573,6 +576,7 @@ use Dompdf\Dompdf;
                         },
                         function(isConfirm){
                         if (isConfirm) {
+
                           window.open("'.URL.'Empleados/generarComprobantePagos?txtId='.$ultPago['ultimo_id'].'");
                         }
                       })';

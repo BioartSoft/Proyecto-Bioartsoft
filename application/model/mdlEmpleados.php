@@ -389,15 +389,16 @@
 
 
 		public function ultimoId(){
-        $sql = "SELECT max(id_pago) as ultimo_id FROM tbl_pagoempleados";
+        $sql = "CALL SP_Ultimo_id_pago()";
         $stm = $this->db->prepare($sql);
         $stm ->execute();
         return $stm->fetch(PDO::FETCH_ASSOC);
     }
 
 		public function ultimoAbonoPrestamo($id){
-        $sql = "SELECT max(idTbl_Abono_Prestamo) as ultimo_id FROM tbl_abono_prestamo WHERE Tbl_Prestamos_idprestamos = $id";
+				$sql = "CAll SP_Ultimo_abono_prestamo(?)";
         $stm = $this->db->prepare($sql);
+				$stm->bindParam(1, $id);
         $stm ->execute();
         return $stm->fetch(PDO::FETCH_ASSOC);
     }

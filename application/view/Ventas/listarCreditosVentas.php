@@ -41,7 +41,7 @@
 
 
        <?php if($_SESSION['ROL'] == 1 || $_SESSION['ROL'] == 3): ?>
-       <div class="col-md-6 col-lg-7 col-xs-12">
+       <div class="col-md-6 col-lg-7 col-xs-9">
          <a href="#" id="">
            <button class="btn btn-primary pull-right" name="btnReporteCreditos" data-toggle="modal" data-target="#modal_reporte_creditos"><i class="fa fa-file-pdf-o" aria-hidden="true">&nbsp;&nbsp;Reporte Créditos</i></button>
          </a>
@@ -51,10 +51,10 @@
 
      <div class="modal fade" id="modal_reporte_creditos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static" style="display:none" action="<?= URL ?>Compras/registrarCompra">
         <div class="modal-dialog" role="document">
-            <div class="modal-content" style="width: 800px">
+            <div class="modal-content">
               <div class="modal-body">
                <div class="row">
-                 <div class="col-lg-12">
+                 <div class="col-lg-12 col-md-12 col-xs-12">
                    <div class="panel panel-primary">
                        <div class="panel-heading" stlyle="height: 70px; width: 100px">
                              <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 18px"><strong>Reporte Créditos</strong></center>
@@ -95,9 +95,8 @@
                        </div>
                        <br><br>
                        <div class="row">
-                         <div class="col-md-5"></div>
-                           <div class="col-md-4">
-                             <button type="submit" tabindex="3" class="btn btn-primary active" id="btn-pdf" name="btnconsultar" target="_blank"><i class="fa fa-file-pdf-o" aria-hidden="true">&nbsp;&nbsp;Generar Reporte</i></button>
+                           <div class="col-md-8 col-xs-8 col-lg-8">
+                             <button type="submit" tabindex="3" class="btn btn-primary active pull-right" id="btn-pdf" name="btnconsultar" target="_blank"><i class="fa fa-file-pdf-o" aria-hidden="true">&nbsp;&nbsp;Generar Reporte</i></button>
                            </div>
                        </div>
                        <br>
@@ -108,7 +107,7 @@
                    </div>
                  </div>
                  <div class="row">
-                   <div class="col-md-6 col-xs-12 col-lg-11">
+                   <div class="col-md-11 col-xs-11 col-lg-11">
                      <button type="button" tabindex="4" id="btn_cancelar" class="btn btn-secondary btn-md active pull-right"  data-dismiss="modal"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
                      <input type="hidden" tabindex="5">
                    </div>
@@ -141,16 +140,20 @@
                    </div>
                   </div>
                 </div>
-                <button type="button" class="btn btn-secondary btn-active pull-rigth"  data-dismiss="modal" style="margin-left:80%"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
+                <div class="row">
+                  <div class="col-xs-11 col-md-11 col-lg-11">
+                    <button type="button" class="btn btn-secondary btn-active pull-right"  data-dismiss="modal" style="margin-left:80%"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
+                  </div>
+                </div>
               </div>
-          </div>
+            </div>
         </div>
       </div>
 </center>
             <div class="modal fade" id="mdListarAbonosCreditosV" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard ="false" data-backdrop = "static">
-              <div class="modal-dialog" role="document" style="width: 45% !important">
+              <div class="modal-dialog" role="document" >
                 <div class="modal-content">
-                  <div class="modal-body">
+                  <div class="modal-body" id="detalle-abono-ventas">
                   <div class="row">
                     <div class="col-md-12">
                       <div class="panel panel-primary" >
@@ -172,7 +175,7 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-xs-12 col-md-11">
+                <div class="col-xs-11 col-md-11 col-lg-11">
                 <button type="button" class="btn btn-secondary btn-active pull-right"  data-dismiss="modal" style="margin-left:80%" onclick="abrirmodal()"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
               </div>
               </div>
@@ -182,7 +185,7 @@
       </div>
 
             <div class="modal fade" id="abonoCreditosV" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard ="false" data-backdrop = "static">
-              <div class="modal-dialog" role="document" style="width: 40% !important">
+              <div class="modal-dialog" role="document">
                 <div class="modal-content">
                   <div class="modal-body">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="abrirmodal()">
@@ -222,10 +225,10 @@
                 </div>
               </div>
                     <div class="row">
-                      <div class="col-xs-12 col-md-6 col-lg-6">
+                      <div class="col-xs-6 col-md-6 col-lg-6">
                         <button type="submit" name="btnRegistrarAbono" onclick="return validarAbonoCreditoV()" class="btn btn-success active pull-right" id="btn-Guardar-Abono" style="float: right"><i class="fa fa-floppy-o" aria-hidden="true">   Guardar</i></button>
                       </div>
-                      <div class="col-xs-12 col-md-6 col-lg-3">
+                      <div class="col-xs-6 col-md-6 col-lg-3">
                         <button type="button" class="btn btn-danger btn-active active" onclick="cancelarRegistro()" style="float: left" onclick="abrirmodal()"><i class="fa fa-times" aria-hidden="true">   Cancelar</i></button>
                       </div>
                   </div>
@@ -238,7 +241,7 @@
 
 
         <div class="modal fade" id="mymodificarCredito" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard ="false" data-backdrop = "static">
-          <div class="modal-dialog modal-md" role="document" style="width: 40% !important">
+          <div class="modal-dialog modal-md" role="document">
             <div class="modal-content">
               <div class="modal-body">
                 <form action="<?php echo URL?>Ventas/listarVentasCredito" method="POST" id="formModCredito" accept-charset="utf-8" data-parsley-validate="">
@@ -270,10 +273,10 @@
                 </div>
 
                   <div class="row">
-                        <div class="col-xs-12 col-md-6 col-lg-6">
+                        <div class="col-xs-6 col-md-6 col-lg-6">
                           <button type="submit" name="btnmodificarCredito" class="btn btn-success btn-active pull-right" onclick="return validarFecha()" id="btnmodificarCredito" style="float: left; margin-left: 70px"><i class="fa fa-floppy-o" aria-hidden="true">   Guardar</i></button>
                         </div>
-                        <div class="col-xs-12 col-md-6 col-lg-3">
+                        <div class="col-xs-6 col-md-6 col-lg-3">
                           <button type="button" class="btn btn-secondary btn-active"  data-dismiss="modal" onclick="abrirmodal()"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
                         </div>
                       </div>
@@ -384,7 +387,7 @@ function abonosV(valor,id_ventas, valorCreditoPendienteV){
    var valorPendienteCV = parseInt($("#totalCreditoPendiente").val().replace(",", "").replace("$", "").replace(".", ""));
         if(valorAbonoCV > valorPendienteCV){
           swal({
-            title: "El valor del abono es superior al crédito pendiente! \n \n Crédito Pendiente = "+ valorPendienteCV + " pesos.",
+            title: "El valor del abono es superior al crédito pendiente!",
             type: "error",
             confirmButton: "#3CB371",
             confirmButtonText: "Aceptar",

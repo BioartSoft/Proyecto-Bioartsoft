@@ -186,10 +186,10 @@
                    <br>
                </div>
                <div class="row">
-               <div class="col-xs-12 col-md-6 col-lg-7" >
+               <div class="col-xs-6 col-md-6 col-lg-7" >
                  <button id="btn-modificar" tabindex="9" type="submit" name="btn-modificar" class="btn btn-success btn-md active pull-right"><i class="fa fa-floppy-o" aria-hidden="true">   Modificar</i></button>
                </div>
-                 <div class="col-xs-12 col-md-6 col-lg-3">
+                 <div class="col-xs-6 col-md-6 col-lg-3">
                     <button type="button" tabindex="10" class="btn btn-danger btn-md active" onclick="cancelarModProducto()"><i class="fa fa-times" aria-hidden="true">   Cancelar</i></button>
                     <input type="hidden" tabindex="11">
                </div>
@@ -278,7 +278,6 @@
                             <input type="number" tabindex="1" id="txtCantidad" name="txtCantidad" class="form-control" data-parsley-type="number" min="1" maxlength="3" step="1" data-parsley-required="true" placeholder="Ingresar cantidad">
                           </div>
                         <div class="col-md-2">
-
                         <button  type="submit" tabindex="2" name="btn-imprimir" class="btn btn-success btn-md active" id="enviar-imprimir"><i class="fa fa-floppy-o" aria-hidden="true">   Generar Código</i></button>
                         </div>
                       <div class="col-md-3">

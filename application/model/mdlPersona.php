@@ -101,17 +101,10 @@ class mdlPersona
 
 
 
-  // public function listarConfigPagos()
-  // {
-  //   $sql = "CALL SP_Listar_Configuracion_Pagos()";
-  //         $stm = $this->db->prepare($sql);
-  //         $stm->execute();
-  //         return $stm->fetchAll(PDO::FETCH_ASSOC);
-  // }
-
     public function ultimoId(){
         return $this->db->lastInsertId();
     }
+
 
 
     public function listarPrestamosEmp()
@@ -123,6 +116,7 @@ class mdlPersona
             return $stm->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    
 
   public function listarPagosPorEmp()
   {

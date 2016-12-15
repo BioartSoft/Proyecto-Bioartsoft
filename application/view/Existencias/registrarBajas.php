@@ -66,10 +66,10 @@
         </tbody>
       </table>
     </div>
-    <div class="col-md-6 col-xs-12 col-lg-10">
+    <div class="col-md-6 col-xs-6 col-lg-10">
       <button class="btn btn-success active pull-right" id="btn-guardarBajas" type="submit"  name="btn-agregar" title="Guardar"><i class="fa fa-floppy-o" ></i>   Guardar</button>
     </div>
-      <div class="col-md-6 col-xs-12 col-lg-2">
+      <div class="col-md-6 col-xs-6 col-lg-2">
         <button class="btn btn-danger active pull-right" onclick="cancelar()" id="btn-cancelar" type="button"  name="btn-agregar" title="Cancelar"><i class="fa fa-remove" ></i>   Cancelar</button>
       </div>
   </div>
@@ -137,8 +137,8 @@ $(document).ready(function(){
     }, 200);
   });
 
-    $("#txttipo").select2();
-    $("#cmb_producto").select2();
+    // $("#txttipo").select2();
+    //$("#cmb_producto").select2();
 
   $("#frmBajas").submit(function(){
    var productos = $("[data-producto]").length;

@@ -27,6 +27,26 @@
   overflow-y: auto;
 }
 
+#detalle-abono-ventas{
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+#modal-detalles-abonos-creditos{
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+#modal-detal-abono-prestamo{
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+#modal-detal-abonos{
+  max-height: 500px;
+  overflow-y: auto;
+}
+
 .obligatorio{
   color: red;
   font-size: 1.3em;

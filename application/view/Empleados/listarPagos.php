@@ -57,7 +57,7 @@
                         </div>
                         <!-- <input type="text" name="" id="empleadoId2"> -->
                         <div class="row">
-                          <div class="col-md-6 col-xs-12 col-lg-11">
+                          <div class="col-md-12 col-xs-12 col-lg-12">
                           <button type="button" class="btn btn-secondary btn-active pull-right"  data-dismiss="modal"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
                         </div>
                       </div>
@@ -75,17 +75,7 @@
 </div>
 </div>
 </div>
-
-      <div class="row">
-      <div class="col-sm-12">
-    <center>
-    <a href="<?= URL ?>Empleados/informePagos" target="_blank">
-      <button class="btn btn-primary"><i class="fa fa-file-pdf-o" aria-hidden="true">   Reporte PDF Pagos</i></button>
-    </a>
-  </center>
-  </div>
-</div>
-  </form>
+</form>
 
   </center>
 

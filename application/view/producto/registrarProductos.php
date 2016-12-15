@@ -19,7 +19,7 @@
 
               <div class="col-md-12 col-xs-12 col-lg-3">
                 <label for="form-control">Categoría <span class="obligatorio">*</span></label>
-                <select name="txtcategoria" tabindex="2" id="txtcategoria" class="form-control" maxlength="20" data-parsley-type"alphanum" data-parsley-required="true">
+                <select name="txtcategoria" tabindex="2" id="txtcategoria" class="form-control" data-parsley-type"alphanum" data-parsley-required="true">
                   <option value="">Seleccionar Categoría</option>
                   <?php foreach ($categorias as   $value): ?>
                     <option value="<?= $value['id_categoria']  ?>"><?= $value['nombre']  ?></option>
@@ -76,10 +76,10 @@
 
   <br><br><br>
   <div class="row">
-    <div class="col-md-12 col-xs-12 col-lg-6">
+    <div class="col-md-6 col-xs-6 col-lg-6">
       <button  name="btnguardarpro" type="submit" tabindex="9" id="btn-guardar-producto" class="btn btn-success active pull-right" title="Guardar"><i class="fa fa-floppy-o" aria-hidden="true">    Guardar</i></button>
     </div>
-    <div class="col-md-12 col-xs-12 col-lg-3">
+    <div class="col-md-6 col-xs-6 col-lg-3">
       <button type="reset" class="btn btn-danger active" tabindex="10" onclick="cancelar()" id="btn-Cancelar" title="Cancelar"><i class="fa fa-remove" aria-hidden="true">   Cancelar</i></button>
       <input type="hidden" tabindex="11">
     </div>
@@ -145,7 +145,6 @@ $(document).ready(function(){
 $("#btn-guardar-producto").click(function(){
   $('#formulariopro').parsley().validate();
   });
-      $("#txtcategoria").select2();
   });
 </script>
 

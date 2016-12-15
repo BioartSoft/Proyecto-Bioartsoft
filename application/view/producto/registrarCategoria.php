@@ -23,10 +23,10 @@
        </div>
        <br>
        <div class="row">
-          <div class="col-md-6 col-xs-12 col-lg-6">
+          <div class="col-md-6 col-xs-6 col-lg-6">
               <button type="submit" tabindex="2" class="btn btn-success active pull-right" id="btn-guardar" name="btn-ca" title="Guardar"><i class="fa fa-floppy-o" aria-hidden="true">   Guardar</i></button>
           </div>
-          <div class="col-md-6 col-xs-12 col-lg-3">
+          <div class="col-md-6 col-xs-6 col-lg-3">
               <button type="reset" tabindex="3" class="btn btn-danger active" onclick="cancelar()" id="btnCancelar" title="Cancelar"><i class="fa fa-remove" aria-hidden="true">   Cancelar</i></button>
               <input type="hidden" tabindex="4">
           </div>
@@ -111,11 +111,11 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-xs-12 col-md-6 col-lg-6">
+          <div class="col-xs-6 col-md-6 col-lg-6">
             <button type="submit" tabindex="4" id="btn-modica" name="btn-modificar-categoria" class="btn btn-success btn-md active  pull-right" title="Modificar"><i class="fa fa-floppy-o" aria-hidden="true">   Modificar</i></button>
             <input type="hidden" tabindex="5">
           </div>
-          <div class="col-xs-12 col-md-6 col-lg-3">
+          <div class="col-xs-6 col-md-6 col-lg-3">
             <button type="button" tabindex="3" class="btn btn-secondary btn-md active"  data-dismiss="modal" title="Cerrar"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
           </div>
         </div>

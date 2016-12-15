@@ -134,10 +134,10 @@
           </div>
       </div>
       <div class="row">
-        <div class="col-md-6 col-xs-12 col-lg-9">
+        <div class="col-md-6 col-xs-6 col-lg-9">
             <button type="submit" class="btn btn-success active pull-right" name="btn-guardar-venta" id="btnGuardar" onclick="validarCantidad()" title="Guardar Venta"><i class="fa fa-floppy-o" title="Guardar Venta"></i>   Guardar</button>
         </div>
-        <div class="col-md-6 col-xs-12 col-lg-3">
+        <div class="col-md-6 col-xs-6 col-lg-3">
             <button type="button" class="btn btn-danger active pull-right" name="btn-cancelar-venta" id="btncancel" onclick="cancelar()" title="Cancelar Venta"><i class="fa fa-remove" title="Guardar Venta"></i>   Cancelar</button>
         </div>
   </div>
@@ -220,10 +220,10 @@
                  <br>
                </div>
                <div class="row">
-                 <div class="col-md-6 col-xs-12 col-lg-6">
+                 <div class="col-md-6 col-xs-6 col-lg-6">
                    <button type="button" name="btnGuardarPersona" id="btn-guardar" class="btn btn-success active pull-right" onclick="registrarCliente()"><i class="fa fa-floppy-o" aria-hidden="true">  Guardar</i></button>
                  </div>
-                 <div class="col-md-6 col-xs-12 col-lg-3">
+                 <div class="col-md-6 col-xs-6 col-lg-3">
                    <button type="button" class="btn btn-danger active" onclick="cancelarRegistro()"><i class="fa fa-remove" aria-hidden="true">  Cancelar</i></button>
                 </div>
                </div>

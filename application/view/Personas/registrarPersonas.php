@@ -172,15 +172,15 @@
                   </div>
                   <div class="col-md-3" id="conNombreUsuario" style="display: none">
                         <label for="">Nombre usuario <span class="obligatorio">*</span></label>
-                      <input type="text" tabindex="13" name="txtUsuario" maxlength="20" minlength="3" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9@#\-\_\\.\\ \/$]+" class="form-control" id="campoNombreUsuario" placeholder="Nombre Usuario" data-parsley-required="true">
+                      <input type="text" tabindex="13" name="txtUsuario" maxlength="30" minlength="3" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9@#\-\_\\.\\ \/$]+" class="form-control" id="campoNombreUsuario" placeholder="Nombre Usuario" data-parsley-required="true">
                   </div>
             <div class="col-xs-12 col-md-3" id="conClave" style="display: none">
                   <label for="inputPassword"  class="control-label">Contraseña <span class="obligatorio">*</span></label>
-                  <input type="password" tabindex="14" maxlength="15" minlength="3" name="txtClave" class="form-control" id="campoClave" placeholder="Contraseña" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9!@#\$%\-\*\?_~\\.\\()\/$]+" data-parsley-required="true">
+                  <input type="password" tabindex="14" maxlength="10" minlength="7" name="txtClave" class="form-control" id="campoClave" placeholder="Contraseña" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9!@#\$%\-\*\?_~\\.\\()\/$]+" data-parsley-required="true">
             </div>
             <div class="col-xs-12 col-md-3" id="conConfirmar" style="display: none">
                   <label for="">Confirmar contraseña <span class="obligatorio">*</span></label>
-                  <input type="password" tabindex="15" maxlength=12 minlength="3" name="txtConfClave" data-parsley-equalto="#campoClave" class="form-control" id="campoConfirmar" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9!@#\$%\-\*\?_~\\.\()\/$]+" placeholder="Confirmar Contraseña" data-parsley-required="true">
+                  <input type="password" tabindex="10" maxlength="15" minlength="7" name="txtConfClave" data-parsley-equalto="#campoClave" class="form-control" id="campoConfirmar" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9!@#\$%\-\*\?_~\\.\()\/$]+" placeholder="Confirmar Contraseña" data-parsley-required="true">
             </div>
             <div class="col-md-1">
             </div>
@@ -210,12 +210,10 @@
           </div>
 
               <div class="row">
-                 <div class="col-md-6 col-xs-12 col-lg-6">
+                 <div class="col-md-6 col-xs-6 col-lg-6">
                      <button type="submit" tabindex="19" name="btnGuardarPersona" id="btn-enviar" class="btn btn-success active pull-right" title="Guardar"><i class="fa fa-floppy-o" aria-hidden="true">  Guardar</i></button>
                  </div>
-                   <div class="col-md-1 col-xs-12 col-lg-1">
-                   </div>
-                 <div class="col-md-6 col-xs-12 col-lg-3">
+                 <div class="col-md-6 col-xs-6 col-lg-3">
                    <button type="reset" tabindex="20" class="btn btn-danger active" onclick="cancelar()" id="btn-Cancel" title="Cancelar"><i class="fa fa-remove" aria-hidden="true">  Cancelar</i></button>
                 </div>
               <input type="hidden" tabindex="21">
@@ -228,11 +226,11 @@
 </form>
 
 <div class="modal fade" id="mod_ayuda_registroPersonas" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static">
-                  <div class="modal-dialog" role="document" style="width: 50%">
+                  <div class="modal-dialog" role="document">
                     <div class="modal-content">
                       <div class="modal-body">
                  <div class="row">
-                   <div class="col-xs-12 col-md-6 col-lg-12">
+                   <div class="col-xs-12 col-md-12 col-lg-12">
                      <div class="panel panel-primary">
                        <div class="panel-heading" stlyle="height: 70px; width: 100px">
                              <center><span class="modal-title" id="myModalLabel" style="color: #FFF; font-size: 18px"><strong>Registrar Personas</strong></span></center>
@@ -251,7 +249,7 @@
                    </div>
                  </div>
         <div class="row">
-          <div class="col-md-6 col-xs-12 col-lg-12">
+          <div class="col-md-12 col-xs-12 col-lg-12">
              <button type="button" class="btn btn-primary btn-md active pull-right"  data-dismiss="modal"><i class="fa fa-check-circle" aria-hidden="true">&nbsp;Aceptar</i></button>
           </div>
       </div>

@@ -11,11 +11,11 @@
       </center>
     </div>
       <div class="row">
-        <div class="col-lg-6 col-md-6 col-xs-6">
+        <div class="col-lg-6 col-md-6 col-xs-12">
             <div class="panel panel-primary">
                 <div class="panel-heading">
                     <div class="row">
-                        <div class="col-xs-3 col-md-3 col-lg-3">
+                        <div class="col-xs-12 col-md-3 col-lg-3">
                           <?php foreach ($ventasDia AS $valor): ?>
                               <i class="fa fa-usd fa-4x">&nbsp;<span><?= number_format($valor, "0", ".", ".") ?></span></i>
                               <p>Ventas Día</p>
@@ -24,7 +24,7 @@
                         <div class="col-xs-9 text-right">
                           <?php foreach ($ventasMes as $ventasMes): ?>
                               <div class="huge"></div>
-                              <p>Ventas Mes:</p>
+                              <p>Ventas Mes</p>
                               <?php $pesos = "$"; ?>
                               <span class="ventas"><?= $pesos ?><?= $ventasMes ?></span>
                           <?php endforeach; ?>
@@ -37,11 +37,11 @@
                 </a>
             </div>
         </div>
-        <div class="col-lg-6 col-md-6 col-xs-6">
+        <div class="col-lg-6 col-md-6 col-xs-12">
             <div class="panel panel" style="background-color: #3CB371">
                 <div class="panel-heading">
                     <div class="row">
-                        <div class="col-xs-3 col-md-3 col-lg-3">
+                        <div class="col-xs-12 col-md-3 col-lg-3">
                           <?php foreach ($creditos as $value): ?>
 
                             <i class="fa fa-credit-card fa-4x" style="color: #fff">&nbsp;<?= $value?></i>
@@ -66,11 +66,11 @@
       </div>
 
       <div class="row">
-        <div class="col-lg-6 col-md-6 col-xs-6">
+        <div class="col-lg-6 col-md-6 col-xs-12">
             <div class="panel panel" style="background-color: #3CB371">
                 <div class="panel-heading">
                     <div class="row">
-                          <div class="col-xs-3 col-md-3 col-lg-3">
+                          <div class="col-xs-12 col-md-3 col-lg-3">
                             <?php foreach ($comprasDia as $compras): ?>
                                 <i class="fa fa-shopping-cart fa-4x" style="color: #fff">&nbsp;<span><?= number_format($compras, "0", ".", ".") ?></span></i>
                                 <p style="color: #fff">Entradas Día</p>
@@ -79,7 +79,7 @@
                           <div class="col-xs-9 text-right">
                             <?php foreach ($comprasMes as $CompraMes): ?>
                                 <div class="huge"></div>
-                                <p style="color: #fff">Entradas Mes:</p>
+                                <p style="color: #fff">Entradas Mes</p>
                                 <span class="compras" style="color: #fff"><?= $pesos ?><?= $CompraMes ?></span>
                             <?php endforeach; ?>
                           </div>
@@ -91,11 +91,11 @@
                 </a>
             </div>
         </div>
-        <div class="col-lg-6 col-md-6 col-xs-6">
+        <div class="col-lg-6 col-md-6 col-xs-12">
             <div class="panel panel-primary">
                 <div class="panel-heading">
                     <div class="row">
-                        <div class="col-xs-3 col-md-3 col-lg-3">
+                        <div class="col-xs-12 col-md-3 col-lg-3">
                           <?php foreach ($prestamos as $val): ?>
                               <i class="fa fa-money fa-4x">&nbsp;<?= $val?></i>
                               <p>&nbsp;</p>
@@ -127,7 +127,7 @@
                      <div class="col-xs-12 col-md-6 col-lg-12">
                        <div class="panel panel-primary">
                          <div class="panel-heading" stlyle="height: 70px; width: 100px">
-                               <center><span class="modal-title" id="myModalLabel" style="color: #FFF; font-size: 20px">Página de Aterrizaje</span></center>
+                               <center><span class="modal-title" id="myModalLabel" style="color: #FFF; font-size: 18px"><strong>Página de Aterrizaje</strong></span></center>
                          </div>
                          <div class="panel-body">
                              <p>En esta página se pueden observar 4 paneles de diferente color, 2 de ellos de color azul

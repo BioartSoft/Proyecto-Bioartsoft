@@ -1,11 +1,11 @@
 
 <div class="modal fade" id="modal-info" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard ="false" data-backdrop = "static">
-  <div class="modal-dialog modal-lg" role="document" style="width: 50% !important">
+  <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-body">
         <form class="" action="" method="post">
           <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-12 col-xs-12 col-lg-12">
               <div class="panel panel-primary" >
               <div class="panel-heading" stlyle="height: 70px; width: 100px">
                     <center><span style="text-align:center; color: #fff; font-size: 18px"><b>BIOARTSOFT</b></span></center>
@@ -29,18 +29,22 @@
             </div>
           </div>
         </div>
-            <button type="button" class="btn btn-primary btn-active pull-rigth"  data-dismiss="modal" style="margin-left:80%"><i class="fa fa-check-circle" aria-hidden="true">   Aceptar</i></button>
+        <div class="row">
+          <div class="col-xs-12 col-md-12 col-lg-12">
+            <button type="button" class="btn btn-primary btn-active pull-right"  data-dismiss="modal"><i class="fa fa-check-circle" aria-hidden="true">   Aceptar</i></button>
         </div>
       </div>
     </div>
   </div>
+</div>
+</div>
 
   <div class="modal fade" id="modal-money" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard ="false" data-backdrop = "static">
-    <div class="modal-dialog modal-lg" role="document" style="width: 50% !important">
+    <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-body">
             <div class="row">
-              <div class="col-md-12">
+              <div class="col-md-12 col-md-12 col-xs-12">
                 <div class="panel panel-primary" >
                 <div class="panel-heading" stlyle="height: 70px; width: 100px">
                       <center><span style="text-align:center; color: #fff; font-size: 18px"><strong>Ganancias</strong></span></center>
@@ -59,7 +63,7 @@
                             $nuevaFecha = strtotime('-1 month', strtotime($hoy1));
                             $nuevaFecha = date('Y-m-d', $nuevaFecha);
                           ?>
-                            <label for="">Fecha Inicial </label>
+                            <label for="">Fecha Inicial <span class="obligatorio">*</span></label>
                             <div class="input-group date calendario" data-provide="datepicker">
                             <input type="text" class="form-control" name="txtfechainicial" value="<?= $nuevaFecha ?>" id="txtfechainicial" placeholder="Fecha Inicial" readonly="true" data-parsley-required="true">
 
@@ -71,7 +75,7 @@
                         </div>
                         <div class="col-md-1"></div>
                         <div   class="col-md-4">
-                            <label for="">Fecha Final </label>
+                            <label for="">Fecha Final <span class="obligatorio">*</span></label>
                             <div class="input-group date calendario" data-provide="datepicker">
                             <input type="text" class="form-control" name="txtfechafinal" value="<?= $hoy1 ?>" id="txtfechafinal1" readonly="true"  placeholder="Fecha final" data-parsley-required="true">
                             <div class="input-group-addon">
@@ -84,9 +88,8 @@
                     </div>
                     <br><br>
                     <div class="row">
-                      <div class="col-md-6 col-xs-12 col-lg-4"></div>
-                        <div class="col-md-6 col-xs-12 col-lg-4">
-                          <button type="button"class="btn btn-primary active" id="btn-ganancias" name="btnconsultarganancia" onclick="consultarGanancia()"><i class="fa fa-building-o" aria-hidden="true" data-toggle="modal" data-target="#modal-ganancias"> Generar Ganancias</i></button>
+                        <div class="col-md-7 col-xs-9 col-lg-7">
+                          <button type="button"class="btn btn-primary active pull-right" id="btn-ganancias" name="btnconsultarganancia" onclick="consultarGanancia()"><i class="fa fa-building-o" aria-hidden="true" data-toggle="modal" data-target="#modal-ganancias"> Generar Ganancias</i></button>
                         </div>
                     </div>
                     </div>
@@ -95,8 +98,12 @@
               </div>
             </div>
           </div>
+          <div class="row">
+            <div class="col-xs-11 col-md-12 col-lg-12">
               <button type="button" class="btn btn-secondary btn-active pull-rigth"  data-dismiss="modal" style="margin-left:80%"><i class="fa fa-remove" aria-hidden="true">&nbsp;&nbsp;Cerrar</i></button>
           </div>
+        </div>
+      </div>
         </div>
       </div>
     </div>
@@ -107,7 +114,7 @@
    <div class="modal-content modal-xs">
            <div class="modal-body">
            <div class="row">
-             <div class="col-md-12">
+             <div class="col-md-12 col-xs-12 col-lg-12">
                <div class="panel panel-primary" >
                  <div class="panel-heading" stlyle="height: 70px; width: 100px">
                    <center><span style="color: #fff; font-size: 18px" id="myModalLabel"><strong>Detalle Promedio Ganancias</strong></span></center>
@@ -124,11 +131,42 @@
             </div>
            </div>
            </div>
-           <button type="button" class="btn btn-secondary btn-active" style="margin-left:80%" onclick="abrirModal()"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
+           <div class="row">
+             <div class="col-xs-8 col-lg-12 col-md-12">
+               <button type="button" class="btn btn-secondary btn-active pull-right" onclick="abrirModal()"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
            </div>
+         </div>
+         </div>
        </div>
       </div>
     </div>
+
+    <div class="modal fade" id="modal-ayuda" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static">
+     <div class="modal-dialog" role="document">
+       <div class="modal-content modal-xs">
+               <div class="modal-body">
+               <div class="row">
+                 <div class="col-md-12">
+                   <div class="panel panel-primary" >
+                     <div class="panel-heading" stlyle="height: 70px; width: 100px">
+                       <center><span style="color: #fff; font-size: 18px" id="myModalLabel"><strong>Ayudas</strong></span></center>
+                     </div>
+                     <div class="panel-body">
+                      <p>El icono ayuda en forma de pregunta "?", estará ubicado en la parte superior
+                      de cada una de las vistas con el fin de dar una orientación al usuario.</p>
+                 </div>
+                </div>
+               </div>
+               </div>
+               <div class="row">
+                 <div class="col-xs-12 col-lg-12 col-md-12">
+                   <button type="button" class="btn btn-primary btn-active pull-right" style="margin-left:80%" data-dismiss="modal"><i class="fa fa-check-circle" aria-hidden="true">   Aceptar</i></button>
+               </div>
+             </div>
+           </div>
+           </div>
+          </div>
+        </div>
 
     <script>
         var url = "<?php echo URL; ?>";

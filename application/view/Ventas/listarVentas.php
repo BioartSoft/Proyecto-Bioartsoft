@@ -129,13 +129,13 @@
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-md-9">
+                    <div class="col-md-6 col-xs-6 col-lg-8">
                       <button type="button" class="btn btn-secondary btn-md active pull-right"  data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"> Cerrar</span></button>
                     </div>
                 <?php if($_SESSION['ROL'] == 1 || $_SESSION['ROL'] == 3): ?>
                   <?php foreach($Ventas as $val): ?>
                     <?php if($val['estado'] == 1): ?>
-                      <div class="col-md-2">
+                      <div class="col-md-6 col-xs-6 col-lg-2">
                         <a href="<?= URL ?>Ventas/generarpdfDetallesVentas2" target="_blank" id="pdfDeta">
                           <button class="btn btn-primary" name="btnComprasD"><i class="fa fa-file-pdf-o" aria-hidden="true">   Recibo de Caja</i></button>
                         </a>
@@ -202,9 +202,8 @@
                                 </div>
                                 <br><br>
                                 <div class="row">
-                                  <div class="col-md-5"></div>
-                                    <div class="col-md-4">
-                                      <button type="submit" tabindex="3" class="btn btn-primary active" id="btn-pdf" name="btnconsultar"><i class="fa fa-file-pdf-o" aria-hidden="true"> Generar PDF Ventas</i></button>
+                                    <div class="col-md-8 col-xs-10 col-lg-8">
+                                      <button type="submit" tabindex="3" class="btn btn-primary active pull-right" id="btn-pdf" name="btnconsultar"><i class="fa fa-file-pdf-o" aria-hidden="true"> Generar PDF Ventas</i></button>
                                     </div>
                                 </div>
                                 </div>
@@ -214,7 +213,7 @@
                             </div>
                           </div>
                           <div class="row">
-                            <div class="col-md-6 col-xs-12 col-lg-11">
+                            <div class="col-md-11 col-xs-11 col-lg-11">
                               <button type="button" tabindex="4" id="cancelar" class="btn btn-secondary btn-md active pull-right"  data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"> Cerrar</span></button>
                               <input type="hidden" tabindex="5">
                             </div>
@@ -296,9 +295,9 @@ function cambiarEstado(cod, est){
           return bandera;
        }
 
-       $(".modal-content").css({
-         width: '900px'
-       });
+      //  $(".modal-content").css({
+      //    width: '900px'
+      //  });
 </script>
 <script type="text/javascript">
   $("#txtfechainicial1").change(function(){

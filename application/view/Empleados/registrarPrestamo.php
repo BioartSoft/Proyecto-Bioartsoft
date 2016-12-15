@@ -46,7 +46,7 @@
     </div>
 
     <div class="modal fade" id="myjh" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard ="false" data-backdrop = "static">
-      <div class="modal-dialog" role="document" style="width: 40% !important" id="modalcss" >
+      <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-body" style="margin: 0 auto">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -106,13 +106,13 @@
               </div>
 
                 <div class="row">
-                <div class="col-xs-12 col-md-6" id="divvalorprestamo">
+                <div class="col-xs-6 col-md-6" id="divvalorprestamo">
                   <br>
                   <label>Valor Préstamo <span class="obligatorio">*</span></label>
-		  <input type="hidden" name="txtTope" value="1000000" id="tope">
+		              <input type="hidden" name="txtTope" value="1000000" id="tope">
                   <input type="number" min ="1000" id="valorpres" maxlength="8" name="txtvalorprestamo" size="4" class="form-control" data-parsley-type="integer" data-parsley-required="true">
                 </div>
-                <div class="col-xs-12 col-md-6" id="divdescripcion">
+                <div class="col-xs-6 col-md-6" id="divdescripcion">
                   <br>
                   <label>Descripción</label>
                   <textarea class="form-control" rows="3" name="txtdescripcion" id="descri"></textarea>
@@ -122,10 +122,10 @@
         </div>
 
         <div class="row">
-          <div class="col-xs-12 col-md-3 col-lg-6" id="btnGuardarPrestamo">
+          <div class="col-xs-6 col-md-6 col-lg-6" id="btnGuardarPrestamo">
             <button type="submit" class="btn btn-success btn-md active pull-right" name="btnRegistrarPrestamo" id="btnguardarPrestamo" title="Guardar"><i class="fa fa-floppy-o" aria-hidden="true">   Guardar</i> </button>
           </div>
-          <div class="col-xs-12 col-md-3 col-lg-3">
+          <div class="col-xs-6 col-md-6 col-lg-3">
             <button type="button" class="btn btn-danger btn-md active" onclick="cancelarRegPrestamo()" id="bcancelarRegPrest" title="Cancelar Registro"><i class="fa fa-times" aria-hidden="true">   Cancelar</i> </button>
           </div>
         </div>

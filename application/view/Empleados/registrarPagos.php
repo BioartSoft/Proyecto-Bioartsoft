@@ -1287,17 +1287,17 @@
           		$("#valor_penprestamos").val(0);
           		$("#valor_Ventas").val(0);
           		$("#neto").val("");
-		        $("#total").html(0);
-		        $("#valorcomision").val("");
-		        $("#totalco").html(0);
-		        $("#totalpago").val("");
-		        $("#totalpagos").html(0);
-		        $("#valorvacacionestot").val(0);
-                $("#totalvacaciones").html(0);
-                $("#valorcesantias").val(0);
-                $("#idtotalcesantias").html(0);
-                $("#valortotliquidacion").val(0);
-                $("#totalliquidaciones").html(0);
+  		        $("#total").html(0);
+  		        $("#valorcomision").val("");
+  		        $("#totalco").html(0);
+  		        $("#totalpago").val("");
+  		        $("#totalpagos").html(0);
+  		        $("#valorvacacionestot").val(0);
+              $("#totalvacaciones").html(0);
+              $("#valorcesantias").val(0);
+              $("#idtotalcesantias").html(0);
+              $("#valortotliquidacion").val(0);
+              $("#totalliquidaciones").html(0);
           	}
 
           	$("input[name='txtValorDia']").on('keyup keypress blur change', function(e) {
@@ -1337,4 +1337,5 @@
           centsLimit: 3,
           prefix: '$ '
         });
+
           </script>

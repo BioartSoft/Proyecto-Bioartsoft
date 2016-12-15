@@ -49,7 +49,7 @@
                     <div class="col-md-12">
                       <div class="panel panel-primary">
                       <div class="panel-heading" stlyle="height: 70px; width: 100px">
-                            <center><span id="creditosClientModal" style="text-align:center; color: #fff; font-size: 18px">Detalle de Crédito de: <span id="cliente"></span></center>
+                            <center><span id="creditosClientModal" style="text-align:center; color: #fff; font-size: 18px"><strong>Detalle de Crédito de: <span id="cliente"></span></strong></center>
                       </div>
                         <div class="panel-body">
                           <div class="dataTable_wrapper">
@@ -65,8 +65,8 @@
                 </div>
 
                 <div class="row">
-                  <div class="col-xs-12 col-md-6 col-lg-12">
-                    <button type="button" class="btn btn-secondary btn-active pull-rigth"  data-dismiss="modal" style="margin-left:80%"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
+                  <div class="col-xs-12 col-md-12 col-lg-12">
+                    <button type="button" class="btn btn-secondary btn-active pull-right"  data-dismiss="modal"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
                   </div>
                 </div>
 
@@ -76,14 +76,14 @@
       </div>
 
             <div class="modal fade" id="mdListarAbonosCreditosV" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard ="false" data-backdrop = "static">
-              <div class="modal-dialog" role="document" style="width: 45% !important">
+              <div class="modal-dialog" role="document">
                 <div class="modal-content">
-                  <div class="modal-body">
+                  <div class="modal-body" id="modal-detalles-abonos-creditos">
                   <div class="row">
                     <div class="col-md-12">
                       <div class="panel panel-primary">
                       <div class="panel-heading" stlyle="height: 70px; width: 100px">
-                        <center><span id="creditosClientModal" style="text-align:center; color: #fff; font-size: 18px">Detalle Abonos de: <span id="cliente-DetallesAbonos"><span></center>
+                        <center><span id="creditosClientModal" style="text-align:center; color: #fff; font-size: 18px"><strong>Detalle Abonos de: <span id="cliente-DetallesAbonos"><span></strong></center>
                       </div>
                         <div class="panel-body" id="panelAb">
                           <div class="dataTable_wrapper">
@@ -101,12 +101,12 @@
               </div>
 
               <div class="row">
-                <div class="col-xs-12 col-md-8">
-                <button type="button" class="btn btn-secondary btn-active"  data-dismiss="modal" style="margin-left:80%" onclick="abrirmodal()"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
+                <div class="col-xs-6 col-md-6 col-lg-6">
+                <button type="button" class="btn btn-secondary btn-active pull-right"  data-dismiss="modal" style="margin-left:80%" onclick="abrirmodal()"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
               </div>
               <?php foreach($info as $va): ?>
                 <?php if(($_SESSION['ROL'] == 1 && $va['estado_abono'] == 1) || ($_SESSION['ROL'] == 3 &&  $va['estado_abono'] == 1)): ?>
-                <div class="col-md-2">
+                <div class="col-xs-6 col-md-6 col-lg-6">
                   <a href="<?= URL ?>Ventas/generarpdfDetalleAbonos" target="_blank" id="pdfDeta">
                     <button class="btn btn-primary" name="btnComprasD"><i class="fa fa-file-pdf-o" aria-hidden="true">   Recibo de Abono</i></button>
                   </a>
@@ -123,7 +123,7 @@
       </div>
 
       <div class="modal fade" id="abonoCreditosV" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard ="false" data-backdrop = "static">
-        <div class="modal-dialog" role="document" style="width: 40% !important">
+        <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-body">
             <form method="POST" id="form-abonos" action="<?php echo URL?>Ventas/registrarAbonoCreditoVen" data-parsley-validate="">
@@ -133,7 +133,7 @@
 
                 <div class="panel panel-primary" style="margin-left: 2%; margin-right: 2%">
                     <div class="panel-heading" stlyle="height: 70px; width: 100px">
-                        <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 18px">Abono a Créditos de: <span id="cliente-abonos"></span></center>
+                        <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 18px"><strong>Abono a Créditos de: <span id="cliente-abonos"></span></strong></center>
                     </div>
 
                     <div class="panel-body">
@@ -150,7 +150,7 @@
 
                <div class="col-xs-12 col-md-6">
                    <br>
-                   <label >Ingresar Abono</label><br>
+                   <label >Ingresar Abono <span class="obligatorio">*</span></label><br>
                    <input type="number" class="form-control" placeholder="Valor Abono" id="idabono" onblur="validarAbonoCreditoV()" name="txtvalorabono" data-parsley-type="number" data-parsley-required="true">
                    <input type="hidden" name="empleadoAbonoVenta" value="<?= $_SESSION['USUARIO_ID']; ?>">
                </div>
@@ -159,12 +159,12 @@
           </div>
             <br>
               <div class="row">
-                <div class="col-xs-12 col-md-6 col-lg-9">
+                <div class="col-xs-6 col-md-6 col-lg-6">
                   <button type="button" class="btn btn-secondary btn-active pull-right"  data-dismiss="modal" style="float: left" onclick="abrirmodal()"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
                 </div>
 
-                <div class="col-xs-12 col-md-6 col-lg-3">
-                  <button type="submit" name="btnRegistrarAbono" onclick="return validarAbonoCreditoV()" class="btn btn-success btn-active" id="btn-Guardar-Abono" style="float: right"><i class="fa fa-floppy-o" aria-hidden="true">   Guardar</i></button>
+                <div class="col-xs-6 col-md-3 col-lg-3">
+                  <button type="submit" name="btnRegistrarAbono" onclick="return validarAbonoCreditoV()" class="btn btn-success btn-active" id="btn-Guardar-Abono"><i class="fa fa-floppy-o" aria-hidden="true">   Guardar</i></button>
                 </div>
             </div>
           </form>
@@ -175,7 +175,7 @@
 
 
 <div class="modal fade" id="mymodificarCredito" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard ="false" data-backdrop = "static">
-  <div class="modal-dialog modal-md" role="document" style="width: 40% !important">
+  <div class="modal-dialog modal-md" role="document">
     <div class="modal-content">
       <div class="modal-body">
         <form action="<?php echo URL?>Ventas/listarVentasCredito" method="POST" id="formModCredito" accept-charset="utf-8" data-parsley-validate="">
@@ -183,7 +183,7 @@
           <div class="col-md-12">
             <div class="panel panel-primary">
               <div class="panel-heading" stlyle="height: 70px; width: 100px">
-                  <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 18px">Modificar Fecha Límite Crédito</center>
+                  <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 18px"><strong>Modificar Fecha Límite Crédito</strong></center>
               </div>
             <div class="panel-body">
               <input type="hidden" name="txthiddenCredito" id="idCredito">
@@ -194,7 +194,7 @@
                       </div>
 
                       <div class="col-xs-12 col-md-6">
-                        <label for="txtdiaslimiteCredito">Días Plazo</label>
+                        <label for="txtdiaslimiteCredito">Días Plazo <span class="obligatorio">*</span></label>
                         <input type="number" class="form-control" name="txtdiaslimiteCredito" data-parsley-required="true" id="diasPlazo" max="30" min="1">
                       </div>
                 </div>
@@ -207,12 +207,12 @@
         </div>
 
           <div class="row">
-                <div class="col-xs-12 col-md-6 col-lg-8">
-                  <button type="button" class="btn btn-secondary btn-active pull-right"  data-dismiss="modal" onclick="abrirmodal()"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
+                <div class="col-xs-6 col-md-6 col-lg-6">
+                  <button type="submit" name="btnmodificarCredito" class="btn btn-success btn-active pull-right" onclick="return validarFecha()" id="btnmodificarCredito" style="float: left; margin-left: 70px"><i class="fa fa-floppy-o" aria-hidden="true">   Guardar</i></button>
                 </div>
 
-                <div class="col-xs-12 col-md-6 col-lg-4">
-                  <button type="submit" name="btnmodificarCredito" class="btn btn-success btn-active" onclick="return validarFecha()" id="btnmodificarCredito" style="float: left; margin-left: 70px"><i class="fa fa-floppy-o" aria-hidden="true">   Guardar</i></button>
+                <div class="col-xs-6 col-md-6 col-lg-4">
+                  <button type="button" class="btn btn-secondary btn-active"  data-dismiss="modal" onclick="abrirmodal()"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
                 </div>
               </div>
         </form>
@@ -231,8 +231,9 @@ function abonosV(valor,id_ventas, valorCreditoPendienteV){
   $("#idvalorCreditoV").val(valor);
   $("#idprestamosCreditoV").val(id_ventas);
   $("#totalCreditoPendiente").val(valorCreditoPendienteV);
-  $("#totalCreditoPendiente").priceFormat({centsLimit: 3, clearPrefix: true});
-  $("#idvalorCreditoV").priceFormat({centsLimit: 3, clearPrefix: true});
+
+  $("#totalCreditoPendiente").priceFormat({centsLimit: 3, prefix: '$ '});
+  $("#idvalorCreditoV").priceFormat({centsLimit: 3, prefix: '$ '});
 }
 
 
@@ -317,11 +318,11 @@ function abonosV(valor,id_ventas, valorCreditoPendienteV){
 <script type="text/javascript">
  function validarAbonoCreditoV(){
    var valorAbonoCV = parseInt($("#idabono").val());
-   var valorTotalCV = parseInt($("#idvalorCreditoV").val());
-   var valorPendienteCV = parseInt($("#totalCreditoPendiente").val().replace(".", ""));
+   var valorTotalCV = parseInt($("#idvalorCreditoV").val().replace("$", "").replace(",", "").replace(".", ""));
+   var valorPendienteCV = parseInt($("#totalCreditoPendiente").val().replace("$", "").replace(",", "").replace(".", ""));
         if(valorAbonoCV > valorPendienteCV){
           swal({
-            title: "El valor del abono es superior al crédito pendiente! \n \n Crédito Pendiente = "+ valorPendienteCV + " pesos.",
+            title: "El valor del abono es superior al crédito pendiente!",
             type: "error",
             confirmButton: "#3CB371",
             confirmButtonText: "Aceptar",

@@ -89,7 +89,7 @@ public function ultimoAbonoVentas($id)
 
 
     public function ultimoIdAbono(){
-        $sql = "SELECT max(idabono) as ultimo_id FROM tbl_abono_ventas WHERE Tbl_Ventas_idventas = ?";
+        $sql = "CALL SP_Ultimo_id_abono_Venta(?)";
         $stm = $this->db->prepare($sql);
         $stm->bindParam(1, $this->codigo_venta);
         $stm ->execute();

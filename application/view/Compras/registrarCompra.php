@@ -100,10 +100,10 @@
 
     </div>
     <div class="row">
-      <div class="col-md-6 col-xs-12 col-lg-9">
+      <div class="col-md-6 col-xs-6 col-lg-9">
       <button type="submit" tabindex="7" class="btn btn-success active pull-right" id="btnguardarC" name="btn-guardar-compra" title="Guardar"><i class="fa fa-floppy-o"></i>   Guardar</button>
     </div>
-    <div class="col-md-6 col-xs-12 col-lg-3">
+    <div class="col-md-6 col-xs-6 col-lg-3">
       <button type="reset" tabindex="8" class="btn btn-danger active pull-right" onclick="cancelar()" id="btncancelar" name="btn-cancelar-compra" title="Cancelar"><i class="fa fa-remove"></i>   Cancelar</button>
       <input type="hidden" tabindex="9">
     </div>
@@ -125,7 +125,7 @@
          </button>
        <div class="modal-header">
          <div class="row">
-           <div class="col-lg-12">
+           <div class="col-lg-12 col-md-12 col-xs-12">
              <div class="panel panel-primary">
                <div class="panel-heading" stlyle="height: 70px; width: 100px">
                      <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 18px"><strong>Registrar Producto (Obligatorios *)</strong></center>
@@ -174,10 +174,10 @@
                       <br>
                     </div>
                     <div class="row">
-                      <div class="col-md-6 col-xs-12 col-lg-7">
+                      <div class="col-md-6 col-xs-6 col-lg-7">
                         <button type="submit" name="btnguardarProducto" id="btn-guardar" onclick="ValidarNombreProducto()" class="btn btn-success active pull-right" title="Guardar"><i class="fa fa-floppy-o" aria-hidden="true">  Guardar</i></button>
                       </div>
-                      <div class="col-md-6 col-xs-12 col-lg-3">
+                      <div class="col-md-6 col-xs-6 col-lg-3">
                         <button type="button" class="btn btn-danger active" onclick="cancelarRegistroProducto()" title="Cancelar"><i class="fa fa-remove" aria-hidden="true">  Cancelar</i></button>
                       </div>
                     </div>
@@ -202,15 +202,15 @@
                              <div class="modal-dialog" role="document">
                                <div class="modal-content">
                                  <div class="modal-body">
-                                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                   <button type="button" class="close" aria-label="Close" data-dismiss="modal">
                                      <span aria-hidden="true">&times;</span>
                                    </button>
-                                   <button type="button" class="btn btn-primary btn-circle btn-md" data-toggle="modal" data-target="#mod_ayuda_precios">
+                                   <button type="button" class="btn btn-primary btn-circle btn-md" data-toggle="modal" data-target="#mod_ayuda_precios" onclick="abrirmodal()">
                                      <i class="fa fa-question" aria-hidden="true" title="Ayuda"></i>
                                    </button>
                                    <br><br>
                             <div class="row">
-                              <div class="col-xs-12 col-md-6 col-lg-12">
+                              <div class="col-xs-12 col-md-12 col-lg-12">
                                 <div class="panel panel-primary">
                                   <div class="panel-heading" stlyle="height: 70px; width: 100px">
                                         <center><span class="modal-title" id="myModalLabel" style="color: #FFF; font-size: 18px"><strong>Modificar Precios (Obligatorios *)</strong></span></center>
@@ -242,10 +242,10 @@
                       </div>
                    </div>
                    <div class="row">
-                   <div class="col-md-6 col-xs-12 col-lg-7">
+                   <div class="col-md-6 col-xs-6 col-lg-7">
                      <button id="btn-modificar" type="button" name="btn-modificar" onclick="validarPreciosCompra()" class="btn btn-success btn-md active pull-right"><i class="fa fa-floppy-o" aria-hidden="true">   Modificar</i></button>
                    </div>
-                   <div class="col-md-6 col-xs-12 col-lg-3">
+                   <div class="col-md-6 col-xs-6 col-lg-3">
                      <button type="button" class="btn btn-danger btn-md active" onclick="cancelarModificacion()"><i class="fa fa-times" aria-hidden="true">   Cancelar</i></button>
                    </div>
                  </div>
@@ -257,11 +257,11 @@
   <!-- </form> -->
 
   <div class="modal fade" id="mod_ayuda_precios" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static">
-                    <div class="modal-dialog" role="document" style="width: 50%">
+                    <div class="modal-dialog" role="document">
                       <div class="modal-content">
                         <div class="modal-body">
                    <div class="row">
-                     <div class="col-xs-12 col-md-6 col-lg-12">
+                     <div class="col-xs-12 col-md-12 col-lg-12">
                        <div class="panel panel-primary">
                          <div class="panel-heading" stlyle="height: 70px; width: 100px">
                                <center><span class="modal-title" id="myModalLabel" style="color: #FFF; font-size: 18px"><strong>Modificación Precios</strong></span></center>
@@ -279,14 +279,28 @@
                      </div>
                    </div>
           <div class="row">
-            <div class="col-md-6 col-xs-12 col-lg-12">
-               <button type="button" class="btn btn-primary btn-md active pull-right"  data-dismiss="modal"><i class="fa fa-check-circle" aria-hidden="true">&nbsp;Aceptar</i></button>
+            <div class="col-md-12 col-xs-12 col-lg-12">
+               <button type="button" class="btn btn-primary btn-md active pull-right"  data-dismiss="modal" onclick="abrirmodal2()"><i class="fa fa-check-circle" aria-hidden="true">&nbsp;Aceptar</i></button>
              </div>
         </div>
     </div>
   </div>
 </div>
 </div>
+
+<script type="text/javascript">
+  function abrirmodal() {
+    $('#modal-modificarPrecios').modal('hide');
+    //$('#mod_ayuda_precios').modal('show');
+  }
+</script>
+
+<script type="text/javascript">
+  function abrirmodal2() {
+    $('#modal-modificarPrecios').modal('show');
+    $('#mod_ayuda_precios').modal('hide');
+  }
+</script>
 
 
 <script>

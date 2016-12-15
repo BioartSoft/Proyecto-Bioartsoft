@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Codigo de barras</title>
+	<title>Código de barras</title>
 	<style>
 		.img{
 			margin: 15px;
@@ -16,7 +16,7 @@
 		}
 	</style>
 </head>
-<center><legend><h2>Codigos de barras del producto: <?= $producto['nombre_producto']  ?></h2></legend></center>
+<center><legend><h2>Códigos de Barras del Producto: <?= $producto['nombre_producto']  ?></h2></legend></center>
 <body>
 	<?php for($i = 0; $i < $cantidad; $i ++): ?>
 		<img src="<?= $urlImagen ?>" alt="" class="img">

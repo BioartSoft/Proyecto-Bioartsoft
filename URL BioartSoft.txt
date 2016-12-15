@@ -1,0 +1,8 @@
+URL de BioartSoft
+
+http://localhost:90/bioartsoft/login/iniciar
+
+URL de la base de datos bioartes
+
+
+http://localhost:90/phpmyadmin/

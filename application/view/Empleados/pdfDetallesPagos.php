@@ -18,11 +18,23 @@
     <p>Cra. 51 N° 44 – 69, Local 144 B - Medellín</p>
   </div>
   Comprobante de pago número: <strong><?= $val['id_pago'] ?></strong><br>
-  Fecha: <?= $val['fecha_pago'];?>&nbsp;&nbsp;&nbsp;&nbsp;<?= date("H:i:s"); ?>
+  <?php if($val['tipo_pago'] == "Pago Final"): ?>
+    Fecha Inicio Labores: <?= $val['fecha_Contrato']; ?>
+    &nbsp;&nbsp;&nbsp;
+    Fecha Final Labores: <?= $val['fecha_pago'];?>
+  <?php else: ?>
+        Fecha: <?= $val['fecha_pago'];?>&nbsp;&nbsp;&nbsp;&nbsp;<?= date("H:i:s"); ?>
+  <?php endif; ?>
   <br><br>
   Empleado: <strong><?= ucwords($val['empleado']) ?></strong><br>
+  Tipo de Documento: <strong><?= $val['tipo_documento'] ?></strong><br>
   Identificación: <strong><?= $val['id_persona'] ?></strong><br>
-  Tipo Empleado: <strong><?= $val['Tbl_nombre_tipo_persona'] ?></strong><br>
+  <?php if($val['tipo_pago'] == "Pago Normal"): ?>
+    Tipo Pago: <strong>Pago Normal</strong>
+  <?php else: ?>
+    Tipo Pago: <strong>Pago Final</strong>
+  <?php endif; ?>
+  <br>
   <?php if($val['Tbl_nombre_tipo_persona'] == "Empleado-fijo"): ?>
   Tiempo Pago: <strong><?= $val['tipo_pago'] == "Pago Normal"?"Quincenal":"Anual" ?></strong><br>
 <?php else: ?>
@@ -48,6 +60,7 @@
         <th>Prima</th>
       <?php elseif($val['tipo_pago'] == "Pago Normal" && $val['Tbl_nombre_tipo_persona'] == "Empleado-fijo"): ?>
         <th>Valor Día</th>
+        <th>Cantidad Días</th>
         <th>Valor en Ventas</th>
         <th>Valor Comisión</th>
       <?php elseif($val['tipo_pago'] == "Pago Normal" && $val['Tbl_nombre_tipo_persona'] == "Empleado-temporal"): ?>
@@ -71,7 +84,6 @@
   ---------------------------------------------------------------------------------<br><br>
     <p>Valor total a pagar: $ <strong><?= number_format($val['total_pago'], "0", ".", "."); ?></p>
     <br><br>
-    <br>
    <p>Recibído:&nbsp; -----------------------------------------------------------------------------------</p>
     <script src="<?php echo URL ?>js/bootstrap.min.js"></script>
 </body>

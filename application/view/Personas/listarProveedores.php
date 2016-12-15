@@ -230,12 +230,12 @@
                   </div>
                 </div>
                 <div class="row">
-                <div class="col-xs-12 col-md-6 col-lg-3" style="margin-left: 25%">
-                  <button type="submit" tabindex="16" name="btn-modificar-prov" id="btn-guardar-Mod-Prov" class="btn btn-success btn-md active"><i class="fa fa-floppy-o" aria-hidden="true">   Modificar</i></button>
+                <div class="col-xs-6 col-md-6 col-lg-6">
+                  <button type="submit" tabindex="16" name="btn-modificar-prov" id="btn-guardar-Mod-Prov" class="btn btn-success btn-md active pull-right"><i class="fa fa-floppy-o" aria-hidden="true">   Modificar</i></button>
                   <input type="hidden" tabindex="17">
                 </div>
-                  <div class="col-xs-5 col-md-3">
-                    <button type="button" class="btn btn-danger btn-md active" onclick="cancelarModProveedor()" style="float: right;" id="btnmodificarProveedor" title="Cancelar Registro"><i class="fa fa-times" aria-hidden="true">   Cancelar</i> </button>
+                  <div class="col-xs-6 col-md-3 col-lg-3">
+                    <button type="button" class="btn btn-danger btn-md active" onclick="cancelarModProveedor()" id="btnmodificarProveedor" title="Cancelar Registro"><i class="fa fa-times" aria-hidden="true">   Cancelar</i> </button>
                   </div>
               </div>
             </form>
@@ -259,7 +259,7 @@
 
  <?php if ($id!= "" && $tipo == 3): ?>
  <div class="modal fade" id="modal-detalles-Proveedor" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static">
-     <div class="modal-dialog" style="width: 80%" role="document">
+     <div class="modal-dialog">
        <div class="modal-content" style="width: 100%">
                <form method="POST" action="<?= URL ?>Personas/listarProveedores/<?=  $valor['id_persona'] ?>">
                 <div class="modal-body">
@@ -310,7 +310,7 @@
             </div>
         <div>
       <div class="row">
-          <div class="col-md-11">
+          <div class="col-md-11 col-lg-11 col-xs-11">
             <button type="button" class="btn btn-secondary btn-md active pull-right"  data-dismiss="modal" style="float: center"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
           </div>
         </div>

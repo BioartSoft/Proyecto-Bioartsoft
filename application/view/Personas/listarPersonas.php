@@ -263,11 +263,11 @@
                         <br><br>
                     </div>
                     <div class="row">
-                    <div class="col-md-6 col-xs-12 col-lg-3" style="margin-left: 25%">
-                      <button type="submit"  tabindex="15" name="btn-modificar" class="btn btn-success active btn-md" id="btn-modificar"><i class="fa fa-floppy-o" aria-hidden="true">   Modificar</i></button>
+                    <div class="col-md-6 col-xs-6 col-lg-6">
+                      <button type="submit"  tabindex="15" name="btn-modificar" class="btn btn-success active btn-md pull-right" id="btn-modificar"><i class="fa fa-floppy-o" aria-hidden="true">   Modificar</i></button>
                       <input type="hidden" tabindex="16">
                     </div>
-                    <div class="col-xs-5 col-md-3">
+                    <div class="col-xs-3 col-md-3 col-lg-3">
                      <button type="button" class="btn btn-danger btn-md active" onclick="cancelarMod()" style="float: right;" id="btnguardarP" title="Cancelar Registro"><i class="fa fa-times" aria-hidden="true">   Cancelar</i> </button>
                    </div>
                   </div>
@@ -354,12 +354,11 @@
             </div>
          </div>
      <div class="row">
-       <div class="col-md-11">
-  <button type="button" class="btn btn-secondary btn-md active pull-right"  data-dismiss="modal" style="float: center"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
+       <div class="col-md-11 col-xs-10 col-lg-11">
+        <button type="button" class="btn btn-secondary btn-md active pull-right"  data-dismiss="modal" style="float: center"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
+      </div>
+    </div>
 </div>
-</div>
-</div>
-<!-- </form> -->
 </div>
 </div>
 </div>
@@ -392,12 +391,12 @@
                       <div class="panel-body">
                           <div class="col-xs-12 col-md-6" id="conClave" >
                               <label for="inputPassword"  class="control-label">Nueva Contraseña <span class="obligatorio">*</span></label>
-                              <input type="password" tabindex="1"  maxlength="12" minlength="3" name="txtnueva" class="form-control" id="campoClave" placeholder="Contraseña" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9!@#\$%\-\*\?_~\\.\\()\/$]+" data-parsley-required="true">
+                              <input type="password" tabindex="1"  maxlength="10" minlength="7" name="txtnueva" class="form-control" id="campoClave" placeholder="Contraseña" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9!@#\$%\-\*\?_~\\.\\()\/$]+" data-parsley-required="true">
                           </div>
 
                           <div class="col-xs-12 col-md-6" id="conConfirmar">
                                 <label for="">Confirmar Contraseña <span class="obligatorio">*</span></label>
-                                <input type="password" tabindex="2" maxlength=12 minlength="3" name="txtConfClave" data-parsley-equalto="#campoClave" class="form-control" id="campoConfirmar" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9!@#\$%\-\*\?_~\\.\\()\/$]+" placeholder="Confirmar Contraseña" data-parsley-required="true">
+                                <input type="password" tabindex="2" maxlength="10" minlength="7" name="txtConfClave" data-parsley-equalto="#campoClave" class="form-control" id="campoConfirmar" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9!@#\$%\-\*\?_~\\.\\()\/$]+" placeholder="Confirmar Contraseña" data-parsley-required="true">
                           </div>
 
                         <div class="col-md-3">
@@ -407,11 +406,11 @@
                 </div>
               </div>
                        <div class="row">
-                          <div class="col-xs-12 col-md-6 col-lg-6">
+                          <div class="col-xs-6 col-md-6 col-lg-6">
                             <button type="submit" tabindex="4" name="btn-modificar-clave" class="btn btn-success btn-md active pull-right" id="btn-contras"><i class="fa fa-floppy-o" aria-hidden="true">  Modificar</i></button>
                             <input type="hidden" tabindex="5">
                          </div>
-                         <div class="col-xs-12 col-md-6 col-lg-3">
+                         <div class="col-xs-6 col-md-6 col-lg-3">
                            <button type="button" tabindex="3" class="btn btn-secondary btn-md active"  data-dismiss="modal"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
                          </div>
                       </div>
@@ -486,7 +485,7 @@ function(isConfirm){
   <?php if ($persona['Tbl_TipoPersona_idTbl_TipoPersona'] == 1): ?>
   <script type="text/javascript">
   $(document).ready(function(){
-  $("#Select-Empleado").select2();
+  //$("#Select-Empleado").select2();
   $("#Select-Empleado").change(function(){
    var tipo=$(this).val();
    if(tipo == 1){
@@ -510,7 +509,7 @@ function(isConfirm){
  <?php if ($persona['Tbl_TipoPersona_idTbl_TipoPersona'] == 2): ?>
   <script type="text/javascript">
   $(document).ready(function(){
-  $("#Select-Empleado").select2();
+  //$("#Select-Empleado").select2();
   $("#Select-Empleado").change(function(){
    var tipo=$(this).val();
    if(tipo == 1){

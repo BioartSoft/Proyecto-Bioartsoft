@@ -43,12 +43,12 @@
             </table>
           </div>
 
-          <div class="col-sm-12">
+          <div class="col-xs-12 col-md-6 col-lg-6">
             <center>
               <?php if($_SESSION['ROL'] == 1 || $_SESSION['ROL'] == 3): ?>
-              <div class="col-md-6 col-lg-7 col-xs-12">
+              <div class="col-md-12 col-lg-12 col-xs-9">
                 <a href="#">
-                  <button class="btn btn-primary pull-right" name="btnReportePrestamos" data-toggle="modal" data-target="#modal_reportes_prestamos"><i class="fa fa-file-pdf-o" aria-hidden="true">&nbsp;&nbsp;Reporte Préstamos</i></button>
+                  <button class="btn btn-primary active pull-right" name="btnReportePrestamos" data-toggle="modal" data-target="#modal_reportes_prestamos"><i class="fa fa-file-pdf-o" aria-hidden="true">&nbsp;&nbsp;Reporte Préstamos</i></button>
                 </a>
               </div>
             <?php endif; ?>
@@ -62,7 +62,7 @@
 
   <div class="modal fade" id="modal_reportes_prestamos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static" style="display:none" style="width: 50px" action="<?= URL ?>Compras/registrarCompra">
      <div class="modal-dialog" role="document">
-         <div class="modal-content" style="width: 900px">
+         <div class="modal-content">
            <div class="modal-body">
             <div class="row">
               <div class="col-lg-12">
@@ -107,9 +107,8 @@
                     </div>
                     <br><br>
                     <div class="row">
-                      <div class="col-md-5"></div>
-                        <div class="col-md-4">
-                          <button type="submit" tabindex="3" class="btn btn-primary active" id="btn-pdf" name="btnconsultar" target="_blank"><i class="fa fa-file-pdf-o" aria-hidden="true">  Generar Reporte</i></button>
+                        <div class="col-md-7 col-xs-9 col-lg-8">
+                          <button type="submit" tabindex="3" class="btn btn-primary active pull-right" id="btn-pdf" name="btnconsultar" target="_blank"><i class="fa fa-file-pdf-o" aria-hidden="true">  Generar Reporte</i></button>
                         </div>
                     </div>
                     <br>
@@ -120,7 +119,7 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-md-9">
+                <div class="col-md-12 col-xs-12 col-lg-12">
                   <button type="button" tabindex="4" id="btn_cancelar" class="btn btn-secondary btn-md active pull-right"  data-dismiss="modal" title="Cerrar"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
                   <input type="hidden" tabindex="5">
                 </div>
@@ -157,7 +156,7 @@
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-xs-12 col-md-6 col-lg-12">
+                    <div class="col-xs-12 col-md-11 col-lg-12">
                       <button type="button" class="btn btn-secondary btn-active pull-right"  data-dismiss="modal" style="margin-left:80%" onclick="abrirmodal()" title="Cerrar"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
                   </div>
                 </div>
@@ -183,7 +182,7 @@
                       </div>
                     <div class="panel-body">
                       <div class="row">
-                        <div class="col-xs-12 col-md-6" id="divFechalimite" style="margin-left: 25%">
+                        <div class="col-xs-12 col-md-6 col-lg-6" id="divFechalimite">
                           <label>Fecha Límite:</label>
                             <div class="input-group date" data-provide = "datepicker">
                               <div class="input-group-addon" style="border-radius:5px;">
@@ -245,10 +244,10 @@
                     </div>
                   </div>
                   <div class="row" style="margin-top: 10px; margin-bottom: 10px">
-                        <div class="col-xs-12 col-md-6 col-lg-6">
+                        <div class="col-xs-6 col-md-6 col-lg-6">
                           <button type="submit" name="btnmodificarprestamo" class="btn btn-success btn-active pull-right" id="btnmodificarprestamo" title="Guardar"><i class="fa fa-floppy-o" aria-hidden="true">   Guardar</i></button>
                         </div>
-                        <div class="col-xs-5 col-md-3">
+                        <div class="col-xs-6 col-md-6 col-lg-3">
                         <button type="button" class="btn btn-secondary btn-md active" data-dismiss="modal" id="" onclick="abrirmodal()" title="Cancelar Registro"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
                       </div>
                     </div>
@@ -264,12 +263,12 @@
               <div class="modal fade" id="abonosPrestamos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard ="false" data-backdrop = "static">
                 <div class="modal-dialog modal-md" role="document">
                   <div class="modal-content">
-                    <div class="modal-body">
+                    <div class="modal-body" id="modal-detal-abono-prestamo">
                     <div class="row">
                       <div class="col-md-12">
                         <div class="panel panel-primary" >
                           <div class="panel-heading" stlyle="height: 70px; width: 100px">
-                                <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 18px"><strong>Detalle Abono de: <span id="empleado-det-abonos"></span></span></strong></center>
+                                <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 18px"><strong>Detalle Abonos de: <span id="empleado-det-abonos"></span></span></strong></center>
                           </div>
                           <div class="panel-body">
                             <div class="dataTable_wrapper">
@@ -287,8 +286,8 @@
                 </div>
 
                 <div class="row">
-                  <div class="col-xs-12 col-md-8">
-                  <button type="button" class="btn btn-secondary btn-active"  data-dismiss="modal" style="margin-left: 130%;" onclick="abrirmodal()" title="Cerrar"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
+                  <div class="col-xs-11 col-md-11 col-lg-11">
+                  <button type="button" class="btn btn-secondary btn-active pull-right"  data-dismiss="modal" onclick="abrirmodal()" title="Cerrar"><i class="fa fa-times" aria-hidden="true">   Cerrar</i></button>
                 </div>
                 </div>
                 <br>
@@ -325,16 +324,16 @@
                       </div>
                         <div class="col-xs-12 col-md-6">
                           <br>
-                          <label >Valor Abono</label><br>
+                          <label >Valor Abono <span class="obligatorio">*</span></label><br>
                           <input type="number" class="form-control" placeholder="Valor Abono" id="idabono" min="1000" step="500" maxlength="8" name="txtvalorabono" data-parsley-type="integer" data-parsley-required="true">
                       </div>
                       </div>
                       </div>
                       <div class="row" style="margin-bottom: 10px; margin-top: 10Fpx">
-                        <div class="col-xs-12 col-md-6 col-lg-3" style="margin-left: 20%">
-                            <button type="submit" name="btnRegistrarAbono" class="btn btn-success btn-active" id="btnguararAbono"><i class="fa fa-floppy-o" aria-hidden="true">   Guardar</i></button>
+                        <div class="col-xs-5 col-md-5 col-lg-5">
+                            <button type="submit" name="btnRegistrarAbono" class="btn btn-success btn-active pull-right" id="btnguararAbono"><i class="fa fa-floppy-o" aria-hidden="true">   Guardar</i></button>
                         </div>
-                        <div class="col-xs-5 col-md-3">
+                        <div class="col-xs-4 col-md-6 col-lg-6">
                         <button type="button" class="btn btn-danger btn-md active" data-dismiss="modal" onclick="abrirmodal()" style="margin-left: 50%" id="bcancelar" title="Cancelar Registro"><i class="fa fa-times" aria-hidden="true">   Cancelar</i> </button>
                       </div>
                       </div>
@@ -532,7 +531,7 @@
        var valorpres = parseInt($("#idvalorPrestamo").val());
           if(valorabo > pendiente){
             swal({
-                  title: "El valor del abono es superior al valor pendiente!\n Valor Pendiente: "+pendiente+"\n Valor abono: "+valorabo,
+                  title: "El valor del abono es superior al valor pendiente!",
                   type: "error",
                   confirmButton: "#3CB371",
                   confirmButtonText: "Aceptar",

@@ -127,14 +127,13 @@
                           <br>
                             <div class="panel-body">
                           <div class="row">
-                            <div class="col-md-1"></div>
                             <?php
                             $hoy2 = Date("Y-m-d");
                             $hoy1 = Date("Y-m-d");
                             $nuevaFecha = strtotime('-3 month', strtotime($hoy1));
                             $nuevaFecha = date('Y-m-d', $nuevaFecha);
                              ?>
-                            <div   class="col-md-6 col-xs-12 col-lg-5">
+                            <div   class="col-md-6 col-xs-12 col-lg-6">
                                 <label for="">Fecha Inicial <span class="obligatorio">*</span></label>
                                 <div class="input-group date calendario" data-provide="datepicker">
                                 <input type="text" tabindex="1" class="form-control" readonly="true"name="txtfechainicial1" id="txtfechainicial1"  value="<?= $nuevaFecha ?>" data-parsley-required="true">
@@ -145,7 +144,7 @@
                                 <input type="hidden" class="form-control" name="txtfechai2" value="<?= $nuevaFecha ?>" id="txtfechai2">
                             </div>
 
-                            <div   class="col-md-6 col-xs-12 col-lg-5">
+                            <div   class="col-md-6 col-xs-12 col-lg-6">
                                 <label for="">Fecha Final <span class="obligatorio">*</span></label>
                                 <div class="input-group date calendario" data-provide="datepicker">
                                 <input type="text" tabindex="2" class="form-control" name="txtfechafinal" readonly="true" id="txtfechafinal"  value="<?= $hoy1 ?>" data-parsley-required="true">
@@ -158,13 +157,11 @@
                               <input type="hidden"  name="txtfechafinal3"  id="txtfechafinal3"  value="<?= $nuevaFecha ?>" >
                               <input type="hidden"  name="txtfechafinal4"  id="txtfechafinal4"  value="<?= $hoy2 ?>" >
                           </div>
-                          <div class="col-md-1"></div>
                         </div>
                         <br><br>
                         <div class="row">
-                          <div class="col-md-4"></div>
-                            <div class="col-md-4">
-                              <button type="submit" tabindex="3" class="btn btn-primary active" id="btn-pdf" name="btnconsultar" target="_blank"><i class="fa fa-file-pdf-o" aria-hidden="true"> Generar PDF Bajas</i></button>
+                            <div class="col-md-7 col-xs-10 col-lg-9">
+                              <button type="submit" tabindex="3" class="btn btn-primary active pull-right" id="btn-pdf" name="btnconsultar" target="_blank"><i class="fa fa-file-pdf-o" aria-hidden="true"> Generar PDF Bajas</i></button>
                             </div>
                         </div>
                         </div>

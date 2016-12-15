@@ -17,6 +17,7 @@
   <table class="table table-striped">
     <thead>
       <tr>
+       <th>Tipo de Documento</th>
        <th>Identificación Empleado</th>
        <th>Nombres Empleado</th>
        <th>Tipo Empleado </th>

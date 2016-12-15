@@ -85,7 +85,7 @@ $notificaciones = mdlConfiguracionPago::getNotificaciones();
 
               <li>
                   <a  href="#" title="Ayuda">
-                      <i class="fa fa-question-circle" aria-hidden="true" style="color: #fff; font-size: 20px"></i>
+                      <i class="fa fa-question-circle" aria-hidden="true" style="color: #fff; font-size: 20px" data-toggle="modal" data-target="#modal-ayuda" title="Ayuda"></i>
                   </a>
                 </li>
 
@@ -360,20 +360,17 @@ $notificaciones = mdlConfiguracionPago::getNotificaciones();
                                     <input type="number" class="form-control" name="txtvalordiaTemporal" value="<?= $valor["valor_dia_temporal"] ?>" readonly="" id="valordiaTemporal" data-parsley-type="integer" min="1000" maxlength="7" data-parsley-required="true">
                                   </div>
                                 </div>
-                                <br>
-                                <div class="row">
-                                </div>
-                                <br>
+                                <br><br>
                                 <?php endforeach; ?>
                                 <br>
                           </div>
                         </div>
 
                         <div class="row">
-                          <div class="col-md-6 col-xs-12 col-lg-6">
+                          <div class="col-md-6 col-xs-6 col-lg-6">
                             <button type="submit" class="btn btn-success btn-md active pull-right" style="float: left; margin-left: 25%"  name="btnmodificarconfi" id="idbtn" disabled="true" title="Guardar"><i class="fa fa-floppy-o" aria-hidden="true">   Guardar</i></button>
                           </div>
-                          <div class="col-md-6 col-xs-12 col-lg-3">
+                          <div class="col-md-6 col-xs-6 col-lg-3">
                             <button type="button" class="btn btn-primary btn-md active" onclick="habilitar()" style="float: right; margin-right: 25%" id="btnhabilitar" title="Modificar"><i class="fa fa-pencil-square-o" aria-hidden="true">   Modificar</i></button>
                         </div>
                       </div>
@@ -431,11 +428,11 @@ $notificaciones = mdlConfiguracionPago::getNotificaciones();
           </div>
         </div>
         <div class="row">
-        <div class="col-xs-12 col-md-6 col-lg-6">
+        <div class="col-xs-6 col-md-6 col-lg-6">
           <button type="submit" class="btn btn-success active pull-right" id="guardarConfiguracion" data-toggle="modal" name="btnRegistrarConfig" disabled="" title="Guardar Configuración"><i class="fa fa-floppy-o" aria-hidden="true" title="Guardar Configuración">   Guardar</i></button>
         </div>
 
-        <div class="col-xs-12 col-md-6 col-lg-3">
+        <div class="col-xs-6 col-md-6 col-lg-3">
           <button type="button" class="btn btn-primary active" id="idhabilitar" onclick="habilitarven()" name="btnModificarConfiVen" title="Modificar Configuración"><i class="fa fa-pencil-square-o" aria-hidden="true" title="Modificar Configuración">   Modificar</i></button>
         </div>
       </div>
